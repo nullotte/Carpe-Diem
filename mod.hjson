@@ -1,0 +1,9 @@
+name: "goingnowhere"
+main: "nowhere.Nowhere"
+version: "i dunno"
+minGameVersion: 146
+java: true
+
+displayName: "b"
+author: "stillwaterkay"
+description: "b"
