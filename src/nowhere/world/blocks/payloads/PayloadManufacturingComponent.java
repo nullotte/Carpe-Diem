@@ -34,6 +34,10 @@ public class PayloadManufacturingComponent extends PayloadBlock {
             }
         }
 
+        public boolean filled() {
+            return payload != null && hasArrived();
+        }
+
         @Override
         public void updateTile() {
             super.updateTile();

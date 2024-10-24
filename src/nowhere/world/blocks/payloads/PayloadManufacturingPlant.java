@@ -1,11 +1,14 @@
 package nowhere.world.blocks.payloads;
 
 import arc.*;
+import arc.graphics.g2d.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.*;
+import mindustry.ctype.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.payloads.*;
@@ -43,16 +46,15 @@ public class PayloadManufacturingPlant extends PayloadBlock {
         @Override
         public void updateTile() {
             super.updateTile();
-
             moveOutPayload();
 
-            // crafting logic, absolutely terrible one at that
-            boolean full = true;
+            // crafting logic, absolutely terrible one at that. TODO buggy as shit
+            boolean full = !chained.isEmpty();
             Tmp.p1.set(tileX(), tileY());
             Tmp.p2.set(tileX(), tileY());
 
             for (ManufacturingComponentBuild b : chained) {
-                if (b.payload == null || !b.hasArrived()) {
+                if (!b.filled()) {
                     full = false;
                     break;
                 }
@@ -76,8 +78,6 @@ public class PayloadManufacturingPlant extends PayloadBlock {
                                 possibleRecipes.each(recipe -> {
                                     char key = recipe.pattern[sy].charAt(sx);
 
-                                    Log.info(key + ", " + recipe.keys.get(key) + ", " + component.payload.content());
-
                                     if (recipe.keys.get(key) != component.payload.content()) possibleRecipes.remove(recipe);
                                 });
                             }
@@ -93,8 +93,6 @@ public class PayloadManufacturingPlant extends PayloadBlock {
                         payload = new UnitPayload(unit);
                         payVector.setZero();
                         Events.fire(new UnitCreateEvent(unit, this));
-                        // IT ACTUALLY WORKS HOLY SHITTTTT
-                        // MY TERRIBLE, TERRIBLE SPAGHETTI CODE ACTUALLY FUNCTIONS THE WAY I INTENDED IT YESSSSS
                     } else {
                         failedManufacturing = true;
                     }
@@ -105,15 +103,27 @@ public class PayloadManufacturingPlant extends PayloadBlock {
                 possibleRecipes.set(recipes);
             }
         }
+
+        @Override
+        public void draw() {
+            Draw.rect(region, x, y);
+            Draw.rect(inRegion, x, y, rotdeg());
+            Draw.rect(outRegion, x, y, rotdeg());
+
+            drawPayload();
+
+            Draw.z(Layer.blockOver + 0.1f);
+            Draw.rect(topRegion, x, y);
+        }
     }
 
     // if you're looking at this code and you think "hmm that could be done in a better way" PLEASE tell me the better way im literally stupid rn
     public static class PayloadManufacturingRecipe {
         public String[] pattern;
-        public ObjectMap<Character, Block> keys;
+        public ObjectMap<Character, UnlockableContent> keys;
         public UnitType result;
 
-        public PayloadManufacturingRecipe(String[] pattern, ObjectMap<Character, Block> keys, UnitType result) {
+        public PayloadManufacturingRecipe(String[] pattern, ObjectMap<Character, UnlockableContent> keys, UnitType result) {
             this.pattern = pattern;
             this.keys = keys;
             this.result = result;

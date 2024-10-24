@@ -20,21 +20,23 @@ public class ModBlocks {
 
         payloadManufacturingPlant = new PayloadManufacturingPlant("payload-manufacturing-plant") {{
             requirements(Category.units, ItemStack.with());
+            regionSuffix = "-dark";
             size = 5;
 
             recipes = Seq.with(
                     new PayloadManufacturingRecipe(
                             new String[]{
-                                    "CCC",
-                                    "CTC",
-                                    "HHH"
+                                    "CCCCC",
+                                    "CLCLC",
+                                    "CLCLC",
+                                    "CLCLC",
+                                    "CCCCC"
                             },
                             ObjectMap.of(
-                                    'C', Blocks.copperWallLarge,
-                                    'T', Blocks.titaniumWallLarge,
-                                    'H', Blocks.thoriumWallLarge
+                                    'L', UnitTypes.locus,
+                                    'C', Blocks.carbideWallLarge
                             ),
-                            UnitTypes.zenith
+                            UnitTypes.conquer
                     )
             );
         }};
