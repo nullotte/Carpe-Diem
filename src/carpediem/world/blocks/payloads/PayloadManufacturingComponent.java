@@ -1,8 +1,8 @@
-package nowhere.world.blocks.payloads;
+package carpediem.world.blocks.payloads;
 
 import arc.struct.*;
 import mindustry.world.blocks.payloads.*;
-import nowhere.world.blocks.payloads.PayloadManufacturingPlant.*;
+import carpediem.world.blocks.payloads.PayloadManufacturingPlant.*;
 
 public class PayloadManufacturingComponent extends PayloadBlock {
     private static final Seq<ManufacturingComponentBuild> checkSeq = new Seq<>();

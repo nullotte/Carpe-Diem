@@ -1,9 +1,9 @@
-package nowhere;
+package carpediem;
 
 import mindustry.mod.*;
-import nowhere.content.*;
+import carpediem.content.*;
 
-public class Nowhere extends Mod {
+public class CarpeDiem extends Mod {
     @Override
     public void loadContent() {
         ModBlocks.load();

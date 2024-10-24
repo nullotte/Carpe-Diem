@@ -1,11 +1,11 @@
-package nowhere.content;
+package carpediem.content;
 
 import arc.struct.*;
 import mindustry.content.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
-import nowhere.world.blocks.payloads.*;
+import carpediem.world.blocks.payloads.*;
 
 public class ModBlocks {
     public static Block payloadCrane, payloadManufacturingPlant, payloadManufacturingComponent;

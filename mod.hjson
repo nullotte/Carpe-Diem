@@ -1,5 +1,5 @@
-name: "goingnowhere"
-main: "nowhere.Nowhere"
+name: "carpe-diem"
+main: "carpediem.CarpeDiem"
 version: "i dunno"
 minGameVersion: 146
 java: true
