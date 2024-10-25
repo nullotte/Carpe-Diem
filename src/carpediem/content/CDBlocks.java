@@ -9,7 +9,7 @@ import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 
-public class ModBlocks {
+public class CDBlocks {
     public static Block
             crudeSmelter,
             payloadCrane, payloadManufacturingPlant, payloadManufacturingComponent;
@@ -19,12 +19,15 @@ public class ModBlocks {
             requirements(Category.crafting, ItemStack.with());
             size = 3;
 
-            recipes = Seq.with(
-                    // lol imagine not having a recipe to craft with
-            );
+            recipes = new Seq<>();
+            CDItems.pureItems.each(item -> recipes.add(
+                    new CraftingRecipe(
+                            new ItemStack(CDItems.rawItems.get(item), 1),
+                            new ItemStack(item, 1)
+                    )
+            ));
 
-            // obviously you will remember but like. tweak this later ok
-            consume(new ConsumeDamage(18f));
+            consume(new ConsumeDurability(20));
             consumePower(1f);
         }};
 

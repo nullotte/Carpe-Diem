@@ -2,9 +2,12 @@ package carpediem.world.blocks.production;
 
 import arc.struct.*;
 import arc.util.*;
+import carpediem.world.meta.*;
 import mindustry.*;
 import mindustry.gen.*;
+import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.ui.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.consumers.*;
 
@@ -26,11 +29,44 @@ public class RecipeCrafter extends GenericCrafter {
     }
 
     @Override
+    public void setStats() {
+        super.setStats();
+
+        stats.add(CDStat.recipes, table -> {
+            table.row();
+
+            for (CraftingRecipe recipe : recipes) {
+                table.table(Styles.grayPanel, t -> {
+                    t.table(input -> {
+                        input.left();
+                        for (ItemStack stack : recipe.inputItems) {
+                            input.add(new ItemDisplay(stack.item, stack.amount, craftTime, true)).pad(5);
+                        }
+                    }).left().grow().pad(10f);
+
+                    t.table(arrow -> {
+                        arrow.image(Icon.right).color(Pal.darkishGray).size(40f);
+                    }).pad(10f);
+
+                    t.table(output -> {
+                        output.right();
+                        for (ItemStack stack : recipe.outputItems) {
+                            output.add(new ItemDisplay(stack.item, stack.amount, craftTime, true)).pad(5);
+                        }
+                    }).right().grow().pad(10f);
+                }).growX().pad(5f);
+
+                table.row();
+            }
+        });
+    }
+
+    @Override
     public void init() {
         super.init();
 
         recipeMap = new ObjectMap<>();
-        recipes.each(recipe -> {
+        for (CraftingRecipe recipe : recipes) {
             Seq<Item> key = new Seq<>();
 
             for (ItemStack i : recipe.inputItems) {
@@ -39,7 +75,7 @@ public class RecipeCrafter extends GenericCrafter {
 
             key.sort();
             recipeMap.put(key, recipe);
-        });
+        }
     }
 
     public class RecipeCrafterBuild extends GenericCrafterBuild {

@@ -16,6 +16,7 @@ import mindustry.world.blocks.*;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.meta.*;
 
+// TODO this thing should be able to like. retract its crane inwards in order to reach blocks next to it
 public class PayloadCrane extends Block {
     public float hookOffset = 130f, maxExtension = 220f;
     public float extensionSpeed = 0.7f;

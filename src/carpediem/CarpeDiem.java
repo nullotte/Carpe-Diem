@@ -6,6 +6,7 @@ import carpediem.content.*;
 public class CarpeDiem extends Mod {
     @Override
     public void loadContent() {
-        ModBlocks.load();
+        CDItems.load();
+        CDBlocks.load();
     }
 }
