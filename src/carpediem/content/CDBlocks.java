@@ -11,10 +11,16 @@ import mindustry.world.*;
 
 public class CDBlocks {
     public static Block
-            crudeSmelter,
-            payloadCrane, payloadManufacturingPlant, payloadManufacturingComponent;
+    // crude crafting
+    crudeSmelter, crudePress, crudeRollingMill,
+    // crafting - maybe get better names for these later...
+    smelter, press, rollingMill,
+    crusher, polishingWheel,
+    // payloads
+    payloadCrane, payloadManufacturingPlant, payloadManufacturingComponent;
 
     public static void load() {
+        // region crude crafting
         crudeSmelter = new RecipeCrafter("crude-smelter") {{
             requirements(Category.crafting, ItemStack.with());
             size = 3;
@@ -22,7 +28,7 @@ public class CDBlocks {
             recipes = new Seq<>();
             CDItems.pureItems.each(item -> recipes.add(
                     new CraftingRecipe(
-                            new ItemStack(CDItems.rawItems.get(item), 1),
+                            new ItemStack(CDItems.rawItems.get(item), 2),
                             new ItemStack(item, 1)
                     )
             ));
@@ -31,6 +37,98 @@ public class CDBlocks {
             consumePower(1f);
         }};
 
+        crudePress = new RecipeCrafter("crude-press") {{
+            requirements(Category.crafting, ItemStack.with());
+            size = 3;
+
+            recipes = new Seq<>();
+            CDItems.pureItems.each(item -> recipes.add(
+                    new CraftingRecipe(
+                            new ItemStack(item, 1),
+                            new ItemStack(CDItems.plates.get(item), 1)
+                    )
+            ));
+
+            consume(new ConsumeDurability(20));
+            consumePower(1f);
+        }};
+
+        crudeRollingMill = new RecipeCrafter("crude-rolling-mill") {{
+            requirements(Category.crafting, ItemStack.with());
+            size = 3;
+
+            recipes = new Seq<>();
+            CDItems.pureItems.each(item -> recipes.add(
+                    new CraftingRecipe(
+                            new ItemStack(item, 1),
+                            new ItemStack(CDItems.rods.get(item), 2)
+                    )
+            ));
+            // i am not a good coder
+            CDItems.pureItems.each(item -> recipes.add(
+                    new CraftingRecipe(
+                            new ItemStack(CDItems.rods.get(item), 1),
+                            new ItemStack(CDItems.wires.get(item), 2)
+                    )
+            ));
+
+            consume(new ConsumeDurability(20));
+            consumePower(1f);
+        }};
+        // endregion
+        // region crafting
+        smelter = new RecipeCrafter("smelter") {{
+            requirements(Category.crafting, ItemStack.with());
+            size = 3;
+
+            recipes = new Seq<>();
+            CDItems.pureItems.each(item -> recipes.add(
+                    new CraftingRecipe(
+                            new ItemStack(CDItems.rawItems.get(item), 3),
+                            new ItemStack(item, 3)
+                    )
+            ));
+
+            consumePower(2f);
+        }};
+
+        press = new RecipeCrafter("press") {{
+            requirements(Category.crafting, ItemStack.with());
+            size = 3;
+
+            recipes = new Seq<>();
+            CDItems.pureItems.each(item -> recipes.add(
+                    new CraftingRecipe(
+                            new ItemStack(item, 2),
+                            new ItemStack(CDItems.plates.get(item), 2)
+                    )
+            ));
+
+            consumePower(2f);
+        }};
+
+        rollingMill = new RecipeCrafter("rolling-mill") {{
+            requirements(Category.crafting, ItemStack.with());
+            size = 3;
+
+            recipes = new Seq<>();
+            CDItems.pureItems.each(item -> recipes.add(
+                    new CraftingRecipe(
+                            new ItemStack(item, 3),
+                            new ItemStack(CDItems.rods.get(item), 6)
+                    )
+            ));
+            CDItems.pureItems.each(item -> recipes.add(
+                    new CraftingRecipe(
+                            new ItemStack(CDItems.rods.get(item), 3),
+                            new ItemStack(CDItems.wires.get(item), 6)
+                    )
+            ));
+
+            consumePower(2f);
+        }};
+        // endregion
+        // region payloads
         payloadCrane = new PayloadCrane("payload-crane") {{
             requirements(Category.units, ItemStack.with());
             size = 5;
@@ -65,5 +163,6 @@ public class CDBlocks {
             requirements(Category.units, ItemStack.with());
             size = 3;
         }};
+        // endregion
     }
 }

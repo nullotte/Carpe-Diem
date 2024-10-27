@@ -9,6 +9,7 @@ import arc.util.*;
 import arc.util.io.*;
 import mindustry.*;
 import mindustry.content.*;
+import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
@@ -17,6 +18,7 @@ import mindustry.world.blocks.payloads.*;
 import mindustry.world.meta.*;
 
 // TODO this thing should be able to like. retract its crane inwards in order to reach blocks next to it
+// ALSO ALSO ALSO NONE OF THESE PAYLOAD BLOCKS HAVE LIMITS CURRENTLY THEY CAN LITERALLY PICK UP OMURAS
 public class PayloadCrane extends Block {
     public float hookOffset = 130f, maxExtension = 220f;
     public float extensionSpeed = 0.7f;
@@ -61,6 +63,29 @@ public class PayloadCrane extends Block {
         super.init();
 
         updateClipRadius(maxExtension + hookOffset * 1.2f);
+    }
+
+    @Override
+    public void setStats() {
+        super.setStats();
+    }
+
+    @Override
+    public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list) {
+        Draw.rect(baseRegion, plan.drawx(), plan.drawy());
+        Draw.rect(hookOutlineRegions[1], plan.drawx(), plan.drawy() + hookOffset);
+
+        Draw.rect(outlineRegion, plan.drawx(), plan.drawy(), plan.rotation * 90f);
+        for (int i = 0; i < segments; i++) {
+            Draw.rect(segmentOutlineRegions[i], plan.drawx(), plan.drawy() + segmentOffsets[i]);
+        }
+        Draw.rect(topOutlineRegion, plan.drawx(), plan.drawy(), plan.rotation * 90f);
+
+        Draw.rect(region, plan.drawx(), plan.drawy(), plan.rotation * 90f);
+        for (int i = 0; i < segments; i++) {
+            Draw.rect(segmentRegions[i], plan.drawx(), plan.drawy() + segmentOffsets[i]);
+        }
+        Draw.rect(topRegion, plan.drawx(), plan.drawy(), plan.rotation * 90f);
     }
 
     @Override

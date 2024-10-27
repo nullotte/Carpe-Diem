@@ -17,21 +17,42 @@ public class RecipeCrafter extends GenericCrafter {
     public Seq<CraftingRecipe> recipes;
 
     protected ObjectMap<Seq<Item>, CraftingRecipe> recipeMap;
+    protected Seq<Item> inputItems;
 
     public RecipeCrafter(String name) {
         super(name);
 
         consume(new ConsumeItemDynamic((RecipeCrafterBuild crafter) -> {
-            // ok so how it works is that it *accepts* all items, but only *consumes* items if the inventory match recipe
             CraftingRecipe recipe = crafter.getCurrentRecipe();
             return recipe != null ? recipe.inputItems : ItemStack.empty;
         }));
     }
 
     @Override
+    public void init() {
+        super.init();
+
+        recipeMap = new ObjectMap<>();
+        inputItems = new Seq<>();
+
+        for (CraftingRecipe recipe : recipes) {
+            Seq<Item> key = new Seq<>();
+
+            for (ItemStack i : recipe.inputItems) {
+                key.add(i.item);
+                inputItems.addUnique(i.item);
+            }
+
+            key.sort();
+            recipeMap.put(key, recipe);
+        }
+    }
+
+    @Override
     public void setStats() {
         super.setStats();
 
+        // TODO the arrow isnt in the middle but i dont wanna touch arc UI ever again
         stats.add(CDStat.recipes, table -> {
             table.row();
 
@@ -59,23 +80,6 @@ public class RecipeCrafter extends GenericCrafter {
                 table.row();
             }
         });
-    }
-
-    @Override
-    public void init() {
-        super.init();
-
-        recipeMap = new ObjectMap<>();
-        for (CraftingRecipe recipe : recipes) {
-            Seq<Item> key = new Seq<>();
-
-            for (ItemStack i : recipe.inputItems) {
-                key.add(i.item);
-            }
-
-            key.sort();
-            recipeMap.put(key, recipe);
-        }
     }
 
     public class RecipeCrafterBuild extends GenericCrafterBuild {
@@ -138,10 +142,15 @@ public class RecipeCrafter extends GenericCrafter {
 
         @Override
         public int getMaximumAccepted(Item item) {
-            for (CraftingRecipe recipe : recipes) {
+            CraftingRecipe recipe = getCurrentRecipe();
+
+            if (recipe != null) {
                 for (ItemStack stack : recipe.inputItems) {
                     if (stack.item == item) return super.getMaximumAccepted(item);
                 }
+                // "else for"????????
+            } else for (Item inputItem : inputItems) {
+                if (item == inputItem) return super.getMaximumAccepted(item);
             }
 
             return 0;
@@ -154,7 +163,9 @@ public class RecipeCrafter extends GenericCrafter {
             if (current != null) return current;
 
             key.clear();
-            items.each((item, count) -> key.add(item));
+            items.each((item, count) -> {
+                if (inputItems.contains(item)) key.add(item);
+            });
 
             return current = recipeMap.get(key);
         }

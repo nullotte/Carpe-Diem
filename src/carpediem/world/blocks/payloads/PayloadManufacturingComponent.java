@@ -13,6 +13,12 @@ public class PayloadManufacturingComponent extends PayloadBlock {
         acceptsPayload = true;
     }
 
+    @Override
+    public void setStats() {
+        super.setStats();
+        //TODO
+    }
+
     public class ManufacturingComponentBuild extends PayloadBlockBuild<Payload> {
         @Override
         public void onProximityUpdate() {

@@ -11,7 +11,9 @@ public class CDItems {
 
     aluminumPlate, nickelPlate, silverPlate, platinumPlate,
     aluminumRod, nickelRod, silverRod, platinumRod,
-    aluminumWire, nickelWire, silverWire, platinumWire
+    aluminumWire, nickelWire, silverWire, platinumWire,
+
+    lemon
     ;
     // + silicon. pyratite...?
     // also do remember you can always change these later.
@@ -94,5 +96,7 @@ public class CDItems {
                 silver, silverWire,
                 platinum, platinumWire
         );
+
+        lemon = new Item("lemon");
     }
 }

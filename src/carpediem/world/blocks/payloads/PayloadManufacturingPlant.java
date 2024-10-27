@@ -22,6 +22,12 @@ public class PayloadManufacturingPlant extends PayloadBlock {
         outputsPayload = true;
     }
 
+    @Override
+    public void setStats() {
+        super.setStats();
+        //TODO
+    }
+
     public class ManufacturingPlantBuild extends PayloadBlockBuild<Payload> {
         public Seq<ManufacturingComponentBuild> chained = new Seq<>();
         public Seq<PayloadManufacturingRecipe> possibleRecipes = Seq.with(recipes);
