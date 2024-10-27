@@ -17,6 +17,7 @@ public class CDItems {
     ;
     // + silicon. pyratite...?
     // also do remember you can always change these later.
+    // i want to include plastanium. oil + aluminum instead of titanium. plastic item. wouldnt that be awesome
 
     public static Seq<Item> pureItems;
     public static ObjectMap<Item, Item> rawItems, plates, rods, wires;

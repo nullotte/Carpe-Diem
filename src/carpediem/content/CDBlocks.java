@@ -3,7 +3,6 @@ package carpediem.content;
 import arc.struct.*;
 import carpediem.world.blocks.payloads.*;
 import carpediem.world.blocks.production.*;
-import carpediem.world.consumers.*;
 import mindustry.content.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -33,8 +32,7 @@ public class CDBlocks {
                     )
             ));
 
-            consume(new ConsumeDurability(20));
-            consumePower(1f);
+            consumeItem(CDItems.bitumen, 1);
         }};
 
         crudePress = new RecipeCrafter("crude-press") {{
@@ -49,8 +47,7 @@ public class CDBlocks {
                     )
             ));
 
-            consume(new ConsumeDurability(20));
-            consumePower(1f);
+            consumeItem(CDItems.bitumen, 1);
         }};
 
         crudeRollingMill = new RecipeCrafter("crude-rolling-mill") {{
@@ -72,8 +69,7 @@ public class CDBlocks {
                     )
             ));
 
-            consume(new ConsumeDurability(20));
-            consumePower(1f);
+            consumeItem(CDItems.bitumen, 1);
         }};
         // endregion
         // region crafting

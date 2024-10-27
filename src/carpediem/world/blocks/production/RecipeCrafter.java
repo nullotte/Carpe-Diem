@@ -2,6 +2,7 @@ package carpediem.world.blocks.production;
 
 import arc.struct.*;
 import arc.util.*;
+import arc.util.io.*;
 import carpediem.world.meta.*;
 import mindustry.*;
 import mindustry.gen.*;
@@ -128,7 +129,7 @@ public class RecipeCrafter extends GenericCrafter {
 
             if (recipe != null && timer(timerDump, dumpTime / timeScale)) {
                 for (Item item : Vars.content.items()) {
-                    if (!Structs.contains(recipe.inputItems, i -> i.item == item)) {
+                    if (!Structs.contains(recipe.inputItems, i -> i.item == item) && !consumesItem(item)) {
                         dump(item);
                     }
                 }
@@ -142,6 +143,11 @@ public class RecipeCrafter extends GenericCrafter {
 
         @Override
         public int getMaximumAccepted(Item item) {
+            // i have trapped myself within a hell of my own making
+            if (consumesItem(item)) {
+                return super.getMaximumAccepted(item);
+            }
+
             CraftingRecipe recipe = getCurrentRecipe();
 
             if (recipe != null) {
@@ -168,6 +174,20 @@ public class RecipeCrafter extends GenericCrafter {
             });
 
             return current = recipeMap.get(key);
+        }
+
+        @Override
+        public void write(Writes write) {
+            super.write(write);
+
+            write.i(recipes.indexOf(current));
+        }
+
+        @Override
+        public void read(Reads read, byte revision) {
+            super.read(read, revision);
+
+            current = recipes.get(read.i());
         }
     }
 
