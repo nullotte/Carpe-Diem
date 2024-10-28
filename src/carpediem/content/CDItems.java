@@ -6,9 +6,9 @@ import mindustry.type.*;
 public class CDItems {
     public static Item
     rawAluminum, rawNickel, rawSilver, rawPlatinum, bitumen, sulfur,
+    waterIce, biomass, charcoal,
 
-    aluminum, nickel, silver, platinum,
-    unnamedAlloy,
+    aluminum, nickel, silver, platinum, unnamedAlloy,
 
     aluminumPlate, nickelPlate, silverPlate, platinumPlate,
     aluminumRod, nickelRod, silverRod, platinumRod,
@@ -17,6 +17,8 @@ public class CDItems {
     lemon
     ;
     // + silicon, pyratite, plastanium
+    // TODO item colors
+    // also Assembled Items. get the multicrafter in here we're gonna need it
 
     public static Seq<Item> pureItems;
     public static ObjectMap<Item, Item> rawItems, plates, rods, wires;
@@ -38,11 +40,27 @@ public class CDItems {
 
         }};
 
+        unnamedAlloy = new Item("alloy") {{
+
+        }};
+
         bitumen = new Item("bitumen") {{
 
         }};
 
         sulfur = new Item("sulfur") {{
+
+        }};
+
+        waterIce = new Item("water-ice") {{
+
+        }};
+
+        biomass = new Item("biomass") {{
+
+        }};
+
+        charcoal = new Item("charcoal") {{
 
         }};
 

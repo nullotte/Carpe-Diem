@@ -3,6 +3,7 @@ package carpediem.content.blocks;
 import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.production.*;
+import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.*;
 
@@ -12,7 +13,7 @@ public class CDCrafting {
     crudeSmelter, crudePress, crudeRollingMill,
     // normal crafting - maybe get better names for these later...
     smelter, press, rollingMill,
-    crusher, mixer, refinery;
+    mixer, refinery, assemblyDepot;
 
     public static void load() {
         // region crude crafting
@@ -81,6 +82,13 @@ public class CDCrafting {
                     )
             ));
 
+            recipes.add(
+                    new CraftingRecipe(
+                            new ItemStack(CDItems.biomass, 2),
+                            new ItemStack(CDItems.charcoal, 2)
+                    )
+            );
+
             consumePower(2f);
         }};
 
@@ -116,6 +124,53 @@ public class CDCrafting {
                             new ItemStack(CDItems.wires.get(item), 6)
                     )
             ));
+
+            consumePower(2f);
+        }};
+
+        mixer = new RecipeCrafter("mixer") {{
+            requirements(Category.crafting, ItemStack.with());
+            size = 3;
+
+            recipes = Seq.with(
+                    new CraftingRecipe(
+                            ItemStack.with(Items.sand, 1, CDItems.bitumen, 2, CDItems.sulfur, 2),
+                            ItemStack.with(Items.pyratite, 6)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(Items.sand, 2, CDItems.charcoal, 2, Items.pyratite, 1),
+                            ItemStack.with(Items.silicon, 4)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.silver, 3, CDItems.charcoal, 1, Items.pyratite, 1),
+                            ItemStack.with(CDItems.unnamedAlloy, 4)
+                    )
+            );
+
+            consumePower(2f);
+        }};
+
+        refinery = new RecipeCrafter("refinery") {{
+            requirements(Category.crafting, ItemStack.with());
+            size = 3;
+
+            recipes = Seq.with(
+                    new CraftingRecipe() {{
+                        inputItems = ItemStack.with(CDItems.waterIce, 3);
+                        outputLiquids = LiquidStack.with(Liquids.water, 0.2f);
+                    }},
+                    new CraftingRecipe() {{
+                        inputItems = ItemStack.with(CDItems.bitumen, 2);
+                        inputLiquids = LiquidStack.with(CDLiquids.petroleum, 0.2f);
+                        outputLiquids = LiquidStack.with(Liquids.oil, 0.2f);
+                    }},
+                    new CraftingRecipe(
+                            new ItemStack(CDItems.aluminum, 2),
+                            new ItemStack(Items.plastanium, 3)
+                    ) {{
+                        inputLiquids = LiquidStack.with(Liquids.oil, 0.2f);
+                    }}
+            );
 
             consumePower(2f);
         }};

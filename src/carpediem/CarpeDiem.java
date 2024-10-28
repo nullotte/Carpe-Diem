@@ -7,6 +7,7 @@ public class CarpeDiem extends Mod {
     @Override
     public void loadContent() {
         CDItems.load();
+        CDLiquids.load();
         CDBlocks.load();
     }
 }
