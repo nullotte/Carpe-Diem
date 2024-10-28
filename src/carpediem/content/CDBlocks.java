@@ -1,164 +1,26 @@
 package carpediem.content;
 
-import arc.struct.*;
-import carpediem.world.blocks.payloads.*;
-import carpediem.world.blocks.production.*;
-import mindustry.content.*;
-import mindustry.graphics.*;
-import mindustry.type.*;
-import mindustry.world.*;
+import carpediem.content.blocks.*;
 
 public class CDBlocks {
-    public static Block
-    // crude crafting
-    crudeSmelter, crudePress, crudeRollingMill,
-    // crafting - maybe get better names for these later...
-    smelter, press, rollingMill,
-    crusher, polishingWheel,
-    // payloads
-    payloadCrane, payloadManufacturingPlant, payloadManufacturingComponent;
+    /*
+     * hi block comment
+     * - drills
+     * - power blocks
+     * - transport blocks
+     * - liquid blocks
+     * - cores (launch pod and Satisfactory HUB Block) and launch goal block thing
+     * - biomass production thing
+     * - maybe a multicrafter block for them circuits n shit
+     *
+     * - VERY later on, environment blocks for the planet
+     * - also compacted item blocks like how the unit assemblers use walls
+     * - also also We Need A Nuclear Reactor (we got pyratite!! use it goddammit!!)
+     * - ALSO also also pls figure out how the research will work i want my Scanning Block man
+     * */
 
     public static void load() {
-        // region crude crafting
-        crudeSmelter = new RecipeCrafter("crude-smelter") {{
-            requirements(Category.crafting, ItemStack.with());
-            size = 3;
-
-            recipes = new Seq<>();
-            CDItems.pureItems.each(item -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(CDItems.rawItems.get(item), 2),
-                            new ItemStack(item, 1)
-                    )
-            ));
-
-            consumeItem(CDItems.bitumen, 1);
-        }};
-
-        crudePress = new RecipeCrafter("crude-press") {{
-            requirements(Category.crafting, ItemStack.with());
-            size = 3;
-
-            recipes = new Seq<>();
-            CDItems.pureItems.each(item -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(item, 1),
-                            new ItemStack(CDItems.plates.get(item), 1)
-                    )
-            ));
-
-            consumeItem(CDItems.bitumen, 1);
-        }};
-
-        crudeRollingMill = new RecipeCrafter("crude-rolling-mill") {{
-            requirements(Category.crafting, ItemStack.with());
-            size = 3;
-
-            recipes = new Seq<>();
-            CDItems.pureItems.each(item -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(item, 1),
-                            new ItemStack(CDItems.rods.get(item), 2)
-                    )
-            ));
-            // i am not a good coder
-            CDItems.pureItems.each(item -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(CDItems.rods.get(item), 1),
-                            new ItemStack(CDItems.wires.get(item), 2)
-                    )
-            ));
-
-            consumeItem(CDItems.bitumen, 1);
-        }};
-        // endregion
-        // region crafting
-        smelter = new RecipeCrafter("smelter") {{
-            requirements(Category.crafting, ItemStack.with());
-            size = 3;
-
-            recipes = new Seq<>();
-            CDItems.pureItems.each(item -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(CDItems.rawItems.get(item), 3),
-                            new ItemStack(item, 3)
-                    )
-            ));
-
-            consumePower(2f);
-        }};
-
-        press = new RecipeCrafter("press") {{
-            requirements(Category.crafting, ItemStack.with());
-            size = 3;
-
-            recipes = new Seq<>();
-            CDItems.pureItems.each(item -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(item, 2),
-                            new ItemStack(CDItems.plates.get(item), 2)
-                    )
-            ));
-
-            consumePower(2f);
-        }};
-
-        rollingMill = new RecipeCrafter("rolling-mill") {{
-            requirements(Category.crafting, ItemStack.with());
-            size = 3;
-
-            recipes = new Seq<>();
-            CDItems.pureItems.each(item -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(item, 3),
-                            new ItemStack(CDItems.rods.get(item), 6)
-                    )
-            ));
-            CDItems.pureItems.each(item -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(CDItems.rods.get(item), 3),
-                            new ItemStack(CDItems.wires.get(item), 6)
-                    )
-            ));
-
-            consumePower(2f);
-        }};
-        // endregion
-        // region payloads
-        payloadCrane = new PayloadCrane("payload-crane") {{
-            requirements(Category.units, ItemStack.with());
-            size = 5;
-            outlineColor = Pal.darkOutline;
-            consumePower(1f);
-        }};
-
-        payloadManufacturingPlant = new PayloadManufacturingPlant("payload-manufacturing-plant") {{
-            requirements(Category.units, ItemStack.with());
-            regionSuffix = "-dark";
-            size = 5;
-
-            recipes = Seq.with(
-                    new PayloadManufacturingRecipe(
-                            new String[]{
-                                    "CCCCC",
-                                    "CLCLC",
-                                    "CLCLC",
-                                    "CLCLC",
-                                    "CCCCC"
-                            },
-                            ObjectMap.of(
-                                    'L', UnitTypes.locus,
-                                    'C', Blocks.carbideWallLarge
-                            ),
-                            UnitTypes.conquer
-                    )
-            );
-        }};
-
-        payloadManufacturingComponent = new PayloadManufacturingComponent("payload-manufacturing-component") {{
-            requirements(Category.units, ItemStack.with());
-            size = 3;
-        }};
-        // endregion
+        CDCrafting.load();
+        CDPayloads.load();
     }
 }

@@ -7,6 +7,7 @@ import arc.math.geom.*;
 import arc.struct.*;
 import arc.util.*;
 import arc.util.io.*;
+import carpediem.world.meta.*;
 import mindustry.*;
 import mindustry.content.*;
 import mindustry.entities.units.*;
@@ -19,6 +20,7 @@ import mindustry.world.meta.*;
 
 // TODO this thing should be able to like. retract its crane inwards in order to reach blocks next to it
 // ALSO ALSO ALSO NONE OF THESE PAYLOAD BLOCKS HAVE LIMITS CURRENTLY THEY CAN LITERALLY PICK UP OMURAS
+// also These numbers. They anger me.
 public class PayloadCrane extends Block {
     public float hookOffset = 130f, maxExtension = 220f;
     public float extensionSpeed = 0.7f;
@@ -62,12 +64,14 @@ public class PayloadCrane extends Block {
     public void init() {
         super.init();
 
-        updateClipRadius(maxExtension + hookOffset * 1.2f);
+        updateClipRadius(hookOffset + maxExtension * 1.2f);
     }
 
     @Override
     public void setStats() {
         super.setStats();
+        stats.add(CDStat.minRange, hookOffset / Vars.tilesize, StatUnit.blocks);
+        stats.add(CDStat.maxRange, (hookOffset + maxExtension) / Vars.tilesize, StatUnit.blocks);
     }
 
     @Override
@@ -86,6 +90,12 @@ public class PayloadCrane extends Block {
             Draw.rect(segmentRegions[i], plan.drawx(), plan.drawy() + segmentOffsets[i]);
         }
         Draw.rect(topRegion, plan.drawx(), plan.drawy(), plan.rotation * 90f);
+    }
+
+    @Override
+    public void drawOverlay(float x, float y, int rotation) {
+        Drawf.dashCircle(x, y, hookOffset, Pal.place); // TODO this might be confusing
+        Drawf.dashCircle(x, y, hookOffset + maxExtension, Pal.placing);
     }
 
     @Override

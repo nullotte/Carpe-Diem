@@ -6,8 +6,9 @@ import mindustry.type.*;
 public class CDItems {
     public static Item
     rawAluminum, rawNickel, rawSilver, rawPlatinum, bitumen, sulfur,
+
     aluminum, nickel, silver, platinum,
-    unnamedAlloy, heliorite,
+    unnamedAlloy,
 
     aluminumPlate, nickelPlate, silverPlate, platinumPlate,
     aluminumRod, nickelRod, silverRod, platinumRod,
@@ -15,9 +16,7 @@ public class CDItems {
 
     lemon
     ;
-    // + silicon. pyratite...?
-    // also do remember you can always change these later.
-    // i want to include plastanium. oil + aluminum instead of titanium. plastic item. wouldnt that be awesome
+    // + silicon, pyratite, plastanium
 
     public static Seq<Item> pureItems;
     public static ObjectMap<Item, Item> rawItems, plates, rods, wires;
