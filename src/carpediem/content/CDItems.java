@@ -1,6 +1,5 @@
 package carpediem.content;
 
-import arc.struct.*;
 import mindustry.type.*;
 
 public class CDItems {
@@ -8,41 +7,29 @@ public class CDItems {
     rawAluminum, rawNickel, rawSilver, rawPlatinum, bitumen, sulfur,
     waterIce, biomass, charcoal,
 
-    aluminum, nickel, silver, platinum, unnamedAlloy,
+    aluminum, nickel, silver, platinum, carbonAlloy,
 
-    aluminumPlate, nickelPlate, silverPlate, platinumPlate,
-    aluminumRod, nickelRod, silverRod, platinumRod,
+    aluminumPlate, nickelPlate, silverPlate, platinumPlate, alloyPlate, siliconSheet, plastaniumSheet,
+    aluminumRod, nickelRod, silverRod, platinumRod, alloyRod,
     aluminumWire, nickelWire, silverWire, platinumWire,
+
+    controlCircuit, calculationCircuit, processingUnit,
+    aluminumCogwheel, silverCogwheel, alloyCogwheel,
+    powerCell, liquidCell, electronicMotor,
 
     lemon
     ;
     // + silicon, pyratite, plastanium
     // TODO item colors
-    // also Assembled Items. get the multicrafter in here we're gonna need it
-
-    public static Seq<Item> pureItems;
-    public static ObjectMap<Item, Item> rawItems, plates, rods, wires;
+    // also i just realized i could probably do a JEI and put all the uses and production methods in the stats
+    // more work for future me i guess !
 
     public static void load() {
-        aluminum = new Item("aluminum") {{
-
-        }};
-
-        nickel = new Item("nickel") {{
-
-        }};
-
-        silver = new Item("silver") {{
-
-        }};
-
-        platinum = new Item("platinum") {{
-
-        }};
-
-        unnamedAlloy = new Item("alloy") {{
-
-        }};
+        // "wow thats a stupid implementation" just you waitt it's going to get a hundred times worse
+        rawAluminum = new Item("raw-aluminum");
+        rawNickel = new Item("raw-nickel");
+        rawSilver = new Item("raw-silver");
+        rawPlatinum = new Item("raw-platinum");
 
         bitumen = new Item("bitumen") {{
 
@@ -64,56 +51,56 @@ public class CDItems {
 
         }};
 
-        // I MAKE REALLY BAD DECISIONS OK
-        rawAluminum = new Item("raw-aluminum");
-        rawNickel = new Item("raw-nickel");
-        rawSilver = new Item("raw-silver");
-        rawPlatinum = new Item("raw-platinum");
+        aluminum = new Item("aluminum") {{
+
+        }};
+
+        nickel = new Item("nickel") {{
+
+        }};
+
+        silver = new Item("silver") {{
+
+        }};
+
+        platinum = new Item("platinum") {{
+
+        }};
+
+        carbonAlloy = new Item("carbon-alloy") {{
+
+        }};
 
         aluminumPlate = new Item("aluminum-plate");
         nickelPlate = new Item("nickel-plate");
         silverPlate = new Item("silver-plate");
         platinumPlate = new Item("platinum-plate");
+        alloyPlate = new Item("alloy-plate");
+        siliconSheet = new Item("silicon-sheet");
+        plastaniumSheet = new Item("plastanium-sheet");
 
         aluminumRod = new Item("aluminum-rod");
         nickelRod = new Item("nickel-rod");
         silverRod = new Item("silver-rod");
         platinumRod = new Item("platinum-rod");
+        alloyRod = new Item("alloy-rod");
 
         aluminumWire = new Item("aluminum-wire");
         nickelWire = new Item("nickel-wire");
         silverWire = new Item("silver-wire");
         platinumWire = new Item("platinum-wire");
 
-        pureItems = Seq.with(aluminum, nickel, silver, platinum);
+        controlCircuit = new Item("control-circuit");
+        calculationCircuit = new Item("calculation-circuit");
+        processingUnit = new Item("processing-unit");
 
-        rawItems = ObjectMap.of(
-                aluminum, rawAluminum,
-                nickel, rawNickel,
-                silver, rawSilver,
-                platinum, rawPlatinum
-        );
+        aluminumCogwheel = new Item("aluminum-cogwheel");
+        silverCogwheel = new Item("silver-cogwheel");
+        alloyCogwheel = new Item("alloy-cogwheel");
 
-        plates = ObjectMap.of(
-                aluminum, aluminumPlate,
-                nickel, nickelPlate,
-                silver, silverPlate,
-                platinum, platinumPlate
-        );
-
-        rods = ObjectMap.of(
-                aluminum, aluminumRod,
-                nickel, nickelRod,
-                silver, silverRod,
-                platinum, platinumRod
-        );
-
-        wires = ObjectMap.of(
-                aluminum, aluminumWire,
-                nickel, nickelWire,
-                silver, silverWire,
-                platinum, platinumWire
-        );
+        powerCell = new Item("power-cell");
+        liquidCell = new Item("liquid-cell");
+        electronicMotor = new Item("electronic-motor");
 
         lemon = new Item("lemon");
     }
