@@ -9,5 +9,6 @@ public class CarpeDiem extends Mod {
         CDItems.load();
         CDLiquids.load();
         CDBlocks.load();
+        CDPlanets.load();
     }
 }
