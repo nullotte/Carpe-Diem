@@ -4,8 +4,8 @@ import mindustry.type.*;
 
 public class CDItems {
     public static Item
-    rawAluminum, rawNickel, rawSilver, rawPlatinum, bitumen, sulfur,
-    waterIce, biomass, charcoal,
+    rawAluminum, rawNickel, rawSilver, rawPlatinum,
+    sulfur, waterIce, biomass, charcoal,
 
     aluminum, nickel, silver, platinum, carbonAlloy,
 
@@ -30,10 +30,6 @@ public class CDItems {
         rawNickel = new Item("raw-nickel");
         rawSilver = new Item("raw-silver");
         rawPlatinum = new Item("raw-platinum");
-
-        bitumen = new Item("bitumen") {{
-
-        }};
 
         sulfur = new Item("sulfur") {{
 

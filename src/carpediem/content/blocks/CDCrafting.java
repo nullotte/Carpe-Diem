@@ -20,10 +20,10 @@ public class CDCrafting {
 
     public static void load() {
         rawItems = OrderedMap.of(
-                CDItems.aluminum, CDItems.rawAluminum,
-                CDItems.nickel, CDItems.rawNickel,
-                CDItems.silver, CDItems.rawSilver,
-                CDItems.platinum, CDItems.rawPlatinum,
+                CDItems.rawAluminum, CDItems.aluminum,
+                CDItems.rawNickel, CDItems.nickel,
+                CDItems.rawSilver, CDItems.silver,
+                CDItems.rawPlatinum, CDItems.platinum,
                 CDItems.biomass, CDItems.charcoal
         );
 
@@ -65,7 +65,7 @@ public class CDCrafting {
                     )
             ));
 
-            consumeItem(CDItems.bitumen, 1);
+            consumeItem(CDItems.sulfur, 1);
         }};
 
         crudePress = new RecipeCrafter("crude-press") {{
@@ -80,7 +80,7 @@ public class CDCrafting {
                     )
             ));
 
-            consumeItem(CDItems.bitumen, 1);
+            consumeItem(CDItems.sulfur, 1);
         }};
 
         crudeRollingMill = new RecipeCrafter("crude-rolling-mill") {{
@@ -102,7 +102,7 @@ public class CDCrafting {
                     )
             ));
 
-            consumeItem(CDItems.bitumen, 1);
+            consumeItem(CDItems.sulfur, 1);
         }};
         // endregion
         // region crafting
@@ -163,8 +163,8 @@ public class CDCrafting {
 
             recipes = Seq.with(
                     new CraftingRecipe(
-                            ItemStack.with(Items.sand, 1, CDItems.bitumen, 2, CDItems.sulfur, 2),
-                            ItemStack.with(Items.pyratite, 6)
+                            ItemStack.with(Items.sand, 1, CDItems.charcoal, 1, CDItems.sulfur, 2),
+                            ItemStack.with(Items.pyratite, 4)
                     ),
                     new CraftingRecipe(
                             ItemStack.with(Items.sand, 2, CDItems.charcoal, 2, Items.pyratite, 1),
@@ -189,7 +189,6 @@ public class CDCrafting {
                         outputLiquids = LiquidStack.with(Liquids.water, 0.2f);
                     }},
                     new CraftingRecipe() {{
-                        inputItems = ItemStack.with(CDItems.bitumen, 2);
                         inputLiquids = LiquidStack.with(CDLiquids.petroleum, 0.2f);
                         outputLiquids = LiquidStack.with(Liquids.oil, 0.2f);
                     }},
