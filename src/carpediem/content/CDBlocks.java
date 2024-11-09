@@ -11,7 +11,6 @@ public class CDBlocks {
      * - liquid blocks
      * - cores (launch pod and Satisfactory HUB Block) and launch goal block thing
      * - biomass production thing
-     * - maybe a multicrafter block for them circuits n shit
      *
      * - VERY later on, environment blocks for the planet
      * - also compacted item blocks like how the unit assemblers use walls
@@ -22,5 +21,6 @@ public class CDBlocks {
     public static void load() {
         CDCrafting.load();
         CDPayloads.load();
+        CDStorage.load();
     }
 }

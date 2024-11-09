@@ -3,12 +3,12 @@ package carpediem.content;
 import mindustry.type.*;
 
 public class CDLiquids {
-    // one liquid. one. 1.
-    // also i know oil might be the raw form but shhh shhhhhh
-    // im not making the player turn "Oil" into "Fuel Oil"
+    // add lemonade pls
     public static Liquid petroleum;
 
     public static void load() {
+        // i know oil might be the raw form but shhh shhhhhh
+        // im not making the player turn "Oil" into "Fuel Oil"
         petroleum = new Liquid("petroleum") {{
 
         }};

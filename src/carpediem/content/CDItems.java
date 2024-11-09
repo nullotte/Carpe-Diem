@@ -19,7 +19,7 @@ public class CDItems {
 
     lemon
     ;
-    // + silicon, pyratite, plastanium
+    // + sand, silicon, pyratite, plastanium
     // TODO item colors
     // also i just realized i could probably do a JEI and put all the uses and production methods in the stats
     // more work for future me i guess !

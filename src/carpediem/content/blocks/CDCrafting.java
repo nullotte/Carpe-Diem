@@ -65,7 +65,7 @@ public class CDCrafting {
                     )
             ));
 
-            consumeItem(CDItems.sulfur, 1);
+            consumeItem(CDItems.sulfur);
         }};
 
         crudePress = new RecipeCrafter("crude-press") {{
@@ -80,7 +80,7 @@ public class CDCrafting {
                     )
             ));
 
-            consumeItem(CDItems.sulfur, 1);
+            consumeItem(CDItems.sulfur);
         }};
 
         crudeRollingMill = new RecipeCrafter("crude-rolling-mill") {{
@@ -102,7 +102,53 @@ public class CDCrafting {
                     )
             ));
 
-            consumeItem(CDItems.sulfur, 1);
+            consumeItem(CDItems.sulfur);
+        }};
+
+        crudeAssembler = new RecipeCrafter("crude-assembler") {{
+            requirements(Category.crafting, ItemStack.with());
+            size = 3;
+
+            recipes = Seq.with(
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.aluminumPlate, 1, CDItems.nickelWire, 5),
+                            ItemStack.with(CDItems.controlCircuit, 1)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.lemon, 39),
+                            ItemStack.with(CDItems.calculationCircuit, 1)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.lemon, 39),
+                            ItemStack.with(CDItems.processingUnit, 1)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.aluminum, 1, CDItems.aluminumPlate, 4),
+                            ItemStack.with(CDItems.aluminumCogwheel, 6)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.silver, 1, CDItems.silverPlate, 4),
+                            ItemStack.with(CDItems.silverCogwheel, 6)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.carbonAlloy, 1, CDItems.alloyPlate, 4),
+                            ItemStack.with(CDItems.alloyCogwheel, 6)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.aluminum, 2, CDItems.nickelPlate, 2, CDItems.sulfur, 1),
+                            ItemStack.with(CDItems.powerCell, 1)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.lemon, 39),
+                            ItemStack.with(CDItems.liquidCell, 1)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.lemon, 39),
+                            ItemStack.with(CDItems.electronicMotor, 1)
+                    )
+            );
+
+            consumeItem(CDItems.sulfur);
         }};
         // endregion
         // region crafting

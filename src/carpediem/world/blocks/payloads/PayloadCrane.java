@@ -294,6 +294,11 @@ public class PayloadCrane extends Block {
         }
 
         @Override
+        public boolean canPickup() {
+            return false;
+        }
+
+        @Override
         public void draw() {
             // my disappointment is immeasurable
             float r = craneRotation - 90f;
