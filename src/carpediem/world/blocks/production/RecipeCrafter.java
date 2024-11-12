@@ -15,13 +15,15 @@ import mindustry.world.consumers.*;
 
 import java.util.*;
 
-// im gonna cry
+// TODO this class is so jank it probably needs a complete rewrite. but it works for now
 public class RecipeCrafter extends GenericCrafter {
     public Seq<CraftingRecipe> recipes;
 
     protected ObjectMap<Seq<UnlockableContent>, CraftingRecipe> recipeMap;
     protected Seq<Item> inputItems;
     protected Seq<Liquid> inputLiquids;
+
+    public boolean outputsItems;
 
     public RecipeCrafter(String name) {
         super(name);
@@ -44,7 +46,9 @@ public class RecipeCrafter extends GenericCrafter {
                     inputItems.addUnique(i.item);
                 }
             }
-            if (recipe.outputItems != null) hasItems = true;
+            if (recipe.outputItems != null) {
+                hasItems = outputsItems = true;
+            }
 
             if (recipe.inputLiquids != null) {
                 hasLiquids = true;
@@ -127,6 +131,11 @@ public class RecipeCrafter extends GenericCrafter {
                 table.row();
             }
         });
+    }
+
+    @Override
+    public boolean outputsItems() {
+        return outputsItems;
     }
 
     public class RecipeCrafterBuild extends GenericCrafterBuild {
@@ -308,7 +317,11 @@ public class RecipeCrafter extends GenericCrafter {
                 if (liquids != null && liquids.get(liquid) > 0.1f) liquidsEmpty = false;
             }
 
-            if (items.empty() && liquidsEmpty) return current = null;
+            if (items.sum((item, count) -> consumesItem(item) ? 0f : 1f) == 0f && liquidsEmpty) {
+                // reset
+                progress = 0f;
+                return current = null;
+            };
 
             if (current != null) return current;
 

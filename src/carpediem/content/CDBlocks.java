@@ -5,22 +5,20 @@ import carpediem.content.blocks.*;
 public class CDBlocks {
     /*
      * hi block comment
-     * - drills
-     * - power blocks
-     * - transport blocks
-     * - liquid blocks
-     * - cores (launch pod and Satisfactory HUB Block) and launch goal block thing
-     * - biomass production thing
-     *
-     * - VERY later on, environment blocks for the planet
-     * - also compacted item blocks like how the unit assemblers use walls
-     * - also also We Need A Nuclear Reactor (we got pyratite!! use it goddammit!!)
-     * - ALSO also also pls figure out how the research will work i want my Scanning Block man
+     * - compacted item blocks like how the unit assemblers use walls
+     * - add uranium.
+     * - "database server" block that you have to supply power and items to . and then it opens up some puzzle dialog
+     * - after completing the puzzle you unlock its research and some other stuff stored inside
      * */
 
     public static void load() {
+        // CDEnvironment.load();
         CDCrafting.load();
-        CDPayloads.load();
+        // CDTransport.load();
+        // CDLiquidBlocks.load();
+        CDPower.load();
+        // CDProduction.load();
         CDStorage.load();
+        CDPayloads.load();
     }
 }

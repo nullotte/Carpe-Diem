@@ -9,12 +9,12 @@ import mindustry.world.*;
 
 public class CDCrafting {
     public static Block
-    // crude crafting
+    // T0
     crudeSmelter, crudePress, crudeRollingMill, crudeAssembler,
-    // normal crafting - maybe get better names for these later...
+    // T1
     smelter, press, rollingMill,
     mixer, refinery, assembler;
-    // TODO "advanced" machines
+    // TODO T2
 
     public static OrderedMap<Item, Item> rawItems, plates, rods, wires;
 
@@ -52,7 +52,7 @@ public class CDCrafting {
                 CDItems.platinum, CDItems.platinumWire
         );
 
-        // region crude crafting
+        // region T0
         crudeSmelter = new RecipeCrafter("crude-smelter") {{
             requirements(Category.crafting, ItemStack.with());
             size = 3;
@@ -151,10 +151,10 @@ public class CDCrafting {
             consumeItem(CDItems.sulfur);
         }};
         // endregion
-        // region crafting
+        // region T1
         smelter = new RecipeCrafter("smelter") {{
             requirements(Category.crafting, ItemStack.with());
-            size = 3;
+            size = 4;
 
             recipes = new Seq<>();
             rawItems.each((in, out) -> recipes.add(
@@ -169,7 +169,7 @@ public class CDCrafting {
 
         press = new RecipeCrafter("press") {{
             requirements(Category.crafting, ItemStack.with());
-            size = 3;
+            size = 4;
 
             recipes = new Seq<>();
             plates.each((in, out) -> recipes.add(
@@ -184,7 +184,7 @@ public class CDCrafting {
 
         rollingMill = new RecipeCrafter("rolling-mill") {{
             requirements(Category.crafting, ItemStack.with());
-            size = 3;
+            size = 4;
 
             recipes = new Seq<>();
             rods.each((in, out) -> recipes.add(
@@ -205,7 +205,7 @@ public class CDCrafting {
 
         mixer = new RecipeCrafter("mixer") {{
             requirements(Category.crafting, ItemStack.with());
-            size = 3;
+            size = 4;
 
             recipes = Seq.with(
                     new CraftingRecipe(
@@ -227,7 +227,7 @@ public class CDCrafting {
 
         refinery = new RecipeCrafter("refinery") {{
             requirements(Category.crafting, ItemStack.with());
-            size = 3;
+            size = 4;
 
             recipes = Seq.with(
                     new CraftingRecipe() {{
@@ -251,7 +251,7 @@ public class CDCrafting {
 
         assembler = new RecipeCrafter("assembler") {{
             requirements(Category.crafting, ItemStack.with());
-            size = 3;
+            size = 4;
 
             recipes = Seq.with(
                     new CraftingRecipe(
