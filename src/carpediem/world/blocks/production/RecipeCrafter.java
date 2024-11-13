@@ -3,6 +3,7 @@ package carpediem.world.blocks.production;
 import arc.struct.*;
 import arc.util.*;
 import arc.util.io.*;
+import carpediem.world.consumers.ConsumeItemsUses.*;
 import carpediem.world.meta.*;
 import mindustry.*;
 import mindustry.ctype.*;
@@ -138,9 +139,11 @@ public class RecipeCrafter extends GenericCrafter {
         return outputsItems;
     }
 
-    public class RecipeCrafterBuild extends GenericCrafterBuild {
+    public class RecipeCrafterBuild extends GenericCrafterBuild implements UseCounter {
         public CraftingRecipe current;
         public Seq<UnlockableContent> key = new Seq<>();
+
+        public int uses;
 
         @Override
         public void updateTile() {
@@ -347,6 +350,7 @@ public class RecipeCrafter extends GenericCrafter {
 
             int id = current != null ? recipes.indexOf(current) : -1;
             write.i(id);
+            write.i(uses);
         }
 
         @Override
@@ -355,6 +359,22 @@ public class RecipeCrafter extends GenericCrafter {
 
             int id = read.i();
             if (id >= 0) current = recipes.get(id);
+            uses = read.i();
+        }
+
+        @Override
+        public int getUses() {
+            return uses;
+        }
+
+        @Override
+        public void addUses(int uses) {
+            this.uses += uses;
+        }
+
+        @Override
+        public void removeUses(int uses) {
+            this.uses -= uses;
         }
     }
 

@@ -3,6 +3,7 @@ package carpediem.content.blocks;
 import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.production.*;
+import carpediem.world.consumers.*;
 import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -65,7 +66,7 @@ public class CDCrafting {
                     )
             ));
 
-            consumeItem(CDItems.sulfur);
+            consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
 
         crudePress = new RecipeCrafter("crude-press") {{
@@ -80,7 +81,7 @@ public class CDCrafting {
                     )
             ));
 
-            consumeItem(CDItems.sulfur);
+            consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
 
         crudeRollingMill = new RecipeCrafter("crude-rolling-mill") {{
@@ -102,7 +103,7 @@ public class CDCrafting {
                     )
             ));
 
-            consumeItem(CDItems.sulfur);
+            consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
 
         crudeAssembler = new RecipeCrafter("crude-assembler") {{
@@ -148,7 +149,7 @@ public class CDCrafting {
                     )
             );
 
-            consumeItem(CDItems.sulfur);
+            consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
         // endregion
         // region T1
