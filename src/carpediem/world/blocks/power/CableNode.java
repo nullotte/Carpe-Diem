@@ -10,7 +10,8 @@ import mindustry.world.blocks.power.*;
 
 // i will never be allowed to write code in a professional environment
 public class CableNode extends PowerNode {
-    public TextureRegion cable1, cable2;
+    public TextureRegion cable1, cable2, top;
+    public float colorScl = 20f, colorMag = 0.7f;
 
     public CableNode(String name) {
         super(name);
@@ -22,6 +23,7 @@ public class CableNode extends PowerNode {
 
         cable1 = Core.atlas.find("carpe-diem-cable1");
         cable2 = Core.atlas.find("carpe-diem-cable2");
+        top = Core.atlas.find(name + "-top");
         laserEnd = Core.atlas.find("carpe-diem-cable-end");
     }
 
@@ -59,5 +61,23 @@ public class CableNode extends PowerNode {
                 len1 = size1 * Vars.tilesize / 2f, len2 = size2 * Vars.tilesize / 2f;
 
         drawCable(x1 + vx * len1, y1 + vy * len1, x2 - vx * len2, y2 - vy * len2, laserScale);
+    }
+
+    @Override
+    protected void setupColor(float satisfaction) {
+        Draw.color(laserColor1);
+        Draw.mixcol(laserColor2, satisfaction * Mathf.absin(colorScl, colorMag));
+    }
+
+    public class CableNodeBuild extends PowerNodeBuild {
+        @Override
+        public void draw() {
+            super.draw();
+
+            Draw.z(Layer.block);
+            setupColor(power.graph.getSatisfaction());
+            Draw.rect(top, x, y);
+            Draw.reset();
+        }
     }
 }
