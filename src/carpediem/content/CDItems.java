@@ -1,5 +1,7 @@
 package carpediem.content;
 
+import arc.graphics.*;
+import mindustry.content.*;
 import mindustry.type.*;
 
 public class CDItems {
@@ -20,18 +22,15 @@ public class CDItems {
     lemon
     ;
     // + sand, silicon, pyratite, plastanium
-    // TODO item colors
-    // also i just realized i could probably do a JEI and put all the uses and production methods in the stats
-    // more work for future me i guess !
+    // TODO stats?
 
     public static void load() {
-        // "wow thats a stupid implementation" just you waitt it's going to get a hundred times worse
-        rawAluminum = new Item("raw-aluminum");
-        rawNickel = new Item("raw-nickel");
-        rawSilver = new Item("raw-silver");
-        rawPlatinum = new Item("raw-platinum");
+        rawAluminum = new Item("raw-aluminum", Color.valueOf("948fbf"));
+        rawNickel = new Item("raw-nickel", Color.valueOf("cbb07e"));
+        rawSilver = new Item("raw-silver", Color.valueOf("8dabd4"));
+        rawPlatinum = new Item("raw-platinum", Color.valueOf("d985a3"));
 
-        sulfur = new Item("sulfur") {{
+        sulfur = new Item("sulfur", Color.valueOf("dece5e")) {{
 
         }};
 
@@ -43,48 +42,48 @@ public class CDItems {
 
         }};
 
-        charcoal = new Item("charcoal") {{
+        charcoal = new Item("charcoal", Color.valueOf("32312c")) {{
 
         }};
 
-        aluminum = new Item("aluminum") {{
+        aluminum = new Item("aluminum", rawAluminum.color) {{
 
         }};
 
-        nickel = new Item("nickel") {{
+        nickel = new Item("nickel", rawNickel.color) {{
 
         }};
 
-        silver = new Item("silver") {{
+        silver = new Item("silver", rawSilver.color) {{
 
         }};
 
-        platinum = new Item("platinum") {{
+        platinum = new Item("platinum", rawPlatinum.color) {{
 
         }};
 
-        carbonAlloy = new Item("carbon-alloy") {{
+        carbonAlloy = new Item("carbon-alloy", Color.valueOf("6b758b")) {{
 
         }};
 
-        aluminumPlate = new Item("aluminum-plate");
-        nickelPlate = new Item("nickel-plate");
-        silverPlate = new Item("silver-plate");
-        platinumPlate = new Item("platinum-plate");
-        alloyPlate = new Item("alloy-plate");
-        siliconSheet = new Item("silicon-sheet");
-        plastaniumSheet = new Item("plastanium-sheet");
+        aluminumPlate = new Item("aluminum-plate", aluminum.color);
+        nickelPlate = new Item("nickel-plate", nickel.color);
+        silverPlate = new Item("silver-plate", silver.color);
+        platinumPlate = new Item("platinum-plate", platinum.color);
+        alloyPlate = new Item("alloy-plate", carbonAlloy.color);
+        siliconSheet = new Item("silicon-sheet", Items.silicon.color);
+        plastaniumSheet = new Item("plastanium-sheet", Items.plastanium.color);
 
-        aluminumRod = new Item("aluminum-rod");
-        nickelRod = new Item("nickel-rod");
-        silverRod = new Item("silver-rod");
-        platinumRod = new Item("platinum-rod");
-        alloyRod = new Item("alloy-rod");
+        aluminumRod = new Item("aluminum-rod", aluminum.color);
+        nickelRod = new Item("nickel-rod", nickel.color);
+        silverRod = new Item("silver-rod", silver.color);
+        platinumRod = new Item("platinum-rod", platinum.color);
+        alloyRod = new Item("alloy-rod", carbonAlloy.color);
 
-        aluminumWire = new Item("aluminum-wire");
-        nickelWire = new Item("nickel-wire");
-        silverWire = new Item("silver-wire");
-        platinumWire = new Item("platinum-wire");
+        aluminumWire = new Item("aluminum-wire", aluminum.color);
+        nickelWire = new Item("nickel-wire", nickel.color);
+        silverWire = new Item("silver-wire", silver.color);
+        platinumWire = new Item("platinum-wire", platinum.color);
 
         controlCircuit = new Item("control-circuit");
         calculationCircuit = new Item("calculation-circuit");
