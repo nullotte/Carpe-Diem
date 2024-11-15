@@ -31,7 +31,7 @@ public class CableNode extends PowerNode {
         float a = Draw.getColor().a;
 
         Draw.rect(cable1, x, y, cable1.width * scale * cable1.scl(), cable1.height * scale * cable1.scl(), rotation);
-        Draw.alpha(Mathf.equal(rotation, 45f, 0.1f) || Mathf.equal(rotation, 225f, 0.1f) ? 0.5f : (rotation > 45f && rotation < 225f ? 1f : 0f)); // good lord
+        Draw.alpha(Mathf.equal(rotation, 45f, 0.1f) || Mathf.equal(rotation, 225f, 0.1f) ? a * 0.5f : (rotation > 45f && rotation < 225f ? a : 0f)); // good lord
         Draw.rect(cable2, x, y, cable2.width * scale * cable2.scl(), cable2.height * scale * cable2.scl(), rotation);
         Draw.alpha(a);
     }
