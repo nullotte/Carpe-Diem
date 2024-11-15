@@ -89,9 +89,9 @@ public class CDItems {
         calculationCircuit = new Item("calculation-circuit");
         processingUnit = new Item("processing-unit");
 
-        aluminumCogwheel = new Item("aluminum-cogwheel");
-        silverCogwheel = new Item("silver-cogwheel");
-        alloyCogwheel = new Item("alloy-cogwheel");
+        aluminumCogwheel = new Item("aluminum-cogwheel", aluminum.color);
+        silverCogwheel = new Item("silver-cogwheel", silver.color);
+        alloyCogwheel = new Item("alloy-cogwheel", carbonAlloy.color);
 
         powerCell = new Item("power-cell");
         liquidCell = new Item("liquid-cell");

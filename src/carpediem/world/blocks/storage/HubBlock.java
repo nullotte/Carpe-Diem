@@ -1,6 +1,8 @@
 package carpediem.world.blocks.storage;
 
+import arc.*;
 import arc.scene.ui.layout.*;
+import mindustry.*;
 import mindustry.game.*;
 import mindustry.ui.*;
 import mindustry.world.*;
@@ -36,6 +38,15 @@ public class HubBlock extends DrawerCoreBlock {
     public boolean canReplace(Block other) {
         // dont try to replace other cores
         return super.canReplace(other) && !(other instanceof CoreBlock);
+    }
+
+    @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        Tile tile = Vars.world.tile(x, y);
+
+        if (tile != null && !canPlaceOn(tile, Vars.player.team(), rotation)) {
+            drawPlaceText(Core.bundle.get("bar.alreadyplaced"), x, y, valid);
+        }
     }
 
     public class LimitedPlaceCoreBuild extends DrawerCoreBuild {

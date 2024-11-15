@@ -54,7 +54,7 @@ public class ConsumeItemsUses extends ConsumeItems {
         }
         super.display(stats);
         stats.timePeriod = timePeriod;
-        stats.add(booster ? Stat.booster : Stat.input, "[lightgray]" + Core.bundle.format("stat.craftuses", uses + 1));
+        stats.add(booster ? Stat.booster : Stat.input, "[lightgray]" + Core.bundle.format("stat.consumeuses", uses + 1));
     }
 
     public interface UseCounter {

@@ -14,11 +14,12 @@ public class CDBlocks {
     public static void load() {
         // CDEnvironment.load();
         CDCrafting.load();
-        // CDTransport.load();
+        CDDistribution.load();
         // CDLiquidBlocks.load();
         CDPower.load();
         // CDProduction.load();
         CDStorage.load();
         CDPayloads.load();
+        // CDCampaign.load();
     }
 }

@@ -39,15 +39,6 @@ public class DrawerCoreBlock extends CoreBlock {
         drawer.getRegionsToOutline(this, out);
     }
 
-    @Override
-    public void drawPlace(int x, int y, int rotation, boolean valid) {
-        Tile tile = Vars.world.tile(x, y);
-
-        if (tile != null && !canPlaceOn(tile, Vars.player.team(), rotation)) {
-            drawPlaceText(Core.bundle.get("bar.alreadyplaced"), x, y, valid);
-        }
-    }
-
     public class DrawerCoreBuild extends CoreBuild {
         @Override
         public void draw() {
