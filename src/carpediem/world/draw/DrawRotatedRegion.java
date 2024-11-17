@@ -9,6 +9,7 @@ import mindustry.world.*;
 import mindustry.world.draw.*;
 
 // goddammit
+// not actually used now but im keeping this just in case i need it later
 public class DrawRotatedRegion extends DrawBlock {
     public TextureRegion[] top;
 

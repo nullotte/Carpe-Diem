@@ -15,6 +15,12 @@ public class Splitter extends DuctRouter {
     }
 
     @Override
+    public void setBars() {
+        super.setBars();
+        removeBar("items");
+    }
+
+    @Override
     public void load() {
         super.load();
         drawer.load(this);
