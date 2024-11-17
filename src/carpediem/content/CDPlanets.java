@@ -1,9 +1,7 @@
 package carpediem.content;
 
-import arc.struct.*;
 import carpediem.content.blocks.*;
 import carpediem.maps.planet.*;
-import mindustry.*;
 import mindustry.content.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
