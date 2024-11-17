@@ -25,7 +25,9 @@ public class CDItems {
     // TODO stats?
 
     public static void load() {
-        rawAluminum = new Item("raw-aluminum", Color.valueOf("948fbf"));
+        rawAluminum = new Item("raw-aluminum", Color.valueOf("948fbf")) {{
+            alwaysUnlocked = true;
+        }};
         rawNickel = new Item("raw-nickel", Color.valueOf("cbb07e"));
         rawSilver = new Item("raw-silver", Color.valueOf("8dabd4"));
         rawPlatinum = new Item("raw-platinum", Color.valueOf("d985a3"));

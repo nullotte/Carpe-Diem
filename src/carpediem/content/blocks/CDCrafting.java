@@ -14,7 +14,7 @@ public class CDCrafting {
     crudeSmelter, crudePress, crudeRollingMill, crudeAssembler,
     // T1
     smelter, press, rollingMill,
-    mixer, refinery, assembler;
+    refinery, mixer, assembler;
     // TODO T2
 
     public static OrderedMap<Item, Item> rawItems, plates, rods, wires;
@@ -204,28 +204,6 @@ public class CDCrafting {
             consumePower(2f);
         }};
 
-        mixer = new RecipeCrafter("mixer") {{
-            requirements(Category.crafting, ItemStack.with());
-            size = 4;
-
-            recipes = Seq.with(
-                    new CraftingRecipe(
-                            ItemStack.with(Items.sand, 1, CDItems.charcoal, 1, CDItems.sulfur, 2),
-                            ItemStack.with(Items.pyratite, 4)
-                    ),
-                    new CraftingRecipe(
-                            ItemStack.with(Items.sand, 2, CDItems.charcoal, 2, Items.pyratite, 1),
-                            ItemStack.with(Items.silicon, 4)
-                    ),
-                    new CraftingRecipe(
-                            ItemStack.with(CDItems.silver, 3, CDItems.charcoal, 1, Items.pyratite, 1),
-                            ItemStack.with(CDItems.carbonAlloy, 4)
-                    )
-            );
-
-            consumePower(2f);
-        }};
-
         refinery = new RecipeCrafter("refinery") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
@@ -245,6 +223,28 @@ public class CDCrafting {
                     ) {{
                         inputLiquids = LiquidStack.with(Liquids.oil, 0.2f);
                     }}
+            );
+
+            consumePower(2f);
+        }};
+
+        mixer = new RecipeCrafter("mixer") {{
+            requirements(Category.crafting, ItemStack.with());
+            size = 4;
+
+            recipes = Seq.with(
+                    new CraftingRecipe(
+                            ItemStack.with(Items.sand, 1, CDItems.charcoal, 1, CDItems.sulfur, 2),
+                            ItemStack.with(Items.pyratite, 4)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(Items.sand, 2, CDItems.charcoal, 2, Items.pyratite, 1),
+                            ItemStack.with(Items.silicon, 4)
+                    ),
+                    new CraftingRecipe(
+                            ItemStack.with(CDItems.silver, 3, CDItems.charcoal, 1, Items.pyratite, 1),
+                            ItemStack.with(CDItems.carbonAlloy, 4)
+                    )
             );
 
             consumePower(2f);

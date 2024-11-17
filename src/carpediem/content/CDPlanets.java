@@ -1,7 +1,9 @@
 package carpediem.content;
 
+import arc.struct.*;
 import carpediem.content.blocks.*;
 import carpediem.maps.planet.*;
+import mindustry.*;
 import mindustry.content.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
@@ -16,6 +18,20 @@ public class CDPlanets {
             meshLoader = () -> new HexMesh(this, 6);
 
             defaultCore = CDStorage.landingPod;
+
+            ruleSetter = r -> {
+                r.fog = true;
+                r.staticFog = true;
+                r.deconstructRefundMultiplier = 1f;
+
+                r.hideBannedBlocks = true;
+                r.blockWhitelist = true;
+
+                // TODO ugly giant wall of crosses
+                r.bannedBlocks.addAll(CDTechTree.blocks);
+            };
+
+            unlockedOnLand.add(CDStorage.landingPod);
         }};
     }
 }

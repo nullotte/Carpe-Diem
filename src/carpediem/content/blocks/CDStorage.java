@@ -10,6 +10,7 @@ import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 public class CDStorage {
+    // TODO tiered landing pods. and the fucking ROCKET
     public static Block landingPod, industryHub;
 
     public static void load() {
