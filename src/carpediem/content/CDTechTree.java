@@ -35,7 +35,6 @@ public class CDTechTree {
                     node(pressT1);
                     node(rollingMillT1);
                     node(refineryT1, () -> {
-                        node(mixerT1);
                         node(assemblerT1);
                     });
                 });
@@ -46,17 +45,18 @@ public class CDTechTree {
             nodeProduce(rawAluminum, () -> {
                 nodeProduce(waterIce, () -> {
                     nodeProduce(Liquids.water, () -> {
-                        nodeProduce(biomass, () -> {
-                            nodeProduce(charcoal, () -> {
-                                nodeProduce(Items.pyratite, () -> {});
+                        nodeProduce(CDLiquids.petroleum, () -> {
+                            nodeProduce(Liquids.oil, () -> {
                                 nodeProduce(Items.silicon, () -> {
                                     nodeProduce(siliconSheet, () -> {});
                                 });
-                            });
-                        });
-
-                        nodeProduce(CDLiquids.petroleum, () -> {
-                            nodeProduce(Liquids.oil, () -> {
+                                nodeProduce(Items.pyratite, () -> {});
+                                nodeProduce(sturdyAlloy, () -> {
+                                    nodeProduce(alloyPlate, () -> {
+                                        nodeProduce(alloyCogwheel, () -> {});
+                                    });
+                                    nodeProduce(alloyRod, () -> {});
+                                });
                                 nodeProduce(Items.plastanium, () -> {
                                     nodeProduce(plastaniumSheet, () -> {});
                                 });
@@ -104,13 +104,6 @@ public class CDTechTree {
                                     nodeProduce(platinumRod, () -> {
                                         nodeProduce(platinumWire, () -> {});
                                     });
-                                });
-
-                                nodeProduce(carbonAlloy, () -> {
-                                    nodeProduce(alloyPlate, () -> {
-                                        nodeProduce(alloyCogwheel, () -> {});
-                                    });
-                                    nodeProduce(alloyRod, () -> {});
                                 });
                             });
                         });

@@ -7,9 +7,9 @@ import mindustry.type.*;
 public class CDItems {
     public static Item
     rawAluminum, rawNickel, rawSilver, rawPlatinum,
-    sulfur, waterIce, biomass, charcoal,
+    sulfur, waterIce, // sand
 
-    aluminum, nickel, silver, platinum, carbonAlloy,
+    aluminum, nickel, silver, platinum, sturdyAlloy, // pyratite, silicon, plastanium
 
     aluminumPlate, nickelPlate, silverPlate, platinumPlate, alloyPlate, siliconSheet, plastaniumSheet,
     aluminumRod, nickelRod, silverRod, platinumRod, alloyRod,
@@ -21,7 +21,6 @@ public class CDItems {
 
     lemon
     ;
-    // + sand, silicon, pyratite, plastanium
     // TODO stats?
 
     public static void load() {
@@ -37,14 +36,6 @@ public class CDItems {
         }};
 
         waterIce = new Item("water-ice", Color.valueOf("c7e1ff")) {{
-
-        }};
-
-        biomass = new Item("biomass", Color.valueOf("f0f0f0")) {{
-
-        }};
-
-        charcoal = new Item("charcoal", Color.valueOf("32312c")) {{
 
         }};
 
@@ -64,7 +55,7 @@ public class CDItems {
 
         }};
 
-        carbonAlloy = new Item("carbon-alloy", Color.valueOf("6b758b")) {{
+        sturdyAlloy = new Item("sturdy-alloy", Color.valueOf("6b758b")) {{
 
         }};
 
@@ -72,7 +63,7 @@ public class CDItems {
         nickelPlate = new Item("nickel-plate", nickel.color);
         silverPlate = new Item("silver-plate", silver.color);
         platinumPlate = new Item("platinum-plate", platinum.color);
-        alloyPlate = new Item("alloy-plate", carbonAlloy.color);
+        alloyPlate = new Item("alloy-plate", sturdyAlloy.color);
         siliconSheet = new Item("silicon-sheet", Items.silicon.color);
         plastaniumSheet = new Item("plastanium-sheet", Items.plastanium.color);
 
@@ -80,7 +71,7 @@ public class CDItems {
         nickelRod = new Item("nickel-rod", nickel.color);
         silverRod = new Item("silver-rod", silver.color);
         platinumRod = new Item("platinum-rod", platinum.color);
-        alloyRod = new Item("alloy-rod", carbonAlloy.color);
+        alloyRod = new Item("alloy-rod", sturdyAlloy.color);
 
         aluminumWire = new Item("aluminum-wire", aluminum.color);
         nickelWire = new Item("nickel-wire", nickel.color);
@@ -93,7 +84,7 @@ public class CDItems {
 
         aluminumCogwheel = new Item("aluminum-cogwheel", aluminum.color);
         silverCogwheel = new Item("silver-cogwheel", silver.color);
-        alloyCogwheel = new Item("alloy-cogwheel", carbonAlloy.color);
+        alloyCogwheel = new Item("alloy-cogwheel", sturdyAlloy.color);
 
         powerCell = new Item("power-cell");
         liquidCell = new Item("liquid-cell");
