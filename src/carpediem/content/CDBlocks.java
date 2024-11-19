@@ -17,7 +17,7 @@ public class CDBlocks {
         CDDistribution.load();
         // CDLiquidBlocks.load();
         CDPower.load();
-        // CDProduction.load();
+        CDProduction.load();
         CDStorage.load();
         CDPayloads.load();
         // CDCampaign.load();

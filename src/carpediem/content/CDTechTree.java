@@ -8,6 +8,7 @@ import static mindustry.content.TechTree.*;
 import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDDistribution.*;
 import static carpediem.content.blocks.CDPower.*;
+import static carpediem.content.blocks.CDProduction.*;
 import static carpediem.content.blocks.CDStorage.*;
 import static carpediem.content.CDItems.*;
 
@@ -37,6 +38,9 @@ public class CDTechTree {
                     node(refineryT1, () -> {
                         node(assemblerT1);
                     });
+                });
+                node(drillT0, () -> {
+                    node(drillT1);
                 });
             });
 
