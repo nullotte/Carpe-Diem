@@ -15,7 +15,7 @@ public class CDPlanets {
             generator = new ModdedPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 6);
 
-            defaultCore = CDStorage.landingPod;
+            defaultCore = CDStorage.landingPodT0;
 
             ruleSetter = r -> {
                 r.fog = true;
@@ -29,7 +29,7 @@ public class CDPlanets {
                 r.bannedBlocks.addAll(CDTechTree.blocks);
             };
 
-            unlockedOnLand.add(CDStorage.landingPod);
+            unlockedOnLand.add(CDStorage.landingPodT0);
         }};
     }
 }

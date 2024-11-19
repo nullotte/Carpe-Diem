@@ -7,15 +7,17 @@ import carpediem.world.consumers.*;
 import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.draw.*;
 
 public class CDCrafting {
     public static Block
     // T0
-    crudeSmelter, crudePress, crudeRollingMill, crudeAssembler,
+    smelterT0, pressT0, rollingMillT0, assemblerT0,
     // T1
-    smelter, press, rollingMill,
-    refinery, mixer, assembler;
+    smelterT1, pressT1, rollingMillT1,
+    refineryT1, mixerT1, assemblerT1;
     // TODO T2
+    // also drawers . literally none of these blocks have sprites or visuals at all rn
 
     public static OrderedMap<Item, Item> rawItems, plates, rods, wires;
 
@@ -54,7 +56,7 @@ public class CDCrafting {
         );
 
         // region T0
-        crudeSmelter = new RecipeCrafter("crude-smelter") {{
+        smelterT0 = new RecipeCrafter("smelter-t0") {{
             requirements(Category.crafting, ItemStack.with());
             size = 3;
 
@@ -69,7 +71,7 @@ public class CDCrafting {
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
 
-        crudePress = new RecipeCrafter("crude-press") {{
+        pressT0 = new RecipeCrafter("press-t0") {{
             requirements(Category.crafting, ItemStack.with());
             size = 3;
 
@@ -84,7 +86,7 @@ public class CDCrafting {
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
 
-        crudeRollingMill = new RecipeCrafter("crude-rolling-mill") {{
+        rollingMillT0 = new RecipeCrafter("rolling-mill-t0") {{
             requirements(Category.crafting, ItemStack.with());
             size = 3;
 
@@ -106,7 +108,7 @@ public class CDCrafting {
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
 
-        crudeAssembler = new RecipeCrafter("crude-assembler") {{
+        assemblerT0 = new RecipeCrafter("assembler-t0") {{
             requirements(Category.crafting, ItemStack.with());
             size = 3;
 
@@ -153,7 +155,7 @@ public class CDCrafting {
         }};
         // endregion
         // region T1
-        smelter = new RecipeCrafter("smelter") {{
+        smelterT1 = new RecipeCrafter("smelter-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
 
@@ -165,10 +167,15 @@ public class CDCrafting {
                     )
             ));
 
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawDefault()
+            );
+
             consumePower(2f);
         }};
 
-        press = new RecipeCrafter("press") {{
+        pressT1 = new RecipeCrafter("press-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
 
@@ -183,7 +190,7 @@ public class CDCrafting {
             consumePower(2f);
         }};
 
-        rollingMill = new RecipeCrafter("rolling-mill") {{
+        rollingMillT1 = new RecipeCrafter("rolling-mill-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
 
@@ -204,7 +211,7 @@ public class CDCrafting {
             consumePower(2f);
         }};
 
-        refinery = new RecipeCrafter("refinery") {{
+        refineryT1 = new RecipeCrafter("refinery-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
 
@@ -228,7 +235,7 @@ public class CDCrafting {
             consumePower(2f);
         }};
 
-        mixer = new RecipeCrafter("mixer") {{
+        mixerT1 = new RecipeCrafter("mixer-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
 
@@ -250,7 +257,7 @@ public class CDCrafting {
             consumePower(2f);
         }};
 
-        assembler = new RecipeCrafter("assembler") {{
+        assemblerT1 = new RecipeCrafter("assembler-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
 

@@ -32,15 +32,15 @@ public class CDItems {
         rawSilver = new Item("raw-silver", Color.valueOf("8dabd4"));
         rawPlatinum = new Item("raw-platinum", Color.valueOf("d985a3"));
 
-        sulfur = new Item("sulfur", Color.valueOf("dece5e")) {{
+        sulfur = new Item("sulfur", Color.valueOf("f7eb94")) {{
 
         }};
 
-        waterIce = new Item("water-ice") {{
+        waterIce = new Item("water-ice", Color.valueOf("c7e1ff")) {{
 
         }};
 
-        biomass = new Item("biomass") {{
+        biomass = new Item("biomass", Color.valueOf("f0f0f0")) {{
 
         }};
 
@@ -99,6 +99,6 @@ public class CDItems {
         liquidCell = new Item("liquid-cell");
         electronicMotor = new Item("electronic-motor");
 
-        lemon = new Item("lemon");
+        lemon = new Item("lemon", Color.valueOf("f4da7f")); // you should totally put lemon nutritional value in its stats. yknww. just a thought.
     }
 }

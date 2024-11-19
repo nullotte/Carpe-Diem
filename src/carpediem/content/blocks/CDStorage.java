@@ -10,11 +10,10 @@ import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 public class CDStorage {
-    // TODO tiered landing pods. and the fucking ROCKET
-    public static Block landingPod, industryHub;
+    public static Block landingPodT0, landingPodT1, landingPodT2, industryHub;
 
     public static void load() {
-        landingPod = new DrawerCoreBlock("landing-pod") {{
+        landingPodT0 = new DrawerCoreBlock("landing-pod-t0") {{
             requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with());
             size = 4;
             alwaysUnlocked = true;

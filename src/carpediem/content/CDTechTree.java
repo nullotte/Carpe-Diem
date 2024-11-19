@@ -15,7 +15,7 @@ public class CDTechTree {
     public static Seq<Block> blocks = new Seq<>();
 
     public static void load() {
-        TechNode root = nodeRoot("planet", landingPod, () -> {
+        TechNode root = nodeRoot("planet", landingPodT0, () -> {
             node(belt, () -> {
                 node(beltMerger, () -> {
                     node(beltSplitter);
@@ -23,20 +23,20 @@ public class CDTechTree {
                 });
             });
 
-            node(crudeSmelter, () -> {
-                node(crudePress);
-                node(crudeRollingMill, () -> {
+            node(smelterT0, () -> {
+                node(pressT0);
+                node(rollingMillT0, () -> {
                     node(cableNode, () -> {
                         node(cableTower);
                     });
                 });
-                node(crudeAssembler, () -> {
-                    node(smelter);
-                    node(press);
-                    node(rollingMill);
-                    node(refinery, () -> {
-                        node(mixer);
-                        node(assembler);
+                node(assemblerT0, () -> {
+                    node(smelterT1);
+                    node(pressT1);
+                    node(rollingMillT1);
+                    node(refineryT1, () -> {
+                        node(mixerT1);
+                        node(assemblerT1);
                     });
                 });
             });
