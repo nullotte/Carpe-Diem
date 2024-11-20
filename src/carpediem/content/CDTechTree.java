@@ -99,15 +99,11 @@ public class CDTechTree {
 
                                     nodeProduce(liquidCell, () -> {});
                                 });
-                                nodeProduce(silverRod, () -> {
-                                    nodeProduce(silverWire, () -> {});
-                                });
+                                nodeProduce(silverRod, () -> {});
 
                                 nodeProduce(platinum, () -> {
                                     nodeProduce(platinumPlate, () -> {});
-                                    nodeProduce(platinumRod, () -> {
-                                        nodeProduce(platinumWire, () -> {});
-                                    });
+                                    nodeProduce(platinumRod, () -> {});
                                 });
                             });
                         });

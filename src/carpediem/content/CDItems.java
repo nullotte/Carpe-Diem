@@ -75,8 +75,6 @@ public class CDItems {
 
         aluminumWire = new Item("aluminum-wire", aluminum.color);
         nickelWire = new Item("nickel-wire", nickel.color);
-        silverWire = new Item("silver-wire", silver.color);
-        platinumWire = new Item("platinum-wire", platinum.color);
 
         controlCircuit = new Item("control-circuit");
         calculationCircuit = new Item("calculation-circuit");

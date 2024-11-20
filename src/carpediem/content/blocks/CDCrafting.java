@@ -47,10 +47,8 @@ public class CDCrafting {
         );
 
         wires = OrderedMap.of(
-                CDItems.aluminum, CDItems.aluminumWire,
-                CDItems.nickel, CDItems.nickelWire,
-                CDItems.silver, CDItems.silverWire,
-                CDItems.platinum, CDItems.platinumWire
+                CDItems.aluminumRod, CDItems.aluminumWire,
+                CDItems.nickelRod, CDItems.nickelWire
         );
 
         // region T0
