@@ -1,6 +1,7 @@
 package carpediem.content;
 
 import arc.struct.*;
+import carpediem.game.CDObjectives.*;
 import mindustry.content.*;
 import mindustry.world.*;
 
@@ -10,6 +11,7 @@ import static carpediem.content.blocks.CDDistribution.*;
 import static carpediem.content.blocks.CDPower.*;
 import static carpediem.content.blocks.CDProduction.*;
 import static carpediem.content.blocks.CDStorage.*;
+import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.CDItems.*;
 
 public class CDTechTree {
@@ -45,6 +47,12 @@ public class CDTechTree {
             });
 
             node(industryHub);
+
+            node(launchPlatformT0);
+
+            node(CDSectorPresets.one, () -> {
+                node(CDSectorPresets.two, Seq.with(new LaunchSector(landingPodT0)), () -> {});
+            });
 
             nodeProduce(rawAluminum, () -> {
                 nodeProduce(waterIce, () -> {
@@ -117,6 +125,7 @@ public class CDTechTree {
                 nodeProduce(rawPlatinum, () -> {});
             });
         });
+
         CDPlanets.planet.techTree = root;
 
         root.each(node -> {

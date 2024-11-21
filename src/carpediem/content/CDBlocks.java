@@ -20,6 +20,6 @@ public class CDBlocks {
         CDProduction.load();
         CDStorage.load();
         CDPayloads.load();
-        // CDCampaign.load();
+        CDCampaign.load();
     }
 }

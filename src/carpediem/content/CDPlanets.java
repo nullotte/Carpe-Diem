@@ -16,6 +16,7 @@ public class CDPlanets {
             meshLoader = () -> new HexMesh(this, 6);
 
             defaultCore = CDStorage.landingPodT0;
+            allowLaunchToNumbered = false;
 
             ruleSetter = r -> {
                 r.fog = true;
@@ -27,6 +28,7 @@ public class CDPlanets {
 
                 // TODO ugly giant wall of crosses
                 r.bannedBlocks.addAll(CDTechTree.blocks);
+                r.bannedBlocks.addAll(Blocks.itemSource, Blocks.liquidSource, Blocks.payloadSource);
             };
 
             unlockedOnLand.add(CDStorage.landingPodT0);

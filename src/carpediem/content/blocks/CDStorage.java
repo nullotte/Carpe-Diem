@@ -5,12 +5,12 @@ import carpediem.world.blocks.storage.*;
 import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.type.*;
-import mindustry.world.*;
+import mindustry.world.blocks.storage.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 public class CDStorage {
-    public static Block landingPodT0, landingPodT1, landingPodT2, industryHub;
+    public static CoreBlock landingPodT0, landingPodT1, landingPodT2, industryHub;
 
     public static void load() {
         landingPodT0 = new DrawerCoreBlock("landing-pod-t0") {{
@@ -19,6 +19,14 @@ public class CDStorage {
             alwaysUnlocked = true;
             itemCapacity = 5000;
             unitCapModifier = 2;
+
+            squareSprite = false;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawCoreDoor(),
+                    new DrawDefault(),
+                    new DrawTeam()
+            );
         }};
 
         industryHub = new HubBlock("industry-hub") {{
@@ -36,6 +44,7 @@ public class CDStorage {
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     new DrawItemSlot(true, new Vec2(6f, 16f), new Vec2(12f, 12f)),
+                    new DrawCoreDoor(),
                     new DrawDefault(),
                     new DrawTeam()
             );
