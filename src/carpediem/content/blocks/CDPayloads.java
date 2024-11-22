@@ -12,7 +12,7 @@ public class CDPayloads {
     public static Block
     payloadRail, payloadRailRouter,
     payloadAssembler,
-    payloadCrane, payloadManufacturingPlant, payloadManufacturingComponent;
+    payloadCrane, payloadManufacturingPlant, payloadManufacturingGrid;
 
     public static void load() {
         payloadRail = new PayloadConveyor("payload-rail") {{
@@ -69,9 +69,9 @@ public class CDPayloads {
             );
         }};
 
-        payloadManufacturingComponent = new PayloadManufacturingComponent("payload-manufacturing-component") {{
+        payloadManufacturingGrid = new PayloadManufacturingGrid("payload-manufacturing-grid") {{
             requirements(Category.units, ItemStack.with());
-            size = 3;
+            size = 5;
         }};
     }
 }

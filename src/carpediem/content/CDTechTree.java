@@ -56,6 +56,9 @@ public class CDTechTree {
                     node(payloadRailRouter);
                     node(payloadCrane);
                 });
+                node(payloadManufacturingPlant, () -> {
+                    node(payloadManufacturingGrid);
+                });
             });
 
             node(CDSectorPresets.one, () -> {

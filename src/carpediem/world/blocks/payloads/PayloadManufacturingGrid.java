@@ -4,10 +4,10 @@ import arc.struct.*;
 import mindustry.world.blocks.payloads.*;
 import carpediem.world.blocks.payloads.PayloadManufacturingPlant.*;
 
-public class PayloadManufacturingComponent extends PayloadBlock {
-    private static final Seq<ManufacturingComponentBuild> checkSeq = new Seq<>();
+public class PayloadManufacturingGrid extends PayloadBlock {
+    private static final Seq<ManufacturingGridBuild> checkSeq = new Seq<>();
 
-    public PayloadManufacturingComponent(String name) {
+    public PayloadManufacturingGrid(String name) {
         super(name);
         rotate = true;
         acceptsPayload = true;
@@ -19,7 +19,7 @@ public class PayloadManufacturingComponent extends PayloadBlock {
         //TODO
     }
 
-    public class ManufacturingComponentBuild extends PayloadBlockBuild<Payload> {
+    public class ManufacturingGridBuild extends PayloadBlockBuild<Payload> {
         @Override
         public void onProximityUpdate() {
             super.onProximityUpdate();
@@ -30,7 +30,7 @@ public class PayloadManufacturingComponent extends PayloadBlock {
 
         // this is so, so, so terrible
         public void updateChainForward() {
-            if (front() instanceof ManufacturingComponentBuild other && !checkSeq.contains(other)) {
+            if (front() instanceof ManufacturingGridBuild other && !checkSeq.contains(other)) {
                 checkSeq.add(this);
                 other.updateChainForward();
             } else if (front() instanceof ManufacturingPlantBuild other) {

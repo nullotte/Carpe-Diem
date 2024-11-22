@@ -11,7 +11,7 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.blocks.payloads.*;
-import carpediem.world.blocks.payloads.PayloadManufacturingComponent.*;
+import carpediem.world.blocks.payloads.PayloadManufacturingGrid.*;
 
 public class PayloadManufacturingPlant extends PayloadBlock {
     public Seq<PayloadManufacturingRecipe> recipes = new Seq<>();
@@ -29,7 +29,7 @@ public class PayloadManufacturingPlant extends PayloadBlock {
     }
 
     public class ManufacturingPlantBuild extends PayloadBlockBuild<Payload> {
-        public Seq<ManufacturingComponentBuild> chained = new Seq<>();
+        public Seq<ManufacturingGridBuild> chained = new Seq<>();
         public Seq<PayloadManufacturingRecipe> possibleRecipes = Seq.with(recipes);
         public boolean failedManufacturing;
 
@@ -39,7 +39,7 @@ public class PayloadManufacturingPlant extends PayloadBlock {
         }
 
         public void checkChain(Building build, Building checker) {
-            if (build instanceof ManufacturingComponentBuild other && build.front() == checker && !chained.contains(other)) {
+            if (build instanceof ManufacturingGridBuild other && build.front() == checker && !chained.contains(other)) {
                 chained.add(other);
 
                 for (Building b : other.proximity) {
@@ -58,7 +58,7 @@ public class PayloadManufacturingPlant extends PayloadBlock {
             Tmp.p1.set(tileX(), tileY());
             Tmp.p2.set(tileX(), tileY());
 
-            for (ManufacturingComponentBuild b : chained) {
+            for (ManufacturingGridBuild b : chained) {
                 if (!b.filled()) {
                     full = false;
                     break;
@@ -79,7 +79,7 @@ public class PayloadManufacturingPlant extends PayloadBlock {
                             Building b = Vars.world.build(j, i);
 
                             // found one! match it with the recipes
-                            if (b instanceof ManufacturingComponentBuild component && chained.contains(component)) {
+                            if (b instanceof ManufacturingGridBuild component && chained.contains(component)) {
                                 possibleRecipes.each(recipe -> {
                                     char key = recipe.pattern[sy].charAt(sx);
 
