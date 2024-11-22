@@ -6,6 +6,7 @@ import arc.math.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import mindustry.*;
+import mindustry.entities.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -15,6 +16,7 @@ import mindustry.world.draw.*;
 public class DrawerCoreBlock extends CoreBlock {
     public DrawBlock drawer = new DrawDefault();
     public float spawnAnimationDuration = 120f;
+    public float closeRadius = 30f;
 
     public DrawerCoreBlock(String name) {
         super(name);
@@ -104,12 +106,17 @@ public class DrawerCoreBlock extends CoreBlock {
 
     public class DrawerCoreBuild extends CoreBuild {
         public float spawnAnimationTime = 0f;
+        public boolean waiting;
 
         @Override
         public void updateTile() {
             super.updateTile();
 
-            spawnAnimationTime = Mathf.maxZero(spawnAnimationTime - Time.delta);
+            if (waiting && !Units.any(x, y, closeRadius * 2f, closeRadius * 2f, u -> u.team == team && u.type == unitType && u.dst(this) < closeRadius)) {
+                waiting = false;
+            }
+
+            spawnAnimationTime = Math.max(spawnAnimationTime - Time.delta, waiting ? spawnAnimationDuration * 0.5f : 0f);
         }
 
         public float spawnAnimationProgress() {
@@ -125,6 +132,7 @@ public class DrawerCoreBlock extends CoreBlock {
         public void requestSpawn(Player player) {
             super.requestSpawn(player);
             spawnAnimationTime = spawnAnimationDuration;
+            waiting = true;
         }
     }
 }

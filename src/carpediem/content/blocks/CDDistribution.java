@@ -8,6 +8,7 @@ import mindustry.world.*;
 import mindustry.world.draw.*;
 
 public class CDDistribution {
+    // TODO belt overflow/underflow gates
     public static Block belt, beltMerger, beltSplitter, beltBridge;
 
     public static void load() {

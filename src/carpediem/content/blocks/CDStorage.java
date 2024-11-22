@@ -1,13 +1,12 @@
 package carpediem.content.blocks;
 
 import arc.math.geom.*;
+import carpediem.content.*;
 import carpediem.world.blocks.storage.*;
 import carpediem.world.draw.*;
-import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.draw.*;
-import mindustry.world.meta.*;
 
 public class CDStorage {
     public static CoreBlock landingPodT0, landingPodT1, landingPodT2, industryHub;
@@ -17,8 +16,10 @@ public class CDStorage {
             requirements(Category.effect, ItemStack.with());
             size = 4;
             alwaysUnlocked = true;
+
             itemCapacity = 5000;
             unitCapModifier = 2;
+            unitType = CDUnitTypes.cache;
 
             squareSprite = false;
             drawer = new DrawMulti(
@@ -32,14 +33,12 @@ public class CDStorage {
         industryHub = new HubBlock("industry-hub") {{
             requirements(Category.effect, ItemStack.with());
             size = 6;
-            unitType = UnitTypes.gamma;
 
             // it's balanced i swear
             health = 99999;
             itemCapacity = 20000;
-            alwaysUnlocked = true;
-            isFirstTier = true;
             unitCapModifier = 32;
+            unitType = CDUnitTypes.cache;
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
