@@ -6,7 +6,9 @@ import mindustry.world.*;
 
 public class CDPower {
     // wind3
-    public static Block cableNode, cableTower;
+    public static Block
+    cableNode, cableTower,
+    burnerGenerator, steamTurbineGenerator, gasTurbineGenerator;
 
     public static void load() {
         cableNode = new CableNode("cable-node") {{
