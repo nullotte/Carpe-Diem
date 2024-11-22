@@ -8,7 +8,7 @@ import mindustry.world.meta.*;
 
 public class CDCampaign {
     public static Block
-    cargoLaunchPadT0, cargoLaunchPadT1,
+    cargoLoadingPadT0, cargoLoadingPadT1,
     launchPlatformT0, launchPlatformT1, launchPlatformT2;
 
     public static void load() {

@@ -8,6 +8,7 @@ import mindustry.world.*;
 import static mindustry.content.TechTree.*;
 import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDDistribution.*;
+import static carpediem.content.blocks.CDPayloads.*;
 import static carpediem.content.blocks.CDPower.*;
 import static carpediem.content.blocks.CDProduction.*;
 import static carpediem.content.blocks.CDStorage.*;
@@ -49,6 +50,13 @@ public class CDTechTree {
             node(industryHub);
 
             node(launchPlatformT0);
+
+            node(payloadAssembler, () -> {
+                node(payloadRail, () -> {
+                    node(payloadRailRouter);
+                    node(payloadCrane);
+                });
+            });
 
             node(CDSectorPresets.one, () -> {
                 node(CDSectorPresets.two, Seq.with(new LaunchSector(landingPodT0)), () -> {});

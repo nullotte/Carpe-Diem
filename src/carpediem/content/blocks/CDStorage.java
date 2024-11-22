@@ -13,8 +13,8 @@ public class CDStorage {
     public static CoreBlock landingPodT0, landingPodT1, landingPodT2, industryHub;
 
     public static void load() {
-        landingPodT0 = new DrawerCoreBlock("landing-pod-t0") {{
-            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with());
+        landingPodT0 = new LandingPod("landing-pod-t0") {{
+            requirements(Category.effect, ItemStack.with());
             size = 4;
             alwaysUnlocked = true;
             itemCapacity = 5000;
