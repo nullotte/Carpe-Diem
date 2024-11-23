@@ -28,11 +28,7 @@ public class Splitter extends DuctRouter {
 
     @Override
     public TextureRegion[] icons() {
-        TextureRegion[] out = drawer.finalIcons(this);
-        for (TextureRegion reg : out) {
-            Log.info(reg);
-        }
-        return out;
+        return drawer.finalIcons(this);
     }
 
     @Override

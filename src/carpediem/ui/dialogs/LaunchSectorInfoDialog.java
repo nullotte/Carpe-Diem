@@ -1,4 +1,4 @@
-package carpediem.ui;
+package carpediem.ui.dialogs;
 
 import arc.util.*;
 import mindustry.gen.*;

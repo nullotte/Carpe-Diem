@@ -1,15 +1,17 @@
 package carpediem;
 
-import carpediem.ui.*;
 import mindustry.*;
 import mindustry.mod.*;
 import carpediem.content.*;
+import carpediem.ui.dialogs.*;
 
 public class CarpeDiem extends Mod {
+    public static ArchiveDatabaseDialog archiveDatabase;
     public static LaunchSelectDialog launchSelect;
 
     @Override
     public void init() {
+        archiveDatabase = new ArchiveDatabaseDialog();
         launchSelect = new LaunchSelectDialog();
 
         // this is probably bad
@@ -31,5 +33,6 @@ public class CarpeDiem extends Mod {
         CDPlanets.load();
         CDSectorPresets.load();
         CDTechTree.load();
+        CDArchives.load();
     }
 }

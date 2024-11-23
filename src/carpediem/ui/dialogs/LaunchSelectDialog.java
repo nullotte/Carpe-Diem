@@ -1,9 +1,9 @@
-package carpediem.ui;
+package carpediem.ui.dialogs;
 
-import arc.*;
 import arc.func.*;
 import arc.struct.*;
 import arc.util.*;
+import carpediem.ui.dialogs.*;
 import carpediem.world.blocks.campaign.LaunchPlatform.*;
 import mindustry.*;
 import mindustry.gen.*;

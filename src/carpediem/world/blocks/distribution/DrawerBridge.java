@@ -29,11 +29,7 @@ public class DrawerBridge extends DuctBridge {
 
     @Override
     public TextureRegion[] icons() {
-        TextureRegion[] out = drawer.finalIcons(this);
-        for (TextureRegion reg : out) {
-            Log.info(reg);
-        }
-        return out;
+        return drawer.finalIcons(this);
     }
 
     @Override
