@@ -23,6 +23,9 @@ public class CDTechTree {
             node(belt, () -> {
                 node(beltMerger, () -> {
                     node(beltSplitter);
+                    node(beltOverflowGate, () -> {
+                        node(beltUnderflowGate);
+                    });
                     node(beltBridge);
                 });
             });
@@ -47,7 +50,10 @@ public class CDTechTree {
                 });
             });
 
-            node(industryHub);
+            node(industryHub, () -> {
+                node(storageVault);
+                node(storageRelay);
+            });
 
             node(launchPlatformT0);
 

@@ -8,8 +8,7 @@ import mindustry.world.*;
 import mindustry.world.draw.*;
 
 public class CDDistribution {
-    // TODO belt overflow/underflow gates
-    public static Block belt, beltMerger, beltSplitter, beltBridge;
+    public static Block belt, beltMerger, beltSplitter, beltOverflowGate, beltUnderflowGate, beltBridge;
 
     public static void load() {
         belt = new Belt("belt") {{
@@ -40,6 +39,32 @@ public class CDDistribution {
             drawer = new DrawMulti(
                     new DrawRegion(),
                     new DrawSortRegion(),
+                    new DrawSideRegion()
+            );
+        }};
+
+        // these SHOULD cost circuits... but then the splitters would also cost circuits since they sort items and Im not making the player do that
+        beltOverflowGate = new DrawerOverflowDuct("belt-overflow-gate") {{
+            requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 6, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
+            speed = 12f;
+
+            squareSprite = false;
+            rotateDraw = false;
+            drawer = new DrawMulti(
+                    new DrawRegion(),
+                    new DrawSideRegion()
+            );
+        }};
+
+        beltUnderflowGate = new DrawerOverflowDuct("belt-underflow-gate") {{
+            requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 6, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
+            speed = 12f;
+            invert = true;
+
+            squareSprite = false;
+            rotateDraw = false;
+            drawer = new DrawMulti(
+                    new DrawRegion(),
                     new DrawSideRegion()
             );
         }};
