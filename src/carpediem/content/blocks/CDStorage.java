@@ -57,7 +57,7 @@ public class CDStorage {
 
         storageVault = new StorageBlock("storage-vault") {{
             requirements(Category.effect, ItemStack.with());
-            size = 5;
+            size = 6;
             itemCapacity = 5000;
         }};
 

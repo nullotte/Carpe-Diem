@@ -55,7 +55,7 @@ public class CDTechTree {
                 node(storageRelay);
             });
 
-            node(launchPlatformT0);
+            node(launchPlatformT1);
 
             node(payloadAssembler, () -> {
                 node(payloadRail, () -> {
