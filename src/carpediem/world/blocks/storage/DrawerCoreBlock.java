@@ -65,7 +65,7 @@ public class DrawerCoreBlock extends CoreBlock {
         }
 
         Draw.color(Pal.lightTrail);
-        //TODO spikier heat
+        // uh
         Draw.rect("circle-shadow", x, y, s, s);
 
         Draw.scl(scl);
