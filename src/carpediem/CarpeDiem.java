@@ -1,6 +1,9 @@
 package carpediem;
 
+import arc.*;
+import carpediem.world.draw.*;
 import mindustry.*;
+import mindustry.game.EventType.*;
 import mindustry.mod.*;
 import carpediem.content.*;
 import carpediem.ui.dialogs.*;
@@ -21,6 +24,11 @@ public class CarpeDiem extends Mod {
                     sector.preset.clearUnlock();
                 }
             });
+        });
+
+        // this is worse
+        Events.run(Trigger.draw, () -> {
+            DrawItemSlot.currentDrawn = null;
         });
     }
 

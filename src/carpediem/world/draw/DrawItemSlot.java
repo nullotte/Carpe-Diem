@@ -5,63 +5,73 @@ import arc.math.geom.*;
 import arc.struct.*;
 import mindustry.*;
 import mindustry.gen.*;
-import mindustry.world.*;
 import mindustry.world.draw.*;
+import mindustry.world.modules.*;
 
 public class DrawItemSlot extends DrawBlock {
-    public Vec2[] slots;
-    // should be per-slot but i cant be bothered ok?? thats for future me to deal with , if she'll even have to
-    public boolean doSymmetry;
+    public static final int stack = 1000;
 
-    public DrawItemSlot(boolean doSymmetry, Vec2... slots) {
-        this.doSymmetry = doSymmetry;
-        this.slots = slots;
+    public static int currentItem;
+    public static int currentStack;
+    public static boolean continueDrawing;
+    public static ItemModule currentDrawn;
+
+    public Vec2 slot;
+
+    public DrawItemSlot(Vec2 slot) {
+        this.slot = slot;
     }
 
-    @Override
-    public void load(Block block) {
-        if (doSymmetry) {
-            Seq<Vec2> newSlots = new Seq<>();
+    public static DrawMulti mirrored(Vec2... slots) {
+        Seq<DrawBlock> drawers = new Seq<>();
 
-            for (Vec2 slot : slots) {
-                int drawn = slot.x == slot.y ? 4 : 8;
-                for (int i = 0; i < drawn; i++) {
-                    switch (i) {
-                        case 0 -> newSlots.add(new Vec2(slot.x, slot.y));
-                        case 1 -> newSlots.add(new Vec2(-slot.x, slot.y));
-                        case 2 -> newSlots.add(new Vec2(slot.x, -slot.y));
-                        case 3 -> newSlots.add(new Vec2(-slot.x, -slot.y));
-                        case 4 -> newSlots.add(new Vec2(slot.y, slot.x));
-                        case 5 -> newSlots.add(new Vec2(-slot.y, slot.x));
-                        case 6 -> newSlots.add(new Vec2(slot.y, -slot.x));
-                        case 7 -> newSlots.add(new Vec2(-slot.y, -slot.x));
-                    }
-                }
-            }
-
-            slots = newSlots.toArray(Vec2.class);
-            doSymmetry = false;
+        for (Vec2 slot : slots) {
+            drawers.add(new DrawItemSlot(new Vec2(slot.x, slot.y)));
+            drawers.add(new DrawItemSlot(new Vec2(slot.x, -slot.y)));
+            drawers.add(new DrawItemSlot(new Vec2(-slot.x, slot.y)));
+            drawers.add(new DrawItemSlot(new Vec2(-slot.x, -slot.y)));
         }
+
+        return new DrawMulti(drawers.as());
     }
 
     @Override
     public void draw(Building build) {
         if (build.block.hasItems) {
-            rand.setSeed(build.id);
-            int[] i = {0};
+            if (currentDrawn != build.items) {
+                currentDrawn = build.items;
+                currentItem = 0;
+                currentStack = 0;
+                continueDrawing = true;
+            }
 
-            build.items.each((item, count) -> {
-                if (i[0] < slots.length) {
-                    Vec2 slot = slots[i[0]++];
-                    // TODO the items should wobble around a bit
-                    Draw.rect(
-                            item.fullIcon,
-                            build.x + slot.x,
-                            build.y + slot.y,
-                            Vars.itemSize, Vars.itemSize
-                    );
+            if (continueDrawing) {
+                boolean success = false;
+
+                for (int i = currentItem; i < Vars.content.items().size; i++) {
+                    // check if the building has enough of the current item - if so, draw it
+                    if (currentDrawn.has(Vars.content.item(i), 1 + currentStack * stack)) {
+                        Draw.rect(
+                                Vars.content.item(i).fullIcon,
+                                build.x + slot.x,
+                                build.y + slot.y,
+                                Vars.itemSize, Vars.itemSize
+                        );
+
+                        currentItem = i;
+                        currentStack++;
+                        success = true;
+                        break;
+                    } else {
+                        // not enough, set required amount back to 1
+                        currentStack = 0;
+                    }
                 }
-            });
+
+                if (!success) {
+                    continueDrawing = false;
+                }
+            }
         }
     }
 }
