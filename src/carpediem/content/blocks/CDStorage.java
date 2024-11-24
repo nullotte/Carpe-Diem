@@ -67,10 +67,10 @@ public class CDStorage {
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     DrawItemSlot.mirrored(
-                            new Vec2(19f / 4f, 12f / 4f),
-                            new Vec2(56f / 4f, 12f / 4f),
-                            new Vec2(19f / 4f, 64f / 4f),
-                            new Vec2(56f / 4f, 64f / 4f)
+                            new Vec2(33f / 4f, 12f / 4f),
+                            new Vec2(57f / 4f, 12f / 4f),
+                            new Vec2(12f / 4f, 33f / 4f),
+                            new Vec2(12f / 4f, 57f / 4f)
                     ),
                     new DrawDefault(),
                     new DrawTeam()
