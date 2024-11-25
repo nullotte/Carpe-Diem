@@ -18,17 +18,17 @@ public class CDCrafting {
     // TODO T2
     // also drawers . literally none of these blocks have sprites or visuals at all rn
 
-    public static OrderedMap<Item, Item> rawItems, plates, rods, wires;
+    public static OrderedMap<Item, Item> smelterRecipes, pressRecipes, rollingMillRecipes;
 
     public static void load() {
-        rawItems = OrderedMap.of(
+        smelterRecipes = OrderedMap.of(
                 CDItems.rawAluminum, CDItems.aluminum,
                 CDItems.rawNickel, CDItems.nickel,
                 CDItems.rawSilver, CDItems.silver,
                 CDItems.rawPlatinum, CDItems.platinum
         );
 
-        plates = OrderedMap.of(
+        pressRecipes = OrderedMap.of(
                 CDItems.aluminum, CDItems.aluminumPlate,
                 CDItems.nickel, CDItems.nickelPlate,
                 CDItems.silver, CDItems.silverPlate,
@@ -38,15 +38,12 @@ public class CDCrafting {
                 Items.plastanium, CDItems.plastaniumSheet
         );
 
-        rods = OrderedMap.of(
+        rollingMillRecipes = OrderedMap.of(
                 CDItems.aluminum, CDItems.aluminumRod,
                 CDItems.nickel, CDItems.nickelRod,
                 CDItems.silver, CDItems.silverRod,
                 CDItems.platinum, CDItems.platinumRod,
-                CDItems.sturdyAlloy, CDItems.alloyRod
-        );
-
-        wires = OrderedMap.of(
+                CDItems.sturdyAlloy, CDItems.alloyRod,
                 CDItems.aluminumRod, CDItems.aluminumWire,
                 CDItems.nickelRod, CDItems.nickelWire
         );
@@ -57,7 +54,7 @@ public class CDCrafting {
             size = 3;
 
             recipes = new Seq<>();
-            rawItems.each((in, out) -> recipes.add(
+            smelterRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
                             new ItemStack(in, 2),
                             new ItemStack(out, 1)
@@ -72,7 +69,7 @@ public class CDCrafting {
             size = 3;
 
             recipes = new Seq<>();
-            plates.each((in, out) -> recipes.add(
+            pressRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
                             new ItemStack(in, 1),
                             new ItemStack(out, 1)
@@ -87,14 +84,7 @@ public class CDCrafting {
             size = 3;
 
             recipes = new Seq<>();
-            rods.each((in, out) -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(in, 1),
-                            new ItemStack(out, 2)
-                    )
-            ));
-            // i am not a good coder
-            rawItems.each((in, out) -> recipes.add(
+            rollingMillRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
                             new ItemStack(in, 1),
                             new ItemStack(out, 2)
@@ -156,7 +146,7 @@ public class CDCrafting {
             size = 4;
 
             recipes = new Seq<>();
-            rawItems.each((in, out) -> recipes.add(
+            smelterRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
                             new ItemStack(in, 3),
                             new ItemStack(out, 3)
@@ -176,7 +166,7 @@ public class CDCrafting {
             size = 4;
 
             recipes = new Seq<>();
-            plates.each((in, out) -> recipes.add(
+            pressRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
                             new ItemStack(in, 2),
                             new ItemStack(out, 2)
@@ -191,13 +181,7 @@ public class CDCrafting {
             size = 4;
 
             recipes = new Seq<>();
-            rods.each((in, out) -> recipes.add(
-                    new CraftingRecipe(
-                            new ItemStack(in, 3),
-                            new ItemStack(out, 6)
-                    )
-            ));
-            wires.each((in, out) -> recipes.add(
+            rollingMillRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
                             new ItemStack(in, 3),
                             new ItemStack(out, 6)
@@ -218,6 +202,7 @@ public class CDCrafting {
                     }},
                     new CraftingRecipe() {{
                         inputLiquids = LiquidStack.with(CDLiquids.petroleum, 0.2f);
+                        outputItems = ItemStack.with(CDItems.tar, 2);
                         outputLiquids = LiquidStack.with(Liquids.oil, 0.2f);
                     }},
                     new CraftingRecipe(
@@ -227,11 +212,9 @@ public class CDCrafting {
                         inputLiquids = LiquidStack.with(Liquids.oil, 0.2f);
                     }},
                     new CraftingRecipe(
-                            ItemStack.with(Items.sand, 1, CDItems.sulfur, 2),
+                            ItemStack.with(Items.sand, 1, CDItems.sulfur, 2, CDItems.tar, 1),
                             ItemStack.with(Items.pyratite, 4)
-                    ) {{
-                        inputLiquids = LiquidStack.with(Liquids.oil, 0.2f);
-                    }},
+                    ),
                     new CraftingRecipe(
                             ItemStack.with(CDItems.aluminum, 2, Items.silicon, 2, Items.pyratite, 1),
                             ItemStack.with(CDItems.sturdyAlloy, 4)

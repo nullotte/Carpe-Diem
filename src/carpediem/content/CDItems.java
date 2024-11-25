@@ -7,7 +7,7 @@ import mindustry.type.*;
 public class CDItems {
     public static Item
     rawAluminum, rawNickel, rawSilver, rawPlatinum,
-    sulfur, waterIce, // sand
+    sulfur, waterIce, tar, // sand
 
     aluminum, nickel, silver, platinum, sturdyAlloy, // pyratite, silicon, plastanium
 
@@ -36,6 +36,10 @@ public class CDItems {
         }};
 
         waterIce = new Item("water-ice", Color.valueOf("c7e1ff")) {{
+
+        }};
+
+        tar = new Item("tar", Color.valueOf("32312c")) {{
 
         }};
 

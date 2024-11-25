@@ -76,6 +76,7 @@ public class CDTechTree {
                     nodeProduce(Liquids.water, () -> {
                         nodeProduce(CDLiquids.petroleum, () -> {
                             nodeProduce(Liquids.oil, () -> {
+                                nodeProduce(tar, () -> {});
                                 nodeProduce(Items.silicon, () -> {
                                     nodeProduce(siliconSheet, () -> {});
                                 });
