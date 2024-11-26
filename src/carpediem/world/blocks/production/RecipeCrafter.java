@@ -18,7 +18,7 @@ import java.util.*;
 
 // TODO this class is so jank it probably needs a complete rewrite. but it works for now
 public class RecipeCrafter extends GenericCrafter {
-    public Seq<CraftingRecipe> recipes;
+    public Seq<CraftingRecipe> recipes = new Seq<>();
 
     protected ObjectMap<Seq<UnlockableContent>, CraftingRecipe> recipeMap;
     protected Seq<Item> inputItems;

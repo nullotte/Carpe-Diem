@@ -1,14 +1,16 @@
 package carpediem.content.blocks;
 
+import carpediem.content.*;
 import carpediem.world.blocks.power.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.blocks.power.*;
 
 public class CDPower {
-    // wind3
     public static Block
-    cableNode, cableTower,
-    burnerGenerator, steamTurbineGenerator, gasTurbineGenerator;
+    cableNode, cableTower, accumulator,
+    // TODO names
+    sulfurBurner, steamBoiler, fuelGenerator;
 
     public static void load() {
         cableNode = new CableNode("cable-node") {{
@@ -24,6 +26,20 @@ public class CDPower {
             laserScale = 0.4f;
             maxNodes = 4;
             laserRange = 40f;
+        }};
+
+        accumulator = new Battery("accumulator") {{
+            requirements(Category.power, ItemStack.with());
+            size = 3;
+            consumePowerBuffered(30000f);
+        }};
+
+        sulfurBurner = new ConsumeGenerator("sulfur-burner") {{
+            requirements(Category.power, ItemStack.with());
+            size = 3;
+            powerProduction = 2f;
+
+            consumeItem(CDItems.sulfur);
         }};
     }
 }

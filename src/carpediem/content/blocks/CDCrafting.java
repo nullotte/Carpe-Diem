@@ -50,13 +50,14 @@ public class CDCrafting {
 
         // region T0
         smelterT0 = new RecipeCrafter("smelter-t0") {{
-            requirements(Category.crafting, ItemStack.with());
+            requirements(Category.crafting, ItemStack.with(CDItems.rawAluminum, 10));
             size = 3;
+            itemCapacity = 50;
 
-            recipes = new Seq<>();
+            craftTime = 4f * 60f;
             smelterRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
-                            new ItemStack(in, 2),
+                            new ItemStack(in, 1),
                             new ItemStack(out, 1)
                     )
             ));
@@ -65,10 +66,11 @@ public class CDCrafting {
         }};
 
         pressT0 = new RecipeCrafter("press-t0") {{
-            requirements(Category.crafting, ItemStack.with());
+            requirements(Category.crafting, ItemStack.with(CDItems.aluminum, 20));
             size = 3;
+            itemCapacity = 50;
 
-            recipes = new Seq<>();
+            craftTime = 4f * 60f;
             pressRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
                             new ItemStack(in, 1),
@@ -80,10 +82,11 @@ public class CDCrafting {
         }};
 
         rollingMillT0 = new RecipeCrafter("rolling-mill-t0") {{
-            requirements(Category.crafting, ItemStack.with());
+            requirements(Category.crafting, ItemStack.with(CDItems.aluminum, 20));
             size = 3;
+            itemCapacity = 50;
 
-            recipes = new Seq<>();
+            craftTime = 4f * 60f;
             rollingMillRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
                             new ItemStack(in, 1),
@@ -95,9 +98,11 @@ public class CDCrafting {
         }};
 
         assemblerT0 = new RecipeCrafter("assembler-t0") {{
-            requirements(Category.crafting, ItemStack.with());
+            requirements(Category.crafting, ItemStack.with(CDItems.aluminum, 25, CDItems.aluminumPlate, 5));
             size = 3;
+            itemCapacity = 50;
 
+            craftTime = 4f * 60f;
             recipes = Seq.with(
                     new CraftingRecipe(
                             ItemStack.with(CDItems.aluminumPlate, 1, CDItems.nickelWire, 5),
@@ -144,12 +149,13 @@ public class CDCrafting {
         smelterT1 = new RecipeCrafter("smelter-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
+            itemCapacity = 50;
 
-            recipes = new Seq<>();
+            craftTime = 2f * 60f;
             smelterRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
-                            new ItemStack(in, 3),
-                            new ItemStack(out, 3)
+                            new ItemStack(in, 1),
+                            new ItemStack(out, 1)
                     )
             ));
 
@@ -158,43 +164,47 @@ public class CDCrafting {
                     new DrawDefault()
             );
 
-            consumePower(2f);
+            consumePower(1f / 12f);
         }};
 
         pressT1 = new RecipeCrafter("press-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
+            itemCapacity = 50;
 
-            recipes = new Seq<>();
+            craftTime = 2f * 60f;
             pressRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
-                            new ItemStack(in, 2),
-                            new ItemStack(out, 2)
+                            new ItemStack(in, 1),
+                            new ItemStack(out, 1)
                     )
             ));
 
-            consumePower(2f);
+            consumePower(1f / 12f);
         }};
 
         rollingMillT1 = new RecipeCrafter("rolling-mill-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
+            itemCapacity = 50;
 
-            recipes = new Seq<>();
+            craftTime = 2f * 60f;
             rollingMillRecipes.each((in, out) -> recipes.add(
                     new CraftingRecipe(
-                            new ItemStack(in, 3),
-                            new ItemStack(out, 6)
+                            new ItemStack(in, 1),
+                            new ItemStack(out, 2)
                     )
             ));
 
-            consumePower(2f);
+            consumePower(1f / 12f);
         }};
 
         refineryT1 = new RecipeCrafter("refinery-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
+            itemCapacity = 50;
 
+            craftTime = 2f * 60f;
             recipes = Seq.with(
                     new CraftingRecipe() {{
                         inputItems = ItemStack.with(CDItems.waterIce, 3);
@@ -229,13 +239,15 @@ public class CDCrafting {
                     }}
             );
 
-            consumePower(2f);
+            consumePower(1f / 10f);
         }};
 
         assemblerT1 = new RecipeCrafter("assembler-t1") {{
             requirements(Category.crafting, ItemStack.with());
             size = 4;
+            itemCapacity = 50;
 
+            craftTime = 2f * 60f;
             recipes = Seq.with(
                     new CraftingRecipe(
                             ItemStack.with(CDItems.aluminumPlate, 1, CDItems.nickelWire, 5),
@@ -275,7 +287,7 @@ public class CDCrafting {
                     )
             );
 
-            consumePower(2f);
+            consumePower(1f / 10f);
         }};
         // endregion
     }

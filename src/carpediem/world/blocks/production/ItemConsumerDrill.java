@@ -68,7 +68,8 @@ public class ItemConsumerDrill extends Drill {
 
         @Override
         public boolean canDump(Building to, Item item) {
-            return !consumesItem(item);
+            // actually so terrible
+            return !consumesItem(item) || (items.has(item, 2));
         }
 
         @Override

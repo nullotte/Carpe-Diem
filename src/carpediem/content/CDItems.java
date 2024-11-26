@@ -13,7 +13,7 @@ public class CDItems {
 
     aluminumPlate, nickelPlate, silverPlate, platinumPlate, alloyPlate, siliconSheet, plastaniumSheet,
     aluminumRod, nickelRod, silverRod, platinumRod, alloyRod,
-    aluminumWire, nickelWire, silverWire, platinumWire,
+    aluminumWire, nickelWire,
 
     controlCircuit, calculationCircuit, processingUnit,
     aluminumCogwheel, silverCogwheel, alloyCogwheel,
@@ -24,15 +24,26 @@ public class CDItems {
     // TODO stats?
 
     public static void load() {
+        // region raw
         rawAluminum = new Item("raw-aluminum", Color.valueOf("948fbf")) {{
+            hardness = 1;
             alwaysUnlocked = true;
         }};
-        rawNickel = new Item("raw-nickel", Color.valueOf("cbb07e"));
-        rawSilver = new Item("raw-silver", Color.valueOf("8dabd4"));
-        rawPlatinum = new Item("raw-platinum", Color.valueOf("d985a3"));
+
+        rawNickel = new Item("raw-nickel", Color.valueOf("cbb07e")) {{
+            hardness = 1;
+        }};
+
+        rawSilver = new Item("raw-silver", Color.valueOf("8dabd4")) {{
+            hardness = 4;
+        }};
+
+        rawPlatinum = new Item("raw-platinum", Color.valueOf("d985a3")) {{
+            hardness = 5;
+        }};
 
         sulfur = new Item("sulfur", Color.valueOf("f7eb94")) {{
-
+            hardness = 3;
         }};
 
         waterIce = new Item("water-ice", Color.valueOf("c7e1ff")) {{
@@ -42,7 +53,8 @@ public class CDItems {
         tar = new Item("tar", Color.valueOf("32312c")) {{
 
         }};
-
+        // endregion
+        // region refined
         aluminum = new Item("aluminum", rawAluminum.color) {{
 
         }};
@@ -62,7 +74,8 @@ public class CDItems {
         sturdyAlloy = new Item("sturdy-alloy", Color.valueOf("6b758b")) {{
 
         }};
-
+        // endregion
+        // region i dont even know
         aluminumPlate = new Item("aluminum-plate", aluminum.color);
         nickelPlate = new Item("nickel-plate", nickel.color);
         silverPlate = new Item("silver-plate", silver.color);
@@ -91,7 +104,9 @@ public class CDItems {
         powerCell = new Item("power-cell");
         liquidCell = new Item("liquid-cell");
         electronicMotor = new Item("electronic-motor");
+        // endregion
 
-        lemon = new Item("lemon", Color.valueOf("f4da7f")); // you should totally put lemon nutritional value in its stats. yknww. just a thought.
+        // malicious.
+        lemon = new Item("lemon", Color.valueOf("f4da7f"));
     }
 }

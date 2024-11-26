@@ -36,7 +36,8 @@ public class CDUnitTypes {
             legMaxLength = 1.1f;
 
             mineWalls = true; // sure why not
-            mineSpeed = 6f;
+            mineHardnessScaling = false;
+            mineSpeed = 130f / 60f; // should be 2/sec. but Who knows ! maybe it isnt ! maybe im absolute shit at math!
             mineTier = 3;
             buildSpeed = 1f;
             itemCapacity = 200;
