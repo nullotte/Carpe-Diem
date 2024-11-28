@@ -35,6 +35,7 @@ public class CarpeDiem extends Mod {
     @Override
     public void loadContent() {
         CDItems.load();
+        CDStatusEffects.load();
         CDLiquids.load();
         CDUnitTypes.load();
         CDBlocks.load();

@@ -36,6 +36,7 @@ public class PayloadCrane extends Block {
     public PayloadCrane(String name) {
         super(name);
         update = true;
+        solid = true;
         configurable = true;
         outlineIcon = true;
         outlinedIcon = 1;
