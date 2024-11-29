@@ -28,7 +28,7 @@ public class PayloadManufacturingGrid extends PayloadBlock {
     public Seq<PayloadManufacturingRecipe> recipes = new Seq<>();
     public float craftTime = 60f;
     public float ingredientRadius = 4f * Vars.tilesize;
-    public Interp mergeInterp = Interp.pow2In, sizeInterp = Interp.reverse;
+    public Interp mergeInterp = Interp.pow2In, sizeInterp = a -> 1f - Interp.pow2In.apply(a);
     public Effect mergeEffect = Fx.producesmoke, loadEffect = Fx.producesmoke,
             craftEffect = CDFx.payloadManufacture, failEffect = CDFx.payloadManufactureFail;
 
