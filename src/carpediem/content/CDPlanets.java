@@ -13,10 +13,12 @@ public class CDPlanets {
         asphodel = new Planet("asphodel", Planets.sun, 4f, 1) {{
             alwaysUnlocked = true;
             generator = new AsphodelPlanetGenerator();
+
             meshLoader = () -> new HexMesh(this, 6);
 
             defaultCore = CDStorage.landingPodT0;
             allowLaunchToNumbered = false;
+            prebuildBase = false;
 
             ruleSetter = r -> {
                 r.fog = true;

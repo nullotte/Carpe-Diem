@@ -3,6 +3,7 @@ package carpediem.maps.planet;
 import arc.graphics.*;
 import arc.math.*;
 import arc.math.geom.*;
+import arc.struct.*;
 import arc.util.*;
 import arc.util.noise.*;
 import mindustry.content.*;
@@ -13,17 +14,14 @@ import mindustry.world.*;
 
 public class AsphodelPlanetGenerator extends PlanetGenerator {
     public int octaves = 5, riverOctaves = 4;
-    public float heightScl = 0.6f, heightMult = 0.25f, riverLevel = -0.6f;
-    public float riverScl = 0.9f, riverMult = -1.2f;
+    public float heightScl = 0.6f, heightMult = 0.3f, coldPow = 6f, coldScl = 0.4f, coldThresh = 0.8f;
+    public float riverScl = 0.9f, riverMult = -1.2f, riverLevel = -0.6f, riverOffset = -0.2f;
 
-    // "temperature" and height
-    public Block[][] terrain = {
-            {Blocks.darksand, Blocks.stone, Blocks.stone, Blocks.snow},
-            {Blocks.sand, Blocks.shale, Blocks.stone, Blocks.snow},
-            {Blocks.sand, Blocks.shale, Blocks.shale, Blocks.snow},
-            {Blocks.sand, Blocks.shale, Blocks.shale, Blocks.snow},
-            {Blocks.grass, Blocks.shale, Blocks.snow, Blocks.snow}
-    };
+    public Block[] terrain = {Blocks.darksand, Blocks.stone, Blocks.shale, Blocks.snow};
+    public ObjectMap<Block, Block> coldMap = ObjectMap.of(
+            Blocks.stone, Blocks.shale,
+            Blocks.shale, Blocks.crystallineStone
+    );
 
     public AsphodelPlanetGenerator() {
 
@@ -39,14 +37,19 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
 
     @Override
     public float getHeight(Vec3 position) {
-        return (rawHeight(position) + riverDepth(position)) * heightMult;
+        float depth = riverDepth(position);
+        if (depth < riverLevel) {
+            depth += riverOffset;
+        }
+
+        return (rawHeight(position) + depth) * heightMult;
     }
 
     @Override
     public Color getColor(Vec3 position) {
         Block block = getBlock(position);
         if (riverDepth(position) < riverLevel) {
-            block = Blocks.redStone;
+            block = Blocks.ice;
         }
         return Tmp.c1.set(block.mapColor).a(1f - block.albedo);
     }
@@ -58,21 +61,26 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
 
     @Override
     public float getSizeScl() {
-        return 1800;
+        return 1000;
     }
 
     protected Block getBlock(Vec3 position) {
-        float temp = Math.abs(position.y) * 2f;
-        float tnoise = Simplex.noise3d(seed, 7, 0.5f, 1f / 6f, position.x, position.y + 999f, position.z);
-        temp = Mathf.lerp(temp, tnoise, 0.5f);
+        float cold = Math.abs(position.y) * 2f;
+        float cnoise = Simplex.noise3d(seed, 7, 0.5f, 1f / 6f, position.x, position.y + 999f, position.z);
+        cold = Mathf.lerp(cold, cnoise, 0.5f);
 
         float height = rawHeight(position) + riverDepth(position);
         height = (height + 1f) / 2f;
+        height = Mathf.lerp(height, 1f, Mathf.pow(cold, coldPow) * coldScl);
 
-        int tempIndex = Mathf.clamp((int) (temp * terrain.length), 0, terrain.length - 1);
-        int heightIndex = Mathf.clamp((int) (height * terrain[tempIndex].length), 0, terrain[tempIndex].length - 1);
+        int heightIndex = Mathf.clamp((int) (height * terrain.length), 0, terrain.length - 1);
+        Block result = terrain[heightIndex];
 
-        return terrain[tempIndex][heightIndex];
+        if (cold > coldThresh) {
+            result = coldMap.get(result, result);
+        }
+
+        return result;
     }
 
     @Override
