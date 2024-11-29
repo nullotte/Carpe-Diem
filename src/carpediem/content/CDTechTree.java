@@ -19,7 +19,7 @@ public class CDTechTree {
     public static Seq<Block> blocks = new Seq<>();
 
     public static void load() {
-        TechNode root = nodeRoot("planet", landingPodT0, () -> {
+        TechNode root = nodeRoot("carpe-diem-asphodel", landingPodT0, () -> {
             node(belt, () -> {
                 node(beltMerger, () -> {
                     node(beltSplitter);
@@ -142,7 +142,7 @@ public class CDTechTree {
             });
         });
 
-        CDPlanets.planet.techTree = root;
+        CDPlanets.asphodel.techTree = root;
 
         root.each(node -> {
             if (node.content instanceof Block block) {

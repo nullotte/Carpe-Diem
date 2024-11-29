@@ -19,7 +19,7 @@ public class CarpeDiem extends Mod {
 
         // this is probably bad
         Vars.ui.planet.update(() -> {
-            CDPlanets.planet.sectors.each(sector -> {
+            CDPlanets.asphodel.sectors.each(sector -> {
                 if (sector.preset != null && !sector.hasBase()) {
                     sector.preset.clearUnlock();
                 }
