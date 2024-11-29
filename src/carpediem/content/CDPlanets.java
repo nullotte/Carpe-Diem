@@ -10,9 +10,9 @@ public class CDPlanets {
     public static Planet asphodel;
 
     public static void load() {
-        asphodel = new Planet("asphodel", Planets.sun, 2f, 1) {{
+        asphodel = new Planet("asphodel", Planets.sun, 4f, 1) {{
             alwaysUnlocked = true;
-            generator = new ModdedPlanetGenerator();
+            generator = new AsphodelPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 6);
 
             defaultCore = CDStorage.landingPodT0;
