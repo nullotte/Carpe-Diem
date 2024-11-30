@@ -13,9 +13,8 @@ public class CDDistribution {
     public static void load() {
         belt = new Belt("belt") {{
             requirements(Category.distribution, ItemStack.with(CDItems.aluminumPlate, 1, CDItems.aluminumCogwheel, 1));
-            itemCapacity = 4;
-            speed = 2f / 60f;
-            displayedSpeed = 5f;
+            itemCapacity = 3;
+            moveTime = 12f;
         }};
 
         beltMerger = new Merger("belt-merger") {{
@@ -69,16 +68,16 @@ public class CDDistribution {
             );
         }};
 
-        beltBridge = new DrawerBridge("belt-bridge") {{
+        beltBridge = new BeltBridge("belt-bridge") {{
             requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 8, CDItems.aluminumPlate, 1, CDItems.aluminumCogwheel, 1));
+            range = 6;
+            speed = 12f;
 
             squareSprite = false;
             drawer = new DrawMulti(
                     new DrawRegion(),
                     new DrawSideRegion()
             );
-
-            ((Belt) belt).bridgeReplacement = this;
         }};
     }
 }
