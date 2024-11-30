@@ -206,7 +206,6 @@ public class PayloadManufacturingGrid extends PayloadBlock {
 
                                         moveOut = true;
                                         craftEffect.at(x, y, payRotation - 90f, payload);
-                                        craftSound.at(this, calcPitch());
                                     } else {
                                         // failed
                                         failed = true;
