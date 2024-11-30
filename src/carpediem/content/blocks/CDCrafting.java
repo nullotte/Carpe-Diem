@@ -51,6 +51,7 @@ public class CDCrafting {
         // region T0
         smelterT0 = new RecipeCrafter("smelter-t0") {{
             requirements(Category.crafting, ItemStack.with(CDItems.rawAluminum, 10));
+            alwaysUnlocked = true;
             size = 3;
             itemCapacity = 50;
 
@@ -66,7 +67,7 @@ public class CDCrafting {
         }};
 
         pressT0 = new RecipeCrafter("press-t0") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.aluminum, 20));
+            requirements(Category.crafting, ItemStack.with(CDItems.aluminum, 25));
             size = 3;
             itemCapacity = 50;
 
@@ -82,7 +83,7 @@ public class CDCrafting {
         }};
 
         rollingMillT0 = new RecipeCrafter("rolling-mill-t0") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.aluminum, 20));
+            requirements(Category.crafting, ItemStack.with(CDItems.aluminum, 25));
             size = 3;
             itemCapacity = 50;
 
@@ -98,7 +99,7 @@ public class CDCrafting {
         }};
 
         assemblerT0 = new RecipeCrafter("assembler-t0") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.aluminum, 25, CDItems.aluminumPlate, 5));
+            requirements(Category.crafting, ItemStack.with(CDItems.aluminum, 10, CDItems.aluminumPlate, 5, CDItems.aluminumRod, 6));
             size = 3;
             itemCapacity = 50;
 
@@ -135,10 +136,6 @@ public class CDCrafting {
                     new CraftingRecipe(
                             ItemStack.with(CDItems.lemon, 39),
                             ItemStack.with(CDItems.liquidCell, 1)
-                    ),
-                    new CraftingRecipe(
-                            ItemStack.with(CDItems.lemon, 39),
-                            ItemStack.with(CDItems.electronicMotor, 1)
                     )
             );
 
@@ -280,10 +277,6 @@ public class CDCrafting {
                     new CraftingRecipe(
                             ItemStack.with(CDItems.lemon, 39),
                             ItemStack.with(CDItems.liquidCell, 1)
-                    ),
-                    new CraftingRecipe(
-                            ItemStack.with(CDItems.lemon, 39),
-                            ItemStack.with(CDItems.electronicMotor, 1)
                     )
             );
 

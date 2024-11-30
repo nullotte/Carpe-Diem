@@ -17,7 +17,7 @@ public class CDItems {
 
     controlCircuit, calculationCircuit, processingUnit,
     aluminumCogwheel, silverCogwheel, alloyCogwheel,
-    powerCell, liquidCell, electronicMotor,
+    powerCell, liquidCell,
 
     lemon
     ;
@@ -44,6 +44,7 @@ public class CDItems {
 
         sulfur = new Item("sulfur", Color.valueOf("f7eb94")) {{
             hardness = 3;
+            alwaysUnlocked = true;
         }};
 
         waterIce = new Item("water-ice", Color.valueOf("c7e1ff")) {{
@@ -103,7 +104,6 @@ public class CDItems {
 
         powerCell = new Item("power-cell");
         liquidCell = new Item("liquid-cell");
-        electronicMotor = new Item("electronic-motor");
         // endregion
 
         // malicious.

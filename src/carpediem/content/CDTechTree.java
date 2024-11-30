@@ -3,6 +3,7 @@ package carpediem.content;
 import arc.struct.*;
 import carpediem.game.CDObjectives.*;
 import mindustry.content.*;
+import mindustry.game.Objectives.*;
 import mindustry.world.*;
 
 import static mindustry.content.TechTree.*;
@@ -113,7 +114,6 @@ public class CDTechTree {
                                     });
 
                                     nodeProduce(powerCell, () -> {});
-                                    nodeProduce(electronicMotor, () -> {});
                                 });
                             });
 
@@ -147,7 +147,24 @@ public class CDTechTree {
         root.each(node -> {
             if (node.content instanceof Block block) {
                 blocks.add(block);
+
+                if (block.requirements.length == 0) {
+                    node.objectives.add(new Unfinished());
+                }
             }
         });
+    }
+
+    // TODO remove
+    public static class Unfinished implements Objective {
+        @Override
+        public boolean complete() {
+            return false;
+        }
+
+        @Override
+        public String display() {
+            return "content not finished come back later";
+        }
     }
 }

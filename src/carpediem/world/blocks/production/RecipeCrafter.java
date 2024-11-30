@@ -341,7 +341,15 @@ public class RecipeCrafter extends GenericCrafter {
                 });
             }
 
-            return current = recipeMap.get(key);
+            current = recipeMap.get(key);
+
+            // check again
+            if (current == null) {
+                key.remove(i -> i instanceof Item item && consumesItem(item));
+                current = recipeMap.get(key);
+            }
+
+            return current;
         }
 
         @Override

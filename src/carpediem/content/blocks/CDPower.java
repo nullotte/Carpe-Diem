@@ -14,7 +14,7 @@ public class CDPower {
 
     public static void load() {
         cableNode = new CableNode("cable-node") {{
-            requirements(Category.power, ItemStack.with());
+            requirements(Category.power, ItemStack.with(CDItems.aluminum, 1, CDItems.aluminumRod, 1, CDItems.nickelWire, 1));
             laserScale = 0.4f;
             maxNodes = 20;
             laserRange = 10f;
