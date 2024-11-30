@@ -219,6 +219,47 @@ public class Belt extends Block implements Autotiler {
         }
 
         @Override
+        public int acceptStack(Item item, int amount, Teamc source) {
+            int accepted = 0;
+
+            // yea ok intellij
+            for (Item id : ids) {
+                if (id == null) accepted++;
+            }
+
+            return accepted;
+        }
+
+        @Override
+        public void handleStack(Item item, int amount, Teamc source) {
+            for (int i = ids.length - 1; i >= 0; i--) {
+                if (ids[i] == null) {
+                    ids[i] = item;
+                    items.add(item, 1);
+                } else {
+                    break;
+                }
+            }
+
+            noSleep();
+        }
+
+        @Override
+        public int removeStack(Item item, int amount) {
+            int removed = 0;
+
+            for (int i = ids.length - 1; i >= 0 && removed < amount; i--) {
+                if (ids[i] == item) {
+                    ids[i] = null;
+                    removed++;
+                }
+            }
+
+            items.remove(item, removed);
+            return removed;
+        }
+
+        @Override
         public void onProximityUpdate() {
             super.onProximityUpdate();
 
