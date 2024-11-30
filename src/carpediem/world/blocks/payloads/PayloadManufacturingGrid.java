@@ -1,6 +1,7 @@
 package carpediem.world.blocks.payloads;
 
 import arc.*;
+import arc.audio.*;
 import arc.func.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
@@ -25,12 +26,16 @@ import mindustry.world.blocks.payloads.*;
 public class PayloadManufacturingGrid extends PayloadBlock {
     public static final Queue<ManufacturingGridBuild> gridQueue = new Queue<>();
 
+    public static long lastTime = 0;
+    public static int pitchSeq = 0;
+
     public Seq<PayloadManufacturingRecipe> recipes = new Seq<>();
     public float craftTime = 60f;
     public float ingredientRadius = 4f * Vars.tilesize;
     public Interp mergeInterp = Interp.pow2In, sizeInterp = a -> 1f - Interp.pow2In.apply(a);
     public Effect mergeEffect = Fx.producesmoke, loadEffect = Fx.producesmoke,
             craftEffect = CDFx.payloadManufacture, failEffect = CDFx.payloadManufactureFail;
+    public Sound craftSound = Sounds.place;
 
     public TextureRegion stackRegion, stackBottomRegion1, stackBottomRegion2;
 
@@ -39,6 +44,8 @@ public class PayloadManufacturingGrid extends PayloadBlock {
         rotate = true;
         acceptsPayload = true;
         outputsPayload = true;
+
+        ambientSound = Sounds.conveyor;
     }
 
     @Override
@@ -55,6 +62,21 @@ public class PayloadManufacturingGrid extends PayloadBlock {
         stackRegion = Core.atlas.find(name + "-stack");
         stackBottomRegion1 = Core.atlas.find(name + "-stack-bottom1");
         stackBottomRegion2 = Core.atlas.find(name + "-stack-bottom2");
+    }
+
+    public static float calcPitch() {
+        if (Time.timeSinceMillis(lastTime) < 2000) {
+            lastTime = Time.millis();
+            pitchSeq++;
+            if (pitchSeq > 30) {
+                pitchSeq = 0;
+            }
+            return 1f + Mathf.clamp(pitchSeq / 30f) * 1.9f;
+        } else {
+            pitchSeq = 0;
+            lastTime = Time.millis();
+            return Mathf.random(0.7f, 1.3f);
+        }
     }
 
     @Override
@@ -130,6 +152,7 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                                     next.dirty = true;
 
                                     mergeEffect.at(Tmp.v1.trns(rotdeg(), block.size * Vars.tilesize - (ingredientRadius / 2f)).add(this));
+                                    craftSound.at(this, calcPitch());
                                 } else {
                                     // match recipes
                                     Seq<PayloadManufacturingRecipe> possibleRecipes = recipes.select(r -> {
@@ -183,6 +206,7 @@ public class PayloadManufacturingGrid extends PayloadBlock {
 
                                         moveOut = true;
                                         craftEffect.at(x, y, payRotation - 90f, payload);
+                                        craftSound.at(this, calcPitch());
                                     } else {
                                         // failed
                                         failed = true;
@@ -308,6 +332,16 @@ public class PayloadManufacturingGrid extends PayloadBlock {
 
                 payload.draw();
             }
+        }
+
+        @Override
+        public boolean shouldAmbientSound() {
+            return crafting && efficiency > 0f;
+        }
+
+        @Override
+        public float ambientVolume() {
+            return super.ambientVolume();
         }
 
         @Override

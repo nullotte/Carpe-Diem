@@ -63,6 +63,11 @@ public class CDCrafting {
                     )
             ));
 
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawDefault()
+            );
+
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
 
