@@ -1,25 +1,27 @@
-// all of this is probably Outdated As Hell and needs to be replaced eventually . but im Lazy
-
 apply plugin: "java"
 
 version '1.0'
 
-targetCompatibility = 8
-sourceCompatibility = JavaVersion.VERSION_17
-
 sourceSets.main.java.srcDirs = ["src"]
-sourceSets.main.resources.srcDirs = ["assets"]
 
 repositories {
     mavenCentral()
-    maven{ url "https://raw.githubusercontent.com/Zelaux/MindustryRepo/master/repository" }
+    maven { url "https://raw.githubusercontent.com/Zelaux/MindustryRepo/master/repository" }
     maven { url 'https://www.jitpack.io' }
 }
 
+java {
+    targetCompatibility = 8
+    sourceCompatibility = JavaVersion.VERSION_17
+}
+
 ext {
+    mindustryVersion = 'v146'
+    isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
 
+//java 8 backwards compatibility flag
 allprojects {
     tasks.withType(JavaCompile) {
         options.compilerArgs.addAll(['--release', '8'])
@@ -27,19 +29,17 @@ allprojects {
 }
 
 dependencies {
-    compileOnly "com.github.Anuken.Mindustry:core:v146"
-    compileOnly "com.github.Anuken.Arc:arc-core:v146"
+    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
     annotationProcessor "com.github.Anuken:jabel:0.7.0"
 }
 
-jar {
-    archiveFileName = "${project.archivesBaseName}Desktop.jar"
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-
-    from(rootDir) {
-        include "mod.hjson"
+//force arc version
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        if (details.requested.group == 'com.github.Anuken.Arc') {
+            details.useVersion "$mindustryVersion"
+        }
     }
 }
 
@@ -47,7 +47,7 @@ task jarAndroid {
     dependsOn "jar"
 
     doLast {
-        if (!sdkRoot || !new File(sdkRoot).exists()) throw new GradleException("No valid Android SDK found. Ensure that ANDROID_HOME is set to your Android SDK directory.")
+        if (!sdkRoot || !new File(sdkRoot).exists()) throw new GradleException("No valid Android SDK found. Ensure that ANDROID_HOME is set to your Android SDK directory.");
 
         def platformRoot = new File("$sdkRoot/platforms/").listFiles().sort().reverse().find { f -> new File(f, "android.jar").exists() }
 
@@ -56,25 +56,34 @@ task jarAndroid {
         //collect dependencies needed for desugaring
         def dependencies = (configurations.compileClasspath.asList() + configurations.runtimeClasspath.asList() + [new File(platformRoot, "android.jar")]).collect { "--classpath $it.path" }.join(" ")
 
+        def d8 = isWindows ? "d8.bat" : "d8"
+
         //dex and desugar files - this requires d8 in your PATH
-        def paras = "$dependencies --min-api 14 --output ${project.archivesBaseName}Android.jar ${project.archivesBaseName}Desktop.jar".toString()
-        try {
-            "d8 $paras".execute(null, new File("$buildDir/libs")).waitForProcessOutput(System.out, System.err)
-        } catch (Exception ignored) {
-            logger.lifecycle("d8 cannot be found in your PATH, so trying to use an absolute path.")
-            def cmdOutput = new ByteArrayOutputStream()
-            "where d8".execute().waitForProcessOutput(cmdOutput, System.err)
-            def d8FullPath = cmdOutput.toString().replace("\r", "").replace("\n", "")
-            logger.lifecycle("d8 was found at $d8FullPath")
-            "$d8FullPath $paras".execute(null, new File("$buildDir/libs")).waitForProcessOutput(System.out, System.err)
-        }
+        "$d8 $dependencies --min-api 14 --output ${project.archivesBaseName}Android.jar ${project.archivesBaseName}Desktop.jar"
+                .execute(null, new File("$buildDir/libs")).waitForProcessOutput(System.out, System.err)
+    }
+}
+
+jar {
+    archiveFileName = "${base.archivesBaseName}Desktop.jar"
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    from(projectDir) {
+        include "mod.hjson"
+    }
+
+    from("assets/") {
+        include "**"
     }
 }
 
 task deploy(type: Jar) {
     dependsOn jarAndroid
     dependsOn jar
-    archiveFileName = "${project.archivesBaseName}.jar"
+    archiveFileName = "${base.archivesBaseName}.jar"
 
     from { [zipTree("$buildDir/libs/${project.archivesBaseName}Desktop.jar"), zipTree("$buildDir/libs/${project.archivesBaseName}Android.jar")] }
 
