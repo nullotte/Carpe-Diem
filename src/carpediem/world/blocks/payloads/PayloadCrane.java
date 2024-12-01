@@ -21,7 +21,7 @@ import mindustry.world.meta.*;
 // also These numbers. They anger me.
 public class PayloadCrane extends Block {
     public float hookOffset = 130f, minExtension = -1f, maxExtension = 210f;
-    public float extensionSpeed = 1f;
+    public float extensionSpeed = 1.5f;
     public float rotateSpeed = 0.5f;
 
     public int segments = 4;

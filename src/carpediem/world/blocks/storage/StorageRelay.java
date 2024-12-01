@@ -18,6 +18,7 @@ public class StorageRelay extends Block {
     public StorageRelay(String name) {
         super(name);
         hasItems = true;
+        itemCapacity = 0;
         solid = true;
         update = true;
         group = BlockGroup.transportation;
@@ -64,6 +65,22 @@ public class StorageRelay extends Block {
                 }
                 core().noEffect = true;
                 core().handleItem(source, item);
+            }
+        }
+
+        @Override
+        public int acceptStack(Item item, int amount, Teamc source) {
+            if (efficiency > 0f && core() != null) {
+                return core().acceptStack(item, amount, source);
+            }
+
+            return 0;
+        }
+
+        @Override
+        public void handleStack(Item item, int amount, Teamc source) {
+            if (core() != null) {
+                core().handleStack(item, amount, source);
             }
         }
     }
