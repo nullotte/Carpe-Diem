@@ -7,7 +7,6 @@ import arc.math.geom.*;
 import arc.struct.*;
 import arc.util.*;
 import arc.util.io.*;
-import carpediem.world.meta.*;
 import mindustry.*;
 import mindustry.content.*;
 import mindustry.entities.units.*;
@@ -18,12 +17,11 @@ import mindustry.world.blocks.*;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.meta.*;
 
-// TODO this thing should be able to like. retract its crane inwards in order to reach blocks next to it
-// ALSO ALSO ALSO NONE OF THESE PAYLOAD BLOCKS HAVE LIMITS CURRENTLY THEY CAN LITERALLY PICK UP OMURAS
+// NONE OF THESE PAYLOAD BLOCKS HAVE LIMITS CURRENTLY THEY CAN LITERALLY PICK UP OMURAS
 // also These numbers. They anger me.
 public class PayloadCrane extends Block {
-    public float hookOffset = 130f, maxExtension = 220f;
-    public float extensionSpeed = 0.7f;
+    public float hookOffset = 130f, minExtension = -1f, maxExtension = 210f;
+    public float extensionSpeed = 1f;
     public float rotateSpeed = 0.5f;
 
     public int segments = 4;
@@ -65,14 +63,17 @@ public class PayloadCrane extends Block {
     public void init() {
         super.init();
 
+        if (minExtension < 0f) {
+            minExtension = size * Vars.tilesize / 2f;
+        }
+
         updateClipRadius(hookOffset + maxExtension * 1.2f);
     }
 
     @Override
     public void setStats() {
         super.setStats();
-        stats.add(CDStat.minRange, hookOffset / Vars.tilesize, StatUnit.blocks);
-        stats.add(CDStat.maxRange, (hookOffset + maxExtension) / Vars.tilesize, StatUnit.blocks);
+        stats.add(Stat.range, (hookOffset - minExtension + maxExtension) / Vars.tilesize, StatUnit.blocks);
     }
 
     @Override
@@ -95,7 +96,6 @@ public class PayloadCrane extends Block {
 
     @Override
     public void drawOverlay(float x, float y, int rotation) {
-        Drawf.dashCircle(x, y, hookOffset, Pal.place); // TODO this might be confusing
         Drawf.dashCircle(x, y, hookOffset + maxExtension, Pal.placing);
     }
 
@@ -183,13 +183,13 @@ public class PayloadCrane extends Block {
                 } else if (output != null) {
                     targetPosition(Vars.world.build(output.pack()), false);
                 } else {
-                    target.sub(this).setLength(1f).add(this);
+                    target.sub(this).setLength(hookOffset).add(this);
                 }
             }
 
             // update crane stuff . i dont like how linear it is.... but Oh well
             craneRotation = Angles.moveToward(craneRotation, angleTo(target), rotateSpeed * edelta());
-            extension = Mathf.approach(extension, Mathf.clamp(dst(target) - hookOffset, 0f, maxExtension), extensionSpeed * edelta());
+            extension = Mathf.approach(extension, Mathf.clamp(dst(target) - hookOffset, -hookOffset + minExtension, maxExtension), extensionSpeed * edelta());
 
             // payload stuff
             if (payload != null) {
