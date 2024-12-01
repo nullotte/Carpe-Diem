@@ -18,6 +18,7 @@ import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.*;
+import mindustry.world.blocks.distribution.*;
 import mindustry.world.meta.*;
 
 // like the belts from shapez.io
@@ -122,7 +123,7 @@ public class Belt extends Block implements Autotiler {
         return otherBlock.outputsItems() && tile.relativeTo(other) != rotation && ((!otherBlock.rotate || !otherBlock.rotatedOutput(other.x, other.y)) || other.relativeTo(tile) == otherRot);
     }
 
-    public class BeltBuild extends Building {
+    public class BeltBuild extends Building implements ChainedBuilding {
         public float clogHeat;
         public boolean moved;
         // starts at array length and goes down to 0
@@ -323,6 +324,11 @@ public class Belt extends Block implements Autotiler {
             } else {
                 regionScl = 1f;
             }
+        }
+
+        @Override
+        public Building next() {
+            return nextc;
         }
 
         @Override
