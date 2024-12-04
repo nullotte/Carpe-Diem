@@ -98,10 +98,6 @@ public class BeltBridge extends DuctBridge {
         super.drawBridge(rotation, x1, y1, x2, y2, liquidColor);
     }
 
-    public boolean input(Tile tile, int rotation, Tile other, int otherRot, Block otherBlock) {
-        return otherBlock.outputsItems() && tile.relativeTo(other) != rotation && ((!otherBlock.rotate || !otherBlock.rotatedOutput(other.x, other.y)) || other.relativeTo(tile) == otherRot);
-    }
-
     public class BeltBridgeBuild extends DuctBridgeBuild implements BeltUnderBlending {
         public BeltBridgeBuild in;
         // maybe i should just kill myself
@@ -168,7 +164,7 @@ public class BeltBridge extends DuctBridge {
                 if (i == rotation) continue;
                 Building other = nearby(i);
 
-                if (other != null && input(tile, rotation, other.tile, other.rotation, other.block)) {
+                if (other != null && belt().input(tile, rotation, other.tile, other.rotation, other.block)) {
                     input[i] = true;
                     if (other instanceof BeltBuild) {
                         inputBelt[i] = true;
