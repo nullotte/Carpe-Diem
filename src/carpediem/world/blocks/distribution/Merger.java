@@ -2,6 +2,7 @@ package carpediem.world.blocks.distribution;
 
 import arc.graphics.g2d.*;
 import arc.util.*;
+import carpediem.world.draw.DrawBeltUnder.*;
 import mindustry.entities.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
@@ -52,8 +53,9 @@ public class Merger extends Block {
         drawer.drawPlan(this, plan, list);
     }
 
-    public class MergerBuild extends Building {
+    public class MergerBuild extends Building implements BeltUnderBlending {
         public float progress;
+        public int[] blendInputs = new int[4], blendOutputs = new int[4];
 
         @Override
         public void updateTile() {
@@ -68,6 +70,27 @@ public class Merger extends Block {
             } else {
                 progress = 0f;
             }
+        }
+
+        @Override
+        public int[] blendInputs() {
+            return blendInputs;
+        }
+
+        @Override
+        public int[] blendOutputs() {
+            return blendOutputs;
+        }
+
+        @Override
+        public void buildBlending(Building build) {
+            buildBlending(this, -1, rotation);
+        }
+
+        @Override
+        public void onProximityUpdate() {
+            super.onProximityUpdate();
+            buildBlending(this);
         }
 
         @Override

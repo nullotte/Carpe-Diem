@@ -24,6 +24,7 @@ public class CDDistribution {
             squareSprite = false;
             rotateDraw = false;
             drawer = new DrawMulti(
+                    new DrawBeltUnder(belt),
                     new DrawRegion(),
                     new DrawSideRegion()
             );
@@ -36,6 +37,7 @@ public class CDDistribution {
             squareSprite = false;
             rotateDraw = false;
             drawer = new DrawMulti(
+                    new DrawBeltUnder(belt),
                     new DrawRegion(),
                     new DrawSortRegion(),
                     new DrawSideRegion()
@@ -50,6 +52,7 @@ public class CDDistribution {
             squareSprite = false;
             rotateDraw = false;
             drawer = new DrawMulti(
+                    new DrawBeltUnder(belt),
                     new DrawRegion(),
                     new DrawSideRegion()
             );
@@ -63,6 +66,7 @@ public class CDDistribution {
             squareSprite = false;
             rotateDraw = false;
             drawer = new DrawMulti(
+                    new DrawBeltUnder(belt),
                     new DrawRegion(),
                     new DrawSideRegion()
             );
@@ -75,8 +79,8 @@ public class CDDistribution {
 
             squareSprite = false;
             drawer = new DrawMulti(
-                    new DrawRegion(),
-                    new DrawSideRegion()
+                    new DrawBeltUnder(belt),
+                    new DrawBridgeRegion()
             );
         }};
     }

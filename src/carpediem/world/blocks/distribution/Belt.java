@@ -10,6 +10,7 @@ import arc.util.*;
 import arc.util.io.*;
 import carpediem.content.blocks.*;
 import carpediem.input.*;
+import carpediem.world.draw.DrawBeltUnder.*;
 import mindustry.*;
 import mindustry.entities.*;
 import mindustry.entities.units.*;
@@ -118,9 +119,21 @@ public class Belt extends Block implements Autotiler {
         return false; // djkghgfkhjgfhlgdfjhgfjklhfglhjgflhjkgl
     }
 
-    // i cannot escape
     public boolean input(Tile tile, int rotation, Tile other, int otherRot, Block otherBlock) {
         return otherBlock.outputsItems() && tile.relativeTo(other) != rotation && ((!otherBlock.rotate || !otherBlock.rotatedOutput(other.x, other.y)) || other.relativeTo(tile) == otherRot);
+    }
+
+    public boolean output(Tile tile, int rotation, Tile other, int otherRot, Block otherBlock) {
+        return otherBlock.hasItems && (!(other.build instanceof BeltBuild belt) || other.relativeTo(Edges.getFacingEdge(tile, other)) == belt.inputDir);
+    }
+
+    public void drawSliced(float x, float y, int rotation, SliceMode mode, int frame, boolean outer) {
+        float z = Draw.z();
+        Draw.z(Layer.blockUnder);
+        float offset = outer ? 0.75f : 0.25f;
+        // why is sliced in autotiler
+        Draw.rect(sliced(regions[0][frame], mode), x + Geometry.d4x(rotation) * Vars.tilesize * offset, y + Geometry.d4y(rotation) * Vars.tilesize * offset, rotation * 90f);
+        Draw.z(z);
     }
 
     public class BeltBuild extends Building implements ChainedBuilding {
@@ -316,14 +329,20 @@ public class Belt extends Block implements Autotiler {
 
             Building in = nearby(inputDir);
 
-            blendIn = in != null && input(tile, rotation, in.tile, in.rotation, in.block) && !in.block.squareSprite;
-            blendOut = next != null && !next.block.squareSprite;
+            blendIn = in != null && !(in instanceof BeltUnderBlending) && input(tile, rotation, in.tile, in.rotation, in.block) && !in.block.squareSprite;
+            blendOut = next != null && !(next instanceof BeltUnderBlending) && output(tile, rotation, next.tile, next.rotation, next.block) && !next.block.squareSprite;
 
             if (inputDir == (rotation + 3) % 4) {
                 regionScl = -1f;
             } else {
                 regionScl = 1f;
             }
+
+            proximity.each(build -> {
+                if (build instanceof BeltUnderBlending blend) {
+                    blend.buildBlending(build);
+                }
+            });
         }
 
         @Override
@@ -335,13 +354,11 @@ public class Belt extends Block implements Autotiler {
         public void draw() {
             int frame = enabled && clogHeat <= 0.5f ? (int) (((Time.time / (moveTime * itemCapacity) * 8f * timeScale * efficiency)) % 4) : 0;
 
-            Draw.z(Layer.blockUnder);
-            // why is sliced in autotiler
             if (blendIn) {
-                Draw.rect(sliced(regions[0][frame], SliceMode.bottom), x + Geometry.d4x(inputDir) * Vars.tilesize * 0.75f, y + Geometry.d4y(inputDir) * Vars.tilesize * 0.75f, inputDir * 90f);
+                drawSliced(x, y, inputDir, SliceMode.bottom, frame, true);
             }
             if (blendOut) {
-                Draw.rect(sliced(regions[0][frame], SliceMode.top), x + Geometry.d4x(rotation) * Vars.tilesize * 0.75f, y + Geometry.d4y(rotation) * Vars.tilesize * 0.75f, rotdeg());
+                drawSliced(x, y, rotation, SliceMode.top, frame, true);
             }
 
             Draw.z(Layer.block - 0.2f);

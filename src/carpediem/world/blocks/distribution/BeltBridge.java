@@ -7,6 +7,7 @@ import arc.math.*;
 import arc.math.geom.*;
 import arc.util.*;
 import carpediem.world.blocks.distribution.Belt.*;
+import carpediem.world.draw.DrawBeltUnder.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -101,11 +102,12 @@ public class BeltBridge extends DuctBridge {
         return otherBlock.outputsItems() && tile.relativeTo(other) != rotation && ((!otherBlock.rotate || !otherBlock.rotatedOutput(other.x, other.y)) || other.relativeTo(tile) == otherRot);
     }
 
-    public class BeltBridgeBuild extends DuctBridgeBuild {
+    public class BeltBridgeBuild extends DuctBridgeBuild implements BeltUnderBlending {
         public BeltBridgeBuild in;
         // maybe i should just kill myself
         public int inputDir = -1;
         public boolean[] input = new boolean[4], inputBelt = new boolean[4];
+        public int[] blendInputs = new int[4], blendOutputs = new int[4];
 
         @Override
         public void updateTile() {
@@ -130,6 +132,32 @@ public class BeltBridge extends DuctBridge {
                 Draw.z(Layer.power - 1);
                 drawBridge(rotation, x, y, link.x, link.y, null);
             }
+        }
+
+        @Override
+        public boolean drawInput() {
+            // god
+            return in == null && (input[inputDir] || inputBelt[inputDir]);
+        }
+
+        @Override
+        public boolean drawOutput() {
+            return in != null;
+        }
+
+        @Override
+        public int[] blendInputs() {
+            return blendInputs;
+        }
+
+        @Override
+        public int[] blendOutputs() {
+            return blendOutputs;
+        }
+
+        @Override
+        public void buildBlending(Building build) {
+            buildBlending(this, inputDir, rotation);
         }
 
         @Override
@@ -180,6 +208,8 @@ public class BeltBridge extends DuctBridge {
             }
 
             if (inputDir == -1) inputDir = prevDir;
+
+            buildBlending(this);
         }
 
         @Override
