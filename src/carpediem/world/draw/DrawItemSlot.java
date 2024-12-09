@@ -1,6 +1,7 @@
 package carpediem.world.draw;
 
 import arc.graphics.g2d.*;
+import arc.math.*;
 import arc.math.geom.*;
 import arc.struct.*;
 import mindustry.*;
@@ -51,11 +52,13 @@ public class DrawItemSlot extends DrawBlock {
                 for (int i = currentItem; i < Vars.content.items().size; i++) {
                     // check if the building has enough of the current item - if so, draw it
                     if (currentDrawn.has(Vars.content.item(i), 1 + currentStack * stack)) {
+                        float size = Vars.itemSize * Mathf.lerp(Math.min((float) (build.items.get(i) - currentStack * stack) / stack, 1), 1f, 0.5f);
+
                         Draw.rect(
                                 Vars.content.item(i).fullIcon,
                                 build.x + slot.x,
                                 build.y + slot.y,
-                                Vars.itemSize, Vars.itemSize
+                                size, size
                         );
 
                         currentItem = i;

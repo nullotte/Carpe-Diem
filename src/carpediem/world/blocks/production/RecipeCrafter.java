@@ -16,7 +16,7 @@ import mindustry.world.consumers.*;
 
 import java.util.*;
 
-// TODO this class is so jank it probably needs a complete rewrite. but it works for now
+// TODO every time i touch this class it becomes a million times worse
 public class RecipeCrafter extends GenericCrafter {
     public Seq<CraftingRecipe> recipes = new Seq<>();
 
@@ -142,6 +142,7 @@ public class RecipeCrafter extends GenericCrafter {
     public class RecipeCrafterBuild extends GenericCrafterBuild implements UseCounter {
         public CraftingRecipe current;
         public Seq<UnlockableContent> key = new Seq<>();
+        public Item lastProduced;
 
         public int uses;
 
@@ -223,6 +224,7 @@ public class RecipeCrafter extends GenericCrafter {
 
             if (recipe != null && recipe.outputItems != null) {
                 for (ItemStack output : recipe.outputItems) {
+                    lastProduced = output.item;
                     for (int i = 0; i < output.amount; i++) {
                         offload(output.item);
                     }

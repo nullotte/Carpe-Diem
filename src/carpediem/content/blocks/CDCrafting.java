@@ -4,6 +4,7 @@ import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.production.*;
 import carpediem.world.consumers.*;
+import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -83,6 +84,21 @@ public class CDCrafting {
                             new ItemStack(out, 1)
                     )
             ));
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawPressItem(),
+                    new DrawPistons() {{
+                        sides = 1;
+                        angleOffset = 90f;
+                        sinOffset = 0f;
+                        sinScl = 10f;
+                        sinMag = 8f;
+                        lenOffset = -4f;
+                    }},
+                    new DrawPress(),
+                    new DrawDefault()
+            );
 
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
