@@ -2,7 +2,7 @@ package carpediem.world.draw;
 
 import arc.graphics.g2d.*;
 import arc.math.*;
-import carpediem.world.blocks.production.RecipeCrafter.*;
+import carpediem.world.blocks.crafting.RecipeCrafter.*;
 import mindustry.*;
 import mindustry.gen.*;
 import mindustry.world.draw.*;
@@ -15,6 +15,7 @@ public class DrawPressItem extends DrawBlock {
 
     @Override
     public void draw(Building build) {
+        /*
         if (build instanceof RecipeCrafterBuild crafter) {
             if (crafter.lastProduced != null) {
                 float size = Vars.itemSize * interp.apply(Mathf.curve(1f - build.progress(), fromIn, toIn));
@@ -34,5 +35,6 @@ public class DrawPressItem extends DrawBlock {
                 );
             }
         }
+         */
     }
 }

@@ -8,6 +8,7 @@ import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.draw.*;
+import mindustry.world.meta.*;
 
 public class CDStorage {
     public static CoreBlock
@@ -19,13 +20,17 @@ public class CDStorage {
 
     public static void load() {
         landingPodT0 = new LandingPod("landing-pod-t0") {{
-            requirements(Category.effect, ItemStack.with());
+            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with());
             size = 4;
             alwaysUnlocked = true;
 
             itemCapacity = 5000;
             unitCapModifier = 2;
             unitType = CDUnitTypes.cache;
+
+            craftingSpeed = 0.5f;
+            // wow
+            recipes.addAll(CDRecipes.pressRecipes).addAll(CDRecipes.rollingMillRecipes).addAll(CDRecipes.assemblerRecipes);
 
             squareSprite = false;
             drawer = new DrawMulti(
@@ -40,8 +45,6 @@ public class CDStorage {
             requirements(Category.effect, ItemStack.with());
             size = 6;
 
-            // it's balanced i swear
-            health = 99999;
             itemCapacity = 20000;
             unitCapModifier = 32;
             unitType = CDUnitTypes.cache;

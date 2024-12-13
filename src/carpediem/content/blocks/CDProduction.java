@@ -16,7 +16,6 @@ public class CDProduction {
         drillT0 = new ItemConsumerDrill("drill-t0") {{
             requirements(Category.production, ItemStack.with());
             size = 3;
-            itemCapacity = 50;
 
             tier = 3;
             drillTime = 60f * 4f * Mathf.sqr(size);
@@ -30,7 +29,6 @@ public class CDProduction {
         drillT1 = new Drill("drill-t1") {{
             requirements(Category.production, ItemStack.with());
             size = 4;
-            itemCapacity = 50;
 
             tier = 4;
             drillTime = 60f * 2f * Mathf.sqr(size);

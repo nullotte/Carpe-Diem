@@ -20,7 +20,7 @@ public class CDTechTree {
     public static Seq<Block> blocks = new Seq<>();
 
     public static void load() {
-        TechNode root = nodeRoot("carpe-diem-asphodel", landingPodT0, () -> {
+        TechNode root = nodeRoot(CDPlanets.asphodel.name, landingPodT0, () -> {
             node(belt, () -> {
                 node(beltMerger, () -> {
                     node(beltSplitter);
@@ -32,22 +32,20 @@ public class CDTechTree {
             });
 
             node(smelterT0, () -> {
-                node(pressT0);
-                node(rollingMillT0, () -> {
-                    node(cableNode, () -> {
-                        node(cableTower);
-                    });
-                });
-                node(assemblerT0, () -> {
-                    node(smelterT1);
-                    node(pressT1);
-                    node(rollingMillT1);
-                    node(refineryT1, () -> {
-                        node(assemblerT1);
-                    });
-                });
                 node(drillT0, () -> {
                     node(drillT1);
+                });
+
+                node(cableNode, () -> {
+                    node(sulfurBurner, () -> {
+                        node(smelterT1);
+                        node(pressT1);
+                        node(rollingMillT1);
+                        node(assemblerT1);
+                        node(refineryT1);
+                    });
+
+                    node(cableTower);
                 });
             });
 

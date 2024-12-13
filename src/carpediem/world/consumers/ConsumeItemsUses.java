@@ -3,8 +3,10 @@ package carpediem.world.consumers;
 import arc.*;
 import arc.scene.ui.layout.*;
 import mindustry.gen.*;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.ui.*;
+import mindustry.world.*;
 import mindustry.world.consumers.*;
 import mindustry.world.meta.*;
 
@@ -47,6 +49,23 @@ public class ConsumeItemsUses extends ConsumeItems {
 
     // this whole mod is so poorly coded holy fuck
     @Override
+    public void apply(Block block) {
+        super.apply(block);
+
+        Core.app.post(() -> {
+            block.addBar("uses", build -> {
+                if (build instanceof UseCounter counter) {
+                    Item item = items[0].item;
+                    return new Bar(Core.bundle.format("bar.usage", item.localizedName), Pal.powerBar, () -> ((float) counter.getUses()) / uses);
+                }
+
+                // how.
+                return null;
+            });
+        });
+    }
+
+    @Override
     public void display(Stats stats) {
         float timePeriod = stats.timePeriod;
         if (timePeriod > 0f) {
@@ -60,8 +79,14 @@ public class ConsumeItemsUses extends ConsumeItems {
     public interface UseCounter {
         int getUses();
 
-        void addUses(int uses);
+        void setUses(int uses);
 
-        void removeUses(int uses);
+        default void addUses(int uses) {
+            setUses(getUses() + uses);
+        }
+
+        default void removeUses(int uses) {
+            setUses(getUses() - uses);
+        }
     }
 }

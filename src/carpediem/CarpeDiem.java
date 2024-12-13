@@ -37,6 +37,7 @@ public class CarpeDiem extends Mod {
         CDItems.load();
         CDStatusEffects.load();
         CDLiquids.load();
+        CDRecipes.load();
         CDUnitTypes.load();
         CDBlocks.load();
         CDPlanets.load();

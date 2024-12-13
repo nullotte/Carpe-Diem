@@ -69,7 +69,7 @@ public class ItemConsumerDrill extends Drill {
         @Override
         public boolean canDump(Building to, Item item) {
             // actually so terrible
-            return !consumesItem(item) || (items.has(item, 2));
+            return !consumesItem(item) || (dominantItem == item && items.has(item, 2));
         }
 
         @Override
@@ -78,13 +78,8 @@ public class ItemConsumerDrill extends Drill {
         }
 
         @Override
-        public void addUses(int uses) {
-            this.uses += uses;
-        }
-
-        @Override
-        public void removeUses(int uses) {
-            this.uses -= uses;
+        public void setUses(int uses) {
+            this.uses = uses;
         }
 
         @Override
