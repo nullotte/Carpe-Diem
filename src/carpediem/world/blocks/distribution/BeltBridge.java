@@ -5,12 +5,14 @@ import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.*;
+import arc.struct.*;
 import arc.util.*;
 import carpediem.world.blocks.distribution.Belt.*;
 import carpediem.world.draw.DrawBeltUnder.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.input.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.distribution.*;
@@ -96,6 +98,11 @@ public class BeltBridge extends DuctBridge {
         // good god
         bridgeRegion = rotation == 0 || rotation == 3 ? bridgeRegion1 : bridgeRegion2;
         super.drawBridge(rotation, x1, y1, x2, y2, liquidColor);
+    }
+
+    @Override
+    public void changePlacementPath(Seq<Point2> points, int rotation, boolean diagonalOn) {
+        //Placement.calculateNodes(points, this, rotation, ());
     }
 
     public class BeltBridgeBuild extends DuctBridgeBuild implements BeltUnderBlending {
