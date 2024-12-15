@@ -67,6 +67,8 @@ public class LandingPod extends DrawerCoreBlock {
 
         @Override
         public void updateTile() {
+            super.updateTile();
+
             Recipe currentRecipe = getCurrentRecipe();
 
             if (currentRecipe != null) {
