@@ -6,6 +6,19 @@ import mindustry.game.Objectives.*;
 import mindustry.world.blocks.storage.*;
 
 public class CDObjectives {
+    public static class DecodeArchive implements Objective {
+        @Override
+        public boolean complete() {
+            // so cool
+            return false;
+        }
+
+        @Override
+        public String display() {
+            return Core.bundle.get("requirement.decodearchive");
+        }
+    }
+
     public static class UnlockArchive implements Objective {
         public Archive archive;
 

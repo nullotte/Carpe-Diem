@@ -36,7 +36,7 @@ public class CDCrafting {
 
         // region T1
         smelterT1 = new RecipeCrafter("smelter-t1") {{
-            requirements(Category.crafting, ItemStack.with());
+            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
             size = 4;
 
             recipes.addAll(CDRecipes.basicSmelterRecipes).addAll(CDRecipes.advancedSmelterRecipes);
@@ -50,7 +50,7 @@ public class CDCrafting {
         }};
 
         pressT1 = new RecipeCrafter("press-t1") {{
-            requirements(Category.crafting, ItemStack.with());
+            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
             size = 4;
 
             recipes.addAll(CDRecipes.pressRecipes);
@@ -59,7 +59,7 @@ public class CDCrafting {
         }};
 
         rollingMillT1 = new RecipeCrafter("rolling-mill-t1") {{
-            requirements(Category.crafting, ItemStack.with());
+            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
             size = 4;
 
             recipes.addAll(CDRecipes.rollingMillRecipes);
@@ -68,7 +68,7 @@ public class CDCrafting {
         }};
 
         refineryT1 = new RecipeCrafter("refinery-t1") {{
-            requirements(Category.crafting, ItemStack.with());
+            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
             size = 4;
 
             recipes.addAll(CDRecipes.refineryRecipes);
@@ -77,7 +77,7 @@ public class CDCrafting {
         }};
 
         assemblerT1 = new RecipeCrafter("assembler-t1") {{
-            requirements(Category.crafting, ItemStack.with());
+            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
             size = 4;
 
             recipes.addAll(CDRecipes.assemblerRecipes);

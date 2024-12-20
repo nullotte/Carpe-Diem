@@ -1,6 +1,8 @@
 package carpediem.content;
 
+import arc.*;
 import arc.struct.*;
+import arc.util.*;
 import carpediem.game.CDObjectives.*;
 import mindustry.content.*;
 import mindustry.game.Objectives.*;
@@ -15,6 +17,7 @@ import static carpediem.content.blocks.CDProduction.*;
 import static carpediem.content.blocks.CDStorage.*;
 import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.CDItems.*;
+import static carpediem.content.CDArchives.*;
 
 public class CDTechTree {
     public static Seq<Block> blocks = new Seq<>();
@@ -37,15 +40,16 @@ public class CDTechTree {
                 });
 
                 node(cableNode, () -> {
-                    node(sulfurBurner, () -> {
-                        node(smelterT1);
-                        node(pressT1);
-                        node(rollingMillT1);
-                        node(assemblerT1);
-                        node(refineryT1);
-                    });
+                    node(sulfurBurner, () -> {});
 
                     node(cableTower);
+                });
+
+                node(smelterT1, () -> {
+                    node(pressT1);
+                    node(rollingMillT1);
+                    node(assemblerT1);
+                    node(refineryT1);
                 });
             });
 
@@ -62,6 +66,10 @@ public class CDTechTree {
                     node(payloadCrane);
                 });
                 node(payloadManufacturingGrid);
+            });
+
+            node(archiveDecoder, () -> {
+                node(automation, () -> {});
             });
 
             node(CDSectorPresets.one, () -> {
@@ -147,7 +155,7 @@ public class CDTechTree {
                 blocks.add(block);
 
                 if (block.requirements.length == 0) {
-                    node.objectives.add(new Unfinished());
+                    node.objectives.add(new Unfinished(block.localizedName));
                 }
             }
         });
@@ -155,6 +163,12 @@ public class CDTechTree {
 
     // TODO remove
     public static class Unfinished implements Objective {
+        public String name;
+
+        public Unfinished(String name) {
+            this.name = name;
+        }
+
         @Override
         public boolean complete() {
             return false;
@@ -162,7 +176,7 @@ public class CDTechTree {
 
         @Override
         public String display() {
-            return "content not finished come back later";
+            return Strings.format("[scarlet]big obvious red text that indicates that this content (@) is not ready", name);
         }
     }
 }

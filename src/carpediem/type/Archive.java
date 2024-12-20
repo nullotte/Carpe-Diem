@@ -6,25 +6,37 @@ import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.struct.*;
 import arc.util.*;
+import carpediem.*;
 import carpediem.game.CDObjectives.*;
-import mindustry.*;
 import mindustry.ctype.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.ui.*;
+import mindustry.world.*;
 
 public class Archive extends StatusEffect {
     // content that is locked behind this archive
-    public Seq<UnlockableContent> contents = new Seq<>();
+    public Seq<UnlockableContent> contents;
+    public ItemStack[] researchCost;
 
-    public Archive(String name) {
+    public Archive(String name, ItemStack[] researchCost, Seq<UnlockableContent> contents) {
         super(name);
+        this.researchCost = researchCost;
+        this.contents = contents;
         show = false;
+
+        contents.each(content -> {
+            // should automatically be unlocked upon unlocking this archive
+            if (content instanceof Block block) {
+                block.researchCost = ItemStack.empty;
+            }
+        });
     }
 
     @Override
     public void loadIcon() {
+        // TODO custom archive icons
         if (Icon.book != null) {
             uiIcon = fullIcon = Icon.book.getRegion();
         }
@@ -34,11 +46,25 @@ public class Archive extends StatusEffect {
     public void init() {
         super.init();
 
+        if (techNode != null) {
+            techNode.objectives.add(new DecodeArchive());
+        }
+
         contents.each(content -> {
             if (content.techNode != null) {
                 content.techNode.objectives.add(new UnlockArchive(this));
             }
         });
+    }
+
+    @Override
+    public ItemStack[] researchRequirements() {
+        return researchCost;
+    }
+
+    @Override
+    public boolean showUnlock() {
+        return true;
     }
 
     @Override
@@ -53,8 +79,7 @@ public class Archive extends StatusEffect {
                             b.top();
                             b.add(content.localizedName).labelAlign(Align.center).growX().wrap().color(Pal.accent).row();
                             b.image(content.fullIcon).grow().scaling(Scaling.fit).pad(20f);
-                            // TODO maybe display research requirements
-                        }, () -> Vars.ui.content.show(content)).size(200f).pad(5f);
+                        }, () -> CarpeDiem.content.show(content)).size(200f).pad(5f);
 
                         if (++count % cols == 0) {
                             t.row();
