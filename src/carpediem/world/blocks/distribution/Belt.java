@@ -164,13 +164,13 @@ public class Belt extends Block implements Autotiler {
 
                         if (progresses[i] >= 1f) {
                             tryPush(i);
-
-                            if (i == ids.length - 1 && queuedPush != null) {
-                                queuedPush.tryPush(0);
-                                queuedPush = null;
-                            }
                         }
                     }
+                }
+
+                if (queuedPush != null) {
+                    queuedPush.tryPush(0);
+                    queuedPush = null;
                 }
             } else {
                 clogHeat = 0f;

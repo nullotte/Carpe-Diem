@@ -14,12 +14,12 @@ public class CDDistribution {
         belt = new Belt("belt") {{
             requirements(Category.distribution, ItemStack.with(CDItems.aluminumPlate, 1, CDItems.aluminumCogwheel, 1));
             itemCapacity = 3;
-            moveTime = 12f;
+            moveTime = 6f;
         }};
 
         beltMerger = new Merger("belt-merger") {{
             requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 4, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
-            speed = 12f;
+            speed = 6f;
 
             squareSprite = false;
             rotateDraw = false;
@@ -32,7 +32,7 @@ public class CDDistribution {
 
         beltSplitter = new Splitter("belt-splitter") {{
             requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 4, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
-            speed = 12f;
+            speed = 6f;
 
             squareSprite = false;
             rotateDraw = false;
@@ -44,10 +44,9 @@ public class CDDistribution {
             );
         }};
 
-        // these SHOULD cost circuits... but then the splitters would also cost circuits since they sort items and Im not making the player do that
         beltOverflowGate = new DrawerOverflowDuct("belt-overflow-gate") {{
             requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 6, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
-            speed = 12f;
+            speed = 6f;
 
             squareSprite = false;
             rotateDraw = false;
@@ -60,7 +59,7 @@ public class CDDistribution {
 
         beltUnderflowGate = new DrawerOverflowDuct("belt-underflow-gate") {{
             requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 6, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
-            speed = 12f;
+            speed = 6f;
             invert = true;
 
             squareSprite = false;
@@ -75,7 +74,7 @@ public class CDDistribution {
         beltBridge = new BeltBridge("belt-bridge") {{
             requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 8, CDItems.aluminumPlate, 1, CDItems.aluminumCogwheel, 1));
             range = 6;
-            speed = 12f;
+            speed = 6f;
 
             squareSprite = false;
             drawer = new DrawMulti(
