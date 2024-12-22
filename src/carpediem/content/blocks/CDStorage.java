@@ -4,6 +4,7 @@ import arc.math.geom.*;
 import carpediem.content.*;
 import carpediem.world.blocks.storage.*;
 import carpediem.world.draw.*;
+import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.storage.*;
@@ -24,13 +25,14 @@ public class CDStorage {
             size = 4;
             alwaysUnlocked = true;
 
-            itemCapacity = 5000;
+            itemCapacity = 10000;
             unitCapModifier = 2;
             unitType = CDUnitTypes.cache;
 
             craftingSpeed = 0.5f;
             // wow
             recipes.addAll(CDRecipes.pressRecipes).addAll(CDRecipes.rollingMillRecipes).addAll(CDRecipes.assemblerRecipes);
+            craftEffect = Fx.pulverize;
 
             squareSprite = false;
             drawer = new DrawMulti(

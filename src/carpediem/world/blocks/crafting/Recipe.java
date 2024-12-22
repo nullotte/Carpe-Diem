@@ -3,6 +3,7 @@ package carpediem.world.blocks.crafting;
 import arc.scene.ui.layout.*;
 import arc.struct.*;
 import carpediem.world.outputs.*;
+import mindustry.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -68,29 +69,33 @@ public class Recipe {
         }
 
         table.table(Styles.grayPanel, t -> {
-            t.table(input -> {
-                input.left();
+            if (unlockedNow()) {
+                t.table(input -> {
+                    input.left();
 
-                OrderedMap<Stat, Seq<StatValue>> map = recipeStats.toMap().get(StatCat.crafting);
-                Seq<StatValue> arr = map.get(Stat.input);
-                for (StatValue value : arr) {
-                    value.display(input);
-                }
-            }).left().grow().pad(10f);
+                    OrderedMap<Stat, Seq<StatValue>> map = recipeStats.toMap().get(StatCat.crafting);
+                    Seq<StatValue> arr = map.get(Stat.input);
+                    for (StatValue value : arr) {
+                        value.display(input);
+                    }
+                }).left().grow().pad(10f);
 
-            t.table(arrow -> {
-                arrow.image(Icon.right).color(Pal.darkishGray).size(40f);
-            }).pad(10f);
+                t.table(arrow -> {
+                    arrow.image(Icon.right).color(Pal.darkishGray).size(40f);
+                }).pad(10f);
 
-            t.table(output -> {
-                output.right();
+                t.table(output -> {
+                    output.right();
 
-                OrderedMap<Stat, Seq<StatValue>> map = recipeStats.toMap().get(StatCat.crafting);
-                Seq<StatValue> arr = map.get(Stat.output);
-                for (StatValue value : arr) {
-                    value.display(output);
-                }
-            }).right().grow().pad(10f);
+                    OrderedMap<Stat, Seq<StatValue>> map = recipeStats.toMap().get(StatCat.crafting);
+                    Seq<StatValue> arr = map.get(Stat.output);
+                    for (StatValue value : arr) {
+                        value.display(output);
+                    }
+                }).right().grow().pad(10f);
+            } else {
+                t.image(Icon.lock).color(Pal.darkerGray).size(40f).pad(10f);
+            }
         }).growX().pad(5f);
     }
 
@@ -111,6 +116,26 @@ public class Recipe {
         }
 
         return true;
+    }
+
+    public boolean unlocked() {
+        // this is such a terrible
+        for (Consume consume : consumes) {
+            if (consume instanceof ConsumeItems consItems) {
+                for (ItemStack stack : consItems.items) {
+                    if (!stack.item.unlocked()) return false;
+                }
+            } else if (consume instanceof ConsumeLiquids consLiquids) {
+                for (LiquidStack stack : consLiquids.liquids) {
+                    if (!stack.liquid.unlocked()) return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean unlockedNow() {
+        return unlocked() || !Vars.state.isCampaign();
     }
 
     public boolean shouldConsume(Building build) {

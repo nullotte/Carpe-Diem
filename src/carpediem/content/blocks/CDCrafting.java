@@ -67,20 +67,24 @@ public class CDCrafting {
             consumePower(1f / 12f);
         }};
 
-        refineryT1 = new RecipeCrafter("refinery-t1") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
-            size = 4;
-
-            recipes.addAll(CDRecipes.refineryRecipes);
-
-            consumePower(1f / 10f);
-        }};
-
         assemblerT1 = new RecipeCrafter("assembler-t1") {{
             requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
             size = 4;
 
             recipes.addAll(CDRecipes.assemblerRecipes);
+            // FUCKKKKKKKKK
+            configurable = true;
+
+            consumePower(1f / 10f);
+        }};
+
+        // why was this above the assembler earlier ? oh well
+        refineryT1 = new RecipeCrafter("refinery-t1") {{
+            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
+            size = 4;
+
+            recipes.addAll(CDRecipes.refineryRecipes);
+            configurable = true;
 
             consumePower(1f / 10f);
         }};

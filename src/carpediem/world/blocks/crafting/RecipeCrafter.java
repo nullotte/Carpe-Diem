@@ -1,5 +1,7 @@
 package carpediem.world.blocks.crafting;
 
+import arc.func.*;
+import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.scene.ui.layout.*;
@@ -8,13 +10,17 @@ import arc.util.*;
 import arc.util.io.*;
 import carpediem.world.consumers.ConsumeItemsUses.*;
 import carpediem.world.meta.*;
+import carpediem.world.outputs.*;
 import mindustry.*;
 import mindustry.content.*;
+import mindustry.ctype.*;
 import mindustry.entities.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.type.*;
+import mindustry.ui.*;
 import mindustry.world.*;
+import mindustry.world.blocks.*;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
@@ -32,6 +38,22 @@ public class RecipeCrafter extends Block {
 
     public DrawBlock drawer = new DrawDefault();
 
+    // TODO get rid of this (i will never do it)
+    public static Func<Recipe, UnlockableContent> mapper = r -> {
+        if (r != null) {
+            for (Output output : r.outputs) {
+                if (output instanceof OutputItems outputItems) {
+                    return outputItems.items[0].item;
+                }
+                if (output instanceof OutputLiquids outputLiquids) {
+                    return outputLiquids.liquids[0].liquid;
+                }
+            }
+        }
+        // bro
+        return Items.copper;
+    };
+
     public RecipeCrafter(String name) {
         super(name);
         update = true;
@@ -41,6 +63,20 @@ public class RecipeCrafter extends Block {
         sync = true;
         ambientSoundVolume = 0.03f;
         flags = EnumSet.of(BlockFlag.factory);
+
+        config(Integer.class, (RecipeCrafterBuild crafter, Integer recipeID) -> {
+            if (!configurable || crafter.currentRecipeID == recipeID) return;
+            if (recipeID == -1 || recipes.get(recipeID).unlockedNow()) {
+                crafter.currentRecipeID = recipeID;
+            }
+        });
+    }
+
+    @Override
+    public void setBars() {
+        super.setBars();
+        // why isnt this like a boolean or something
+        removeBar("items");
     }
 
     @Override
@@ -311,6 +347,17 @@ public class RecipeCrafter extends Block {
             }
 
             return (consumesLiquid(liquid) || recipeConsumes);
+        }
+
+        @Override
+        public void buildConfiguration(Table table) {
+            Seq<UnlockableContent> available = Seq.with(recipes).retainAll(Recipe::unlockedNow).map(mapper);
+
+            if (available.any()) {
+                ItemSelection.buildTable(RecipeCrafter.this, table, available, () -> currentRecipeID == -1 ? null : mapper.get(getCurrentRecipe()), content -> configure(recipes.indexOf(r -> mapper.get(r) == content)), selectionRows, selectionColumns);
+            } else {
+                table.table(Styles.black3, t -> t.add("@none").color(Color.lightGray));
+            }
         }
 
         @Override

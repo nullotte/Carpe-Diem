@@ -54,8 +54,9 @@ public class HubBlock extends DrawerCoreBlock {
 
         @Override
         public void buildConfiguration(Table table) {
-            table.background(Styles.black6);
-            table.check("@lockdeconstruction", lockDeconstruct, b -> lockDeconstruct = b).pad(5f);
+            table.table(Styles.black6, t -> {
+                t.check("@lockdeconstruction", lockDeconstruct, b -> lockDeconstruct = b).pad(5f);
+            });
         }
     }
 }

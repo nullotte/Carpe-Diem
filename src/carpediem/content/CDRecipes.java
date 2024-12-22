@@ -60,7 +60,7 @@ public class CDRecipes {
                 // oil
                 new Recipe()
                         .consumeLiquid(petroleum, 0.2f)
-                        .outputItem(tar, 2).outputLiquid(oil, 0.2f),
+                        .outputLiquid(oil, 0.2f).outputItem(tar, 2),
                 // silicon
                 new Recipe()
                         .consumeItem(sand, 2).consumeLiquid(oil, 0.2f)

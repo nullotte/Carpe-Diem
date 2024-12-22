@@ -200,7 +200,7 @@ public class ArchiveResearchBlock extends Block implements DataBlock {
             if (team != Vars.player.team()) return;
 
             table.row();
-            table.label(() -> Core.bundle.format("bar.decoding", data == null ? "[lightgray]" + Core.bundle.get("none") : "[accent]" + data.archive.localizedName)).pad(4).wrap().width(200f).left();
+            table.label(() -> Core.bundle.format("bar.decoding", data == null ? "[lightgray]" + Core.bundle.get("none") : "[accent]" + data.archive.localizedName)).pad(4f).wrap().width(200f).left();
             table.row();
             // yeah this rebuilds every single frame . believe me im a very good coder
             // also apparently unlocking a block while hovering over a block just clears the display

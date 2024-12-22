@@ -1,22 +1,38 @@
 package carpediem.world.blocks.storage;
 
+import arc.*;
+import arc.func.*;
+import arc.graphics.*;
 import arc.math.*;
+import arc.math.geom.*;
+import arc.scene.event.*;
+import arc.scene.style.*;
+import arc.scene.ui.*;
+import arc.scene.ui.layout.*;
 import arc.struct.*;
+import arc.util.*;
 import arc.util.io.*;
-import arc.util.pooling.*;
 import arc.util.pooling.Pool.*;
+import arc.util.pooling.*;
 import carpediem.world.blocks.crafting.*;
 import carpediem.world.meta.*;
+import mindustry.*;
 import mindustry.content.*;
+import mindustry.ctype.*;
 import mindustry.entities.*;
+import mindustry.gen.*;
+import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.ui.*;
+import mindustry.world.blocks.*;
 import mindustry.world.consumers.*;
 
 // IT CAN CRAFT ITEMS DEAR FUCKING GOD
 public class LandingPod extends DrawerCoreBlock {
+    public static Recipe selectedRecipe;
+    public static int amountCrafting;
+
     public Seq<Recipe> recipes = new Seq<>();
-    // for cancelling requests
-    public static ObjectMap<Recipe, ItemStack[]> inputs = new ObjectMap<>();
 
     public Effect craftEffect = Fx.none;
     public Effect updateEffect = Fx.none;
@@ -27,20 +43,20 @@ public class LandingPod extends DrawerCoreBlock {
 
     public LandingPod(String name) {
         super(name);
+        configurable = true;
+        selectionColumns = 8;
+    }
+
+    @Override
+    public void setBars() {
+        super.setBars();
+        removeBar("items");
     }
 
     @Override
     public void init() {
         for (Recipe recipe : recipes) {
             recipe.apply(this);
-
-            if (!inputs.containsKey(recipe)) {
-                ConsumeItems consume = (ConsumeItems) recipe.consumes.find(c -> c instanceof ConsumeItems);
-
-                if (consume != null) {
-                    inputs.put(recipe, consume.items);
-                }
-            }
         }
 
         super.init();
@@ -62,8 +78,9 @@ public class LandingPod extends DrawerCoreBlock {
 
     public class LandingPodBuild extends DrawerCoreBuild {
         public Queue<RecipeRequest> pending = new Queue<>();
-        public float progress;
         public float warmup;
+
+        public Table pendingTable;
 
         @Override
         public void updateTile() {
@@ -72,8 +89,10 @@ public class LandingPod extends DrawerCoreBlock {
             Recipe currentRecipe = getCurrentRecipe();
 
             if (currentRecipe != null) {
+                RecipeRequest currentRequest = pending.first();
+
                 if (efficiency > 0) {
-                    progress += getProgressIncrease(currentRecipe.craftTime * craftingSpeed);
+                    currentRequest.progress += getProgressIncrease(currentRecipe.craftTime * craftingSpeed);
                     warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
 
                     // do i even. for consistency's sake sure but also you Cant use liquids in the core !!
@@ -86,7 +105,7 @@ public class LandingPod extends DrawerCoreBlock {
                     warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
                 }
 
-                if (progress >= 1f) {
+                if (currentRequest.progress >= 1f) {
                     craft();
                 }
             }
@@ -105,13 +124,14 @@ public class LandingPod extends DrawerCoreBlock {
 
             RecipeRequest first = pending.first();
             first.stack--;
+            first.progress %= 1f;
+
             if (first.stack <= 0) {
                 // death
                 pending.removeFirst();
                 Pools.free(first);
+                rebuildPending();
             }
-
-            progress %= 1f;
         }
 
         public Recipe getCurrentRecipe() {
@@ -138,7 +158,7 @@ public class LandingPod extends DrawerCoreBlock {
                         // just add to the stack
                         pending.last().stack++;
                     } else {
-                        pending.addLast(Pools.obtain(RecipeRequest.class, RecipeRequest::new).set(index, 1));
+                        pending.addLast(Pools.obtain(RecipeRequest.class, RecipeRequest::new).set(index, 1, 0f));
                     }
 
                     for (Consume consume : recipe.consumes) {
@@ -148,13 +168,132 @@ public class LandingPod extends DrawerCoreBlock {
                     break;
                 }
             }
+
+            rebuildPending();
+        }
+
+        public void cancelRequest(RecipeRequest request) {
+            for (Consume consume : recipes.get(request.index).consumes) {
+                if (consume instanceof ConsumeItems consumeItems) {
+                    for (ItemStack stack : consumeItems.items) {
+                        items.add(stack.item, stack.amount * request.stack);
+                    }
+                }
+            }
+
+            pending.remove(request, true);
+            Pools.free(request);
+            rebuildPending();
+        }
+
+        @Override
+        public void buildConfiguration(Table table) {
+            selectedRecipe = null;
+            amountCrafting = 1;
+
+            table.table(Styles.black6, t -> {
+                t.table(Tex.underline, pendingLabel -> {
+                    pendingLabel.add("@crafting").color(Pal.accent).pad(5f).growX().left();
+                }).growX();
+                t.row();
+
+                t.table(p -> {
+                    pendingTable = p;
+                    rebuildPending();
+                }).growX();
+                t.row();
+
+                t.table(Tex.underline, optionsLabel -> {
+                    optionsLabel.add("@availablerecipes").color(Pal.accent).pad(5f).growX();
+                }).growX();
+                t.row();
+
+                Seq<UnlockableContent> prevAvailable = new Seq<>();
+                Cons<Table> rebuildOptions = optionsTable -> {
+                    optionsTable.clear();
+                    Seq<UnlockableContent> available = Seq.with(recipes).retainAll(r -> r.unlockedNow() && r.valid(this)).map(RecipeCrafter.mapper);
+                    if (available.any()) {
+                        ItemSelection.buildTable(LandingPod.this, optionsTable, available, () -> RecipeCrafter.mapper.get(selectedRecipe), content -> selectedRecipe = recipes.find(r -> RecipeCrafter.mapper.get(r) == content), false, selectionRows, selectionColumns);
+                        // oh my goddd
+                        ((Table) optionsTable.getCells().peek().left().get()).background(null);
+                    } else {
+                        optionsTable.add("@none").color(Color.lightGray).pad(10f).growX();
+                    }
+                };
+                t.table(rebuildOptions).update(p -> {
+                    Seq<UnlockableContent> available = Seq.with(recipes).retainAll(r -> r.unlockedNow() && r.valid(this)).map(RecipeCrafter.mapper);
+                    if (!prevAvailable.equals(available)) {
+                        // changed, rebuild
+                        prevAvailable.set(available);
+
+                        if (selectedRecipe != null && !available.contains(RecipeCrafter.mapper.get(selectedRecipe))) {
+                            selectedRecipe = null;
+                        }
+
+                        rebuildOptions.get(p);
+                    }
+                }).growX();
+                t.row();
+
+                t.table(amountTable -> {
+                    amountTable.add("@craftamount").color(Color.lightGray);
+                    amountTable.field("1", v -> amountCrafting = Strings.parseInt(v)).valid(v -> Strings.parseInt(v) > 0).pad(2f);
+                }).growX().pad(10f);
+                t.row();
+
+                t.table(buttonTable -> {
+                    buttonTable.button("@craft", Styles.flatBordert, () -> {
+                        requestRecipe(recipes.indexOf(selectedRecipe), amountCrafting);
+                    }).disabled(b -> selectedRecipe == null).height(40f).pad(10f).left().growX();
+                }).growX();
+            }).minWidth(selectionColumns * 40f);
+        }
+
+        public void rebuildPending() {
+            if (pendingTable != null) {
+                pendingTable.clear();
+                int i = 0;
+
+                for (RecipeRequest request : pending) {
+                    UnlockableContent output = RecipeCrafter.mapper.get(recipes.get(request.index));
+
+                    ImageButton button = new ImageButton(Tex.whiteui, Styles.clearNonei);
+                    button.resizeImage(24f);
+                    button.clicked(() -> {
+                        cancelRequest(request);
+                    });
+                    button.getStyle().imageUp = new TextureRegionDrawable(output.uiIcon);
+
+                    Table progress = new Table(Styles.flatOver).bottom();
+                    progress.update(() -> progress.setHeight(request.progress * 40f));
+
+                    Table label = new Table().bottom().left();
+                    label.label(() -> request.stack + "").pad(5f).touchable(Touchable.disabled);
+
+                    pendingTable.stack(progress, button, label).size(40f).left();
+
+                    if (i++ % selectionColumns == (selectionColumns - 1)) {
+                        pendingTable.row();
+                    }
+                }
+
+                if (i == 0) {
+                    pendingTable.add("@none").color(Color.lightGray).pad(10f).padLeft(20f).growX().left();
+                }
+            }
+        }
+
+        @Override
+        public void updateTableAlign(Table table) {
+            float offset = size * Vars.tilesize / 2f + 1f;
+            Vec2 pos = Core.input.mouseScreen(x - offset, y + offset);
+            table.setPosition(pos.x, pos.y, Align.topRight);
         }
 
         @Override
         public void write(Writes write) {
             super.write(write);
 
-            write.f(progress);
             write.f(warmup);
 
             write.i(pending.size);
@@ -162,6 +301,7 @@ public class LandingPod extends DrawerCoreBlock {
             for (RecipeRequest request : pending) {
                 write.i(request.index);
                 write.i(request.stack);
+                write.f(request.progress);
             }
         }
 
@@ -169,13 +309,12 @@ public class LandingPod extends DrawerCoreBlock {
         public void read(Reads read, byte revision) {
             super.read(read, revision);
 
-            progress = read.f();
             warmup = read.f();
 
             int size = read.i();
             for (int i = 0; i < size; i++) {
                 // do i even
-                RecipeRequest request = Pools.obtain(RecipeRequest.class, RecipeRequest::new).set(read.i(), read.i());
+                RecipeRequest request = Pools.obtain(RecipeRequest.class, RecipeRequest::new).set(read.i(), read.i(), read.f());
                 pending.addLast(request);
             }
         }
@@ -184,10 +323,12 @@ public class LandingPod extends DrawerCoreBlock {
     public static class RecipeRequest implements Poolable {
         public int index;
         public int stack;
+        public float progress;
 
-        public RecipeRequest set(int index, int stack) {
+        public RecipeRequest set(int index, int stack, float progress) {
             this.index = index;
             this.stack = stack;
+            this.progress = progress;
             return this;
         }
 
@@ -195,6 +336,7 @@ public class LandingPod extends DrawerCoreBlock {
         public void reset() {
             index = -1;
             stack = 0;
+            progress = 0f;
         }
     }
 }
