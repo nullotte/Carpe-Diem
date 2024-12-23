@@ -16,7 +16,7 @@ public class CDStorage {
     industryHub;
 
     public static Block
-    storageVault, storageRelay;
+    storageVault;
 
     public static void load() {
         landingPodT0 = new LandingPod("landing-pod-t0") {{
@@ -79,15 +79,6 @@ public class CDStorage {
                     new DrawDefault(),
                     new DrawTeam()
             );
-        }};
-
-        storageRelay = new StorageRelay("storage-relay") {{
-            requirements(Category.effect, ItemStack.with());
-            size = 5;
-
-            drawer = new DrawDefault();
-
-            consumePower(2f);
         }};
     }
 }
