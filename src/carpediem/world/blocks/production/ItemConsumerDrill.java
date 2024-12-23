@@ -5,15 +5,14 @@ import arc.util.io.*;
 import carpediem.world.consumers.ConsumeItemsUses.*;
 import mindustry.gen.*;
 import mindustry.type.*;
-import mindustry.world.blocks.production.*;
 
 // it's all so janky
-public class ItemConsumerDrill extends Drill {
+public class ItemConsumerDrill extends DrawerDrill {
     public ItemConsumerDrill(String name) {
         super(name);
     }
 
-    public class ItemConsumerDrillBuild extends DrillBuild implements UseCounter {
+    public class ItemConsumerDrillBuild extends DrawerDrillBuild implements UseCounter {
         public int uses;
 
         @Override

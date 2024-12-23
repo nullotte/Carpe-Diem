@@ -2,6 +2,8 @@ package carpediem.world.draw;
 
 import arc.*;
 import arc.graphics.g2d.*;
+import arc.util.*;
+import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -23,6 +25,15 @@ public class DrawSortRegion extends DrawBlock {
         if (sortItem != null) {
             Draw.color(sortItem.color);
             Draw.rect(region, build.x, build.y);
+            Draw.color();
+        }
+    }
+
+    @Override
+    public void drawPlan(Block block, BuildPlan plan, Eachable<BuildPlan> list) {
+        if (plan.config instanceof Item sortItem) {
+            Draw.color(sortItem.color);
+            Draw.rect(region, plan.drawx(), plan.drawy());
             Draw.color();
         }
     }
