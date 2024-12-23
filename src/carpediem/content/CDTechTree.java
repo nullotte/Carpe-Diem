@@ -55,7 +55,6 @@ public class CDTechTree {
 
             node(industryHub, () -> {
                 node(storageVault);
-                node(storageRelay);
             });
 
             node(launchPlatformT1);
