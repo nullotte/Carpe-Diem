@@ -3,10 +3,10 @@ package carpediem.world.blocks.campaign;
 import arc.*;
 import arc.graphics.g2d.*;
 import arc.scene.ui.layout.*;
-import arc.struct.*;
 import arc.util.*;
 import carpediem.*;
 import carpediem.game.CDObjectives.*;
+import carpediem.world.blocks.storage.*;
 import mindustry.*;
 import mindustry.content.TechTree.*;
 import mindustry.gen.*;
@@ -14,11 +14,9 @@ import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.payloads.*;
-import mindustry.world.blocks.storage.*;
 
+// TODO should be able to launch item pods
 public class LaunchPlatform extends PayloadBlock {
-    public Seq<CoreBlock> launchBlocks = new Seq<>();
-
     public LaunchPlatform(String name) {
         super(name);
         acceptsPayload = true;
@@ -37,9 +35,10 @@ public class LaunchPlatform extends PayloadBlock {
 
         @Override
         public boolean acceptPayload(Building source, Payload payload) {
-            return super.acceptPayload(source, payload) && payload.content() instanceof CoreBlock core && launchBlocks.contains(core);
+            return super.acceptPayload(source, payload) && payload.content() instanceof PackagedCoreBlock;
         }
 
+        // TODO IMPORTANT !!!!! let the player's loadout be the items they loaded the landing pod with
         public void launchTo(Sector sector) {
             if (canLaunch(sector)) {
                 consume();
@@ -51,7 +50,7 @@ public class LaunchPlatform extends PayloadBlock {
                     Vars.control.playSector(Vars.state.rules.sector, sector);
                 } else {
                     Time.runTask(5f, () -> {
-                        Vars.renderer.showLaunch((CoreBlock) launched.content());
+                        Vars.renderer.showLaunch(((PackagedCoreBlock) launched.content()).coreType);
                         Time.runTask(Vars.coreLandDuration - 8f, () -> Vars.control.playSector(Vars.state.rules.sector, sector));
                     });
                 }

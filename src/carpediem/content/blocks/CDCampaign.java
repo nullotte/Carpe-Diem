@@ -19,8 +19,6 @@ public class CDCampaign {
             itemCapacity = 100;
             regionSuffix = "-dark";
 
-            launchBlocks.add(CDStorage.landingPodT0);
-
             consumeItem(CDItems.sulfur, 100);
         }};
 

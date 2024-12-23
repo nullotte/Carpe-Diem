@@ -17,10 +17,8 @@ public class DrawCoreDoor extends DrawBlock {
 
     @Override
     public void draw(Building build) {
-        if (build instanceof DrawerCoreBuild core) {
-            for (int i = 0; i < 2; i++) {
-                Draw.rect(regions[i], build.x + (interp.apply(core.spawnAnimationProgress()) * distance) * Mathf.signs[i], build.y);
-            }
+        for (int i = 0; i < 2; i++) {
+            Draw.rect(regions[i], build.x + (interp.apply(build.progress()) * distance) * Mathf.signs[i], build.y);
         }
     }
 

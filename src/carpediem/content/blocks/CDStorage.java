@@ -7,12 +7,11 @@ import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.*;
-import mindustry.world.blocks.storage.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 public class CDStorage {
-    public static CoreBlock
+    public static DrawerCoreBlock
     landingPodT0, landingPodT1, landingPodT2,
     industryHub;
 

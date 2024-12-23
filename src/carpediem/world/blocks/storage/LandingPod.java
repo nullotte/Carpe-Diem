@@ -76,6 +76,11 @@ public class LandingPod extends DrawerCoreBlock {
         });
     }
 
+    @Override
+    public boolean isHidden() {
+        return false;
+    }
+
     public class LandingPodBuild extends DrawerCoreBuild {
         public Queue<RecipeRequest> pending = new Queue<>();
         public float warmup;

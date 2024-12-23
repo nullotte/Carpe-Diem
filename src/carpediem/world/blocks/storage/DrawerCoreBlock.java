@@ -119,7 +119,8 @@ public class DrawerCoreBlock extends CoreBlock {
             spawnAnimationTime = Math.max(spawnAnimationTime - Time.delta, waiting ? spawnAnimationDuration * 0.5f : 0f);
         }
 
-        public float spawnAnimationProgress() {
+        @Override
+        public float progress() {
             return spawnAnimationTime / spawnAnimationDuration;
         }
 
