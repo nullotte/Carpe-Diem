@@ -1,6 +1,5 @@
 package carpediem.content;
 
-import arc.*;
 import arc.struct.*;
 import arc.util.*;
 import carpediem.game.CDObjectives.*;

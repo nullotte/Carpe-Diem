@@ -65,7 +65,7 @@ public class LaunchPlatform extends PayloadBlock {
                 if (sector.planet.generator != null && !sector.planet.generator.allowLanding(sector)) {
                     if (sector.preset != null) {
                         TechNode node = sector.preset.techNode;
-                        if (node != null && node.parent != null && (!node.parent.content.unlocked() || (node.parent.content instanceof SectorPreset preset && !preset.sector.hasBase()) || node.objectives.contains(o -> !(o.complete() || (o instanceof LaunchSector launch && payload.content() == launch.requiredCore))))) {
+                        if (node != null && node.parent != null && (!node.parent.content.unlocked() || (node.parent.content instanceof SectorPreset preset && !preset.sector.hasBase()) || node.objectives.contains(o -> !(o.complete() || (o instanceof LaunchSector launch && payload.content() instanceof PackagedCoreBlock packaged && packaged.coreType == launch.requiredCore))))) {
                             return false;
                         }
                     } else {

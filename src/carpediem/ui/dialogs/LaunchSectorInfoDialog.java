@@ -1,5 +1,6 @@
 package carpediem.ui.dialogs;
 
+import arc.*;
 import arc.util.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -25,7 +26,15 @@ public class LaunchSectorInfoDialog extends BaseDialog {
             cont.pane(p -> {
                 p.add(sector.preset.description).grow().wrap().labelAlign(Align.center);
             }).pad(10f).grow();
+            cont.row();
         }
+
+        cont.add(Core.bundle.get("sectors.threat") + " [accent]" + sector.displayThreat()).row();
+        if (!sector.hasBase() && sector.hasEnemyBase()) {
+            cont.add("@sectors.enemybase").row();
+        }
+
+        // TODO loadout
 
         buttons.button("@launch.text", Icon.play, () -> {
             run.run();
