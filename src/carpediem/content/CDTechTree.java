@@ -7,16 +7,16 @@ import mindustry.content.*;
 import mindustry.game.Objectives.*;
 import mindustry.world.*;
 
-import static mindustry.content.TechTree.*;
+import static carpediem.content.CDArchives.*;
+import static carpediem.content.CDItems.*;
+import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDDistribution.*;
 import static carpediem.content.blocks.CDPayloads.*;
 import static carpediem.content.blocks.CDPower.*;
 import static carpediem.content.blocks.CDProduction.*;
 import static carpediem.content.blocks.CDStorage.*;
-import static carpediem.content.blocks.CDCampaign.*;
-import static carpediem.content.CDItems.*;
-import static carpediem.content.CDArchives.*;
+import static mindustry.content.TechTree.*;
 
 public class CDTechTree {
     public static Seq<Block> blocks = new Seq<>();
@@ -75,24 +75,22 @@ public class CDTechTree {
             });
 
             nodeProduce(rawAluminum, () -> {
-                nodeProduce(waterIce, () -> {
-                    nodeProduce(Liquids.water, () -> {
-                        nodeProduce(CDLiquids.petroleum, () -> {
-                            nodeProduce(Liquids.oil, () -> {
-                                nodeProduce(tar, () -> {});
-                                nodeProduce(Items.silicon, () -> {
-                                    nodeProduce(siliconSheet, () -> {});
+                nodeProduce(Liquids.water, () -> {
+                    nodeProduce(CDLiquids.petroleum, () -> {
+                        nodeProduce(Liquids.oil, () -> {
+                            nodeProduce(tar, () -> {});
+                            nodeProduce(Items.silicon, () -> {
+                                nodeProduce(siliconSheet, () -> {});
+                            });
+                            nodeProduce(Items.pyratite, () -> {});
+                            nodeProduce(sturdyAlloy, () -> {
+                                nodeProduce(alloyPlate, () -> {
+                                    nodeProduce(alloyCogwheel, () -> {});
                                 });
-                                nodeProduce(Items.pyratite, () -> {});
-                                nodeProduce(sturdyAlloy, () -> {
-                                    nodeProduce(alloyPlate, () -> {
-                                        nodeProduce(alloyCogwheel, () -> {});
-                                    });
-                                    nodeProduce(alloyRod, () -> {});
-                                });
-                                nodeProduce(Items.plastanium, () -> {
-                                    nodeProduce(plastaniumSheet, () -> {});
-                                });
+                                nodeProduce(alloyRod, () -> {});
+                            });
+                            nodeProduce(Items.plastanium, () -> {
+                                nodeProduce(plastaniumSheet, () -> {});
                             });
                         });
                     });

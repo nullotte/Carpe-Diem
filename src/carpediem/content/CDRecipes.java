@@ -53,10 +53,6 @@ public class CDRecipes {
         });
 
         refineryRecipes = Seq.with(
-                // water
-                new Recipe()
-                        .consumeItem(waterIce, 3)
-                        .outputLiquid(water, 0.2f),
                 // oil
                 new Recipe()
                         .consumeLiquid(petroleum, 0.2f)
