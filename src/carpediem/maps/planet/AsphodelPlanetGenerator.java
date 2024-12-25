@@ -3,9 +3,9 @@ package carpediem.maps.planet;
 import arc.graphics.*;
 import arc.math.*;
 import arc.math.geom.*;
-import arc.struct.*;
 import arc.util.*;
 import arc.util.noise.*;
+import carpediem.content.blocks.*;
 import mindustry.content.*;
 import mindustry.game.*;
 import mindustry.maps.generators.*;
@@ -14,14 +14,10 @@ import mindustry.world.*;
 
 public class AsphodelPlanetGenerator extends PlanetGenerator {
     public int octaves = 5, riverOctaves = 4;
-    public float heightScl = 0.6f, heightMult = 0.3f, coldPow = 6f, coldScl = 0.4f, coldThresh = 0.8f;
+    public float heightScl = 0.6f, heightMult = 0.3f, coldPow = 6f, coldScl = 0.4f;
     public float riverScl = 0.9f, riverMult = -1.2f, riverLevel = -0.6f, riverOffset = -0.2f;
 
-    public Block[] terrain = {Blocks.darksand, Blocks.stone, Blocks.shale, Blocks.snow};
-    public ObjectMap<Block, Block> coldMap = ObjectMap.of(
-            Blocks.stone, Blocks.shale,
-            Blocks.shale, Blocks.crystallineStone
-    );
+    public Block[] terrain = {Blocks.redStone, Blocks.crystalFloor, CDEnvironment.blue, Blocks.snow};
 
     public AsphodelPlanetGenerator() {
 
@@ -74,13 +70,7 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
         height = Mathf.lerp(height, 1f, Mathf.pow(cold, coldPow) * coldScl);
 
         int heightIndex = Mathf.clamp((int) (height * terrain.length), 0, terrain.length - 1);
-        Block result = terrain[heightIndex];
-
-        if (cold > coldThresh) {
-            result = coldMap.get(result, result);
-        }
-
-        return result;
+        return terrain[heightIndex];
     }
 
     @Override
