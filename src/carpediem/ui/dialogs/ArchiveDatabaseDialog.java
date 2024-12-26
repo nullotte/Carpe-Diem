@@ -52,8 +52,7 @@ public class ArchiveDatabaseDialog extends BaseDialog {
             all.button(b -> {
                 b.top();
                 b.add(archive.localizedName).labelAlign(Align.center).growX().wrap().color(Pal.accent).row();
-                // TODO icon
-                b.image(Icon.book.getRegion()).grow().scaling(Scaling.fit).pad(40f);
+                b.image(archive.fullIcon).grow().scaling(Scaling.fit).pad(40f);
             }, () -> {
                 if (cons != null) {
                     cons.get(archive);
