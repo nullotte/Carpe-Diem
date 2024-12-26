@@ -1,6 +1,5 @@
 package carpediem.content.blocks;
 
-import arc.math.*;
 import arc.math.geom.*;
 import arc.struct.*;
 import carpediem.content.*;
