@@ -10,11 +10,14 @@ public class CDPlanets {
     public static Planet asphodel;
 
     public static void load() {
-        asphodel = new Planet("asphodel", Planets.sun, 4f, 1) {{
+        asphodel = new Planet("asphodel", Planets.sun, 2f, 1) {{
             alwaysUnlocked = true;
             generator = new AsphodelPlanetGenerator();
 
             meshLoader = () -> new HexMesh(this, 6);
+            // i cant be bothered . maybe make a custom atmosphere shader one day (never)
+            // the vanilla one has a size limit or something. also clips with the planet itself
+            hasAtmosphere = false;
 
             defaultCore = CDStorage.landingPodT0;
             allowLaunchToNumbered = false;

@@ -15,9 +15,23 @@ import mindustry.world.*;
 public class AsphodelPlanetGenerator extends PlanetGenerator {
     public int octaves = 5, riverOctaves = 4;
     public float heightScl = 0.6f, heightMult = 0.3f, coldPow = 6f, coldScl = 0.4f;
-    public float riverScl = 0.9f, riverMult = -1.2f, riverLevel = -0.6f, riverOffset = -0.2f;
+    public float riverScl = 0.9f, riverMult = -1.2f, riverLevel = -0.7f, riverOffset = -0.2f;
 
     public Block[] terrain = {Blocks.redStone, Blocks.crystalFloor, CDEnvironment.blue, Blocks.snow};
+    public Color[] preview = {
+            Color.valueOf("d27d56"),
+            Color.valueOf("b86455"),
+            Blocks.redStone.mapColor,
+            Color.valueOf("794968"),
+            Color.valueOf("60496d"),
+            Color.valueOf("60496d"),
+            Blocks.crystalFloor.mapColor,
+            CDEnvironment.blue.mapColor,
+            CDEnvironment.blue.mapColor,
+            Blocks.carbonStone.mapColor,
+            Blocks.carbonStone.mapColor,
+            Blocks.snow.mapColor
+    };
 
     public AsphodelPlanetGenerator() {
 
@@ -28,6 +42,8 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
     }
 
     public float riverDepth(Vec3 position) {
+        if (true) return 0f;
+
         return Math.min(0f, Ridged.noise3d(seed + 1, position.x, position.y, position.z, riverOctaves, 1f / riverScl) * riverMult);
     }
 
@@ -43,11 +59,28 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
 
     @Override
     public Color getColor(Vec3 position) {
+        /*
         Block block = getBlock(position);
         if (riverDepth(position) < riverLevel) {
             block = Blocks.ice;
         }
         return Tmp.c1.set(block.mapColor).a(1f - block.albedo);
+         */
+
+        if (riverDepth(position) < riverLevel) {
+            return Tmp.c1.set(Blocks.sandWater.mapColor).a(1f - Blocks.sandWater.albedo);
+        }
+
+        float cold = Math.abs(position.y) * 2f;
+        float cnoise = Simplex.noise3d(seed, 7, 0.5f, 1f / 6f, position.x, position.y + 999f, position.z);
+        cold = Mathf.lerp(cold, cnoise, 0.5f);
+
+        float height = rawHeight(position) + riverDepth(position);
+        height = (height + 1f) / 2f;
+        height = Mathf.lerp(height, 1f, Mathf.pow(cold, coldPow) * coldScl);
+
+        int heightIndex = Mathf.clamp((int) (height * preview.length), 0, preview.length - 1);
+        return preview[heightIndex];
     }
 
     @Override
