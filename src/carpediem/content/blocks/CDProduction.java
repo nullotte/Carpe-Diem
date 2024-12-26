@@ -22,7 +22,7 @@ public class CDProduction {
             size = 3;
 
             tier = 3;
-            drillTime = 60f * 4f * Mathf.sqr(size);
+            drillTime = 8f * 60f;
             hardnessDrillMultiplier = 0f;
             drillMultipliers.put(CDItems.sulfur, 9f / 8f);
 
@@ -61,7 +61,7 @@ public class CDProduction {
             size = 4;
 
             tier = 4;
-            drillTime = 60f * 2f * Mathf.sqr(size);
+            drillTime = 6f * 60f;
             hardnessDrillMultiplier = 0f;
             drillMultipliers.put(CDItems.rawSilver, 0.5f);
 
