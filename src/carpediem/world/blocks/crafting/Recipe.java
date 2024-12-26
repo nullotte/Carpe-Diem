@@ -4,6 +4,7 @@ import arc.scene.ui.layout.*;
 import arc.struct.*;
 import carpediem.world.outputs.*;
 import mindustry.*;
+import mindustry.ctype.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -19,6 +20,9 @@ public class Recipe {
 
     public Seq<Consume> consumes = new Seq<>();
     public Seq<Output> outputs = new Seq<>();
+
+    // for ui
+    public UnlockableContent primaryOutput;
 
     public Recipe() {}
 
@@ -178,10 +182,12 @@ public class Recipe {
     }
 
     public Recipe outputItem(Item item, int amount) {
+        if (primaryOutput == null) primaryOutput = item;
         return output(new OutputItems(new ItemStack[]{new ItemStack(item, amount)}));
     }
 
     public Recipe outputLiquid(Liquid liquid, float amount) {
+        if (primaryOutput == null) primaryOutput = liquid;
         return output(new OutputLiquids(new LiquidStack[]{new LiquidStack(liquid, amount)}));
     }
 }

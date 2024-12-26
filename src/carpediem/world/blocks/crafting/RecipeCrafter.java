@@ -1,6 +1,5 @@
 package carpediem.world.blocks.crafting;
 
-import arc.func.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
@@ -10,7 +9,6 @@ import arc.util.*;
 import arc.util.io.*;
 import carpediem.world.consumers.ConsumeItemsUses.*;
 import carpediem.world.meta.*;
-import carpediem.world.outputs.*;
 import mindustry.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
@@ -37,22 +35,6 @@ public class RecipeCrafter extends Block {
     public float craftingSpeed = 1f;
 
     public DrawBlock drawer = new DrawDefault();
-
-    // TODO get rid of this (i will never do it)
-    public static Func<Recipe, UnlockableContent> mapper = r -> {
-        if (r != null) {
-            for (Output output : r.outputs) {
-                if (output instanceof OutputItems outputItems) {
-                    return outputItems.items[0].item;
-                }
-                if (output instanceof OutputLiquids outputLiquids) {
-                    return outputLiquids.liquids[0].liquid;
-                }
-            }
-        }
-        // bro
-        return Items.copper;
-    };
 
     public RecipeCrafter(String name) {
         super(name);
@@ -277,6 +259,8 @@ public class RecipeCrafter extends Block {
         }
 
         public void matchRecipe() {
+            // old code that used to be relevant for the rolling mill
+            /*
             // dont switch recipes until the crafter is fully emptied
             boolean liquidsEmpty = true;
 
@@ -292,6 +276,7 @@ public class RecipeCrafter extends Block {
             }
 
             if (currentRecipeID >= 0) return;
+             */
 
             for (Recipe recipe : recipes) {
                 if (recipe.valid(this)) {
@@ -351,13 +336,18 @@ public class RecipeCrafter extends Block {
 
         @Override
         public void buildConfiguration(Table table) {
-            Seq<UnlockableContent> available = Seq.with(recipes).retainAll(Recipe::unlockedNow).map(mapper);
+            Seq<UnlockableContent> available = Seq.with(recipes).retainAll(Recipe::unlockedNow).map(r -> r.primaryOutput);
 
             if (available.any()) {
-                ItemSelection.buildTable(RecipeCrafter.this, table, available, () -> currentRecipeID == -1 ? null : mapper.get(getCurrentRecipe()), content -> configure(recipes.indexOf(r -> mapper.get(r) == content)), selectionRows, selectionColumns);
+                ItemSelection.buildTable(RecipeCrafter.this, table, available, () -> currentRecipeID == -1 ? null : getCurrentRecipe().primaryOutput, content -> configure(recipes.indexOf(r -> r.primaryOutput == content)), selectionRows, selectionColumns);
             } else {
                 table.table(Styles.black3, t -> t.add("@none").color(Color.lightGray));
             }
+        }
+
+        @Override
+        public Object config() {
+            return currentRecipeID;
         }
 
         @Override

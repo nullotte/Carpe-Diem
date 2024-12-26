@@ -63,6 +63,8 @@ public class CDCrafting {
             size = 4;
 
             recipes.addAll(CDRecipes.rollingMillRecipes);
+            // rolling mill has configurable true too because of the rods and wires recipe thingy
+            configurable = true;
 
             consumePower(1f / 12f);
         }};

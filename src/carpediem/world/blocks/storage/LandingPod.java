@@ -226,9 +226,9 @@ public class LandingPod extends DrawerCoreBlock {
                 Seq<UnlockableContent> prevAvailable = new Seq<>();
                 Cons<Table> rebuildOptions = optionsTable -> {
                     optionsTable.clear();
-                    Seq<UnlockableContent> available = Seq.with(recipes).retainAll(r -> r.unlockedNow() && r.valid(this)).map(RecipeCrafter.mapper);
+                    Seq<UnlockableContent> available = Seq.with(recipes).retainAll(r -> r.unlockedNow() && r.valid(this)).map(r -> r.primaryOutput);
                     if (available.any()) {
-                        ItemSelection.buildTable(LandingPod.this, optionsTable, available, () -> RecipeCrafter.mapper.get(selectedRecipe), content -> selectedRecipe = recipes.find(r -> RecipeCrafter.mapper.get(r) == content), false, selectionRows, selectionColumns);
+                        ItemSelection.buildTable(LandingPod.this, optionsTable, available, () -> selectedRecipe == null ? null : selectedRecipe.primaryOutput, content -> selectedRecipe = recipes.find(r -> r.primaryOutput == content), false, selectionRows, selectionColumns);
                         // oh my goddd
                         ((Table) optionsTable.getCells().peek().left().get()).background(null);
                     } else {
@@ -236,12 +236,12 @@ public class LandingPod extends DrawerCoreBlock {
                     }
                 };
                 t.table(rebuildOptions).update(p -> {
-                    Seq<UnlockableContent> available = Seq.with(recipes).retainAll(r -> r.unlockedNow() && r.valid(this)).map(RecipeCrafter.mapper);
+                    Seq<UnlockableContent> available = Seq.with(recipes).retainAll(r -> r.unlockedNow() && r.valid(this)).map(r -> r.primaryOutput);
                     if (!prevAvailable.equals(available)) {
                         // changed, rebuild
                         prevAvailable.set(available);
 
-                        if (selectedRecipe != null && !available.contains(RecipeCrafter.mapper.get(selectedRecipe))) {
+                        if (selectedRecipe != null && !available.contains(selectedRecipe.primaryOutput)) {
                             selectedRecipe = null;
                         }
 
@@ -270,7 +270,7 @@ public class LandingPod extends DrawerCoreBlock {
                 int i = 0;
 
                 for (RecipeRequest request : pending) {
-                    UnlockableContent output = RecipeCrafter.mapper.get(recipes.get(request.index));
+                    UnlockableContent output = recipes.get(request.index).primaryOutput;
 
                     ImageButton button = new ImageButton(Tex.whiteui, Styles.clearNonei);
                     button.resizeImage(24f);

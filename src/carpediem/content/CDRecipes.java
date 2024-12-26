@@ -84,7 +84,7 @@ public class CDRecipes {
                         .consumeItems(ItemStack.with(sturdyAlloy, 1, alloyPlate, 2))
                         .outputItem(alloyCogwheel, 4),
                 // circuits
-                new Recipe()
+                new Recipe(1.5f * 60f)
                         .consumeItems(ItemStack.with(aluminumPlate, 1, nickelWire, 4))
                         .outputItem(controlCircuit),
                 new Recipe()
