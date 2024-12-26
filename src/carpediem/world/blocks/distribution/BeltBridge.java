@@ -7,12 +7,13 @@ import arc.math.*;
 import arc.math.geom.*;
 import arc.struct.*;
 import arc.util.*;
+import arc.util.io.*;
+import carpediem.input.*;
 import carpediem.world.blocks.distribution.Belt.*;
 import carpediem.world.draw.DrawBeltUnder.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
-import mindustry.input.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.distribution.*;
@@ -26,8 +27,12 @@ public class BeltBridge extends DuctBridge {
     public DrawBlock drawer;
     public TextureRegion bridgeRegion1, bridgeRegion2;
 
+    public boolean nextOut;
+
     public BeltBridge(String name) {
         super(name);
+        configurable = true;
+        config(Boolean.class, (BeltBridgeBuild bridge, Boolean out) -> bridge.out = out);
     }
 
     @Override
@@ -68,7 +73,7 @@ public class BeltBridge extends DuctBridge {
         for (int i = 1; i <= range; i++) {
             Tile other = world.tile(x + dx * i, y + dy * i);
 
-            if (other != null && other.build instanceof DirectionBridgeBuild build && build.rotation == rotation && build.block == this && build.team == player.team()) {
+            if (other != null && other.build instanceof BeltBridgeBuild build && build.out && build.rotation == rotation && build.block == this && build.team == player.team()) {
                 length = i;
                 found = other.build;
                 break;
@@ -101,30 +106,24 @@ public class BeltBridge extends DuctBridge {
     }
 
     @Override
-    public void changePlacementPath(Seq<Point2> points, int rotation, boolean diagonalOn) {
-        //Placement.calculateNodes(points, this, rotation, ());
+    public void changePlacementPath(Seq<Point2> points, int rotation) {
+        nextOut = false;
+        BeltPlacement.calculateNodes(points, this, rotation, (point, other) -> Math.max(Math.abs(point.x - other.x), Math.abs(point.y - other.y)) <= range);
+    }
+
+    @Override
+    public Object nextConfig() {
+        boolean out = nextOut;
+        nextOut = !nextOut;
+        return out;
     }
 
     public class BeltBridgeBuild extends DuctBridgeBuild implements BeltUnderBlending {
-        public BeltBridgeBuild in;
+        public boolean out;
         // maybe i should just kill myself
         public int inputDir = -1;
         public boolean[] input = new boolean[4], inputBelt = new boolean[4];
         public int[] blendInputs = new int[4], blendOutputs = new int[4];
-
-        @Override
-        public void updateTile() {
-            super.updateTile();
-            DirectionBridgeBuild link = findLink();
-
-            if (link instanceof BeltBridgeBuild beltLink) {
-                beltLink.in = this;
-            }
-
-            if (in == null || in.rotation != rotation || !in.isValid() || in.lastLink != this) {
-                in = null;
-            }
-        }
 
         @Override
         public void draw() {
@@ -138,14 +137,40 @@ public class BeltBridge extends DuctBridge {
         }
 
         @Override
+        public void drawSelect() {
+            if (!out) {
+                drawPlace(tile.x, tile.y, rotation, true, false);
+            }
+
+            for (int dir = 0; dir < 4; dir++) {
+                if (dir != rotation) {
+                    int dx = Geometry.d4x(dir), dy = Geometry.d4y(dir);
+                    Building found = occupied[(dir + 2) % 4];
+
+                    if (found != null) {
+                        int length = Math.max(Math.abs(found.tileX() - tileX()), Math.abs(found.tileY() - tileY()));
+                        Drawf.dashLine(Pal.place,
+                                found.x - dx * (tilesize / 2f + 2),
+                                found.y - dy * (tilesize / 2f + 2),
+                                found.x - dx * (length) * tilesize,
+                                found.y - dy * (length) * tilesize
+                        );
+
+                        Drawf.square(found.x, found.y, 2f, 45f, Pal.place);
+                    }
+                }
+            }
+        }
+
+        @Override
         public boolean drawInput() {
             // god
-            return in == null && (input[inputDir] || inputBelt[inputDir]);
+            return !out && (input[inputDir] || inputBelt[inputDir]);
         }
 
         @Override
         public boolean drawOutput() {
-            return in != null;
+            return out;
         }
 
         @Override
@@ -221,16 +246,40 @@ public class BeltBridge extends DuctBridge {
         }
 
         @Override
+        public boolean configTapped() {
+            configure(!out);
+            Sounds.click.at(this);
+            return false;
+        }
+
+        @Override
+        public Object config() {
+            return out;
+        }
+
+        @Override
         public DirectionBridgeBuild findLink() {
-            if (in != null) return null;
+            if (out) return null;
 
             for (int i = 1; i <= range; i++) {
                 Tile other = tile.nearby(Geometry.d4x(rotation) * i, Geometry.d4y(rotation) * i);
-                if (other != null && other.build instanceof DirectionBridgeBuild build && build.rotation == rotation && build.block == BeltBridge.this && build.team == team) {
+                if (other != null && other.build instanceof BeltBridgeBuild build && build.out && build.rotation == rotation && build.block == BeltBridge.this && build.team == team) {
                     return build;
                 }
             }
             return null;
+        }
+
+        @Override
+        public void write(Writes write) {
+            super.write(write);
+            write.bool(out);
+        }
+
+        @Override
+        public void read(Reads read, byte revision) {
+            super.read(read, revision);
+            out = read.bool();
         }
     }
 }

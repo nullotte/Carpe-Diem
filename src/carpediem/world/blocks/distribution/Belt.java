@@ -86,12 +86,12 @@ public class Belt extends Block implements Autotiler {
                 return this;
 
             Boolf<Point2> cont = p -> {
-                if (plans.contains(o -> o.x == req.x + p.x && o.y == req.y + p.y && o.tile() != null && input(req.tile(), req.rotation, o.tile(), o.rotation, o.block))) {
+                if (plans.contains(o -> o.x == req.x + p.x && o.y == req.y + p.y && o.tile() != null && o.block.isDuct && input(req.tile(), req.rotation, o.tile(), o.rotation, o.block))) {
                     return true;
                 }
 
                 Tile near = req.tile().nearby(p.x, p.y);
-                return near != null && near.build != null && input(req.tile(), req.rotation, near, near.build.rotation, near.build.block);
+                return near != null && near.build != null && near.block().isDuct && input(req.tile(), req.rotation, near, near.build.rotation, near.build.block);
             };
 
             int in = 0;

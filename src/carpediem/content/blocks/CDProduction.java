@@ -6,7 +6,6 @@ import carpediem.content.*;
 import carpediem.world.blocks.production.*;
 import carpediem.world.consumers.*;
 import carpediem.world.draw.*;
-import mindustry.content.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -52,7 +51,7 @@ public class CDProduction {
             customShadow = true;
 
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
-            consumeLiquid(Liquids.water, 0.06f).boost(); // TODO should it?
+            liquidBoostIntensity = 1f;
         }};
 
         drillT1 = new DrawerDrill("drill-t1") {{
@@ -95,7 +94,7 @@ public class CDProduction {
             customShadow = true;
 
             consumePower(1f / 10f);
-            consumeLiquid(Liquids.water, 0.06f).boost();
+            liquidBoostIntensity = 1f;
         }};
     }
 }

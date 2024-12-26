@@ -42,7 +42,6 @@ public class CDPayloads {
             requirements(Category.units, ItemStack.with());
             size = maxBlockSize = 5;
             filter = Seq.with(payloadRail);
-            // TODO it should create "inactive" landing pods instead of actual landing pod blocks.
 
             consumePower(2f);
         }};

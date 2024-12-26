@@ -16,13 +16,13 @@ public class DrawBridgeRegion extends DrawBlock {
     @Override
     public void draw(Building build) {
         if (build instanceof BeltBridgeBuild bridge) {
-            Draw.rect(bridge.in == null ? in[build.rotation] : out[build.rotation], build.x, build.y);
+            Draw.rect(!bridge.out ? in[build.rotation] : out[build.rotation], build.x, build.y);
         }
     }
 
     @Override
     public void drawPlan(Block block, BuildPlan plan, Eachable<BuildPlan> list) {
-        Draw.rect(in[plan.rotation], plan.drawx(), plan.drawy());
+        Draw.rect(plan.config == Boolean.TRUE ? out[plan.rotation] : in[plan.rotation], plan.drawx(), plan.drawy());
     }
 
     @Override

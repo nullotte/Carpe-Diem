@@ -82,5 +82,8 @@ public class CDDistribution {
                     new DrawBridgeRegion()
             );
         }};
+
+        // for merger auto replacement . probably shouldnt use isDuct but oh well it works
+        belt.isDuct = beltMerger.isDuct = beltSplitter.isDuct = beltOverflowGate.isDuct = beltUnderflowGate.isDuct = beltBridge.isDuct = true;
     }
 }
