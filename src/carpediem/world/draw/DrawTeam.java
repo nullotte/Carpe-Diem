@@ -14,6 +14,7 @@ public class DrawTeam extends DrawBlock {
 
     @Override
     public TextureRegion[] icons(Block block) {
-        return new TextureRegion[]{block.teamRegions[1]};
+        // sharded ? whos that
+        return new TextureRegion[]{block.teamRegions[47]};
     }
 }

@@ -5,6 +5,7 @@ import arc.math.*;
 import arc.math.geom.*;
 import arc.util.*;
 import arc.util.noise.*;
+import carpediem.content.*;
 import carpediem.content.blocks.*;
 import mindustry.content.*;
 import mindustry.game.*;
@@ -34,7 +35,7 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
     };
 
     public AsphodelPlanetGenerator() {
-
+        defaultLoadout = CDLoadouts.schemLandingPodT0;
     }
 
     public float rawHeight(Vec3 position) {

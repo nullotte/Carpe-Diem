@@ -2,6 +2,7 @@ package carpediem.type.unit;
 
 import arc.graphics.*;
 import arc.graphics.g2d.*;
+import carpediem.content.*;
 import carpediem.graphics.*;
 import mindustry.graphics.*;
 import mindustry.graphics.MultiPacker.*;
@@ -22,13 +23,15 @@ public class CDUnitType extends UnitType {
         // it finally works !!!!
         Pixmap cell = packer.get(name + "-cell").crop();
         cell.replace(in -> switch (in) {
-            case 0xffffffff -> 0xffa664ff;
-            case 0xdcc6c6ff -> 0xd06b53ff;
-            case 0x9d7f7fff -> 0xb0463cff;
+            // this uses the coalition's colors because the vanilla icon cell looks like triage . if you want vanilla colors check vanilla
+            case 0xffffffff -> CDTeams.coalition.palettei[0];
+            case 0xdcc6c6ff -> CDTeams.coalition.palettei[1];
+            case 0x9d7f7fff -> CDTeams.coalition.palettei[2];
             default -> 0;
         });
         base.pixmap.draw(cell, true);
 
+        // unfortunately this code doesnt support parts . tho if you're copying this code you probably know how to make it work with parts
         for (Weapon weapon : weapons) {
             if (!weapon.name.isEmpty()) {
                 Pixmap over = base.crop();

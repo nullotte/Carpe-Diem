@@ -32,9 +32,13 @@ public class CDPlanets {
             prebuildBase = false;
 
             ruleSetter = r -> {
+                r.defaultTeam = CDTeams.coalition;
+                // is this even necessary
+                r.waveTeam = CDTeams.triage;
+                r.deconstructRefundMultiplier = 1f;
+
                 r.fog = true;
                 r.staticFog = true;
-                r.deconstructRefundMultiplier = 1f;
 
                 r.hideBannedBlocks = true;
                 r.blockWhitelist = true;
