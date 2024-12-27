@@ -40,6 +40,7 @@ public class CDUnitTypes {
             mineSpeed = (65f * 5f) / 60f;
             mineTier = 3;
             buildSpeed = 1f;
+            buildRange = 40f * 8f;
             itemCapacity = 200;
 
             fogRadius = 16f;

@@ -34,6 +34,17 @@ public class OutputItems extends Output {
     }
 
     @Override
+    public boolean full(Building build) {
+        for (ItemStack stack : items) {
+            if (build.items.get(stack.item) + stack.amount > build.getMaximumAccepted(stack.item)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
     public void display(Stats stats) {
         stats.add(Stat.output, stats.timePeriod < 0 ? StatValues.items(items) : StatValues.items(stats.timePeriod, items));
     }

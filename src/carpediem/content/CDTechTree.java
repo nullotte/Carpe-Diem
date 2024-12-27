@@ -127,6 +127,8 @@ public class CDTechTree {
                                 });
                                 nodeProduce(silverRod, () -> {});
 
+                                nodeProduce(Liquids.slag, () -> {});
+
                                 nodeProduce(platinum, () -> {
                                     nodeProduce(platinumPlate, () -> {});
                                     nodeProduce(platinumRod, () -> {});

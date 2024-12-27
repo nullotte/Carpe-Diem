@@ -15,6 +15,7 @@ public class OutputLiquids extends Output {
     @Override
     public void apply(Block block) {
         block.hasLiquids = true;
+        block.outputsLiquid = true;
     }
 
     @Override
@@ -30,6 +31,17 @@ public class OutputLiquids extends Output {
         for (LiquidStack stack : liquids) {
             build.dumpLiquid(stack.liquid, 2f);
         }
+    }
+
+    @Override
+    public boolean full(Building build) {
+        for (LiquidStack stack : liquids) {
+            if (build.liquids.get(stack.liquid) >= build.block.liquidCapacity - 0.001f) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

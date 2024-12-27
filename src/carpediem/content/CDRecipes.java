@@ -22,8 +22,9 @@ public class CDRecipes {
         );
 
         advancedSmelterRecipes = Seq.with(
-                new Recipe().consumeItem(rawSilver).outputItem(silver),
-                new Recipe().consumeItem(rawPlatinum).outputItem(platinum)
+                new Recipe().consumeItems(ItemStack.with(rawSilver, 1, sand, 1)).outputItem(silver),
+                new Recipe().consumeItem(rawSilver).outputItem(silver).outputLiquid(slag, 0.1f),
+                new Recipe().consumeItem(rawPlatinum).outputItem(platinum).outputLiquid(slag, 0.1f)
         );
 
         pressRecipes = new Seq<>();
