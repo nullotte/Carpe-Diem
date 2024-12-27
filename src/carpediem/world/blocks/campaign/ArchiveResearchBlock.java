@@ -4,6 +4,7 @@ import arc.*;
 import arc.Graphics.*;
 import arc.Graphics.Cursor.*;
 import arc.graphics.*;
+import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
@@ -15,18 +16,22 @@ import mindustry.content.*;
 import mindustry.content.TechTree.*;
 import mindustry.core.*;
 import mindustry.entities.*;
+import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.*;
+import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 public class ArchiveResearchBlock extends Block implements DataBlock {
-    public float researchTime = 30f;
+    public float researchTime = 120f;
 
     public Effect updateEffect = Fx.none;
     public float updateEffectChance = 0.04f;
     public float warmupSpeed = 0.019f;
+
+    public DrawBlock drawer;
 
     public ArchiveResearchBlock(String name) {
         super(name);
@@ -46,6 +51,23 @@ public class ArchiveResearchBlock extends Block implements DataBlock {
     public void setStats() {
         super.setStats();
         stats.add(Stat.productionTime, researchTime / 60f, StatUnit.seconds);
+    }
+
+    @Override
+    public void load() {
+        super.load();
+
+        drawer.load(this);
+    }
+
+    @Override
+    public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list) {
+        drawer.drawPlan(this, plan, list);
+    }
+
+    @Override
+    protected TextureRegion[] icons() {
+        return drawer.finalIcons(this);
     }
 
     @Override
@@ -191,6 +213,11 @@ public class ArchiveResearchBlock extends Block implements DataBlock {
                 this.source = source;
                 sourcec = build;
             }
+        }
+
+        @Override
+        public void draw() {
+            drawer.draw(this);
         }
 
         @Override

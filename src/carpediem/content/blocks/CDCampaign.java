@@ -4,6 +4,7 @@ import carpediem.content.*;
 import carpediem.world.blocks.campaign.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 public class CDCampaign {
@@ -33,6 +34,11 @@ public class CDCampaign {
         archiveDecoder = new ArchiveResearchBlock("archive-decoder") {{
             requirements(Category.effect, BuildVisibility.shown, ItemStack.with());
             size = 4;
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawDefault()
+            );
 
             consumePower(1f);
         }};
