@@ -15,7 +15,9 @@ public class CDCampaign {
 
     public static void load() {
         launchPlatformT1 = new LaunchPlatform("launch-platform-t1") {{
-            requirements(Category.effect, BuildVisibility.campaignOnly, ItemStack.with());
+            requirements(Category.effect, BuildVisibility.campaignOnly, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
             size = 5;
             itemCapacity = 100;
             regionSuffix = "-dark";
@@ -24,15 +26,28 @@ public class CDCampaign {
         }};
 
         dataChannel = new DataChannel("data-channel") {{
-            requirements(Category.effect, BuildVisibility.shown, ItemStack.with());
+            requirements(Category.effect, BuildVisibility.campaignOnly, ItemStack.with(
+                    CDItems.aluminumPlate, 1,
+                    CDItems.nickelWire, 1
+            ));
         }};
 
         dataRouter = new DataRouter("data-router") {{
-            requirements(Category.effect, BuildVisibility.shown, ItemStack.with());
+            requirements(Category.effect, BuildVisibility.campaignOnly, ItemStack.with(
+                    CDItems.nickel, 2,
+                    CDItems.aluminumPlate, 2,
+                    CDItems.nickelWire, 2
+            ));
         }};
 
         archiveDecoder = new ArchiveResearchBlock("archive-decoder") {{
-            requirements(Category.effect, BuildVisibility.shown, ItemStack.with());
+            requirements(Category.effect, BuildVisibility.campaignOnly, ItemStack.with(
+                    CDItems.aluminum, 15,
+                    CDItems.aluminumPlate, 15,
+                    CDItems.nickelWire, 10,
+                    CDItems.powerCell, 5,
+                    CDItems.controlCircuit, 10
+            ));
             size = 4;
 
             drawer = new DrawMulti(

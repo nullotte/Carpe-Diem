@@ -20,7 +20,9 @@ public class CDStorage {
 
     public static void load() {
         landingPodT0 = new LandingPod("landing-pod-t0") {{
-            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with());
+            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
             size = 4;
             alwaysUnlocked = true;
 
@@ -43,7 +45,9 @@ public class CDStorage {
         }};
 
         industryHub = new HubBlock("industry-hub") {{
-            requirements(Category.effect, ItemStack.with());
+            requirements(Category.effect, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
             size = 6;
 
             itemCapacity = 20000;
@@ -64,7 +68,9 @@ public class CDStorage {
         }};
 
         storageVault = new DrawerStorageBlock("storage-vault") {{
-            requirements(Category.effect, ItemStack.with());
+            requirements(Category.effect, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
             size = 6;
             itemCapacity = 5000;
 

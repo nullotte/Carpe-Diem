@@ -67,6 +67,9 @@ public class CDTechTree {
             });
 
             node(archiveDecoder, () -> {
+                node(dataChannel, () -> {
+                    node(dataRouter);
+                });
                 node(automation, () -> {});
             });
 

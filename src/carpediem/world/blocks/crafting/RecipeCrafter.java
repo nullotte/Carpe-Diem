@@ -284,6 +284,9 @@ public class RecipeCrafter extends Block {
                     return;
                 }
             }
+
+            // no recipe found
+            currentRecipeID = -1;
         }
 
         @Override

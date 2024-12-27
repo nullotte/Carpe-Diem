@@ -16,11 +16,15 @@ public class CDProduction {
 
     public static void load() {
         drillT0 = new ItemConsumerDrill("drill-t0") {{
-            requirements(Category.production, ItemStack.with());
+            requirements(Category.production, ItemStack.with(
+                    CDItems.aluminum, 10,
+                    CDItems.aluminumRod, 5,
+                    CDItems.aluminumCogwheel, 5
+            ));
             size = 3;
 
             tier = 3;
-            drillTime = 8f * 60f;
+            drillTime = 32f * 60f; // A WHOLE THIRTY TWO SECONDS
             hardnessDrillMultiplier = 0f;
             drillMultipliers.put(CDItems.sulfur, 9f / 8f);
 
@@ -55,11 +59,18 @@ public class CDProduction {
         }};
 
         drillT1 = new DrawerDrill("drill-t1") {{
-            requirements(Category.production, ItemStack.with());
+            requirements(Category.production, ItemStack.with(
+                    CDItems.aluminum, 20,
+                    CDItems.aluminumRod, 15,
+                    CDItems.aluminumCogwheel, 20,
+                    CDItems.nickelWire, 5,
+                    CDItems.controlCircuit, 5,
+                    CDItems.powerCell, 15
+            ));
             size = 4;
 
             tier = 4;
-            drillTime = 6f * 60f;
+            drillTime = 24f * 60f;
             hardnessDrillMultiplier = 0f;
             drillMultipliers.put(CDItems.rawSilver, 0.5f);
 

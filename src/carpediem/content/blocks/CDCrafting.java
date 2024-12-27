@@ -19,7 +19,9 @@ public class CDCrafting {
     public static void load() {
         // a special one .
         smelterT0 = new RecipeCrafter("smelter-t0") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.rawAluminum, 20));
+            requirements(Category.crafting, ItemStack.with(
+                    CDItems.rawAluminum, 20
+            ));
             alwaysUnlocked = true;
             size = 3;
 
@@ -36,7 +38,13 @@ public class CDCrafting {
 
         // region T1
         smelterT1 = new RecipeCrafter("smelter-t1") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
+            requirements(Category.crafting, ItemStack.with(
+                    CDItems.aluminum, 20,
+                    CDItems.aluminumRod, 20,
+                    CDItems.nickelWire, 5,
+                    CDItems.controlCircuit, 5,
+                    CDItems.powerCell, 10
+            ));
             size = 4;
 
             recipes.addAll(CDRecipes.basicSmelterRecipes).addAll(CDRecipes.advancedSmelterRecipes);
@@ -50,7 +58,14 @@ public class CDCrafting {
         }};
 
         pressT1 = new RecipeCrafter("press-t1") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
+            requirements(Category.crafting, ItemStack.with(
+                    CDItems.aluminum, 25,
+                    CDItems.aluminumPlate, 10,
+                    CDItems.aluminumCogwheel, 5,
+                    CDItems.nickelWire, 10,
+                    CDItems.controlCircuit, 5,
+                    CDItems.powerCell, 5
+            ));
             size = 4;
 
             recipes.addAll(CDRecipes.pressRecipes);
@@ -59,7 +74,14 @@ public class CDCrafting {
         }};
 
         rollingMillT1 = new RecipeCrafter("rolling-mill-t1") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
+            requirements(Category.crafting, ItemStack.with(
+                    CDItems.aluminum, 25,
+                    CDItems.aluminumRod, 20,
+                    CDItems.aluminumCogwheel, 10,
+                    CDItems.nickelWire, 10,
+                    CDItems.controlCircuit, 5,
+                    CDItems.powerCell, 5
+            ));
             size = 4;
 
             recipes.addAll(CDRecipes.rollingMillRecipes);
@@ -70,7 +92,15 @@ public class CDCrafting {
         }};
 
         assemblerT1 = new RecipeCrafter("assembler-t1") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
+            requirements(Category.crafting, ItemStack.with(
+                    CDItems.aluminum, 20,
+                    CDItems.aluminumPlate, 5,
+                    CDItems.aluminumRod, 15,
+                    CDItems.aluminumCogwheel, 20,
+                    CDItems.nickelWire, 10,
+                    CDItems.controlCircuit, 5,
+                    CDItems.powerCell, 5
+            ));
             size = 4;
 
             recipes.addAll(CDRecipes.assemblerRecipes);
@@ -80,9 +110,10 @@ public class CDCrafting {
             consumePower(1f / 10f);
         }};
 
-        // why was this above the assembler earlier ? oh well
         refineryT1 = new RecipeCrafter("refinery-t1") {{
-            requirements(Category.crafting, ItemStack.with(CDItems.lemon, 39));
+            requirements(Category.crafting, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
             size = 4;
 
             recipes.addAll(CDRecipes.refineryRecipes);

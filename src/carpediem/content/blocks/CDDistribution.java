@@ -12,13 +12,20 @@ public class CDDistribution {
 
     public static void load() {
         belt = new Belt("belt") {{
-            requirements(Category.distribution, ItemStack.with(CDItems.aluminumPlate, 1, CDItems.aluminumCogwheel, 1));
+            requirements(Category.distribution, ItemStack.with(
+                    CDItems.aluminumPlate, 1,
+                    CDItems.aluminumCogwheel, 1
+            ));
             itemCapacity = 3;
             moveTime = 6f;
         }};
 
         beltMerger = new Merger("belt-merger") {{
-            requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 4, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
+            requirements(Category.distribution, ItemStack.with(
+                    CDItems.aluminum, 2,
+                    CDItems.aluminumPlate, 2,
+                    CDItems.aluminumCogwheel, 2
+            ));
             speed = 6f;
 
             squareSprite = false;
@@ -31,7 +38,11 @@ public class CDDistribution {
         }};
 
         beltSplitter = new Splitter("belt-splitter") {{
-            requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 4, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
+            requirements(Category.distribution, ItemStack.with(
+                    CDItems.aluminum, 2,
+                    CDItems.aluminumPlate, 2,
+                    CDItems.aluminumCogwheel, 2
+            ));
             speed = 6f;
 
             squareSprite = false;
@@ -45,7 +56,11 @@ public class CDDistribution {
         }};
 
         beltOverflowGate = new DrawerOverflowDuct("belt-overflow-gate") {{
-            requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 6, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
+            requirements(Category.distribution, ItemStack.with(
+                    CDItems.aluminum, 2,
+                    CDItems.aluminumPlate, 2,
+                    CDItems.aluminumCogwheel, 2
+            ));
             speed = 6f;
 
             squareSprite = false;
@@ -58,7 +73,11 @@ public class CDDistribution {
         }};
 
         beltUnderflowGate = new DrawerOverflowDuct("belt-underflow-gate") {{
-            requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 6, CDItems.aluminumPlate, 4, CDItems.aluminumCogwheel, 4));
+            requirements(Category.distribution, ItemStack.with(
+                    CDItems.aluminum, 2,
+                    CDItems.aluminumPlate, 2,
+                    CDItems.aluminumCogwheel, 2
+            ));
             speed = 6f;
             invert = true;
 
@@ -72,7 +91,11 @@ public class CDDistribution {
         }};
 
         beltBridge = new BeltBridge("belt-bridge") {{
-            requirements(Category.distribution, ItemStack.with(CDItems.aluminum, 8, CDItems.aluminumPlate, 1, CDItems.aluminumCogwheel, 1));
+            requirements(Category.distribution, ItemStack.with(
+                    CDItems.aluminum, 8,
+                    CDItems.aluminumPlate, 1,
+                    CDItems.aluminumCogwheel, 1
+            ));
             range = 6;
             speed = 6f;
 
