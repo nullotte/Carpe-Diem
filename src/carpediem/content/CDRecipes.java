@@ -50,7 +50,7 @@ public class CDRecipes {
                 aluminumRod, aluminumWire,
                 nickelRod, nickelWire
         ).each((in, out) -> {
-            rollingMillRecipes.add(new Recipe().consumeItem(in).outputItem(out));
+            rollingMillRecipes.add(new Recipe().consumeItem(in).outputItem(out, 2));
         });
 
         refineryRecipes = Seq.with(
