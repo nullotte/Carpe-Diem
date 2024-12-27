@@ -7,16 +7,16 @@ public class CDTeams {
     public static Team coalition, triage;
 
     public static void load() {
-        coalition = modifyTeam(47, "carpe-diem-coalition", Color.valueOf("79aded"),
+        coalition = modifyTeam(47, "coalition", Color.valueOf("79aded"),
                 Color.valueOf("b2daff"),
                 Color.valueOf("79aded"),
                 Color.valueOf("4475c8")
         );
 
-        triage = modifyTeam(48, "carpe-diem-triage", Color.valueOf("000000"),
-                Color.valueOf("000000"),
-                Color.valueOf("000000"),
-                Color.valueOf("000000")
+        triage = modifyTeam(48, "triage", Color.valueOf("ffbc90"),
+                Color.valueOf("ffbc90"),
+                Color.valueOf("e68c61"),
+                Color.valueOf("c45a39")
         );
     }
 
