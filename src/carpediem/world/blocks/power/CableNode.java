@@ -13,7 +13,7 @@ import mindustry.world.*;
 import mindustry.world.blocks.power.*;
 
 // i will never be allowed to write code in a professional environment
-public class CableNode extends PowerNode {
+public class CableNode extends PowerNode implements CableBlock {
     public static float realSatisfaction;
 
     public TextureRegion cable1, cable2, cableGlow, cableEndGlow, top, glow;
@@ -59,8 +59,8 @@ public class CableNode extends PowerNode {
             Tmp.v1.add(Tmp.v2.trns(rot, div));
         }
 
-        Draw.rect(laserEnd, x1, y1, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
-        Draw.rect(laserEnd, x2, y2, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
+        if (end1) Draw.rect(laserEnd, x1, y1, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
+        if (end2) Draw.rect(laserEnd, x2, y2, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
 
         float z = Draw.z();
         Lines.stroke(12f * scale);
@@ -87,14 +87,16 @@ public class CableNode extends PowerNode {
                 vx = Mathf.cosDeg(angle1), vy = Mathf.sinDeg(angle1),
                 len1 = size1 * Vars.tilesize / 2f, len2 = size2 * Vars.tilesize / 2f;
 
-        if (build instanceof CableNodeBuild || otherReq != null) {
+        if ((build != null && build.block instanceof CableBlock) || otherReq != null) {
             len1 = topOffset;
             end1 = false;
         }
 
-        if (other instanceof CableNodeBuild || (otherReq != null && otherReq.block instanceof CableNode)) {
-            if (other != null && other.block instanceof CableNode otherBlock) {
-                len2 = otherBlock.topOffset;
+        if ((other != null && other.block instanceof CableBlock) || (otherReq != null && otherReq.block instanceof CableBlock)) {
+            if (other != null && other.block instanceof CableBlock otherBlock) {
+                len2 = otherBlock.topOffset();
+            } else if (otherReq != null && otherReq.block instanceof CableBlock otherBlock) {
+                len2 = otherBlock.topOffset();
             }
             end2 = false;
         }
@@ -126,6 +128,11 @@ public class CableNode extends PowerNode {
     protected void setupColor(float satisfaction) {
         Draw.color();
         Draw.alpha(Renderer.laserOpacity);
+    }
+
+    @Override
+    public float topOffset() {
+        return topOffset;
     }
 
     public class CableNodeBuild extends PowerNodeBuild {

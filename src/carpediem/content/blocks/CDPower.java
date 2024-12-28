@@ -2,9 +2,11 @@ package carpediem.content.blocks;
 
 import carpediem.content.*;
 import carpediem.world.blocks.power.*;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.power.*;
+import mindustry.world.draw.*;
 
 public class CDPower {
     public static Block
@@ -35,12 +37,25 @@ public class CDPower {
             laserRange = 40f;
         }};
 
-        accumulator = new Battery("accumulator") {{
+        accumulator = new CableBattery("accumulator") {{
             requirements(Category.power, ItemStack.with(
                     CDItems.lemon, 39
             ));
             size = 3;
             consumePowerBuffered(5000f);
+
+            topOffset = 9f;
+            // holy fuck the one other vanilla class that actually uses drawers
+            drawer = new DrawMulti(
+                    new DrawDefault(),
+                    new DrawRegion("-top") {{
+                        layer = Layer.power + 0.01f;
+                    }},
+                    new DrawGlowRegion(Layer.power + 0.02f) {{
+                        color = Pal.turretHeat;
+                        glowIntensity = 0f;
+                    }}
+            );
         }};
 
         sulfurBurner = new ConsumeGenerator("sulfur-burner") {{
