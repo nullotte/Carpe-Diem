@@ -5,14 +5,12 @@ import carpediem.world.blocks.power.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
-import mindustry.world.blocks.power.*;
 import mindustry.world.draw.*;
 
 public class CDPower {
     public static Block
     cableNode, cableTower, accumulator,
-    // TODO names
-    sulfurBurner, steamBoiler, fuelGenerator;
+    geothermalBurner, steamBoiler;
 
     public static void load() {
         cableNode = new CableNode("cable-node") {{
@@ -45,7 +43,6 @@ public class CDPower {
             consumePowerBuffered(5000f);
 
             topOffset = 9f;
-            // holy fuck the one other vanilla class that actually uses drawers
             drawer = new DrawMulti(
                     new DrawDefault(),
                     new DrawRegion("-top") {{
@@ -58,7 +55,7 @@ public class CDPower {
             );
         }};
 
-        sulfurBurner = new ConsumeGenerator("sulfur-burner") {{
+        geothermalBurner = new ThermalConsumeGenerator("geothermal-burner") {{
             requirements(Category.power, ItemStack.with(
                     CDItems.aluminum, 20,
                     CDItems.nickelPlate, 20,
@@ -68,7 +65,24 @@ public class CDPower {
                     CDItems.powerCell, 20
             ));
             size = 3;
-            powerProduction = 2f;
+
+            powerProduction = (100f / 60f) / 9f;
+            itemDuration = 60f;
+            displayEfficiencyScale = 1f / 9f;
+
+            topOffset = 8f;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawRegion("-rotator", 5f),
+                    new DrawDefault(),
+                    new DrawRegion("-top") {{
+                        layer = Layer.power + 0.01f;
+                    }},
+                    new DrawGlowRegion(Layer.power + 0.02f) {{
+                        color = Pal.turretHeat;
+                        glowIntensity = 0f;
+                    }}
+            );
 
             consumeItem(CDItems.sulfur);
         }};

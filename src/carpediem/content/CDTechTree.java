@@ -39,8 +39,9 @@ public class CDTechTree {
                 });
 
                 node(cableNode, () -> {
-                    node(sulfurBurner, () -> {});
+                    node(geothermalBurner, () -> {});
 
+                    node(accumulator);
                     node(cableTower);
                 });
 

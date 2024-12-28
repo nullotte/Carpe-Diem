@@ -18,9 +18,11 @@ public class CableNode extends PowerNode implements CableBlock {
 
     public TextureRegion cable1, cable2, cableGlow, cableEndGlow, top, glow;
     public float topOffset;
+    public float warmupSpeed = 0.05f;
 
     public CableNode(String name) {
         super(name);
+        update = true;
 
         laserColor2 = Pal.turretHeat;
     }
@@ -81,23 +83,34 @@ public class CableNode extends PowerNode implements CableBlock {
     @Override
     public void drawLaser(float x1, float y1, float x2, float y2, int size1, int size2) {
         Building build = Vars.world.buildWorld(x1, y1), other = Vars.world.buildWorld(x2, y2);
+        CableBlock block1 = null, block2 = null;
         boolean end1 = true, end2 = true;
+
+        if (build != null && build.block instanceof CableBlock block) {
+            block1 = block;
+        } else if (otherReq != null) {
+            block1 = this;
+        } else if (Vars.control.input.block instanceof CableBlock block) {
+            block1 = block;
+        }
+
+        if (other != null && other.block instanceof CableBlock block) {
+            block2 = block;
+        } else if (otherReq != null && otherReq.block instanceof CableBlock block) {
+            block2 = block;
+        }
 
         float angle1 = Angles.angle(x1, y1, x2, y2),
                 vx = Mathf.cosDeg(angle1), vy = Mathf.sinDeg(angle1),
                 len1 = size1 * Vars.tilesize / 2f, len2 = size2 * Vars.tilesize / 2f;
 
-        if ((build != null && build.block instanceof CableBlock) || otherReq != null) {
-            len1 = topOffset;
+        if (block1 != null) {
+            len1 = block1.topOffset();
             end1 = false;
         }
 
-        if ((other != null && other.block instanceof CableBlock) || (otherReq != null && otherReq.block instanceof CableBlock)) {
-            if (other != null && other.block instanceof CableBlock otherBlock) {
-                len2 = otherBlock.topOffset();
-            } else if (otherReq != null && otherReq.block instanceof CableBlock otherBlock) {
-                len2 = otherBlock.topOffset();
-            }
+        if (block2 != null) {
+            len2 = block2.topOffset();
             end2 = false;
         }
 
@@ -136,9 +149,16 @@ public class CableNode extends PowerNode implements CableBlock {
     }
 
     public class CableNodeBuild extends PowerNodeBuild {
+        public float warmup;
+
+        @Override
+        public void updateTile() {
+            warmup = Mathf.lerpDelta(warmup, power.graph.getSatisfaction(), warmupSpeed);
+        }
+
         @Override
         public void draw() {
-            realSatisfaction = power.graph.getSatisfaction();
+            realSatisfaction = warmup;
             super.draw();
 
             Draw.z(Layer.power + 0.01f);
