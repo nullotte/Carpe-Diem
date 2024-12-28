@@ -29,6 +29,7 @@ public class CDPower {
                     CDItems.lemon, 39
             ));
             size = 2;
+            topOffset = 4f;
             laserScale = 0.4f;
             maxNodes = 4;
             laserRange = 40f;

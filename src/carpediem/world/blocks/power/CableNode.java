@@ -1,20 +1,28 @@
 package carpediem.world.blocks.power;
 
 import arc.*;
+import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.*;
 import mindustry.*;
+import mindustry.core.*;
+import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.world.*;
 import mindustry.world.blocks.power.*;
 
 // i will never be allowed to write code in a professional environment
 public class CableNode extends PowerNode {
-    public TextureRegion cable1, cable2, top;
-    public float colorScl = 20f, colorMag = 0.7f;
+    public static float realSatisfaction;
+
+    public TextureRegion cable1, cable2, cableGlow, cableEndGlow, top, glow;
+    public float topOffset;
 
     public CableNode(String name) {
         super(name);
+
+        laserColor2 = Pal.turretHeat;
     }
 
     @Override
@@ -23,7 +31,10 @@ public class CableNode extends PowerNode {
 
         cable1 = Core.atlas.find("carpe-diem-cable1");
         cable2 = Core.atlas.find("carpe-diem-cable2");
+        cableGlow = Core.atlas.find("carpe-diem-cable-glow");
+        cableEndGlow = Core.atlas.find("carpe-diem-cable-end-glow");
         top = Core.atlas.find(name + "-top");
+        glow = Core.atlas.find(name + "-glow");
         laserEnd = Core.atlas.find("carpe-diem-cable-end");
     }
 
@@ -36,7 +47,7 @@ public class CableNode extends PowerNode {
         Draw.alpha(a);
     }
 
-    public void drawCable(float x1, float y1, float x2, float y2, float scale) {
+    public void drawCable(float x1, float y1, float x2, float y2, boolean end1, boolean end2, float scale) {
         float rot = Mathf.angle(x2 - x1, y2 - y1);
         float len = Mathf.dst(x1, y1, x2, y2);
         float div = cable1.width * scale * cable1.scl();
@@ -51,33 +62,90 @@ public class CableNode extends PowerNode {
         Draw.rect(laserEnd, x1, y1, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
         Draw.rect(laserEnd, x2, y2, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
 
+        float z = Draw.z();
+        Lines.stroke(12f * scale);
+        Draw.z(Layer.power + 0.02f);
+        Draw.color(laserColor2, realSatisfaction);
+        Draw.blend(Blending.additive);
+        Lines.line(cableGlow, x1, y1, x2, y2, false);
+        if (end1) Draw.rect(cableEndGlow, x1, y1, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
+        if (end2) Draw.rect(cableEndGlow, x2, y2, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
+        Draw.blend();
+        Draw.color();
+        Draw.z(z);
+        Lines.stroke(1f);
+
         Drawf.light(x1, y1, x2, y2);
     }
 
     @Override
     public void drawLaser(float x1, float y1, float x2, float y2, int size1, int size2) {
+        Building build = Vars.world.buildWorld(x1, y1), other = Vars.world.buildWorld(x2, y2);
+        boolean end1 = true, end2 = true;
+
         float angle1 = Angles.angle(x1, y1, x2, y2),
                 vx = Mathf.cosDeg(angle1), vy = Mathf.sinDeg(angle1),
                 len1 = size1 * Vars.tilesize / 2f, len2 = size2 * Vars.tilesize / 2f;
 
-        drawCable(x1 + vx * len1, y1 + vy * len1, x2 - vx * len2, y2 - vy * len2, laserScale);
+        if (build instanceof CableNodeBuild || otherReq != null) {
+            len1 = topOffset;
+            end1 = false;
+        }
+
+        if (other instanceof CableNodeBuild || (otherReq != null && otherReq.block instanceof CableNode)) {
+            if (other != null && other.block instanceof CableNode otherBlock) {
+                len2 = otherBlock.topOffset;
+            }
+            end2 = false;
+        }
+
+        drawCable(x1 + vx * len1, y1 + vy * len1, x2 - vx * len2, y2 - vy * len2, end1, end2, laserScale);
+    }
+
+    @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        Tile tile = Vars.world.tile(x, y);
+
+        if (tile == null || !autolink) return;
+
+        Lines.stroke(1f);
+        Draw.color(Pal.placing);
+        Drawf.circles(x * Vars.tilesize + offset, y * Vars.tilesize + offset, laserRange * Vars.tilesize);
+
+        getPotentialLinks(tile, Vars.player.team(), other -> {
+            Draw.alpha(Renderer.laserOpacity * 0.5f);
+            drawLaser(x * Vars.tilesize + offset, y * Vars.tilesize + offset, other.x, other.y, 0, other.block.size);
+
+            Drawf.square(other.x, other.y, other.block.size * Vars.tilesize / 2f + 2f, Pal.place);
+        });
+
+        Draw.reset();
     }
 
     @Override
     protected void setupColor(float satisfaction) {
-        Draw.color(laserColor1);
-        Draw.mixcol(laserColor2, satisfaction * Mathf.absin(colorScl, colorMag));
+        Draw.color();
+        Draw.alpha(Renderer.laserOpacity);
     }
 
     public class CableNodeBuild extends PowerNodeBuild {
         @Override
         public void draw() {
+            realSatisfaction = power.graph.getSatisfaction();
             super.draw();
 
-            Draw.z(Layer.block);
-            setupColor(power.graph.getSatisfaction());
+            Draw.z(Layer.power + 0.01f);
             Draw.rect(top, x, y);
-            Draw.reset();
+
+            Draw.z(Layer.power + 0.02f);
+            Draw.color(laserColor2, realSatisfaction);
+            Draw.blend(Blending.additive);
+            Draw.rect(glow, x, y);
+            Draw.blend();
+            Draw.color();
+
+
+            realSatisfaction = 0f;
         }
     }
 }
