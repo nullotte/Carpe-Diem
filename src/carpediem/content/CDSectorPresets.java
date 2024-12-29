@@ -37,6 +37,9 @@ public class CDSectorPresets {
         });
 
         for (SectorPreset preset : new SectorPreset[]{one, two}) {
+            // dont show it in the map dialogs
+            Vars.maps.all().remove(m -> m.file == preset.generator.map.file);
+
             NonThreateningSector sector = new NonThreateningSector(preset.planet, preset.planet.grid.tiles[preset.sector.id]);
             preset.planet.sectors.set(preset.sector.id, sector);
             preset.sector = sector;
