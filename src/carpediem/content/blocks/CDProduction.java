@@ -52,6 +52,7 @@ public class CDProduction {
                     new DrawDefault()
             );
 
+            squareSprite = false;
             customShadow = true;
 
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
@@ -102,6 +103,7 @@ public class CDProduction {
                     new DrawDefault()
             );
 
+            squareSprite = false;
             customShadow = true;
 
             consumePower(1f / 10f);

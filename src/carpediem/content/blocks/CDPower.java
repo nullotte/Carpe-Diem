@@ -71,6 +71,7 @@ public class CDPower {
             displayEfficiencyScale = 1f / 9f;
 
             topOffset = 8.1f;
+            squareSprite = false;
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     new DrawRegion("-rotator", 5f),

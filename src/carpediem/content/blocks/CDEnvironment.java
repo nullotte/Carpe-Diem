@@ -9,14 +9,6 @@ import mindustry.world.meta.*;
 
 public class CDEnvironment {
     /*
-    * env notes or whatever. yea im writing these in a block comment i cant be bothered
-    * - fog. lots of fog. atmosphere and funky sky mesh.
-    * - orange desert/badlands biome
-    * - red charred forest-ish biome
-    * - purple & black/grey highlands rocky/stony biome
-    * - blue volcanic biome
-    * - snow
-    *
     * - add like. special floor that generates underneath props. that way when they get deconstructed the floor
     * - still looks a bit. not flat i guess
     * */
