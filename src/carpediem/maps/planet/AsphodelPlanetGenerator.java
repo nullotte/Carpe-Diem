@@ -14,24 +14,29 @@ import mindustry.type.*;
 import mindustry.world.*;
 
 public class AsphodelPlanetGenerator extends PlanetGenerator {
-    public int octaves = 5, riverOctaves = 4;
-    public float heightScl = 0.6f, heightMult = 0.3f, coldPow = 6f, coldScl = 0.4f;
+    public int octaves = 9, noiseOctaves = 8, riverOctaves = 4;
+    public float heightScl = 0.6f, heightMult = 0.3f;
+    public float coldScl = 1.6f, coldProgress = 0.4f;
+    public float noiseScl = 0.3f, noiseFalloff = 0.6f, noisePow = 6f, noiseMult = 0.7f;
+    // TODO get rid of this maybe
     public float riverScl = 0.9f, riverMult = -1.2f, riverLevel = -0.7f, riverOffset = -0.2f;
 
-    public Block[] terrain = {Blocks.redStone, Blocks.crystalFloor, CDEnvironment.blue, Blocks.snow};
-    public Color[] preview = {
-            Color.valueOf("d27d56"),
-            Color.valueOf("b86455"),
-            Blocks.redStone.mapColor,
-            Color.valueOf("794968"),
-            Color.valueOf("60496d"),
-            Color.valueOf("60496d"),
-            Blocks.crystalFloor.mapColor,
-            CDEnvironment.blue.mapColor,
-            CDEnvironment.blue.mapColor,
-            Blocks.carbonStone.mapColor,
-            Blocks.carbonStone.mapColor,
-            Blocks.snow.mapColor
+    public Block[] terrain = {
+            CDEnvironment.arkstone,
+            CDEnvironment.arkstone,
+            CDEnvironment.orangeStone,
+            Blocks.redStone,
+            CDEnvironment.meadsoil,
+            CDEnvironment.royalstone,
+            Blocks.crystalFloor,
+            Blocks.crystalFloor,
+            CDEnvironment.crystalrock,
+            CDEnvironment.bluerock,
+            CDEnvironment.bluerock,
+            CDEnvironment.bluerock,
+            Blocks.carbonStone,
+            Blocks.carbonStone,
+            Blocks.snow
     };
 
     public AsphodelPlanetGenerator() {
@@ -60,28 +65,22 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
 
     @Override
     public Color getColor(Vec3 position) {
-        /*
         Block block = getBlock(position);
+        Tmp.c1.set(block.mapColor);
+
         if (riverDepth(position) < riverLevel) {
             block = Blocks.ice;
-        }
-        return Tmp.c1.set(block.mapColor).a(1f - block.albedo);
-         */
-
-        if (riverDepth(position) < riverLevel) {
-            return Tmp.c1.set(Blocks.sandWater.mapColor).a(1f - Blocks.sandWater.albedo);
+            Tmp.c1.set(block.mapColor);
         }
 
-        float cold = Math.abs(position.y) * 2f;
-        float cnoise = Simplex.noise3d(seed, 7, 0.5f, 1f / 6f, position.x, position.y + 999f, position.z);
-        cold = Mathf.lerp(cold, cnoise, 0.5f);
+        // i dont like the vanilla colors WHY are they so dull
+        if (block == Blocks.redStone) {
+            Color.valueOf(Tmp.c1, "af4753");
+        } else if (block == Blocks.crystalFloor) {
+            Color.valueOf(Tmp.c1, "60496d");
+        }
 
-        float height = rawHeight(position) + riverDepth(position);
-        height = (height + 1f) / 2f;
-        height = Mathf.lerp(height, 1f, Mathf.pow(cold, coldPow) * coldScl);
-
-        int heightIndex = Mathf.clamp((int) (height * preview.length), 0, preview.length - 1);
-        return preview[heightIndex];
+        return Tmp.c1.a(1f - block.albedo);
     }
 
     @Override
@@ -91,17 +90,16 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
 
     @Override
     public float getSizeScl() {
-        return 1000;
+        return 2200;
     }
 
     protected Block getBlock(Vec3 position) {
-        float cold = Math.abs(position.y) * 2f;
-        float cnoise = Simplex.noise3d(seed, 7, 0.5f, 1f / 6f, position.x, position.y + 999f, position.z);
-        cold = Mathf.lerp(cold, cnoise, 0.5f);
+        float cnoise = Simplex.noise3d(seed, noiseOctaves, noiseFalloff, 1f / noiseScl, position.x, position.y + 999f, position.z);
 
         float height = rawHeight(position) + riverDepth(position);
         height = (height + 1f) / 2f;
-        height = Mathf.lerp(height, 1f, Mathf.pow(cold, coldPow) * coldScl);
+        height = Mathf.lerp(height, Math.abs(position.y) * coldScl, coldProgress);
+        height = Mathf.lerp(height, 1f, Mathf.pow(cnoise, noisePow) * noiseMult);
 
         int heightIndex = Mathf.clamp((int) (height * terrain.length), 0, terrain.length - 1);
         return terrain[heightIndex];
@@ -110,6 +108,8 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
     @Override
     protected void genTile(Vec3 position, TileGen tile) {
         tile.floor = getBlock(position);
+
+        // TODO should walls be generated in here?
     }
 
     @Override

@@ -22,14 +22,30 @@ public class CDEnvironment {
     * */
     public static Block
     // floors
-    orange, borange, redsoil, purple, blue, hotCarbon, magmaCarbon,
+    arksand, arkstone, orangeStone,
+    meadsoil, scorchedSoil,
+    royalstone, crystalrock,
+    bluerock, hotCarbon, magmaCarbon,
     // walls
-    blueWall,
+    arkstoneWall, orangeStoneWall,
+    meadsoilWall, scorchedSoilWall,
+    royalstoneWall, crystalrockWall,
+    bluerockWall,
     // ore
     oreAluminum, oreSulfur, oreNickel, oreSilver, orePlatinum;
 
     public static void load() {
-        blue = new Floor("blue", 5);
+        arkstone = new Floor("arkstone", 5);
+
+        orangeStone = new Floor("orange-stone", 5);
+
+        meadsoil = new Floor("meadsoil", 5);
+
+        royalstone = new Floor("royalstone", 5);
+
+        crystalrock = new Floor("crystalrock", 5);
+
+        bluerock = new Floor("bluerock", 5);
 
         hotCarbon = new Floor("hotcarbon", 4) {{
             attributes.set(Attribute.heat, 1f);
@@ -51,7 +67,7 @@ public class CDEnvironment {
             lightColor = Color.orange.cpy().a(0.15f);
         }};
 
-        blueWall = new StaticWall("blue-wall") {{
+        bluerockWall = new StaticWall("bluerock-wall") {{
             variants = 3;
         }};
 
