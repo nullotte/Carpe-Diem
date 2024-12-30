@@ -14,12 +14,16 @@ import mindustry.type.*;
 import mindustry.world.*;
 
 public class AsphodelPlanetGenerator extends PlanetGenerator {
-    public int octaves = 9, noiseOctaves = 8, riverOctaves = 4;
+    // THE GREAT WALL OF NUMBERS
+    public int octaves = 9, noiseOctaves = 8;
     public float heightScl = 0.6f, heightMult = 0.3f;
     public float coldScl = 1.6f, coldProgress = 0.4f;
     public float noiseScl = 0.3f, noiseFalloff = 0.6f, noisePow = 6f, noiseMult = 0.7f;
-    // TODO get rid of this maybe
-    public float riverScl = 0.9f, riverMult = -1.2f, riverLevel = -0.7f, riverOffset = -0.2f;
+
+    public int iceOctaves = 10, blueOctaves = 7, crystalOctaves = 8;
+    public float iceScl = 0.1f, iceFalloff = 0.4f, iceThresh = 0.6f;
+    public float blueScl = 0.7f, blueFalloff = 0.5f, blueThresh = 0.55f;
+    public float crystalScl = 0.2f, crystalFalloff = 0.6f, crystalThresh = 0.5f;
 
     public Block[] terrain = {
             CDEnvironment.arkstone,
@@ -28,13 +32,12 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
             Blocks.redStone,
             CDEnvironment.meadsoil,
             CDEnvironment.royalstone,
-            Blocks.crystalFloor,
-            Blocks.crystalFloor,
+            CDEnvironment.crystalrock,
+            CDEnvironment.crystalrock,
             CDEnvironment.crystalrock,
             CDEnvironment.bluerock,
             CDEnvironment.bluerock,
-            CDEnvironment.bluerock,
-            Blocks.carbonStone,
+            CDEnvironment.hotCarbon,
             Blocks.carbonStone,
             Blocks.snow
     };
@@ -47,20 +50,9 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
         return Ridged.noise3d(seed, position.x, position.y, position.z, octaves, 1f / heightScl);
     }
 
-    public float riverDepth(Vec3 position) {
-        if (true) return 0f;
-
-        return Math.min(0f, Ridged.noise3d(seed + 1, position.x, position.y, position.z, riverOctaves, 1f / riverScl) * riverMult);
-    }
-
     @Override
     public float getHeight(Vec3 position) {
-        float depth = riverDepth(position);
-        if (depth < riverLevel) {
-            depth += riverOffset;
-        }
-
-        return (rawHeight(position) + depth) * heightMult;
+        return rawHeight(position) * heightMult;
     }
 
     @Override
@@ -68,16 +60,16 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
         Block block = getBlock(position);
         Tmp.c1.set(block.mapColor);
 
-        if (riverDepth(position) < riverLevel) {
-            block = Blocks.ice;
-            Tmp.c1.set(block.mapColor);
-        }
-
         // i dont like the vanilla colors WHY are they so dull
         if (block == Blocks.redStone) {
             Color.valueOf(Tmp.c1, "af4753");
-        } else if (block == Blocks.crystalFloor) {
+        } else if (block == Blocks.crystalFloor || block == CDEnvironment.crystalrock) {
             Color.valueOf(Tmp.c1, "60496d");
+        } else if (block == CDEnvironment.hotCarbon) {
+            // ok this one isnt because the vanilla colors are ugly its just the hot carbon
+            // like how is it gray? i dont understand
+            block = Blocks.carbonStone;
+            Tmp.c1.set(block.mapColor);
         }
 
         return Tmp.c1.a(1f - block.albedo);
@@ -96,13 +88,27 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
     protected Block getBlock(Vec3 position) {
         float cnoise = Simplex.noise3d(seed, noiseOctaves, noiseFalloff, 1f / noiseScl, position.x, position.y + 999f, position.z);
 
-        float height = rawHeight(position) + riverDepth(position);
+        float height = rawHeight(position);
         height = (height + 1f) / 2f;
         height = Mathf.lerp(height, Math.abs(position.y) * coldScl, coldProgress);
         height = Mathf.lerp(height, 1f, Mathf.pow(cnoise, noisePow) * noiseMult);
 
         int heightIndex = Mathf.clamp((int) (height * terrain.length), 0, terrain.length - 1);
-        return terrain[heightIndex];
+        Block result = terrain[heightIndex];
+
+        if (result == Blocks.snow && Simplex.noise3d(seed, iceOctaves, iceFalloff, 1f / iceScl, position.x + 30f, position.y + 60f, position.z) > iceThresh) {
+            result = Blocks.ice;
+        }
+
+        if (result == CDEnvironment.crystalrock) {
+            if (Simplex.noise3d(seed, blueOctaves, blueFalloff, 1f / blueScl, position.x + 55f, position.y + 55f, position.z) > blueThresh) {
+                result = CDEnvironment.bluerock;
+            } else if (Simplex.noise3d(seed, crystalOctaves, crystalFalloff, 1f / crystalScl, position.x + 50f, position.y + 55f, position.z) > crystalThresh) {
+                result = Blocks.crystalFloor;
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -114,6 +120,41 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
 
     @Override
     protected void generate() {
+        distort(60f, 100f);
+        distort(10f, 12f);
+
+        pass((x, y) -> {
+            if (floor == CDEnvironment.bluerock) {
+                if (noise(x, y, 9, 0.5f, 90f) > 0.6f) {
+                    floor = Blocks.carbonStone;
+                }
+            }
+
+            if (floor == CDEnvironment.hotCarbon) {
+                // im just copying serpulo's hotrock code because i cannot get good looking hotrocks for the life of me
+                if (Math.abs(0.5f - noise(x, y + 60, 8, 0.5f, 85f)) > 0.02f) {
+                    floor = Blocks.carbonStone;
+                }
+            }
+        });
+
+        pass((x, y) -> {
+            // do i have explain why this is in a second pass
+            if (floor == CDEnvironment.hotCarbon) {
+                ore = Blocks.air;
+                boolean all = true;
+                for (Point2 p : Geometry.d4) {
+                    Tile other = tiles.get(x + p.x, y + p.y);
+                    if (other == null || (other.floor() != CDEnvironment.hotCarbon && other.floor() != CDEnvironment.magmaCarbon)) {
+                        all = false;
+                    }
+                }
+                if (all) {
+                    floor = CDEnvironment.magmaCarbon;
+                }
+            }
+        });
+
         Schematics.placeLaunchLoadout(width / 2, height / 2);
     }
 }
