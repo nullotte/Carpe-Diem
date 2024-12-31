@@ -1,5 +1,6 @@
 package carpediem.content.blocks;
 
+import arc.graphics.*;
 import arc.math.*;
 import arc.math.geom.*;
 import arc.struct.*;
@@ -33,7 +34,16 @@ public class CDCrafting {
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawDefault()
+                    new DrawWarmupRegion() {{
+                        sinMag = 0f;
+                        color = Color.orange;
+                    }},
+                    new DrawDefault(),
+                    new DrawGlowRegion() {{
+                        color = Pal.turretHeat;
+                        glowIntensity = 0f;
+                        alpha = 1f;
+                    }}
             );
 
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
@@ -54,7 +64,21 @@ public class CDCrafting {
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawDefault()
+                    new DrawWarmupRegion() {{
+                        sinMag = 0f;
+                        color = Color.orange;
+                    }},
+                    new DrawDefault(),
+                    new DrawGlowRegion("-grate-glow") {{
+                        color = Pal.turretHeat;
+                        glowIntensity = 0f;
+                        alpha = 1f;
+                    }},
+                    new DrawGlowRegion() {{
+                        color = Pal.turretHeat;
+                        glowIntensity = 0f;
+                        alpha = 1f;
+                    }}
             );
 
             consumePower(1f / 12f);

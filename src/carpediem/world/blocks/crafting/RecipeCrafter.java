@@ -216,6 +216,8 @@ public class RecipeCrafter extends Block {
                 }
 
                 dumpOutputs();
+            } else {
+                warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
             }
         }
 
