@@ -1,8 +1,13 @@
 package carpediem.content.blocks;
 
+import arc.math.*;
+import arc.math.geom.*;
+import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.crafting.*;
 import carpediem.world.consumers.*;
+import carpediem.world.draw.*;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.draw.*;
@@ -12,9 +17,7 @@ public class CDCrafting {
     // T0
     smelterT0,
     // T1
-    smelterT1, pressT1, rollingMillT1, refineryT1, assemblerT1;
-    // TODO T2
-    // also drawers . literally none of these blocks have sprites or visuals at all rn
+    smelterT1, pressT1, rollingMillT1, assemblerT1, refineryT1;
 
     public static void load() {
         // a special one .
@@ -70,6 +73,13 @@ public class CDCrafting {
 
             recipes.addAll(CDRecipes.pressRecipes);
 
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawPress(),
+                    new DrawDefault(),
+                    new DrawInvert()
+            );
+
             consumePower(1f / 12f);
         }};
 
@@ -87,6 +97,33 @@ public class CDCrafting {
             recipes.addAll(CDRecipes.rollingMillRecipes);
             // rolling mill has configurable true too because of the rods and wires recipe thingy
             configurable = true;
+
+            // yea i copied this from the drills
+            Seq<DrawBlock> rotators = new Seq<>();
+
+            float offset = 4f;
+            Vec2[] points = {
+                    new Vec2(offset, offset),
+                    new Vec2(offset, -offset),
+                    new Vec2(-offset, -offset),
+                    new Vec2(-offset, offset)
+            };
+
+            boolean sign = true;
+            for (Vec2 point : points) {
+                rotators.add(new DrawRegion("-rotator", 7f * Mathf.sign(sign),  true) {{
+                    x = point.x;
+                    y = point.y;
+                }});
+
+                sign = !sign;
+            }
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawCustomIconMulti("-rotator-icon", rotators),
+                    new DrawDefault()
+            );
 
             consumePower(1f / 12f);
         }};
@@ -106,6 +143,36 @@ public class CDCrafting {
             recipes.addAll(CDRecipes.assemblerRecipes);
             // FUCKKKKKKKKK
             configurable = true;
+
+            // and i did it again!
+            Seq<DrawBlock> rotators = new Seq<>();
+
+            float offset = 11f;
+            Vec2[] points = {
+                    new Vec2(offset, 0f),
+                    new Vec2(0f, offset),
+                    new Vec2(-offset, 0f),
+                    new Vec2(0f, -offset)
+            };
+
+            for (Vec2 point : points) {
+                rotators.add(new DrawRegion("-rotator", 5f,  true) {{
+                    x = point.x;
+                    y = point.y;
+                }});
+            }
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawCustomIconMulti("-rotator-icon", rotators),
+                    new DrawPistons() {{
+                        angleOffset = 45f;
+                        sinMag = -4f;
+                        sinScl = 4f;
+                        sideOffset = Mathf.PI / 2f;
+                    }},
+                    new DrawDefault()
+            );
 
             consumePower(1f / 10f);
         }};

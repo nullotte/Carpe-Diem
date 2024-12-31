@@ -9,37 +9,42 @@ import mindustry.gen.*;
 import mindustry.world.*;
 import mindustry.world.draw.*;
 
-// this is kinda just drawcoredoor but sideways . oh well
 public class DrawPress extends DrawBlock {
-    public TextureRegion[] regions;
-    public float length = 3f;
-    public Interp interp = a -> Interp.pow2Out.apply(Mathf.curve(a, 0.2f, 0.9f) - Mathf.curve(a, 0.9f));
+    public TextureRegion press1, press2, pressIcon;
+    public float length = 10f / 4f;
+    public Interp interp = a -> {
+        float b = Mathf.slope(a);
+        float c = Mathf.curve(b, 0.4f, 0.8f);
+        return Interp.pow2In.apply(c);
+    };
 
     @Override
     public void draw(Building build) {
-        for (int i = 0; i < 2; i++) {
-            Draw.rect(regions[i], build.x, build.y + (interp.apply(build.progress()) * length) * Mathf.signs[i]);
+        for (int i = 0; i < 4; i++) {
+            Tmp.v1.trns(i * 90f, -(interp.apply(build.progress()) * length));
+
+            if (i % 2 != 0) {
+                Draw.yscl = -1f;
+            }
+            Draw.rect(i > 1 ? press2 : press1, build.x + Tmp.v1.x, build.y + Tmp.v1.y, i * 90f);
+            Draw.yscl = 1f;
         }
     }
 
     @Override
     public void drawPlan(Block block, BuildPlan plan, Eachable<BuildPlan> list) {
-        for (TextureRegion region : regions) {
-            Draw.rect(region, plan.drawx(), plan.drawy());
-        }
+        Draw.rect(pressIcon, plan.drawx(), plan.drawy());
     }
 
     @Override
     public void load(Block block) {
-        regions = new TextureRegion[2];
-
-        for (int i = 0; i < 2; i++) {
-            regions[i] = Core.atlas.find(block.name + "-press" + i);
-        }
+        press1 = Core.atlas.find(block.name + "-press1");
+        press2 = Core.atlas.find(block.name + "-press2");
+        pressIcon = Core.atlas.find(block.name + "-press-icon");
     }
 
     @Override
     public TextureRegion[] icons(Block block) {
-        return regions;
+        return new TextureRegion[]{pressIcon};
     }
 }

@@ -303,10 +303,13 @@ public class RecipeCrafter extends Block {
             boolean recipeConsumes = false;
 
             if (currentRecipe == null) {
-                for (Recipe recipe : recipes) {
-                    if (recipe.consumesItem(item)) {
-                        recipeConsumes = true;
-                        break;
+                // if it's not configurable, it automatically detects its recipe and should accept any item
+                if (!configurable) {
+                    for (Recipe recipe : recipes) {
+                        if (recipe.consumesItem(item)) {
+                            recipeConsumes = true;
+                            break;
+                        }
                     }
                 }
             } else {
@@ -361,6 +364,21 @@ public class RecipeCrafter extends Block {
         @Override
         public void drawLight() {
             drawer.drawLight(this);
+        }
+
+        @Override
+        public float progress() {
+            return progress;
+        }
+
+        @Override
+        public float warmup() {
+            return warmup;
+        }
+
+        @Override
+        public float totalProgress() {
+            return totalProgress;
         }
 
         @Override
