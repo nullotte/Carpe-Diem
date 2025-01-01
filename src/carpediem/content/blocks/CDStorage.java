@@ -54,6 +54,7 @@ public class CDStorage {
             unitCapModifier = 32;
             unitType = CDUnitTypes.cache;
 
+            clipSize = size * 8f * 3f;
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     DrawItemSlot.mirrored(
@@ -74,6 +75,7 @@ public class CDStorage {
             size = 6;
             itemCapacity = 5000;
 
+            clipSize = size * 8f * 3f;
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     DrawItemSlot.mirrored(
