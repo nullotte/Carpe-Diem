@@ -88,7 +88,7 @@ public class Archive extends StatusEffect {
 
                 },
                 "logs", (Cons<Table>) t -> {
-                    t.label(() -> "[lightgray]not implemented yet. come back later lawl");
+                    t.add("[gray]" + (unlocked() ? Core.bundle.get(getContentType() + "." + name + ".logs") : Iconc.lock + " " + Core.bundle.get("unlock.incampaign"))).pad(6).padTop(20).width(400f).wrap().fillX();
                 }
         );
 

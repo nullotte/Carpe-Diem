@@ -14,23 +14,23 @@ import static carpediem.content.blocks.CDProduction.*;
 
 public class CDArchives {
     public static Archive
-            automation, logistics, payloadProduction, outwardExpansion;
+            distribution, automation, payloadLogistics, outwardExpansion;
 
     public static void load() {
+        distribution = new Archive(
+                "distribution",
+                ItemStack.with(lemon, 39),
+                Seq.with(beltMerger, beltSplitter, beltOverflowGate, beltUnderflowGate, beltBridge)
+        );
+
         automation = new Archive(
                 "automation",
                 ItemStack.with(controlCircuit, 20),
                 Seq.with(drillT1, smelterT1, pressT1, rollingMillT1, assemblerT1)
         );
 
-        logistics = new Archive(
-                "logistics",
-                ItemStack.with(lemon, 39),
-                Seq.with(beltMerger, beltSplitter, beltOverflowGate, beltUnderflowGate, beltBridge)
-        );
-
-        payloadProduction = new Archive(
-                "payload-production",
+        payloadLogistics = new Archive(
+                "payload-logistics",
                 ItemStack.with(lemon, 39),
                 Seq.with(payloadRail, payloadRailRouter, payloadAssembler)
         );
