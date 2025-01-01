@@ -210,6 +210,16 @@ public class CDCrafting {
             recipes.addAll(CDRecipes.refineryRecipes);
             configurable = true;
 
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawRecipeLiquid(),
+                    new DrawRegion("-rotator", -4f, true),
+                    new DrawRecipeLiquid() {{
+                        alpha = 0.5f;
+                    }},
+                    new DrawDefault()
+            );
+
             consumePower(1f / 10f);
         }};
         // endregion
