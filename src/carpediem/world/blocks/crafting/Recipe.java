@@ -43,6 +43,9 @@ public class Recipe {
     }
 
     public void update(Building build) {
+        for (Consume consume : consumes) {
+            consume.update(build);
+        }
         for (Output output : outputs) {
             output.update(build);
         }
