@@ -30,6 +30,7 @@ public class CDPlanets {
             defaultCore = CDStorage.landingPodT0;
             allowLaunchToNumbered = false;
             prebuildBase = false;
+            allowLaunchLoadout = true; // is this a good idea.
 
             ruleSetter = r -> {
                 r.defaultTeam = CDTeams.coalition;

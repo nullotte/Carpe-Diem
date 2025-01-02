@@ -1,6 +1,7 @@
 package carpediem;
 
 import arc.*;
+import carpediem.world.blocks.storage.*;
 import carpediem.world.draw.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
@@ -33,6 +34,13 @@ public class CarpeDiem extends Mod {
         // this is worse
         Events.run(Trigger.draw, () -> {
             DrawItemSlot.currentDrawn = null;
+        });
+
+        // and this is the worst
+        Events.run(Trigger.preDraw, () -> {
+            if (Vars.renderer.isLaunching() && Vars.renderer.getLaunchCoreType() instanceof LandingPod) {
+                Core.camera.position.set(LandingPod.launchBuild);
+            }
         });
     }
 
