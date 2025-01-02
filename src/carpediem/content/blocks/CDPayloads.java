@@ -13,7 +13,8 @@ import mindustry.world.blocks.payloads.*;
 public class CDPayloads {
     public static Block
     payloadRail, payloadRailRouter, payloadCrane,
-    payloadAssembler, payloadManufacturingGrid;
+    payloadAssembler, payloadManufacturingGrid,
+    payloadLoader, payloadUnloader;
 
     public static void load() {
         payloadRail = new PayloadConveyor("payload-rail") {{
@@ -96,6 +97,26 @@ public class CDPayloads {
 
             conductivePower = true;
             consumePower(1f / 5f);
+        }};
+
+        payloadLoader = new PayloadLoader("payload-loader") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 7;
+            maxBlockSize = 6;
+
+            consumePower(2f);
+        }};
+
+        payloadUnloader = new PayloadUnloader("payload-unloader") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 7;
+            maxBlockSize = 6;
+
+            consumePower(2f);
         }};
     }
 }

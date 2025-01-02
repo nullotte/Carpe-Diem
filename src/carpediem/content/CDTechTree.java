@@ -53,15 +53,18 @@ public class CDTechTree {
                 });
             });
 
+            node(launchPlatform);
+
             node(industryHub, () -> {
                 node(storageVault);
             });
 
-            node(launchPlatform);
-
             node(payloadAssembler, () -> {
                 node(payloadRail, () -> {
                     node(payloadRailRouter);
+                    node(payloadLoader, () -> {
+                        node(payloadUnloader);
+                    });
                     node(payloadCrane);
                 });
                 node(payloadManufacturingGrid);
@@ -71,7 +74,11 @@ public class CDTechTree {
                 node(dataChannel, () -> {
                     node(dataRouter);
                 });
-                node(automation, () -> {});
+
+                node(distribution);
+                node(automation);
+                node(payloadLogistics);
+                node(outwardExpansion);
             });
 
             node(CDSectorPresets.one, () -> {
