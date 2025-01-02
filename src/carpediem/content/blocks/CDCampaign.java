@@ -9,16 +9,16 @@ import mindustry.world.meta.*;
 
 public class CDCampaign {
     public static Block
-    launchPlatformT1, launchPlatformT2,
+    launchPlatform,
     dataChannel, dataRouter,
     archiveDecoder;
 
     public static void load() {
-        launchPlatformT1 = new LaunchPlatform("launch-platform-t1") {{
+        launchPlatform = new LaunchPlatform("launch-platform") {{
             requirements(Category.effect, BuildVisibility.campaignOnly, ItemStack.with(
                     CDItems.lemon, 39
             ));
-            size = 5;
+            size = 7;
             itemCapacity = 100;
             regionSuffix = "-dark";
 

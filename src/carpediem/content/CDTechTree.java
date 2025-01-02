@@ -38,11 +38,11 @@ public class CDTechTree {
                     node(drillT1);
                 });
 
-                node(cableNode, () -> {
-                    node(geothermalBurner, () -> {});
-
-                    node(accumulator);
-                    node(cableTower);
+                node(geothermalBurner, () -> {
+                    node(cableNode, () -> {
+                        node(accumulator);
+                        node(cableTower);
+                    });
                 });
 
                 node(smelterT1, () -> {
@@ -57,7 +57,7 @@ public class CDTechTree {
                 node(storageVault);
             });
 
-            node(launchPlatformT1);
+            node(launchPlatform);
 
             node(payloadAssembler, () -> {
                 node(payloadRail, () -> {

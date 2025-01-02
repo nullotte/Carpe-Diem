@@ -18,7 +18,7 @@ public class CDUnitTypes {
             accel = 0.2f;
             drag = 0.2f;
             speed = 2f;
-            rotateSpeed = 4f;
+            rotateSpeed = 6f;
             hovering = true;
             groundLayer = Layer.legUnit;
 
@@ -43,7 +43,7 @@ public class CDUnitTypes {
             buildRange = 40f * 8f;
             itemCapacity = 200;
 
-            fogRadius = 16f;
+            fogRadius = 64f;
             targetPriority = -2;
             targetable = false;
             hittable = false;

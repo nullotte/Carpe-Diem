@@ -38,7 +38,7 @@ public class CDArchives {
         outwardExpansion = new Archive(
                 "outward-expansion",
                 ItemStack.with(lemon, 39),
-                Seq.with(packagedLandingPodT0, launchPlatformT1)
+                Seq.with(packagedLandingPodT0, launchPlatform)
         );
     }
 }
