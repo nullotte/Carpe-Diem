@@ -2,6 +2,7 @@ package carpediem.world.blocks.campaign;
 
 import arc.*;
 import arc.graphics.g2d.*;
+import arc.math.geom.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import carpediem.*;
@@ -15,8 +16,9 @@ import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.payloads.*;
 
-// TODO should be able to launch item pods
 public class LaunchPlatform extends PayloadBlock {
+    public TextureRegion[] tops;
+
     public LaunchPlatform(String name) {
         super(name);
         acceptsPayload = true;
@@ -25,7 +27,25 @@ public class LaunchPlatform extends PayloadBlock {
         config(Sector.class, LaunchPlatformBuild::launchTo);
     }
 
+    @Override
+    public void load() {
+        super.load();
+
+        tops = new TextureRegion[4];
+        for (int i = 0; i < 4; i++) {
+            tops[i] = Core.atlas.find(name + "-top" + i);
+        }
+    }
+
+    @Override
+    protected TextureRegion[] icons() {
+        // shit
+        return new TextureRegion[]{region, tops[0], tops[1], tops[2], tops[3]};
+    }
+
     public class LaunchPlatformBuild extends PayloadBlockBuild<BuildPayload> {
+        public float progress;
+
         @Override
         public void updateTile() {
             super.updateTile();
@@ -89,6 +109,11 @@ public class LaunchPlatform extends PayloadBlock {
 
             Draw.z(Layer.blockOver);
             drawPayload();
+
+            Draw.z(Layer.blockOver + 0.1f);
+            for (int i = 0; i < 4; i++) {
+                Draw.rect(tops[i], x + Geometry.d8edge[i].x * progress, y + Geometry.d8edge[i].y * progress);
+            }
         }
 
         @Override
