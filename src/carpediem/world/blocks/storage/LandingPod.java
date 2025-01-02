@@ -228,7 +228,10 @@ public class LandingPod extends DrawerCoreBlock {
                     optionsTable.clear();
                     Seq<UnlockableContent> available = Seq.with(recipes).retainAll(r -> r.unlockedNow() && r.valid(this)).map(r -> r.primaryOutput);
                     if (available.any()) {
+                        Sector sector = Vars.state.rules.sector;
+                        Vars.state.rules.sector = null;
                         ItemSelection.buildTable(LandingPod.this, optionsTable, available, () -> selectedRecipe == null ? null : selectedRecipe.primaryOutput, content -> selectedRecipe = recipes.find(r -> r.primaryOutput == content), false, selectionRows, selectionColumns);
+                        Vars.state.rules.sector = sector;
                         // oh my goddd
                         ((Table) optionsTable.getCells().peek().left().get()).background(null);
                     } else {

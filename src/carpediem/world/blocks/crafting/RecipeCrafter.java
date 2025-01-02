@@ -347,7 +347,10 @@ public class RecipeCrafter extends Block {
             Seq<UnlockableContent> available = Seq.with(recipes).retainAll(Recipe::unlockedNow).map(r -> r.primaryOutput);
 
             if (available.any()) {
+                Sector sector = Vars.state.rules.sector;
+                Vars.state.rules.sector = null;
                 ItemSelection.buildTable(RecipeCrafter.this, table, available, () -> currentRecipeID == -1 ? null : getCurrentRecipe().primaryOutput, content -> configure(recipes.indexOf(r -> r.primaryOutput == content)), selectionRows, selectionColumns);
+                Vars.state.rules.sector = sector;
             } else {
                 table.table(Styles.black3, t -> t.add("@none").color(Color.lightGray));
             }
