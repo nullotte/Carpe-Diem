@@ -13,7 +13,7 @@ public class CDPlanets {
 
     public static void load() {
         asphodel = new Planet("asphodel", Planets.sun, 1f, 1) {{
-            alwaysUnlocked = true;
+            alwaysUnlocked = true; // TODO lock after tar fields/salt flats/extraction outpost?
             generator = new AsphodelPlanetGenerator();
 
             meshLoader = () -> new HexMesh(this, 6);
@@ -26,6 +26,7 @@ public class CDPlanets {
             atmosphereRadIn = 0.05f;
             atmosphereRadOut = 0.2f;
             atmosphereColor = Color.valueOf("4c5a79");
+            iconColor = Color.valueOf("304c92");
 
             defaultCore = CDStorage.landingPodT0;
             allowLaunchToNumbered = false;
