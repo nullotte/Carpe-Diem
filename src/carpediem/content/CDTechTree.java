@@ -1,10 +1,8 @@
 package carpediem.content;
 
 import arc.struct.*;
-import arc.util.*;
 import carpediem.game.CDObjectives.*;
 import mindustry.content.*;
-import mindustry.game.Objectives.*;
 import mindustry.world.*;
 
 import static carpediem.content.CDArchives.*;
@@ -162,30 +160,8 @@ public class CDTechTree {
         root.each(node -> {
             if (node.content instanceof Block block) {
                 blocks.add(block);
-
-                if (block.requirements.length == 0) {
-                    node.objectives.add(new Unfinished(block.localizedName));
-                }
             }
         });
     }
 
-    // TODO remove
-    public static class Unfinished implements Objective {
-        public String name;
-
-        public Unfinished(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public boolean complete() {
-            return false;
-        }
-
-        @Override
-        public String display() {
-            return Strings.format("[scarlet]big obvious red text that indicates that this content (@) is not ready", name);
-        }
-    }
 }
