@@ -14,7 +14,8 @@ import static carpediem.content.blocks.CDProduction.*;
 
 public class CDArchives {
     public static Archive
-    distribution, automation, payloadLogistics, outwardExpansion;
+    distribution, automation, outwardExpansion,
+    payloadLogistics;
 
     public static void load() {
         distribution = new Archive(
@@ -29,16 +30,16 @@ public class CDArchives {
                 Seq.with(drillT1, smelterT1, pressT1, rollingMillT1, assemblerT1)
         );
 
-        payloadLogistics = new Archive(
-                "payload-logistics",
-                ItemStack.with(lemon, 39),
-                Seq.with(payloadRail, payloadRailRouter, payloadLoader, payloadUnloader, payloadAssembler)
-        );
-
         outwardExpansion = new Archive(
                 "outward-expansion",
                 ItemStack.with(lemon, 39),
                 Seq.with(packagedLandingPodT0, launchPlatform)
+        );
+
+        payloadLogistics = new Archive(
+                "payload-logistics",
+                ItemStack.with(lemon, 39),
+                Seq.with(payloadRail, payloadRailRouter, payloadCrane, payloadAssembler, payloadManufacturingGrid, payloadLoader, payloadUnloader)
         );
     }
 }

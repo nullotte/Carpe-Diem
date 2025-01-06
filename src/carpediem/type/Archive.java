@@ -52,7 +52,7 @@ public class Archive extends StatusEffect {
 
         contents.each(content -> {
             if (content.techNode != null) {
-                content.techNode.objectives.add(new UnlockArchive(this));
+                content.techNode.objectives.clear().add(new UnlockArchive(this));
             }
         });
     }
