@@ -2,6 +2,8 @@ package carpediem.world.blocks.crafting;
 
 import arc.scene.ui.layout.*;
 import arc.struct.*;
+import carpediem.content.blocks.*;
+import carpediem.world.consumers.*;
 import carpediem.world.outputs.*;
 import mindustry.*;
 import mindustry.ctype.*;
@@ -49,6 +51,16 @@ public class Recipe {
         for (Output output : outputs) {
             output.update(build);
         }
+    }
+
+    public float efficiencyMultiplier(Building build) {
+        float multiplier = 1f;
+
+        for (Consume consume : consumes) {
+            multiplier *= consume.efficiencyMultiplier(build);
+        }
+
+        return multiplier;
     }
 
     public void dumpOutputs(Building build) {
@@ -136,6 +148,9 @@ public class Recipe {
                 for (LiquidStack stack : consLiquids.liquids) {
                     if (!stack.liquid.unlocked()) return false;
                 }
+            } else if (consume instanceof ConsumePressure) {
+                // yeah i hardcoded this
+                return CDCrafting.pressurizationChamber.unlocked();
             }
         }
         return true;

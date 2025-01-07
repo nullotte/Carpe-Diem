@@ -8,6 +8,7 @@ import carpediem.content.*;
 import carpediem.world.blocks.crafting.*;
 import carpediem.world.consumers.*;
 import carpediem.world.draw.*;
+import mindustry.content.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -18,7 +19,9 @@ public class CDCrafting {
     // T0
     smelterT0,
     // T1
-    smelterT1, pressT1, rollingMillT1, assemblerT1, refineryT1;
+    smelterT1, pressT1, rollingMillT1, assemblerT1, refineryT1,
+    // what
+    pressurizationChamber;
 
     public static void load() {
         // a special one .
@@ -105,6 +108,8 @@ public class CDCrafting {
             );
 
             consumePower(1f / 12f);
+            // is this a good idea.
+            consume(new ConsumePressure().boost());
         }};
 
         rollingMillT1 = new RecipeCrafter("rolling-mill-t1") {{
@@ -150,6 +155,7 @@ public class CDCrafting {
             );
 
             consumePower(1f / 12f);
+            consume(new ConsumePressure().boost());
         }};
 
         assemblerT1 = new RecipeCrafter("assembler-t1") {{
@@ -223,5 +229,34 @@ public class CDCrafting {
             consumePower(1f / 10f);
         }};
         // endregion
+
+        // who tf let this guy in here
+        pressurizationChamber = new PressureCrafter("pressurization-chamber") {{
+            requirements(Category.crafting, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+            rotate = true;
+            rotateDraw = false;
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawLiquidTile(),
+                    new DrawRegion("-piston-bottom"),
+                    new DrawPistons() {{
+                        sinMag = -2f;
+                        sinScl = 8f;
+                        lenOffset = 1f;
+                    }},
+                    new DrawDefault(),
+                    new DrawRegion("-mid") {{
+                        buildingRotate = true;
+                    }},
+                    new DrawRotatedRegion()
+            );
+
+            consumeLiquid(Liquids.water, 0.5f);
+            consumePower(100f);
+        }};
     }
 }

@@ -298,6 +298,23 @@ public class RecipeCrafter extends Block {
         }
 
         @Override
+        public float efficiencyScale() {
+            float multiplier = 1f;
+
+            for (Consume consume : consumers) {
+                multiplier *= consume.efficiencyMultiplier(this);
+            }
+
+            Recipe currentRecipe = getCurrentRecipe();
+
+            if (currentRecipe != null) {
+                multiplier *= currentRecipe.efficiencyMultiplier(this);
+            }
+
+            return multiplier;
+        }
+
+        @Override
         public boolean acceptItem(Building source, Item item) {
             if (!hasItems) return false;
 
