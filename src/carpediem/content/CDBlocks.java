@@ -7,7 +7,7 @@ public class CDBlocks {
         CDEnvironment.load();
         CDCrafting.load();
         CDDistribution.load();
-        // CDLiquidBlocks.load();
+        CDLiquidBlocks.load();
         CDPower.load();
         CDProduction.load();
         CDStorage.load();
