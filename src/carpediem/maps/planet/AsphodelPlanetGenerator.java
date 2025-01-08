@@ -130,6 +130,19 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
                 }
             }
 
+            if (noise(x, y, 12, 0.6f, 60f) > 0.55f) {
+                if (floor == CDEnvironment.royalstone) {
+                    floor = Blocks.moss;
+                } else if (floor == Blocks.redStone) {
+                    floor = CDEnvironment.redMoss;
+                }
+            }
+
+            // yes i copied this from erekir planetgen
+            if (floor == Blocks.redStone && noise(x + 78 - y, y, 4, 0.73f, 19f, 1f) > 0.47f) {
+                floor = Blocks.denseRedStone;
+            }
+
             if (floor == CDEnvironment.hotCarbon) {
                 // im just copying serpulo's hotrock code because i cannot get good looking hotrocks for the life of me
                 if (Math.abs(0.5f - noise(x, y + 60, 8, 0.5f, 85f)) > 0.02f) {

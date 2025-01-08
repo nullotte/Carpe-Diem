@@ -8,21 +8,19 @@ import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
 
 public class CDEnvironment {
-    /*
-    * - add like. special floor that generates underneath props. that way when they get deconstructed the floor
-    * - still looks a bit. not flat i guess
-    * */
     public static Block
     // floors
-    arksand, arkstone, orangeStone,
-    meadsoil, scorchedSoil,
+    arkstone, orangeStone,
+    redMoss, meadsoil, scorchedSoil,
     royalstone, crystalrock,
-    bluerock, hotCarbon, magmaCarbon,
+    bluerock, blueCraters, carbonCraters, hotCarbon, magmaCarbon,
     // walls
     arkstoneWall, orangeStoneWall,
     meadsoilWall, scorchedSoilWall,
     royalstoneWall, crystalrockWall,
     bluerockWall,
+    // decoration
+    bluerockBoulder,
     // ore
     oreAluminum, oreSulfur, oreNickel, oreSilver, orePlatinum;
 
@@ -30,6 +28,8 @@ public class CDEnvironment {
         arkstone = new Floor("arkstone", 5);
 
         orangeStone = new Floor("orange-stone", 5);
+
+        redMoss = new Floor("red-moss", 5);
 
         meadsoil = new Floor("meadsoil", 5);
 
