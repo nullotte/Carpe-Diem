@@ -31,6 +31,8 @@ public class CDCrafting {
             ));
             alwaysUnlocked = true;
             size = 3;
+            // just so that it's less of a pain to use
+            itemCapacity = 50;
 
             craftingSpeed = 0.5f;
             recipes.addAll(CDRecipes.basicSmelterRecipes);

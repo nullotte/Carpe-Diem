@@ -4,7 +4,7 @@ import mindustry.gen.*;
 
 // surprisingly simple ?
 public interface DataBuild {
-    int baseDataStrength = 32;
+    int baseDataStrength = 64;
 
     DataType data();
 
