@@ -16,15 +16,19 @@ public class CDEnvironment {
     bluerock, blueCraters, carbonCraters, hotCarbon, magmaCarbon,
     // walls
     arkstoneWall, orangeStoneWall,
-    meadsoilWall, scorchedSoilWall,
-    royalstoneWall, crystalrockWall,
+    meadsoilWall, scorchedWall,
+    royalstoneWall, crystalWall,
     bluerockWall,
     // decoration
+    arkstoneBoulder, orangeStoneBoulder, arkweed,
+    redGrowth, redTendrils, meadBush, meadTree, orangeTree, scorchedBush, scorchedTree,
+    royalstoneBoulder, crystalBoulder,
     bluerockBoulder,
     // ore
-    oreAluminum, oreSulfur, oreNickel, oreSilver, orePlatinum;
+    oreAluminum, oreSulfur, oreNickel, oreSand, oreSilver, orePlatinum;
 
     public static void load() {
+        // region floors
         arkstone = new Floor("arkstone", 5);
 
         orangeStone = new Floor("orange-stone", 5);
@@ -32,6 +36,8 @@ public class CDEnvironment {
         redMoss = new Floor("red-moss", 5);
 
         meadsoil = new Floor("meadsoil", 5);
+
+        scorchedSoil = new Floor("scorched-soil", 5);
 
         royalstone = new Floor("royalstone", 5);
 
@@ -58,15 +64,46 @@ public class CDEnvironment {
             lightRadius = 50f;
             lightColor = Color.orange.cpy().a(0.15f);
         }};
-
-        bluerockWall = new StaticWall("bluerock-wall") {{
-            variants = 3;
+        // endregion
+        // region walls
+        arkstoneWall = new StaticWall("arkstone-wall") {{
+            variants = 4;
         }};
 
-        oreAluminum = new OreBlock(CDItems.rawAluminum);
-        oreSulfur = new OreBlock(CDItems.sulfur);
-        oreNickel = new OreBlock(CDItems.rawNickel);
-        oreSilver = new OreBlock(CDItems.rawSilver);
-        orePlatinum = new OreBlock(CDItems.rawPlatinum);
+        orangeStoneWall = new StaticWall("orange-stone-wall") {{
+            variants = 4;
+        }};
+
+        meadsoilWall = new StaticWall("meadsoil-wall") {{
+            variants = 4;
+        }};
+
+        scorchedWall = new StaticWall("scorched-wall") {{
+            variants = 4;
+        }};
+
+        royalstoneWall = new StaticWall("royalstone-wall") {{
+            variants = 4;
+        }};
+
+        crystalWall = new StaticWall("crystal-wall") {{
+            variants = 4;
+        }};
+
+        bluerockWall = new StaticWall("bluerock-wall") {{
+            variants = 4;
+        }};
+        // endregion
+        // region decoration
+        // bitter choco decoration
+        // endregion
+        // region ore
+        oreAluminum = new OreBlock("ore-aluminum", CDItems.rawAluminum);
+        oreSulfur = new OreBlock("ore-sulfur", CDItems.sulfur);
+        oreNickel = new OreBlock("ore-nickel", CDItems.rawNickel);
+        oreSand = new OreBlock("ore-sand", Items.sand);
+        oreSilver = new OreBlock("ore-silver", CDItems.rawSilver);
+        orePlatinum = new OreBlock("ore-platinum", CDItems.rawPlatinum);
+        // endregion
     }
 }
