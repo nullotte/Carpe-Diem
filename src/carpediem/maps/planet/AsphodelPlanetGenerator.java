@@ -15,10 +15,11 @@ import mindustry.world.*;
 
 public class AsphodelPlanetGenerator extends PlanetGenerator {
     // THE GREAT WALL OF NUMBERS
-    public int octaves = 9, noiseOctaves = 8;
+    public int octaves = 9, noiseOctaves = 8, airOctaves = 3;
     public float heightScl = 0.6f, heightMult = 0.3f;
     public float coldScl = 1.6f, coldProgress = 0.4f;
     public float noiseScl = 0.3f, noiseFalloff = 0.6f, noisePow = 6f, noiseMult = 0.7f;
+    public float airScl = 4f, airThresh = 0.07f;
 
     public int iceOctaves = 10, blueOctaves = 7, crystalOctaves = 8;
     public float iceScl = 0.1f, iceFalloff = 0.4f, iceThresh = 0.6f;
@@ -115,18 +116,27 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
     protected void genTile(Vec3 position, TileGen tile) {
         tile.floor = getBlock(position);
 
-        // TODO should walls be generated in here?
+        tile.block = tile.floor.asFloor().wall;
+
+        if (Ridged.noise3d(seed + 1, position.x, position.y, position.z, airOctaves, airScl) < airThresh) {
+            tile.block = Blocks.air;
+        }
     }
 
     @Override
     protected void generate() {
+        cells(4);
         distort(60f, 100f);
         distort(10f, 12f);
 
         pass((x, y) -> {
+            // we dont do that ugly stuff here
+            if (block == Blocks.crystallineStoneWall) block = CDEnvironment.crystalWall;
+
             if (floor == CDEnvironment.bluerock) {
                 if (noise(x, y, 9, 0.5f, 90f) > 0.6f) {
                     floor = Blocks.carbonStone;
+                    if (block == CDEnvironment.bluerockWall) block = Blocks.carbonWall;
                 }
             }
 
@@ -153,6 +163,7 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
             if (floor == CDEnvironment.meadsoil) {
                 if (noise(x + 100, y, 6, 0.4f, 70f) > 0.65f) {
                     floor = CDEnvironment.scorchedSoil;
+                    if (block == CDEnvironment.meadsoilWall) block = CDEnvironment.scorchedWall;
                 }
             }
         });
@@ -173,6 +184,8 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
                 }
             }
         });
+
+        trimDark();
 
         Schematics.placeLaunchLoadout(width / 2, height / 2);
     }

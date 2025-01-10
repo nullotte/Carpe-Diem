@@ -33,7 +33,9 @@ public class CDEnvironment {
 
         orangeStone = new Floor("orange-stone", 5);
 
-        redMoss = new Floor("red-moss", 5);
+        redMoss = new Floor("red-moss", 5) {{
+            wall = Blocks.redStoneWall;
+        }};
 
         meadsoil = new Floor("meadsoil", 5);
 
@@ -48,6 +50,7 @@ public class CDEnvironment {
         hotCarbon = new Floor("hotcarbon", 4) {{
             attributes.set(Attribute.heat, 1f);
             blendGroup = Blocks.carbonStone;
+            wall = Blocks.carbonWall;
 
             // lalalalala
             emitLight = true;
@@ -59,6 +62,7 @@ public class CDEnvironment {
             // functionally the same as hotcarbon, just looks different
             attributes.set(Attribute.heat, 1f);
             blendGroup = Blocks.carbonStone;
+            wall = Blocks.carbonWall;
 
             emitLight = true;
             lightRadius = 50f;
@@ -80,6 +84,7 @@ public class CDEnvironment {
 
         scorchedWall = new StaticWall("scorched-wall") {{
             variants = 4;
+            scorchedSoil.asFloor().wall = this;
         }};
 
         royalstoneWall = new StaticWall("royalstone-wall") {{
@@ -88,6 +93,7 @@ public class CDEnvironment {
 
         crystalWall = new StaticWall("crystal-wall") {{
             variants = 4;
+            crystalrock.asFloor().wall = this;
         }};
 
         bluerockWall = new StaticWall("bluerock-wall") {{
