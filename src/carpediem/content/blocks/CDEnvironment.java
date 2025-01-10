@@ -2,6 +2,7 @@ package carpediem.content.blocks;
 
 import arc.graphics.*;
 import carpediem.content.*;
+import carpediem.world.blocks.environment.*;
 import mindustry.content.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
@@ -25,7 +26,8 @@ public class CDEnvironment {
     royalstoneBoulder, crystalBoulder,
     bluerockBoulder,
     // ore
-    oreAluminum, oreSulfur, oreNickel, oreSand, oreSilver, orePlatinum;
+    oreAluminum, oreSulfur, oreNickel, oreSilver, orePlatinum,
+    oreDarksand, oreRedsand;
 
     public static void load() {
         // region floors
@@ -104,12 +106,33 @@ public class CDEnvironment {
         // bitter choco decoration
         // endregion
         // region ore
-        oreAluminum = new OreBlock("ore-aluminum", CDItems.rawAluminum);
-        oreSulfur = new OreBlock("ore-sulfur", CDItems.sulfur);
-        oreNickel = new OreBlock("ore-nickel", CDItems.rawNickel);
-        oreSand = new OreBlock("ore-sand", Items.sand);
-        oreSilver = new OreBlock("ore-silver", CDItems.rawSilver);
-        orePlatinum = new OreBlock("ore-platinum", CDItems.rawPlatinum);
+        oreAluminum = new OreBlock("ore-aluminum", CDItems.rawAluminum) {{
+            variants = 4;
+        }};
+
+        oreSulfur = new OreBlock("ore-sulfur", CDItems.sulfur) {{
+            variants = 4;
+        }};
+
+        oreNickel = new OreBlock("ore-nickel", CDItems.rawNickel) {{
+            variants = 4;
+        }};
+
+        oreSilver = new OreBlock("ore-silver", CDItems.rawSilver) {{
+            variants = 4;
+        }};
+
+        orePlatinum = new OreBlock("ore-platinum", CDItems.rawPlatinum) {{
+            variants = 4;
+        }};
+
+        oreDarksand = new FlatOreBlock("ore-darksand", Items.sand) {{
+            variants = 4;
+        }};
+
+        oreRedsand = new FlatOreBlock("ore-redsand", Items.sand) {{
+            variants = 4;
+        }};
         // endregion
     }
 }
