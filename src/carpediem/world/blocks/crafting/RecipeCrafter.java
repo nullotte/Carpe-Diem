@@ -196,7 +196,7 @@ public class RecipeCrafter extends Block {
 
             if (currentRecipe != null) {
                 if (efficiency > 0) {
-                    progress += getProgressIncrease(currentRecipe.craftTime * craftingSpeed);
+                    progress += getProgressIncrease(currentRecipe.craftTime / craftingSpeed);
                     warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
 
                     // for liquids

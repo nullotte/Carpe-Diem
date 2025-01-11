@@ -20,13 +20,13 @@ public class CDArchives {
     public static void load() {
         distribution = new Archive(
                 "distribution",
-                ItemStack.with(lemon, 39),
-                Seq.with(beltMerger, beltSplitter, beltOverflowGate, beltUnderflowGate, beltBridge)
+                ItemStack.with(aluminumPlate, 50, aluminumCogwheel, 50),
+                Seq.with(beltSplitter, beltOverflowGate, beltUnderflowGate, beltBridge)
         );
 
         automation = new Archive(
                 "automation",
-                ItemStack.with(controlCircuit, 20),
+                ItemStack.with(controlCircuit, 25),
                 Seq.with(drillT1, smelterT1, pressT1, rollingMillT1, assemblerT1)
         );
 
