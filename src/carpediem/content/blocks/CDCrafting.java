@@ -9,6 +9,7 @@ import carpediem.world.blocks.crafting.*;
 import carpediem.world.consumers.*;
 import carpediem.world.draw.*;
 import mindustry.content.*;
+import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -51,6 +52,8 @@ public class CDCrafting {
                     }}
             );
 
+            ambientSound = Sounds.smelter;
+
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
 
@@ -85,6 +88,8 @@ public class CDCrafting {
                         alpha = 1f;
                     }}
             );
+
+            ambientSound = Sounds.smelter;
 
             consumePower(1f / 12f);
         }};
