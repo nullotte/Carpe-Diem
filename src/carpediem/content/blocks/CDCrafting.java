@@ -30,7 +30,6 @@ public class CDCrafting {
             requirements(Category.crafting, ItemStack.with(
                     CDItems.rawAluminum, 20
             ));
-            alwaysUnlocked = true;
             size = 3;
             // just so that it's less of a pain to use
             itemCapacity = 50;

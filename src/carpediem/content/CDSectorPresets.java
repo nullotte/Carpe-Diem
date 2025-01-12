@@ -12,10 +12,12 @@ public class CDSectorPresets {
     public static SectorPreset one, two;
 
     public static void load() {
-        one = new SectorPreset("one", CDPlanets.asphodel, 0) {{
+        one = new SectorPreset("one", CDPlanets.asphodel, 5) {{
             alwaysUnlocked = true;
             addStartingItems = true;
             captureWave = -1;
+
+            CDPlanets.asphodel.startSector = sector.id;
         }};
 
         two = new SectorPreset("two", CDPlanets.asphodel, 2) {{

@@ -75,7 +75,6 @@ public class CDTechTree {
 
                 node(distribution);
                 node(automation);
-                node(payloadLogistics);
                 node(outwardExpansion);
             });
 
