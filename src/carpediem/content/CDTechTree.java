@@ -73,7 +73,6 @@ public class CDTechTree {
                     node(dataRouter);
                 });
 
-                node(distribution);
                 node(automation);
                 node(outwardExpansion);
             });
@@ -108,6 +107,13 @@ public class CDTechTree {
                     nodeProduce(aluminum, () -> {
                         nodeProduce(aluminumPlate, () -> {
                             nodeProduce(aluminumCogwheel, () -> {});
+                            nodeProduce(card1, () -> {
+                                nodeProduce(card2, () -> {
+                                    nodeProduce(card3, () -> {
+                                        nodeProduce(card4, () -> {});
+                                    });
+                                });
+                            });
                         });
                         nodeProduce(aluminumRod, () -> {
                             nodeProduce(aluminumWire, () -> {});

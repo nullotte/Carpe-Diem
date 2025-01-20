@@ -19,6 +19,8 @@ public class CDItems {
     aluminumCogwheel, silverCogwheel, alloyCogwheel,
     powerCell, liquidCell,
 
+    card1, card2, card3, card4,
+
     lemon
     ;
     // TODO stats?
@@ -90,6 +92,7 @@ public class CDItems {
         aluminumWire = new Item("aluminum-wire", aluminum.color);
         nickelWire = new Item("nickel-wire", nickel.color);
 
+        // im so stupid why didnt i just name these circuit1 circuit2 circuit3
         controlCircuit = new Item("control-circuit");
         calculationCircuit = new Item("calculation-circuit");
         processingUnit = new Item("processing-unit");
@@ -102,7 +105,14 @@ public class CDItems {
         liquidCell = new Item("liquid-cell");
         // endregion
 
-        // malicious.
+        // region cards
+        card1 = new Item("card1");
+        card2 = new Item("card2");
+        card3 = new Item("card3");
+        card4 = new Item("card4");
+        // endregion
+
+        // ahaha
         lemon = new Item("lemon", Color.valueOf("f4da7f"));
     }
 }

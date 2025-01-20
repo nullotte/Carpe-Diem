@@ -11,14 +11,12 @@ import carpediem.ui.dialogs.*;
 import mindustry.ui.dialogs.*;
 
 public class CarpeDiem extends Mod {
-    public static ArchiveDatabaseDialog archiveDatabase;
     public static LaunchSelectDialog launchSelect;
     // mhm
     public static ContentInfoDialog content;
 
     @Override
     public void init() {
-        archiveDatabase = new ArchiveDatabaseDialog();
         launchSelect = new LaunchSelectDialog();
         content = new ContentInfoDialog();
 

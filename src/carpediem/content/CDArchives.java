@@ -7,7 +7,6 @@ import mindustry.type.*;
 import static carpediem.content.CDItems.*;
 import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.blocks.CDCrafting.*;
-import static carpediem.content.blocks.CDDistribution.*;
 import static carpediem.content.blocks.CDLiquidBlocks.*;
 import static carpediem.content.blocks.CDPayloadComponents.*;
 import static carpediem.content.blocks.CDPayloads.*;
@@ -18,30 +17,16 @@ import static carpediem.content.blocks.CDStorage.*;
 public class CDArchives {
     public static Archive
     // the reserve
-    distribution, automation, outwardExpansion,
+    automation, outwardExpansion,
     // forward outpost
     fluidProcessing, powerProduction, payloadLogistics, industrialStorage, manufacturingComponents, navigationSystems;
 
     public static void load() {
         // region the reserve
-        distribution = new Archive(
-                "distribution",
-                ItemStack.with(
-                        aluminumPlate, 50,
-                        aluminumCogwheel, 50
-                ),
-                Seq.with(
-                        beltSplitter,
-                        beltOverflowGate,
-                        beltUnderflowGate,
-                        beltBridge
-                )
-        );
-
         automation = new Archive(
                 "automation",
                 ItemStack.with(
-                        controlCircuit, 25
+                        card1, 25
                 ),
                 Seq.with(
                         drillT1,
@@ -55,7 +40,7 @@ public class CDArchives {
         outwardExpansion = new Archive(
                 "outward-expansion",
                 ItemStack.with(
-                        lemon, 39
+                        card1, 200
                 ),
                 Seq.with(
                         packagedLandingPodT0,
@@ -70,8 +55,12 @@ public class CDArchives {
                         lemon, 39
                 ),
                 Seq.with(
-                        pump
-                        // TODO everything
+                        pump,
+                        pipe,
+                        valve,
+                        pipeBridge,
+                        fluidTank,
+                        refineryT1
                 )
         );
 
@@ -89,7 +78,9 @@ public class CDArchives {
 
         payloadLogistics = new Archive(
                 "payload-logistics",
-                ItemStack.with(lemon, 39),
+                ItemStack.with(
+                        lemon, 39
+                ),
                 Seq.with(
                         payloadRail,
                         payloadRailRouter,
