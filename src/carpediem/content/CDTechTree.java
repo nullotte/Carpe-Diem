@@ -72,13 +72,19 @@ public class CDTechTree {
                 node(dataChannel, () -> {
                     node(dataRouter);
                 });
-
-                node(automation);
-                node(outwardExpansion);
             });
 
             node(CDSectorPresets.one, () -> {
-                node(CDSectorPresets.two, Seq.with(new LaunchSector(landingPodT0)), () -> {});
+                node(CDSectorPresets.two, Seq.with(new LaunchSector(landingPodT0)), () -> {
+                    node(fluidProcessing);
+                    node(powerProduction);
+                    node(payloadLogistics);
+                    node(industrialStorage);
+                    node(manufacturingComponents);
+                    node(navigationSystems);
+                });
+                node(automation);
+                node(outwardExpansion);
             });
 
             nodeProduce(rawAluminum, () -> {
