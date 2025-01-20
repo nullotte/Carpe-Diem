@@ -1,6 +1,7 @@
 package carpediem.content.blocks;
 
 import carpediem.content.*;
+import carpediem.world.blocks.liquid.*;
 import carpediem.world.draw.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -9,7 +10,8 @@ import mindustry.world.draw.*;
 
 public class CDLiquidBlocks {
     public static Block
-    pump;
+    pump,
+    pipe, valve, pipeBridge, fluidTank;
 
     public static void load() {
         pump = new Pump("pump") {{
@@ -28,6 +30,32 @@ public class CDLiquidBlocks {
             );
 
             consumePower(2f);
+        }};
+
+        pipe = new Pipe("pipe") {{
+            requirements(Category.liquid, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+        }};
+
+        valve = new Valve("valve") {{
+            requirements(Category.liquid, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+        }};
+
+        pipeBridge = new PipeBridge("pipe-bridge") {{
+            requirements(Category.liquid, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+        }};
+
+        fluidTank = new MergingLiquidBlock("fluid-tank") {{
+            requirements(Category.liquid, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+            liquidCapacity = 3000;
         }};
     }
 }
