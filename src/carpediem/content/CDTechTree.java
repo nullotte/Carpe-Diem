@@ -55,6 +55,7 @@ public class CDTechTree {
 
             node(industryHub, () -> {
                 node(storageVault);
+                node(shippingContainer);
             });
 
             node(payloadAssembler, () -> {

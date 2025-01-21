@@ -99,7 +99,8 @@ public class CDArchives {
                 ),
                 Seq.with(
                         industryHub,
-                        storageVault
+                        storageVault,
+                        shippingContainer
                 )
         );
 

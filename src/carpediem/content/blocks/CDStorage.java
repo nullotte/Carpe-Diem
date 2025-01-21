@@ -16,7 +16,7 @@ public class CDStorage {
     industryHub;
 
     public static Block
-    storageVault;
+    storageVault, shippingContainer;
 
     public static void load() {
         landingPodT0 = new LandingPod("landing-pod-t0") {{
@@ -83,6 +83,26 @@ public class CDStorage {
                             new Vec2(57f / 4f, 12f / 4f),
                             new Vec2(12f / 4f, 33f / 4f),
                             new Vec2(12f / 4f, 57f / 4f)
+                    ),
+                    new DrawDefault(),
+                    new DrawTeam()
+            );
+        }};
+
+        shippingContainer = new DrawerStorageBlock("shipping-container") {{
+            requirements(Category.effect, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+            itemCapacity = 2000;
+            coreMerge = false;
+
+            clipSize = size * 8f * 3f;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    DrawItemSlot.mirrored(
+                            new Vec2(12f / 4f, 22f / 4f),
+                            new Vec2(22f / 4f, 12f / 4f)
                     ),
                     new DrawDefault(),
                     new DrawTeam()
