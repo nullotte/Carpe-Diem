@@ -16,18 +16,21 @@ public class AmmoStatusAbility extends Ability {
         this.effect = effect;
         this.duration = duration;
         this.reload = reload;
+
+        display = false;
     }
 
     @Override
     public void update(Unit unit) {
-        if ((timer += Time.delta) >= reload && (unit.ammo > 0f || !Vars.state.rules.unitAmmo)) {
-            unit.apply(effect, duration);
-
-            if (Vars.state.rules.unitAmmo) {
+        if (Vars.state.rules.unitAmmo) {
+            if ((timer += Time.delta) >= reload && unit.ammo > 0f) {
                 unit.ammo--;
+                timer = 0f;
             }
 
-            timer = 0f;
+            if (unit.ammo <= 0f) {
+                unit.apply(effect, duration);
+            }
         }
     }
 }

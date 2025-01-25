@@ -5,12 +5,12 @@ import mindustry.type.*;
 
 // should this even exist
 public class CDStatusEffects {
-    public static StatusEffect powered;
+    public static StatusEffect unpowered;
 
     public static void load() {
-        powered = new StatusEffect("powered") {{
-            color = Pal.accent;
-            speedMultiplier = 5f;
+        unpowered = new StatusEffect("unpowered") {{
+            color = Pal.remove;
+            speedMultiplier = 1f / 5f;
         }};
     }
 }
