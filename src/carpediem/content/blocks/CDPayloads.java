@@ -106,7 +106,7 @@ public class CDPayloads {
             requirements(Category.units, ItemStack.with(
                     CDItems.lemon, 39
             ));
-            size = 7;
+            size = 5;
             maxBlockSize = 6;
 
             consumePower(2f);
@@ -116,7 +116,7 @@ public class CDPayloads {
             requirements(Category.units, ItemStack.with(
                     CDItems.lemon, 39
             ));
-            size = 7;
+            size = 5;
             maxBlockSize = 6;
 
             consumePower(2f);
