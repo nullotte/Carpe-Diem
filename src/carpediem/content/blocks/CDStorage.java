@@ -1,8 +1,10 @@
 package carpediem.content.blocks;
 
 import arc.math.geom.*;
+import arc.struct.EnumSet;
 import carpediem.content.*;
 import carpediem.world.blocks.storage.*;
+import carpediem.world.blocks.units.*;
 import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.type.*;
@@ -16,7 +18,7 @@ public class CDStorage {
     industryHub;
 
     public static Block
-    storageVault, shippingContainer;
+    storageVault, shippingContainer, providerContainer, receiverContainer;
 
     public static void load() {
         landingPodT0 = new LandingPod("landing-pod-t0") {{
@@ -107,6 +109,29 @@ public class CDStorage {
                     new DrawDefault(),
                     new DrawTeam()
             );
+        }};
+
+        providerContainer = new DrawerStorageBlock("provider-container") {{
+            requirements(Category.effect, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+            itemCapacity = 200;
+            coreMerge = false;
+            flags = EnumSet.of(BlockFlag.storage, BlockFlag.extinguisher); // shh shh i cant override enums
+
+            drawer = new DrawMulti(
+                    new DrawDefault(),
+                    new DrawTeam()
+            );
+        }};
+
+        receiverContainer = new CDUnitCargoUnloadPoint("receiver-container") {{
+            requirements(Category.effect, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+            itemCapacity = 200;
         }};
     }
 }

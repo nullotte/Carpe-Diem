@@ -1,5 +1,6 @@
 package carpediem.content;
 
+import carpediem.ai.types.*;
 import carpediem.entities.abilities.*;
 import carpediem.type.ammo.*;
 import carpediem.type.unit.*;
@@ -59,15 +60,13 @@ public class CDUnitTypes {
             }});
         }};
 
-        if (true) return;
-
         carver = new CDUnitType("carver") {{
             constructor = UnitEntity::create;
-            controller = u -> {
+            controller = u -> new ReloadingAI(() -> {
                 BuilderAI ai = new BuilderAI();
                 ai.onlyAssist = true;
                 return ai;
-            };
+            });
             logicControllable = false;
             playerControllable = false;
 
@@ -96,12 +95,15 @@ public class CDUnitTypes {
 
         heap = new CDUnitType("heap") {{
             constructor = UnitEntity::create;
+            controller = u -> new ReloadingAI(CDCargoAI::new);
 
-            accel = 0.3f;
-            drag = 0.3f;
+            hitSize = 22f;
+            accel = 0.1f;
+            drag = 0.1f;
             speed = 5f;
             rotateSpeed = 10f;
             flying = true;
+            physics = false;
 
             engineSize = 0f;
             setEnginesMirror(
@@ -116,6 +118,8 @@ public class CDUnitTypes {
             itemCapacity = 200;
             itemOffsetY = 0f;
         }};
+
+        if (true) return;
 
         myriad = new CDUnitType("myriad") {{
             constructor = PayloadUnit::create;
