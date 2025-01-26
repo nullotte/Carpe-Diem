@@ -53,6 +53,8 @@ public class CDPayloads {
             ));
             size = 5;
             outlineColor = Pal.darkOutline;
+
+            consumeLiquid(Liquids.oil, 0.1f);
             consumePower(1f);
         }};
 
@@ -71,6 +73,7 @@ public class CDPayloads {
             size = maxBlockSize = 5;
             filter = Seq.with(payloadRail);
 
+            consumeLiquid(Liquids.water, 0.2f);
             consumePower(2f);
         }};
 

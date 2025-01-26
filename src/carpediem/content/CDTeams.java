@@ -13,8 +13,8 @@ public class CDTeams {
                 Color.valueOf("4475c8")
         );
 
-        triage = modifyTeam(48, "triage", Color.valueOf("ffbc90"),
-                Color.valueOf("ffbc90"),
+        triage = modifyTeam(48, "triage", Color.valueOf("ffc39b"),
+                Color.valueOf("ffc39b"),
                 Color.valueOf("e68c61"),
                 Color.valueOf("c45a39")
         );
