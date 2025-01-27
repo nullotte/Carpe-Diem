@@ -1,10 +1,18 @@
 package carpediem.world.blocks.liquid;
 
-import mindustry.world.blocks.liquid.*;
+import mindustry.gen.*;
+import mindustry.type.*;
 
-// TODO holy fucking hell what is this
-public class Valve extends Conduit {
+public class Valve extends MergingLiquidBlock {
     public Valve(String name) {
         super(name);
+    }
+
+    public class ValveBuild extends MergingLiquidBuild {
+        @Override
+        public boolean acceptLiquid(Building source, Liquid liquid) {
+            // it's just that easy
+            return false;
+        }
     }
 }
