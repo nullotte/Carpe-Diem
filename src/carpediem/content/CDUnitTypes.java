@@ -96,6 +96,8 @@ public class CDUnitTypes {
         heap = new CDUnitType("heap") {{
             constructor = UnitEntity::create;
             controller = u -> new ReloadingAI(CDCargoAI::new);
+            logicControllable = false;
+            playerControllable = false;
 
             hitSize = 22f;
             accel = 0.1f;
