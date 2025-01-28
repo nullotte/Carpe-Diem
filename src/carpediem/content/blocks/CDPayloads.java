@@ -19,12 +19,7 @@ public class CDPayloads {
     public static void load() {
         payloadRail = new PayloadConveyor("payload-rail") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.aluminum, 10,
-                    CDItems.aluminumPlate, 20,
-                    CDItems.aluminumRod, 5,
-                    CDItems.aluminumCogwheel, 5,
-                    CDItems.aluminumWire, 5,
-                    CDItems.nickelWire, 5
+                    CDItems.lemon, 39
             ));
             size = 5;
             payloadLimit = 6f; // huge
@@ -34,12 +29,7 @@ public class CDPayloads {
 
         payloadRailRouter = new PayloadRouter("payload-rail-router") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.aluminum, 20,
-                    CDItems.aluminumPlate, 20,
-                    CDItems.aluminumRod, 10,
-                    CDItems.aluminumCogwheel, 10,
-                    CDItems.aluminumWire, 10,
-                    CDItems.nickelWire, 5
+                    CDItems.lemon, 39
             ));
             size = 5;
             payloadLimit = 6f;
@@ -60,15 +50,7 @@ public class CDPayloads {
 
         payloadAssembler = new PayloadComponentConstructor("payload-assembler") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.aluminum, 150,
-                    CDItems.aluminumPlate, 100,
-                    CDItems.aluminumRod, 60,
-                    CDItems.nickelRod, 40,
-                    CDItems.aluminumCogwheel, 25,
-                    CDItems.aluminumWire, 30,
-                    CDItems.nickelWire, 30,
-                    CDItems.controlCircuit, 10,
-                    CDItems.powerCell, 10
+                    CDItems.lemon, 39
             ));
             size = maxBlockSize = 5;
             filter = Seq.with(payloadRail);
