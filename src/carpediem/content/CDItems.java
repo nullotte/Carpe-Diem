@@ -93,23 +93,23 @@ public class CDItems {
         nickelWire = new Item("nickel-wire", nickel.color);
 
         // im so stupid why didnt i just name these circuit1 circuit2 circuit3
-        controlCircuit = new Item("control-circuit");
-        calculationCircuit = new Item("calculation-circuit");
-        processingUnit = new Item("processing-unit");
+        controlCircuit = new Item("control-circuit", Color.valueOf("ab9ded"));
+        calculationCircuit = new Item("calculation-circuit", Color.valueOf("5bb4ee"));
+        processingUnit = new Item("processing-unit", Color.valueOf("df8dc7"));
 
         aluminumCogwheel = new Item("aluminum-cogwheel", aluminum.color);
         silverCogwheel = new Item("silver-cogwheel", silver.color);
         alloyCogwheel = new Item("alloy-cogwheel", sturdyAlloy.color);
 
-        powerCell = new Item("power-cell");
-        liquidCell = new Item("liquid-cell");
+        powerCell = new Item("power-cell", Color.valueOf("dfb074"));
+        liquidCell = new Item("liquid-cell", Color.valueOf("88a4ff"));
         // endregion
 
         // region cards
-        card1 = new Item("card1");
-        card2 = new Item("card2");
-        card3 = new Item("card3");
-        card4 = new Item("card4");
+        card1 = new Item("card1", Color.valueOf("87b0f5"));
+        card2 = new Item("card2", Color.valueOf("8bdc9c"));
+        card3 = new Item("card3", Color.valueOf("fcff80"));
+        card4 = new Item("card4", Color.valueOf("ff917c"));
         // endregion
 
         // ahaha
