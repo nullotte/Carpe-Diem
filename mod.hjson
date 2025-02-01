@@ -4,9 +4,9 @@ version: "alpha (build 0)"
 minGameVersion: 146
 java: true
 
-displayName: "Carpe Diem"
+displayName: "[[]#ffc39b]Carpe[[]] [[]#b2daff]Diem[[]]"
 author: "Nullotte"
-subtitle: "SEIZE THE DAY"
+subtitle: "[[]#ffc39b]SEIZE[[]] THE [[]#b2daff]DAY[[]]"
 description:
 '''
 A peaceful campaign mod which focuses on factory building.
