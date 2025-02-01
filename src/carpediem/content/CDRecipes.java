@@ -99,8 +99,13 @@ public class CDRecipes {
                 new Recipe()
                         .consumeItems(ItemStack.with(aluminum, 2, nickelPlate, 2, sulfur, 1))
                         .outputItem(powerCell),
-                new Recipe().consumeItems(ItemStack.with(lemon, 39))
-                        .outputItem(liquidCell)
+                new Recipe()
+                        .consumeItems(ItemStack.with(lemon, 39))
+                        .outputItem(liquidCell),
+                // research cards
+                new Recipe()
+                        .consumeItems(ItemStack.with(aluminumCogwheel, 2, nickelPlate, 1))
+                        .outputItem(card1)
         );
     }
 }
