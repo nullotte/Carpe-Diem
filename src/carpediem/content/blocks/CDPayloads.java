@@ -13,7 +13,7 @@ import mindustry.world.blocks.payloads.*;
 public class CDPayloads {
     public static Block
     payloadRail, payloadRailRouter, payloadCrane,
-    payloadAssembler, payloadManufacturingGrid,
+    payloadAssembler, payloadDisassembler, payloadManufacturingGrid,
     payloadLoader, payloadUnloader;
 
     public static void load() {
@@ -48,12 +48,22 @@ public class CDPayloads {
             consumePower(1f);
         }};
 
-        payloadAssembler = new PayloadComponentConstructor("payload-assembler") {{
+        payloadAssembler = new Constructor("payload-assembler") {{
             requirements(Category.units, ItemStack.with(
                     CDItems.lemon, 39
             ));
-            size = maxBlockSize = 5;
-            filter = Seq.with(payloadRail);
+            size = 5;
+            maxBlockSize = 3;
+
+            consumeLiquid(Liquids.water, 0.2f);
+            consumePower(2f);
+        }};
+
+        payloadDisassembler = new PayloadDeconstructor("payload-disassembler") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 5;
 
             consumeLiquid(Liquids.water, 0.2f);
             consumePower(2f);
