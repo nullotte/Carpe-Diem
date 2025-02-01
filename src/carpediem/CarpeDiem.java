@@ -1,6 +1,7 @@
 package carpediem;
 
 import arc.*;
+import carpediem.ui.*;
 import carpediem.world.blocks.storage.*;
 import carpediem.world.draw.*;
 import mindustry.*;
@@ -11,12 +12,14 @@ import carpediem.ui.dialogs.*;
 import mindustry.ui.dialogs.*;
 
 public class CarpeDiem extends Mod {
+    public static CDHints hints;
     public static LaunchSelectDialog launchSelect;
     // mhm
     public static ContentInfoDialog content;
 
     @Override
     public void init() {
+        hints = new CDHints();
         launchSelect = new LaunchSelectDialog();
         content = new ContentInfoDialog();
 
