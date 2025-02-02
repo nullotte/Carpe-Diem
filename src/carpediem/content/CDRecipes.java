@@ -100,7 +100,7 @@ public class CDRecipes {
                         .consumeItems(ItemStack.with(aluminum, 2, nickelPlate, 2, sulfur, 1))
                         .outputItem(powerCell),
                 new Recipe()
-                        .consumeItems(ItemStack.with(lemon, 39))
+                        .consumeItems(ItemStack.with(silverPlate, 3, aluminumRod, 2))
                         .outputItem(liquidCell),
                 // research cards
                 new Recipe()

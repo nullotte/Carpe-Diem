@@ -16,7 +16,14 @@ public class CDCampaign {
     public static void load() {
         launchPlatform = new LaunchPlatform("launch-platform") {{
             requirements(Category.effect, BuildVisibility.campaignOnly, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 1500,
+                    CDItems.aluminumPlate, 1000,
+                    CDItems.aluminumRod, 500,
+                    CDItems.aluminumCogwheel, 200,
+                    CDItems.nickelRod, 400,
+                    CDItems.nickelWire, 500,
+                    CDItems.powerCell, 250,
+                    CDItems.controlCircuit, 100
             ));
             size = 7;
             itemCapacity = 100;

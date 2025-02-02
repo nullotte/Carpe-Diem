@@ -3,6 +3,7 @@ package carpediem.content;
 import arc.struct.*;
 import carpediem.game.CDObjectives.*;
 import mindustry.content.*;
+import mindustry.type.*;
 import mindustry.world.*;
 
 import static carpediem.content.CDArchives.*;
@@ -172,6 +173,8 @@ public class CDTechTree {
         root.each(node -> {
             if (node.content instanceof Block block) {
                 blocks.add(block);
+                // items should only be used by the archive decoder
+                node.setupRequirements(ItemStack.empty);
             }
         });
     }

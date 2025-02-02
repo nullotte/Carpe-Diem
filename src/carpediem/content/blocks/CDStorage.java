@@ -23,7 +23,15 @@ public class CDStorage {
     public static void load() {
         landingPodT0 = new LandingPod("landing-pod-t0") {{
             requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 1000,
+                    CDItems.aluminumPlate, 800,
+                    CDItems.aluminumRod, 500,
+                    CDItems.aluminumCogwheel, 50,
+                    CDItems.nickelPlate, 200,
+                    CDItems.nickelRod, 200,
+                    CDItems.nickelWire, 300,
+                    CDItems.powerCell, 500,
+                    CDItems.controlCircuit, 250
             ));
             size = 4;
             alwaysUnlocked = true;

@@ -29,7 +29,6 @@ public class CDItems {
         // region raw
         rawAluminum = new Item("raw-aluminum", Color.valueOf("948fbf")) {{
             hardness = 1;
-            alwaysUnlocked = true;
         }};
 
         rawNickel = new Item("raw-nickel", Color.valueOf("cbb07e")) {{
@@ -46,7 +45,6 @@ public class CDItems {
 
         sulfur = new Item("sulfur", Color.valueOf("f7eb94")) {{
             hardness = 3;
-            alwaysUnlocked = true;
         }};
 
         tar = new Item("tar", Color.valueOf("32312c")) {{

@@ -9,7 +9,6 @@ import mindustry.ctype.*;
 import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.ui.*;
-import mindustry.world.*;
 
 public class Archive extends StatusEffect {
     // content that is locked behind this archive
@@ -21,13 +20,6 @@ public class Archive extends StatusEffect {
         this.researchCost = researchCost;
         this.contents = contents;
         // TODO maybe separate tab in database
-
-        contents.each(content -> {
-            // should automatically be unlocked upon unlocking this archive
-            if (content instanceof Block block) {
-                block.researchCost = ItemStack.empty;
-            }
-        });
     }
 
     @Override
