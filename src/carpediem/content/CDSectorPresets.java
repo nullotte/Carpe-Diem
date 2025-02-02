@@ -15,6 +15,7 @@ public class CDSectorPresets {
         one = new SectorPreset("one", CDPlanets.asphodel, 5) {{
             alwaysUnlocked = true;
             addStartingItems = true;
+            showSectorLandInfo = false;
             captureWave = -1;
 
             CDPlanets.asphodel.startSector = sector.id;

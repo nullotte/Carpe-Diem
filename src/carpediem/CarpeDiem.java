@@ -1,11 +1,15 @@
 package carpediem;
 
 import arc.*;
+import arc.util.*;
+import carpediem.audio.*;
 import carpediem.ui.*;
+import carpediem.ui.fragments.*;
 import carpediem.world.blocks.storage.*;
 import carpediem.world.draw.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
+import mindustry.gen.*;
 import mindustry.mod.*;
 import carpediem.content.*;
 import carpediem.ui.dialogs.*;
@@ -16,6 +20,12 @@ public class CarpeDiem extends Mod {
     public static LaunchSelectDialog launchSelect;
     // mhm
     public static ContentInfoDialog content;
+
+    public CarpeDiem() {
+        Events.on(MusicRegisterEvent.class, e -> {
+            CDMusics.load();
+        });
+    }
 
     @Override
     public void init() {
@@ -41,6 +51,18 @@ public class CarpeDiem extends Mod {
         Events.run(Trigger.preDraw, () -> {
             if (Vars.renderer.isLaunching() && Vars.renderer.getLaunchCoreType() instanceof LandingPod) {
                 Core.camera.position.set(LandingPod.launchBuild);
+            }
+        });
+
+        // hi slotterleet !
+        Events.run(Trigger.newGame, () -> {
+            if (Vars.state.rules.sector != null && Vars.state.rules.sector == CDSectorPresets.one.sector) {
+                Reflect.set(Vars.renderer, "landTime", 0f);
+                Musics.launch.stop();
+                Musics.land.stop();
+                CDMusics.reboot.play();
+                CDMusics.reboot.setVolume(Core.settings.getInt("musicvol") / 100f);
+                new IntroFragment().build(Core.scene.root);
             }
         });
     }
