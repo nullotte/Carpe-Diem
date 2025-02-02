@@ -2,6 +2,7 @@ package carpediem.content.blocks;
 
 import carpediem.content.*;
 import carpediem.world.blocks.campaign.*;
+import carpediem.world.draw.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.draw.*;
@@ -11,7 +12,7 @@ public class CDCampaign {
     public static Block
     launchPlatform,
     dataChannel, dataRouter,
-    archiveDecoder;
+    archiveDecoder, archiveScanner, archiveVault;
 
     public static void load() {
         launchPlatform = new LaunchPlatform("launch-platform") {{
@@ -65,8 +66,23 @@ public class CDCampaign {
             consumePower(1f);
         }};
 
-        new DataSource("awesome") {{
-            requirements(Category.effect, BuildVisibility.sandboxOnly, ItemStack.with());
+        archiveScanner = new Scanner("archive-scanner") {{
+            requirements(Category.effect, BuildVisibility.shown, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+
+            drawer = new DrawMulti(
+                    new DrawRegion(),
+                    new DrawRotatedRegion(true)
+            );
+
+            consumePower(1f);
+        }};
+
+        archiveVault = new ArchiveVault("archive-vault") {{
+            requirements(Category.effect, BuildVisibility.shown, ItemStack.with());
+            size = 5;
         }};
     }
 }

@@ -19,5 +19,6 @@ public interface DataBuild {
     default boolean acceptData(Building source, DataType data) {
         return data() == null || data() == data;
     }
-    void handleData(Building source, DataType data);
+
+    default void handleData(Building source, DataType data) {}
 }

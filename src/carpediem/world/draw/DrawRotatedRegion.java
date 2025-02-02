@@ -12,6 +12,13 @@ import mindustry.world.draw.*;
 public class DrawRotatedRegion extends DrawBlock {
     public TextureRegion[] regions;
     public float layer = Layer.blockOver;
+    public boolean useIcon;
+
+    public DrawRotatedRegion() {}
+
+    public DrawRotatedRegion(boolean useIcon) {
+        this.useIcon = useIcon;
+    }
 
     @Override
     public void draw(Building build) {
@@ -33,5 +40,10 @@ public class DrawRotatedRegion extends DrawBlock {
         for (int i = 0; i < 4; i++) {
             regions[i] = Core.atlas.find(block.name + "-top" + i);
         }
+    }
+
+    @Override
+    public TextureRegion[] icons(Block block) {
+        return useIcon ? new TextureRegion[]{regions[0]} : new TextureRegion[]{};
     }
 }
