@@ -11,8 +11,8 @@ import mindustry.game.EventType.*;
 import mindustry.ui.fragments.HintsFragment.*;
 import mindustry.world.*;
 
-// it's just one hint im gonna cry
 public class CDHints {
+    public ObjectSet<String> events = new ObjectSet<>();
     public ObjectSet<Block> placedBlocks = new ObjectSet<>();
 
     public CDHints() {
@@ -21,15 +21,23 @@ public class CDHints {
         Log.info(CDHint.cdBlockInfo.finished());
         Log.info(Vars.ui.hints.hints.contains(CDHint.cdBlockInfo));
 
-        Events.on(BlockBuildEndEvent.class, event -> {
-            if (!event.breaking && event.unit == Vars.player.unit()) {
-                placedBlocks.add(event.tile.block());
+        Events.on(BlockBuildEndEvent.class, e -> {
+            if (!e.breaking && e.unit == Vars.player.unit()) {
+                placedBlocks.add(e.tile.block());
+            }
+        });
+
+        Events.on(ConfigEvent.class, e -> {
+            if (e.player == Vars.player && (e.tile.block == CDCrafting.rollingMillT1 || e.tile.block == CDCrafting.assemblerT1)) {
+                events.add("crafterconfig");
             }
         });
     }
 
     public enum CDHint implements Hint {
-        cdBlockInfo(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.smelterT0), () -> Vars.ui.content.isShown() || Vars.ui.database.isShown());
+        cdBlockInfo(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.smelterT0), () -> Vars.ui.content.isShown() || Vars.ui.database.isShown()),
+        crafterConfig(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.rollingMillT1) || CarpeDiem.hints.placedBlocks.contains(CDCrafting.assemblerT1), () -> CarpeDiem.hints.events.contains("crafterconfig")),
+        valves(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.refineryT1), () -> CarpeDiem.hints.placedBlocks.contains(CDLiquidBlocks.valve));
 
         CDHint(Boolp shown, Boolp complete) {
             this.shown = shown;
