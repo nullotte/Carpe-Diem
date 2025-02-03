@@ -25,9 +25,7 @@ public class CDTechTree {
             node(belt, () -> {
                 node(beltMerger, () -> {
                     node(beltSplitter);
-                    node(beltOverflowGate, () -> {
-                        node(beltUnderflowGate);
-                    });
+                    node(beltOverflowGate);
                     node(beltBridge);
                 });
             });
