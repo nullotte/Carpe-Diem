@@ -3,6 +3,7 @@ package carpediem;
 import arc.*;
 import arc.util.*;
 import carpediem.audio.*;
+import carpediem.graphics.*;
 import carpediem.ui.*;
 import carpediem.ui.fragments.*;
 import carpediem.world.blocks.storage.*;
@@ -24,6 +25,13 @@ public class CarpeDiem extends Mod {
     public CarpeDiem() {
         Events.on(MusicRegisterEvent.class, e -> {
             CDMusics.load();
+        });
+
+        // hai glenn!
+        Events.on(FileTreeInitEvent.class, e -> {
+            if (!Vars.headless) {
+                Core.app.post(CDShaders::load);
+            }
         });
     }
 
