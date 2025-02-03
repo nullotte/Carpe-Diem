@@ -11,6 +11,7 @@ import static carpediem.content.CDItems.*;
 import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDDistribution.*;
+import static carpediem.content.blocks.CDPayloadComponents.*;
 import static carpediem.content.blocks.CDPayloads.*;
 import static carpediem.content.blocks.CDPower.*;
 import static carpediem.content.blocks.CDProduction.*;
@@ -68,7 +69,8 @@ public class CDTechTree {
                 node(payloadManufacturingGrid);
             });
 
-            node(archiveDecoder, () -> {
+            node(archiveScanner, () -> {
+                node(archiveDecoder);
                 node(dataChannel, () -> {
                     node(dataRouter);
                 });
@@ -175,6 +177,8 @@ public class CDTechTree {
                 node.setupRequirements(ItemStack.empty);
             }
         });
+        
+        blocks.addAll(packagedLandingPodT0);
     }
 
 }

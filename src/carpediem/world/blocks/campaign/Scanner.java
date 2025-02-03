@@ -1,6 +1,7 @@
 package carpediem.world.blocks.campaign;
 
 import arc.graphics.g2d.*;
+import arc.math.*;
 import arc.util.*;
 import carpediem.world.blocks.campaign.ArchiveVault.*;
 import carpediem.world.blocks.campaign.data.*;
@@ -10,6 +11,8 @@ import mindustry.world.*;
 import mindustry.world.draw.*;
 
 public class Scanner extends Block implements DataBlock {
+    public float warmupSpeed = 0.019f;
+
     public DrawBlock drawer;
 
     public Scanner(String name) {
@@ -43,6 +46,7 @@ public class Scanner extends Block implements DataBlock {
 
     public class ScannerBuild extends Building implements DataBuild {
         public ArchiveDataType data;
+        public float warmup, totalProgress;
 
         @Override
         public void updateTile() {
@@ -53,12 +57,20 @@ public class Scanner extends Block implements DataBlock {
                     }
 
                     outputData();
-                } else {
-                    data = null;
                 }
+
+                warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
             } else {
                 data = null;
+                warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
             }
+
+            totalProgress += warmup * Time.delta;
+        }
+
+        @Override
+        public boolean shouldConsume() {
+            return front() instanceof ArchiveVaultBuild vault && vault.archive != null;
         }
 
         public void outputData() {
@@ -82,6 +94,16 @@ public class Scanner extends Block implements DataBlock {
         @Override
         public void draw() {
             drawer.draw(this);
+        }
+
+        @Override
+        public float totalProgress() {
+            return totalProgress;
+        }
+
+        @Override
+        public float warmup() {
+            return warmup;
         }
 
         @Override

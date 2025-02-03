@@ -4,6 +4,7 @@ import arc.graphics.g2d.*;
 import arc.util.*;
 import mindustry.entities.units.*;
 import mindustry.world.blocks.storage.*;
+import mindustry.world.meta.*;
 
 // fake core block that tells the launch platform to launch a certain real core block
 // TODO add a method to load the crude landing pod into the launch platform without using payload blocks
@@ -18,7 +19,7 @@ public class PackagedCoreBlock extends StorageBlock {
         size = coreType.size;
         itemCapacity = coreType.itemCapacity;
 
-        requirements(coreType.category, coreType.requirements);
+        requirements(coreType.category, BuildVisibility.campaignOnly, coreType.requirements);
     }
 
     @Override

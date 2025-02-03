@@ -1,8 +1,10 @@
 package carpediem.content.blocks;
 
+import arc.graphics.*;
 import carpediem.content.*;
 import carpediem.world.blocks.campaign.*;
 import carpediem.world.draw.*;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.draw.*;
@@ -60,20 +62,44 @@ public class CDCampaign {
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawDefault()
+                    new DrawWarmupRegion() {{
+                        color = Pal.sapBullet;
+                    }},
+                    new DrawCirclingLines(),
+                    new DrawPulseShape(false) {{
+                        color = Pal.sapBullet;
+                        radiusScl = 0.55f;
+                    }},
+                    new DrawDefault(),
+                    new DrawGlowRegion() {{
+                        color = Color.valueOf("79aded");
+                    }}
             );
 
             consumePower(1f);
         }};
 
         archiveScanner = new Scanner("archive-scanner") {{
-            requirements(Category.effect, BuildVisibility.shown, ItemStack.with(
-                    CDItems.lemon, 39
+            requirements(Category.effect, BuildVisibility.campaignOnly, ItemStack.with(
+                    CDItems.aluminum, 20,
+                    CDItems.aluminumPlate, 15,
+                    CDItems.aluminumWire, 10,
+                    CDItems.nickelWire, 5,
+                    CDItems.powerCell, 5,
+                    CDItems.controlCircuit, 15
             ));
             size = 3;
 
             drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawWarmupRegion() {{
+                        color = Pal.sapBulletBack;
+                    }},
                     new DrawRegion(),
+                    new DrawGlowRegion(true) {{
+                        color = Color.valueOf("79aded");
+                    }},
+                    new DrawScanner(),
                     new DrawRotatedRegion(true)
             );
 
@@ -81,8 +107,17 @@ public class CDCampaign {
         }};
 
         archiveVault = new ArchiveVault("archive-vault") {{
-            requirements(Category.effect, BuildVisibility.shown, ItemStack.with());
+            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with());
             size = 5;
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawWarmupRegion() {{
+                        color = Pal.sapBullet;
+                    }},
+                    new DrawDefault(),
+                    new DrawTeam()
+            );
         }};
     }
 }

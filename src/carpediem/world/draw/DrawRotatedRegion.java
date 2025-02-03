@@ -5,13 +5,12 @@ import arc.graphics.g2d.*;
 import arc.util.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
-import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.draw.*;
 
 public class DrawRotatedRegion extends DrawBlock {
     public TextureRegion[] regions;
-    public float layer = Layer.blockOver;
+    public float layer = -1f;
     public boolean useIcon;
 
     public DrawRotatedRegion() {}
@@ -23,7 +22,9 @@ public class DrawRotatedRegion extends DrawBlock {
     @Override
     public void draw(Building build) {
         float z = Draw.z();
-        Draw.z(layer);
+        if (layer > 0f) {
+            Draw.z(layer);
+        }
         Draw.rect(regions[build.rotation], build.x, build.y);
         Draw.z(z);
     }

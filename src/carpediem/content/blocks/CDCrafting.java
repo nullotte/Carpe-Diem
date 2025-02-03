@@ -258,7 +258,9 @@ public class CDCrafting {
                     new DrawRegion("-mid") {{
                         buildingRotate = true;
                     }},
-                    new DrawRotatedRegion()
+                    new DrawRotatedRegion() {{
+                        layer = Layer.blockOver;
+                    }}
             );
 
             consumeLiquid(Liquids.water, 0.5f);

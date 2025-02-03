@@ -221,6 +221,21 @@ public class ArchiveResearchBlock extends Block implements DataBlock {
         }
 
         @Override
+        public float progress() {
+            return progress;
+        }
+
+        @Override
+        public float totalProgress() {
+            return totalProgress;
+        }
+
+        @Override
+        public float warmup() {
+            return warmup;
+        }
+
+        @Override
         public void display(Table table) {
             super.display(table);
 
