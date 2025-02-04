@@ -71,6 +71,11 @@ public class CarpeDiem extends Mod {
                 CDMusics.reboot.play();
                 CDMusics.reboot.setVolume(Core.settings.getInt("musicvol") / 100f);
                 new IntroFragment().build(Core.scene.root);
+            } else if (Vars.state.rules.planet == CDPlanets.asphodel) {
+                // TODO get rid of this when porting to v8
+                Musics.land.stop();
+                CDMusics.land.play();
+                CDMusics.land.setVolume(Core.settings.getInt("musicvol") / 100f);
             }
         });
     }
