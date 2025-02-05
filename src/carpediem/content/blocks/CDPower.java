@@ -58,11 +58,11 @@ public class CDPower {
         geothermalBurner = new ThermalConsumeGenerator("geothermal-burner") {{
             requirements(Category.power, ItemStack.with(
                     CDItems.aluminum, 20,
-                    CDItems.nickelPlate, 20,
-                    CDItems.nickelRod, 25,
+                    CDItems.nickelPlate, 10,
+                    CDItems.nickelRod, 5,
                     CDItems.nickelWire, 10,
                     CDItems.controlCircuit, 5,
-                    CDItems.powerCell, 20
+                    CDItems.powerCell, 10
             ));
             size = 3;
 
