@@ -15,11 +15,13 @@ public class CDEnvironment {
     redMoss, meadsoil, scorchedSoil,
     royalstone, crystalrock,
     bluerock, blueCraters, carbonCraters, hotCarbon, magmaCarbon,
+    reserveFloor1, reserveFloor2, reserveFloor3,
     // walls
     arkstoneWall, orangeStoneWall,
     meadsoilWall, scorchedWall,
     royalstoneWall, crystalWall,
     bluerockWall,
+    reserveWall1, reserveWall2, reserveWall3,
     // decoration
     arkstoneBoulder, orangeStoneBoulder, arkweed,
     redGrowth, redTendrils, meadBush, meadTree, orangeTree, scorchedBush, scorchedTree,
@@ -70,6 +72,10 @@ public class CDEnvironment {
             lightRadius = 50f;
             lightColor = Color.orange.cpy().a(0.15f);
         }};
+
+        reserveFloor1 = new Floor("reserve-floor-1", 0);
+        reserveFloor2 = new Floor("reserve-floor-2", 0);
+        reserveFloor3 = new Floor("reserve-floor-3", 0);
         // endregion
         // region walls
         arkstoneWall = new StaticWall("arkstone-wall") {{
@@ -101,9 +107,27 @@ public class CDEnvironment {
         bluerockWall = new StaticWall("bluerock-wall") {{
             variants = 4;
         }};
+
+        reserveWall1 = new StaticWall("reserve-wall-1") {{
+            variants = 0;
+        }};
+
+        reserveWall2 = new StaticWall("reserve-wall-2") {{
+            variants = 0;
+        }};
+
+        reserveWall3 = new StaticWall("reserve-wall-3") {{
+            variants = 0;
+        }};
         // endregion
         // region decoration
-        // bitter choco decoration
+        crystalBoulder = new Prop("crystal-boulder") {{
+            variants = 2;
+        }};
+
+        bluerockBoulder = new Prop("bluerock-boulder") {{
+            variants = 2;
+        }};
         // endregion
         // region ore
         oreAluminum = new OreBlock("ore-aluminum", CDItems.rawAluminum) {{

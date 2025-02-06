@@ -48,7 +48,7 @@ public class AtmospherePlanet extends Planet {
             atmosphereShader.camera = cam;
             atmosphereShader.planet = this;
         }
-        
+
         shader.bind();
         shader.apply();
         atmosphere.render(shader, Gl.triangles);
