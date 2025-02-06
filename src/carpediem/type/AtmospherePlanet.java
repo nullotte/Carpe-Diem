@@ -40,9 +40,15 @@ public class AtmospherePlanet extends Planet {
         Gl.depthMask(false);
         Blending.additive.apply();
 
-        DepthAtmosphereShader shader = CDShaders.depthAtmosphere;
-        shader.camera = cam;
-        shader.planet = this;
+        Shader shader = CDShaders.depthAtmosphere != null ? CDShaders.depthAtmosphere : Shaders.atmosphere;
+        if (shader instanceof DepthAtmosphereShader depthShader) {
+            depthShader.camera = cam;
+            depthShader.planet = this;
+        } else if (shader instanceof AtmosphereShader atmosphereShader) {
+            atmosphereShader.camera = cam;
+            atmosphereShader.planet = this;
+        }
+        
         shader.bind();
         shader.apply();
         atmosphere.render(shader, Gl.triangles);
