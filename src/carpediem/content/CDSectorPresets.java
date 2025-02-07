@@ -14,7 +14,6 @@ public class CDSectorPresets {
     public static void load() {
         one = new SectorPreset("one", CDPlanets.asphodel, 5) {{
             alwaysUnlocked = true;
-            addStartingItems = true;
             showSectorLandInfo = false;
             captureWave = -1;
 

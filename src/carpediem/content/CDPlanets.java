@@ -41,6 +41,8 @@ public class CDPlanets {
                 r.fog = true;
                 r.staticFog = true;
 
+                r.ambientLight = Color.valueOf("4f4f5da6");
+
                 r.hideBannedBlocks = true;
                 r.blockWhitelist = true;
 
