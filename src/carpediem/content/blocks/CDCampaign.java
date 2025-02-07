@@ -1,6 +1,7 @@
 package carpediem.content.blocks;
 
 import arc.graphics.*;
+import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.campaign.*;
 import carpediem.world.draw.*;
@@ -59,6 +60,9 @@ public class CDCampaign {
                     CDItems.controlCircuit, 10
             ));
             size = 4;
+            itemCapacity = 50;
+            // this sucks
+            filter = Seq.with(CDItems.card1, CDItems.card2, CDItems.card3, CDItems.card4);
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),

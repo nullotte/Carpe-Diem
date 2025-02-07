@@ -3,10 +3,10 @@ package carpediem.world.blocks.campaign;
 import arc.*;
 import arc.Graphics.*;
 import arc.Graphics.Cursor.*;
-import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.scene.ui.layout.*;
+import arc.struct.*;
 import arc.util.*;
 import arc.util.io.*;
 import carpediem.type.*;
@@ -26,6 +26,7 @@ import mindustry.world.meta.*;
 
 public class ArchiveResearchBlock extends Block implements DataBlock {
     public float researchTime = 120f;
+    public Seq<Item> filter = new Seq<>();
 
     public Effect updateEffect = Fx.none;
     public float updateEffectChance = 0.04f;
@@ -167,15 +168,7 @@ public class ArchiveResearchBlock extends Block implements DataBlock {
 
         @Override
         public boolean acceptItem(Building source, Item item) {
-            if (researching()) {
-                TechNode node = archive().techNode;
-                ItemStack required = Structs.find(node.requirements, s -> s.item == item);
-                ItemStack completed = Structs.find(node.finishedRequirements, s -> s.item == item);
-
-                return required != null && completed != null && completed.amount + items.get(item) < required.amount;
-            }
-
-            return false;
+            return filter.contains(item) && items.get(item) < getMaximumAccepted(item);
         }
 
         public void checkUnlock() {
@@ -269,8 +262,7 @@ public class ArchiveResearchBlock extends Block implements DataBlock {
                     table.table(line -> {
                         line.left();
                         line.image(required.item.uiIcon).size(8f * 2f);
-                        line.add(required.item.localizedName).maxWidth(140f).fillX().color(Color.lightGray).padLeft(2f).left();
-                        line.labelWrap(() -> UI.formatAmount(Math.min(completed.amount, required.amount)) + "/" + UI.formatAmount(required.amount)).padLeft(8f);
+                        line.labelWrap(() -> "[lightgray]" + required.item.localizedName + " []" + UI.formatAmount(Math.min(completed.amount, required.amount)) + "/" + UI.formatAmount(required.amount)).width(200f).padLeft(8f);
                     }).left();
                     table.row();
                 }

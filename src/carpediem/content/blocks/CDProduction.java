@@ -22,6 +22,7 @@ public class CDProduction {
                     CDItems.aluminumCogwheel, 5
             ));
             size = 3;
+            itemCapacity = 50;
 
             tier = 3;
             drillTime = 32f * 60f; // A WHOLE THIRTY TWO SECONDS

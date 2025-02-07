@@ -65,6 +65,7 @@ public class CDPower {
                     CDItems.powerCell, 10
             ));
             size = 3;
+            itemCapacity = 50;
 
             powerProduction = (100f / 60f) / 9f;
             itemDuration = 60f;
