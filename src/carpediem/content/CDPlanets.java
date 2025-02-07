@@ -26,6 +26,7 @@ public class CDPlanets {
             atmosphereRadOut = 0.3f;
             atmosphereColor = Color.valueOf("4c5a79");
             iconColor = Color.valueOf("304c92");
+            updateLighting = false;
 
             defaultCore = CDStorage.landingPodT0;
             allowLaunchToNumbered = false;
