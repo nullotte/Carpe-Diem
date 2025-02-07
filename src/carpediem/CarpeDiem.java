@@ -64,7 +64,7 @@ public class CarpeDiem extends Mod {
 
         // hi slotterleet !
         Events.run(Trigger.newGame, () -> {
-            if (Vars.state.rules.sector != null && Vars.state.rules.sector == CDSectorPresets.one.sector) {
+            if (Vars.state.rules.sector != null && Vars.state.rules.sector == CDSectorPresets.theReserve.sector) {
                 Reflect.set(Vars.renderer, "landTime", 0f);
                 Musics.launch.stop();
                 Musics.land.stop();

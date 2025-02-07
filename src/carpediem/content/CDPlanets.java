@@ -32,6 +32,8 @@ public class CDPlanets {
             allowLaunchToNumbered = false;
             prebuildBase = false;
             allowLaunchLoadout = true;
+            // how the HELL are you losing sectors on asphodel
+            clearSectorOnLose = true;
 
             ruleSetter = r -> {
                 r.defaultTeam = CDTeams.coalition;

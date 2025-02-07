@@ -9,10 +9,10 @@ import mindustry.io.*;
 import mindustry.type.*;
 
 public class CDSectorPresets {
-    public static SectorPreset one, two;
+    public static SectorPreset theReserve, forwardOutpost;
 
     public static void load() {
-        one = new SectorPreset("one", CDPlanets.asphodel, 5) {{
+        theReserve = new SectorPreset("the-reserve", CDPlanets.asphodel, 5) {{
             alwaysUnlocked = true;
             showSectorLandInfo = false;
             captureWave = -1;
@@ -20,7 +20,7 @@ public class CDSectorPresets {
             CDPlanets.asphodel.startSector = sector.id;
         }};
 
-        two = new SectorPreset("two", CDPlanets.asphodel, 2) {{
+        forwardOutpost = new SectorPreset("forward-outpost", CDPlanets.asphodel, 21) {{
             captureWave = -1;
         }};
 
@@ -38,7 +38,7 @@ public class CDSectorPresets {
             }
         });
 
-        for (SectorPreset preset : new SectorPreset[]{one, two}) {
+        for (SectorPreset preset : new SectorPreset[]{theReserve, forwardOutpost}) {
             // dont show it in the map dialogs
             Vars.maps.all().remove(m -> m.file == preset.generator.map.file);
 

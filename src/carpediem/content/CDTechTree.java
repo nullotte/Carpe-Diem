@@ -76,8 +76,8 @@ public class CDTechTree {
                 });
             });
 
-            node(CDSectorPresets.one, () -> {
-                node(CDSectorPresets.two, Seq.with(new LaunchSector(landingPodT0)), () -> {
+            node(CDSectorPresets.theReserve, () -> {
+                node(CDSectorPresets.forwardOutpost, Seq.with(new LaunchSector(landingPodT0)), () -> {
                     node(fluidProcessing);
                     node(powerProduction);
                     node(payloadLogistics);
