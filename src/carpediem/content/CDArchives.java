@@ -1,8 +1,14 @@
 package carpediem.content;
 
 import arc.struct.*;
+import arc.util.serialization.*;
+import arc.util.serialization.Json.*;
 import carpediem.type.*;
+import mindustry.*;
+import mindustry.ctype.*;
+import mindustry.io.*;
 import mindustry.type.*;
+import mindustry.world.*;
 
 import static carpediem.content.CDItems.*;
 import static carpediem.content.blocks.CDCampaign.*;
@@ -124,5 +130,31 @@ public class CDArchives {
                 )
         );
         // endregion
+
+        // IT ONLY GETS WORSE YALL THIS IS THE SHIT I HAVE TO DO TO MAKE STATUS EFFECTS LOAD PROPERLY IN MAP OBJECTIVES
+        // YOU THOUGHT SETTING THE SECTOR TO NULL AND THEN SETTING IT BACK TO WHAT IT WAS IN ORDER TO MAKE A RECIPE SHOW UP WAS BAD? HOOO FUCKING BOY
+        JsonIO.json.setSerializer(UnlockableContent.class, new Serializer<>() {
+            @Override
+            public void write(Json json, UnlockableContent object, Class knownType) {
+                json.writeValue(object == null ? null : object.name);
+            }
+
+            @Override
+            public UnlockableContent read(Json json, JsonValue jsonData, Class type) {
+                if (jsonData.isNull()) return null;
+                String str = jsonData.asString();
+                Item item = Vars.content.item(str);
+                Liquid liquid = Vars.content.liquid(str);
+                Block block = Vars.content.block(str);
+                UnitType unit = Vars.content.unit(str);
+                StatusEffect status = Vars.content.statusEffect(str);
+                return
+                        item != null ? item :
+                        liquid != null ? liquid :
+                        block != null ? block :
+                        unit != null ? unit :
+                        status;
+            }
+        });
     }
 }
