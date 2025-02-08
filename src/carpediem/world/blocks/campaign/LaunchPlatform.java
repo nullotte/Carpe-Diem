@@ -9,8 +9,8 @@ import arc.math.geom.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import carpediem.*;
+import carpediem.content.*;
 import carpediem.game.CDObjectives.*;
-import carpediem.type.*;
 import carpediem.world.blocks.storage.*;
 import mindustry.*;
 import mindustry.content.TechTree.*;
@@ -29,9 +29,7 @@ public class LaunchPlatform extends PayloadBlock {
         acceptsPayload = true;
         configurable = true;
 
-        config(Sector.class, LaunchPlatformBuild::launchTo);
-        // PFFT
-        config(NonThreateningSector.class, LaunchPlatformBuild::launchTo);
+        config(SectorPreset.class, LaunchPlatformBuild::launchTo);
     }
 
     @Override
@@ -68,7 +66,7 @@ public class LaunchPlatform extends PayloadBlock {
             return super.acceptPayload(source, payload) && payload.content() instanceof PackagedCoreBlock;
         }
 
-        public void launchTo(Sector sector) {
+        public void launchTo(SectorPreset sector) {
             if (Vars.state.isCampaign() && efficiency > 0f && canLaunch(sector)) {
                 consume();
                 BuildPayload launched = payload;
@@ -82,32 +80,22 @@ public class LaunchPlatform extends PayloadBlock {
 
                     if (Core.settings.getBool("skipcoreanimation")) {
                         // yeah
-                        Vars.control.playSector(Vars.state.rules.sector, sector);
+                        Vars.control.playSector(Vars.state.rules.sector, sector.sector);
                     } else {
                         Time.runTask(5f, () -> {
                             // TODO it shows the construct effect but whateverrr we cant do anything about that just wait for v8 JAHKJLHJKFGHJKGFKLGHJKJKF
                             LandingPod.launchBuild = this;
                             Vars.renderer.showLaunch(((PackagedCoreBlock) launched.content()).coreType);
-                            Time.runTask(Vars.coreLandDuration - 8f, () -> Vars.control.playSector(Vars.state.rules.sector, sector));
+                            Time.runTask(Vars.coreLandDuration - 8f, () -> Vars.control.playSector(Vars.state.rules.sector, sector.sector));
                         });
                     }
                 }
             }
         }
 
-        public boolean canLaunch(Sector sector) {
-            if (sector.hasBase()) return false;
-
-            if (sector.planet.generator != null && !sector.planet.generator.allowLanding(sector)) {
-                if (sector.preset != null) {
-                    TechNode node = sector.preset.techNode;
-                    return node == null || node.parent == null || (node.parent.content.unlocked() && (!(node.parent.content instanceof SectorPreset preset) || preset.sector.hasBase()) && !node.objectives.contains(o -> !(o.complete() || (o instanceof LaunchSector launch && payload.content() instanceof PackagedCoreBlock packaged && packaged.coreType == launch.requiredCore))));
-                } else {
-                    return false;
-                }
-            }
-
-            return true;
+        public boolean canLaunch(SectorPreset sector) {
+            TechNode node = sector.techNode;
+            return node == null || node.parent == null || (node.parent.content.unlocked() && (!(node.parent.content instanceof SectorPreset preset) || preset.sector.hasBase()) && !node.objectives.contains(o -> !(o.complete() || (o instanceof LaunchSector launch && payload.content() instanceof PackagedCoreBlock packaged && packaged.coreType == launch.requiredCore))));
         }
 
         @Override
@@ -148,7 +136,20 @@ public class LaunchPlatform extends PayloadBlock {
 
             table.button(Icon.play, Styles.cleari, () -> {
                 if (Vars.state.isCampaign() && efficiency > 0f) {
-                    CarpeDiem.launchSelect.show(this, this::configure);
+                    SectorPreset preset = Vars.state.rules.sector.preset;
+
+                    if (preset == CDSectorPresets.theReserve) {
+                        Vars.ui.showInfo("@carpe-diem-end");
+                        return;
+                    }
+
+                    if (preset != null && preset.techNode != null) {
+                        TechNode destination = preset.techNode.children.find(n -> n.content instanceof SectorPreset);
+
+                        if (destination != null) {
+                            CarpeDiem.launchSectorInfo.show(this, (SectorPreset) destination.content, () -> configure(destination.content));
+                        }
+                    }
                 }
                 deselect();
             }).size(40f);

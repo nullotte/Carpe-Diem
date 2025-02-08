@@ -18,7 +18,7 @@ import mindustry.ui.dialogs.*;
 
 public class CarpeDiem extends Mod {
     public static CDHints hints;
-    public static LaunchSelectDialog launchSelect;
+    public static LaunchSectorInfoDialog launchSectorInfo;
     // mhm
     public static ContentInfoDialog content;
 
@@ -42,7 +42,7 @@ public class CarpeDiem extends Mod {
     @Override
     public void init() {
         hints = new CDHints();
-        launchSelect = new LaunchSelectDialog();
+        launchSectorInfo = new LaunchSectorInfoDialog();
         content = new ContentInfoDialog();
 
         // this is probably bad
