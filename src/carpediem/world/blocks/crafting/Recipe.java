@@ -2,8 +2,6 @@ package carpediem.world.blocks.crafting;
 
 import arc.scene.ui.layout.*;
 import arc.struct.*;
-import carpediem.content.blocks.*;
-import carpediem.world.consumers.*;
 import carpediem.world.outputs.*;
 import mindustry.*;
 import mindustry.ctype.*;
@@ -26,9 +24,15 @@ public class Recipe {
     // for ui
     public UnlockableContent primaryOutput;
 
-    public Recipe() {}
+    // sector past which this recipe should be visible
+    public String sector;
 
-    public Recipe(float craftTime) {
+    public Recipe(String sector) {
+        this.sector = sector;
+    }
+
+    public Recipe(String sector, float craftTime) {
+        this.sector = sector;
         this.craftTime = craftTime;
     }
 
@@ -138,22 +142,7 @@ public class Recipe {
     }
 
     public boolean unlocked() {
-        // this is such a terrible
-        for (Consume consume : consumes) {
-            if (consume instanceof ConsumeItems consItems) {
-                for (ItemStack stack : consItems.items) {
-                    if (!stack.item.unlocked()) return false;
-                }
-            } else if (consume instanceof ConsumeLiquids consLiquids) {
-                for (LiquidStack stack : consLiquids.liquids) {
-                    if (!stack.liquid.unlocked()) return false;
-                }
-            } else if (consume instanceof ConsumePressure) {
-                // yeah i hardcoded this
-                return CDCrafting.pressurizationChamber.unlocked();
-            }
-        }
-        return true;
+        return sector != null && Vars.content.sector("carpe-diem-" + sector).unlocked();
     }
 
     public boolean unlockedNow() {

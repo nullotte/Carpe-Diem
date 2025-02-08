@@ -16,59 +16,57 @@ public class CDRecipes {
     pressRecipes, rollingMillRecipes, refineryRecipes,
     assemblerRecipes;
 
+    public static Recipe simpleRecipe(String sector, Item in, Item out) {
+        return new Recipe(sector).consumeItem(in).outputItem(out);
+    }
+
     public static void load() {
         basicSmelterRecipes = Seq.with(
-                new Recipe().consumeItem(rawAluminum).outputItem(aluminum),
-                new Recipe().consumeItem(rawNickel).outputItem(nickel)
+                simpleRecipe("the-reserve", rawAluminum, aluminum),
+                simpleRecipe("the-reserve", rawNickel, nickel)
         );
 
         advancedSmelterRecipes = Seq.with(
-                new Recipe().consumeItems(ItemStack.with(rawSilver, 1, sand, 1)).outputItem(silver),
-                new Recipe().consumeItem(rawSilver).outputItem(silver).outputLiquid(slag, 0.1f),
-                new Recipe().consumeItem(rawPlatinum).outputItem(platinum).outputLiquid(slag, 0.1f)
+                new Recipe("forward-outpost").consumeItems(ItemStack.with(rawSilver, 1, sand, 1)).outputItem(silver),
+                new Recipe("forward-outpost").consumeItem(rawSilver).outputItem(silver).outputLiquid(slag, 0.1f),
+                new Recipe(null).consumeItem(rawPlatinum).outputItem(platinum).outputLiquid(slag, 0.1f)
         );
 
-        pressRecipes = new Seq<>();
-        OrderedMap.<Item, Item>of(
-                aluminum, aluminumPlate,
-                nickel, nickelPlate,
-                silver, silverPlate,
-                platinum, platinumPlate,
-                silicon, siliconSheet,
-                plastanium, plastaniumSheet,
-                sturdyAlloy, alloyPlate
-        ).each((in, out) -> {
-            pressRecipes.add(new Recipe().consumeItem(in).outputItem(out));
-        });
+        pressRecipes = Seq.with(
+                simpleRecipe("the-reserve", aluminum, aluminumPlate),
+                simpleRecipe("the-reserve", nickel, nickelPlate),
+                simpleRecipe("forward-outpost", silver, silverPlate),
+                simpleRecipe(null, platinum, platinumPlate),
+                simpleRecipe("forward-outpost", silicon, siliconSheet),
+                simpleRecipe(null, plastanium, plastaniumSheet),
+                simpleRecipe(null, sturdyAlloy, alloyPlate)
+        );
 
-        rollingMillRecipes = new Seq<>();
-        OrderedMap.<Item, Item>of(
-                aluminum, aluminumRod,
-                nickel, nickelRod,
-                silver, silverRod,
-                platinum, platinumRod,
-                sturdyAlloy, alloyRod,
-                aluminumRod, aluminumWire,
-                nickelRod, nickelWire
-        ).each((in, out) -> {
-            rollingMillRecipes.add(new Recipe().consumeItem(in).outputItem(out, 2));
-        });
+        rollingMillRecipes = Seq.with(
+                simpleRecipe("the-reserve", aluminum, aluminumRod),
+                simpleRecipe("the-reserve", nickel, nickelRod),
+                simpleRecipe("forward-outpost", silver, silverRod),
+                simpleRecipe(null, platinum, platinumRod),
+                simpleRecipe(null, sturdyAlloy, alloyRod),
+                simpleRecipe("the-reserve", aluminumRod, aluminumWire),
+                simpleRecipe("the-reserve", nickelRod, nickelWire)
+        );
 
         refineryRecipes = Seq.with(
                 // oil
-                new Recipe()
+                new Recipe("forward-outpost")
                         .consumeLiquid(petroleum, 0.2f)
                         .outputLiquid(oil, 0.2f).outputItem(tar, 2),
                 // silicon
-                new Recipe()
+                new Recipe("forward-outpost")
                         .consumeItem(sand, 2).consumeLiquid(oil, 0.2f)
                         .outputItem(silicon, 4),
                 // pyratite
-                new Recipe()
+                new Recipe(null)
                         .consumeItems(ItemStack.with(sand, 1, sulfur, 2, tar, 1))
                         .outputItem(pyratite, 4),
                 // plastanium
-                new Recipe()
+                new Recipe(null)
                         .consumeItem(aluminum, 2).consumeLiquid(oil, 0.2f).consume(new ConsumePressure())
                         .outputItem(plastanium, 3)
         );
@@ -76,34 +74,34 @@ public class CDRecipes {
         
         assemblerRecipes = Seq.with(
                 // cogwheels
-                new Recipe()
+                new Recipe("the-reserve")
                         .consumeItems(ItemStack.with(aluminum, 1, aluminumPlate, 2))
                         .outputItem(aluminumCogwheel, 4),
-                new Recipe()
+                new Recipe("forward-outpost")
                         .consumeItems(ItemStack.with(silver, 1, silverPlate, 2))
                         .outputItem(silverCogwheel, 4),
-                new Recipe()
+                new Recipe(null)
                         .consumeItems(ItemStack.with(sturdyAlloy, 1, alloyPlate, 2))
                         .outputItem(alloyCogwheel, 4),
                 // circuits
-                new Recipe(1.5f * 60f)
+                new Recipe("the-reserve", 1.5f * 60f)
                         .consumeItems(ItemStack.with(aluminumPlate, 1, nickelWire, 4))
                         .outputItem(controlCircuit),
-                new Recipe()
+                new Recipe("forward-outpost")
                         .consumeItems(ItemStack.with(lemon, 39))
                         .outputItem(calculationCircuit),
-                new Recipe()
+                new Recipe(null)
                         .consumeItems(ItemStack.with(lemon, 39))
                         .outputItem(processingUnit),
                 // other
-                new Recipe()
+                new Recipe("the-reserve")
                         .consumeItems(ItemStack.with(aluminum, 2, nickelPlate, 2, sulfur, 1))
                         .outputItem(powerCell),
-                new Recipe()
+                new Recipe("forward-outpost")
                         .consumeItems(ItemStack.with(silverPlate, 3, aluminumRod, 2))
                         .outputItem(liquidCell),
                 // research cards
-                new Recipe()
+                new Recipe("the-reserve")
                         .consumeItems(ItemStack.with(aluminumCogwheel, 2, nickelPlate, 1))
                         .outputItem(card1)
         );
