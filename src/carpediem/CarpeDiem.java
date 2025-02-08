@@ -33,6 +33,10 @@ public class CarpeDiem extends Mod {
                 Core.app.post(CDShaders::load);
             }
         });
+
+        Events.on(ClientLoadEvent.class, e -> {
+            Core.settings.getBoolOnce("carpe-diem-disclaimer", () -> Vars.ui.showInfo("@carpe-diem-disclaimer"));
+        });
     }
 
     @Override
