@@ -38,6 +38,7 @@ public class LaunchPlatform extends PayloadBlock {
     public float landZoomFrom = 0.02f, landZoomTo = 4f, chargeZoomTo = 5f;
 
     public TextureRegion[] tops;
+    public Interp extendInterp = Interp.pow2Out;
     public float openLength = 6f, extendTime = 60f;
 
     public LaunchPlatform(String name) {
@@ -109,7 +110,7 @@ public class LaunchPlatform extends PayloadBlock {
             }
 
             Draw.z(Layer.blockOver + 0.1f);
-            float progress = Mathf.clamp(launchTime / extendTime);
+            float progress = extendInterp.apply(Mathf.clamp(launchTime / extendTime));
             for (int i = 0; i < 4; i++) {
                 Draw.rect(tops[i], x + Geometry.d8edge[i].x * progress * openLength, y + Geometry.d8edge[i].y * progress * openLength);
             }
