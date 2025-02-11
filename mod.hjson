@@ -1,7 +1,7 @@
 name: "carpe-diem"
 main: "carpediem.CarpeDiem"
 version: "alpha (build 0)"
-minGameVersion: 146
+minGameVersion: 147
 java: true
 
 displayName: "[[]#ffc39b]Carpe[[]] [[]#b2daff]Diem[[]]"
