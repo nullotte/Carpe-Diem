@@ -6,7 +6,6 @@ import carpediem.audio.*;
 import carpediem.graphics.*;
 import carpediem.ui.*;
 import carpediem.ui.fragments.*;
-import carpediem.world.blocks.storage.*;
 import carpediem.world.draw.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
@@ -59,13 +58,6 @@ public class CarpeDiem extends Mod {
             DrawItemSlot.currentDrawn = null;
         });
 
-        // and this is the worst
-        Events.run(Trigger.preDraw, () -> {
-            if (Vars.renderer.isLaunching() && Vars.renderer.getLaunchCoreType() instanceof LandingPod) {
-                Core.camera.position.set(LandingPod.launchBuild);
-            }
-        });
-
         // hi slotterleet !
         Events.run(Trigger.newGame, () -> {
             if (Vars.state.rules.sector != null && Vars.state.rules.sector == CDSectorPresets.theReserve.sector) {
@@ -75,11 +67,6 @@ public class CarpeDiem extends Mod {
                 CDMusics.reboot.play();
                 CDMusics.reboot.setVolume(Core.settings.getInt("musicvol") / 100f);
                 new IntroFragment().build(Core.scene.root);
-            } else if (Vars.state.rules.planet == CDPlanets.asphodel) {
-                // TODO get rid of this when porting to v8
-                Musics.land.stop();
-                CDMusics.land.play();
-                CDMusics.land.setVolume(Core.settings.getInt("musicvol") / 100f);
             }
         });
     }

@@ -23,7 +23,7 @@ public class ConsumeItemsUses extends ConsumeItems {
         table.table(c -> {
             int i = 0;
             for (ItemStack stack : items) {
-                c.add(new ReqImage(new ItemImage(stack.item.uiIcon, Math.round(stack.amount * multiplier.get(build))),
+                c.add(new ReqImage(StatValues.stack(stack.item, Math.round(stack.amount * multiplier.get(build))),
                         () -> (build instanceof UseCounter cbuild && cbuild.getUses() > 0) || build.items.has(stack.item, Math.round(stack.amount * multiplier.get(build))))).padRight(8);
                 if (++i % 4 == 0) c.row();
             }

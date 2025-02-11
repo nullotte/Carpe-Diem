@@ -16,8 +16,6 @@ const float gm = -0.85;
 
 in vec3 v_position;
 
-out vec4 fragColor;
-
 uniform mat4 u_invProj;
 uniform vec3 u_camPos;
 uniform vec3 u_relCamPos;

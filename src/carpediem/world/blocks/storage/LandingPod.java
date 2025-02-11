@@ -29,9 +29,6 @@ import mindustry.world.consumers.*;
 
 // IT CAN CRAFT ITEMS DEAR FUCKING GOD
 public class LandingPod extends DrawerCoreBlock {
-    // TODO get rid of this when v8 releases
-    public static Building launchBuild;
-
     public static Recipe selectedRecipe;
     public static int amountCrafting;
 
@@ -92,16 +89,6 @@ public class LandingPod extends DrawerCoreBlock {
     @Override
     public boolean isVisible() {
         return !realIsHidden() && (Vars.state.rules.editor || (!Vars.state.rules.hideBannedBlocks || !Vars.state.rules.isBanned(this)));
-    }
-
-    @Override
-    public void drawLanding(CoreBuild build, float x, float y) {
-        // wawawawawawa
-        if (Vars.renderer.isLaunching()) {
-            super.drawLanding(build, launchBuild.x, launchBuild.y);
-        } else {
-            super.drawLanding(build, x, y);
-        }
     }
 
     public class LandingPodBuild extends DrawerCoreBuild {
@@ -347,30 +334,6 @@ public class LandingPod extends DrawerCoreBlock {
                 // do i even
                 RecipeRequest request = Pools.obtain(RecipeRequest.class, RecipeRequest::new).set(read.i(), read.i(), read.f());
                 pending.addLast(request);
-            }
-        }
-
-        // get rid of this in v8 too AAAAKJLGHKLJKFJKGKJFLGKLJFKLGD
-        @Override
-        public void updateLandParticles() {
-            if (Vars.renderer.isLaunching()) {
-                float time = Vars.coreLandDuration - Vars.renderer.getLandTime();
-                float tsize = Mathf.sample(thrusterSizes, (time + 35f) / Vars.coreLandDuration);
-
-                Vars.renderer.setLandPTimer(Vars.renderer.getLandPTimer() + tsize * Time.delta);
-                if (Vars.renderer.getLandTime() >= 1f) {
-                    if (launchBuild != null && launchBuild.tile != null) {
-                        launchBuild.tile.getLinkedTiles(t -> {
-                            if (Mathf.chance(0.4f)) {
-                                Fx.coreLandDust.at(t.worldx(), t.worldy(), angleTo(t.worldx(), t.worldy()) + Mathf.range(30f), Tmp.c1.set(t.floor().mapColor).mul(1.5f + Mathf.range(0.15f)));
-                            }
-                        });
-                    }
-
-                    Vars.renderer.setLandPTimer(0f);
-                }
-            } else {
-                super.updateLandParticles();
             }
         }
     }

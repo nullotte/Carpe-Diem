@@ -1,6 +1,7 @@
 package carpediem.graphics;
 
 import arc.files.*;
+import arc.util.*;
 import carpediem.graphics.shaders.*;
 import mindustry.*;
 
@@ -16,7 +17,7 @@ public class CDShaders {
         } catch (Throwable t) {
             // ive no fucking idea what im doing ok?
             depthAtmosphere = null;
-            t.printStackTrace();
+            Log.err(t);
         }
     }
 
