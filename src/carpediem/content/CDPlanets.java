@@ -27,6 +27,8 @@ public class CDPlanets {
             atmosphereColor = Color.valueOf("4c5a79");
             iconColor = Color.valueOf("304c92");
             updateLighting = false;
+            // i kinda want a day-night cycle but it looks weird with the different light color...
+            // maybe i should make env renderer idk
 
             defaultCore = CDStorage.landingPodT0;
             allowLaunchToNumbered = false;
@@ -45,12 +47,6 @@ public class CDPlanets {
                 r.staticFog = true;
 
                 r.ambientLight = Color.valueOf("4f4f5da6");
-
-                r.hideBannedBlocks = true;
-                r.blockWhitelist = true;
-
-                r.bannedBlocks.addAll(CDTechTree.blocks);
-                r.bannedBlocks.addAll(Blocks.itemSource, Blocks.liquidSource, Blocks.payloadSource);
             };
 
             unlockedOnLand.add(CDStorage.landingPodT0);
