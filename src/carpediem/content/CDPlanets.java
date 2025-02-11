@@ -48,6 +48,7 @@ public class CDPlanets {
 
                 r.ambientLight = Color.valueOf("4f4f5da6");
             };
+            campaignRuleDefaults.fog = true;
 
             unlockedOnLand.add(CDStorage.landingPodT0);
         }};

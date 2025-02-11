@@ -63,7 +63,7 @@ public class CarpeDiem extends Mod {
             if (Vars.state.rules.sector != null && Vars.state.rules.sector == CDSectorPresets.theReserve.sector) {
                 Reflect.set(Vars.renderer, "landTime", 0f);
                 Musics.launch.stop();
-                Musics.land.stop();
+                CDMusics.land.stop();
                 CDMusics.reboot.play();
                 CDMusics.reboot.setVolume(Core.settings.getInt("musicvol") / 100f);
                 new IntroFragment().build(Core.scene.root);
