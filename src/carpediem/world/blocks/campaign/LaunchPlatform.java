@@ -133,8 +133,8 @@ public class LaunchPlatform extends PayloadBlock {
                     SectorPreset preset = Vars.state.rules.sector.preset;
 
                     if (preset == CDSectorPresets.theReserve) {
-                        //Vars.ui.showInfo("@carpe-diem-end");
-                        //return;
+                        Vars.ui.showInfo("@carpe-diem-end");
+                        return;
                     }
 
                     if (preset != null && preset.techNode != null) {
