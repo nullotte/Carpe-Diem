@@ -1,10 +1,12 @@
 package carpediem.world.blocks.power;
 
 import arc.*;
+import arc.graphics.*;
 import arc.math.*;
 import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.*;
+import mindustry.graphics.*;
 import mindustry.world.blocks.power.*;
 
 public class ThermalConsumeGenerator extends ThermalGenerator implements CableBlock {
@@ -73,7 +75,8 @@ public class ThermalConsumeGenerator extends ThermalGenerator implements CableBl
                 dumpLiquid(outputLiquid.liquid);
             }
 
-            generateTime -= delta() / itemDuration;
+            // might be a bad idea to use displayefficiencyscale here
+            generateTime -= (productionEfficiency * displayEfficiencyScale * delta()) / itemDuration;
         }
 
         @Override
@@ -85,6 +88,11 @@ public class ThermalConsumeGenerator extends ThermalGenerator implements CableBl
         public float warmup() {
             // used for the glow
             return cableWarmup;
+        }
+
+        @Override
+        public void drawLight() {
+            Drawf.light(x, y, (40f + Mathf.absin(10f, 5f)) * size * warmup, Color.scarlet, 0.4f);
         }
 
         @Override
