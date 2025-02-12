@@ -21,6 +21,7 @@ import mindustry.*;
 import mindustry.content.*;
 import mindustry.content.TechTree.*;
 import mindustry.entities.*;
+import mindustry.game.Objectives.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -79,12 +80,38 @@ public class LaunchPlatform extends PayloadBlock {
 
         @Override
         public boolean acceptPayload(Building source, Payload payload) {
-            return super.acceptPayload(source, payload) && payload.content() instanceof PackagedCoreBlock;
+            CoreBlock requiredType = requiredType();
+
+            return super.acceptPayload(source, payload) && requiredType != null && payload.content() instanceof PackagedCoreBlock core && core.coreType == requiredType;
         }
 
-        public boolean canLaunch(SectorPreset sector) {
-            TechNode node = sector.techNode;
-            return node == null || node.parent == null || (node.parent.content.unlocked() && (!(node.parent.content instanceof SectorPreset preset) || preset.sector.hasBase()) && !node.objectives.contains(o -> !(o.complete() || (o instanceof LaunchSector launch && payload.content() instanceof PackagedCoreBlock packaged && packaged.coreType == launch.requiredCore))));
+        public SectorPreset destination() {
+            SectorPreset preset = Vars.state.rules.sector.preset;
+
+            if (preset != null) {
+                TechNode node = preset.techNode.children.find(n -> n.content instanceof SectorPreset);
+
+                if (node != null && node.content instanceof SectorPreset destination && !destination.sector.hasBase()) {
+                    return destination;
+                }
+            }
+
+            return null;
+        }
+
+        public CoreBlock requiredType() {
+            SectorPreset destination = destination();
+            if (destination != null) {
+                TechNode node = destination.techNode;
+
+                for (Objective objective : node.objectives) {
+                    if (objective instanceof LaunchSector launch) {
+                        return launch.requiredCore;
+                    }
+                }
+            }
+
+            return null;
         }
 
         @Override
@@ -130,39 +157,32 @@ public class LaunchPlatform extends PayloadBlock {
 
             table.button(Icon.play, Styles.cleari, () -> {
                 if (Vars.state.isCampaign() && efficiency > 0f) {
-                    SectorPreset preset = Vars.state.rules.sector.preset;
-
-                    if (preset == CDSectorPresets.theReserve) {
-                        Vars.ui.showInfo("@carpe-diem-end");
-                        return;
+                    if (Vars.state.rules.sector == CDSectorPresets.theReserve.sector) {
+                        //Vars.ui.showInfo("@carpe-diem-end");
+                        //return;
                     }
 
-                    if (preset != null && preset.techNode != null) {
-                        TechNode destination = preset.techNode.children.find(n -> n.content instanceof SectorPreset);
+                    SectorPreset destination = destination();
+                    if (destination != null && !destination.sector.hasBase()) {
+                        CarpeDiem.launchSectorInfo.show(this, destination, () -> {
+                            if (Vars.state.isCampaign() && efficiency > 0f) {
+                                consume();
+                                BuildPayload launched = payload;
+                                payload = null;
 
-                        if (destination != null) {
-                            SectorPreset sector = (SectorPreset) destination.content;
-
-                            CarpeDiem.launchSectorInfo.show(this, sector, () -> {
-                                if (Vars.state.isCampaign() && efficiency > 0f && canLaunch(sector)) {
-                                    consume();
-                                    BuildPayload launched = payload;
-                                    payload = null;
-
-                                    Time.runTask(5f, () -> {
-                                        launchBlock = ((PackagedCoreBlock) launched.block()).coreType;
-                                        Vars.renderer.showLaunch(this);
-                                        Time.runTask(launchDuration() - 6f, () -> {
-                                            // add resources
-                                            ItemSeq resources = new ItemSeq();
-                                            launched.build.items.each(resources::add);
-                                            Vars.universe.updateLaunchResources(resources);
-                                            Vars.control.playSector(Vars.state.rules.sector, sector.sector);
-                                        });
+                                Time.runTask(5f, () -> {
+                                    launchBlock = ((PackagedCoreBlock) launched.block()).coreType;
+                                    Vars.renderer.showLaunch(this);
+                                    Time.runTask(launchDuration() - 6f, () -> {
+                                        // add resources
+                                        ItemSeq resources = new ItemSeq();
+                                        launched.build.items.each(resources::add);
+                                        Vars.universe.updateLaunchResources(resources);
+                                        Vars.control.playSector(Vars.state.rules.sector, destination.sector);
                                     });
-                                }
-                            });
-                        }
+                                });
+                            }
+                        });
                     }
                 }
                 deselect();
