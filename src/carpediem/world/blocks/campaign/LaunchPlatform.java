@@ -14,6 +14,7 @@ import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import carpediem.*;
+import carpediem.audio.*;
 import carpediem.content.*;
 import carpediem.game.CDObjectives.*;
 import carpediem.world.blocks.storage.*;
@@ -34,13 +35,13 @@ import mindustry.world.blocks.storage.*;
 // good god
 public class LaunchPlatform extends PayloadBlock {
     // these values are copied straight from the accelerator . do these need tweaking at all ? hell if i know
-    public float launchDuration = 160f, chargeDuration = 160f;
+    public float launchDuration = 160f, chargeDuration = 320f;
     public Interp landZoomInterp = Interp.pow4In, chargeZoomInterp = Interp.pow4In;
     public float landZoomFrom = 0.02f, landZoomTo = 4f, chargeZoomTo = 5f;
 
     public TextureRegion[] tops;
     public Interp extendInterp = Interp.pow2Out;
-    public float openLength = 6f, extendTime = 60f;
+    public float openLength = 6f, extendTime = 160f;
 
     public LaunchPlatform(String name) {
         super(name);
@@ -395,7 +396,7 @@ public class LaunchPlatform extends PayloadBlock {
 
         @Override
         public Music launchMusic() {
-            return Musics.coreLaunch;
+            return CDMusics.launch;
         }
 
         @Override
