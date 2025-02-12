@@ -47,6 +47,8 @@ public class LaunchPlatform extends PayloadBlock {
         super(name);
         acceptsPayload = true;
         configurable = true;
+        emitLight = true;
+        lightRadius = 120f;
     }
 
     @Override
@@ -69,12 +71,15 @@ public class LaunchPlatform extends PayloadBlock {
         public boolean launching;
         public float launchTime;
         public Block launchBlock;
+        public float launchHeat;
 
         public float cloudSeed;
 
         @Override
         public void updateTile() {
             super.updateTile();
+
+            launchHeat = Mathf.lerpDelta(launchHeat, launching ? 1f : 0f, 0.05f);
 
             moveInPayload();
         }
@@ -142,6 +147,11 @@ public class LaunchPlatform extends PayloadBlock {
             for (int i = 0; i < 4; i++) {
                 Draw.rect(tops[i], x + Geometry.d8edge[i].x * progress * openLength, y + Geometry.d8edge[i].y * progress * openLength);
             }
+        }
+
+        @Override
+        public void drawLight() {
+            Drawf.light(x, y, lightRadius, lightColor, launchHeat);
         }
 
         @Override
