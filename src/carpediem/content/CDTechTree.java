@@ -51,7 +51,9 @@ public class CDTechTree {
                 });
             });
 
-            node(launchPlatform);
+            node(launchPlatform, () -> {
+                node(landingPodT1);
+            });
 
             node(industryHub, () -> {
                 node(storageVault);

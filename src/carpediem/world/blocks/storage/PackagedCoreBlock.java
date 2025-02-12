@@ -19,7 +19,7 @@ public class PackagedCoreBlock extends StorageBlock {
         size = coreType.size;
         itemCapacity = coreType.itemCapacity;
 
-        requirements(coreType.category, BuildVisibility.campaignOnly, coreType.requirements);
+        requirements(coreType.category, BuildVisibility.hidden, coreType.requirements);
     }
 
     @Override

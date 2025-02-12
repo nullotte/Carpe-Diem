@@ -36,12 +36,35 @@ public class CDStorage {
             size = 4;
             alwaysUnlocked = true;
 
-            itemCapacity = 10000;
+            itemCapacity = 5000;
             unitCapModifier = 2;
             unitType = CDUnitTypes.cache;
 
             craftingSpeed = 0.5f;
             // wow
+            recipes.addAll(CDRecipes.pressRecipes).addAll(CDRecipes.rollingMillRecipes).addAll(CDRecipes.assemblerRecipes);
+            craftEffect = Fx.pulverize;
+
+            squareSprite = false;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawCoreDoor(),
+                    new DrawDefault(),
+                    new DrawTeam()
+            );
+        }};
+
+        landingPodT1 = new LandingPod("landing-pod-t1") {{
+            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 5;
+
+            itemCapacity = 6000;
+            unitCapModifier = 4;
+            unitType = CDUnitTypes.cache;
+
+            craftingSpeed = 1f;
             recipes.addAll(CDRecipes.pressRecipes).addAll(CDRecipes.rollingMillRecipes).addAll(CDRecipes.assemblerRecipes);
             craftEffect = Fx.pulverize;
 
