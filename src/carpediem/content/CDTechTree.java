@@ -5,6 +5,7 @@ import carpediem.game.CDObjectives.*;
 import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.meta.*;
 
 import static carpediem.content.CDArchives.*;
 import static carpediem.content.CDItems.*;
@@ -197,6 +198,13 @@ public class CDTechTree {
         });
 
         blocks.addAll(packagedLandingPodT0);
+
+        for (Block block : blocks) {
+            if (block.fogRadius < 0) {
+                block.fogRadius = block.size * 10;
+                block.flags = block.flags.with(BlockFlag.hasFogRadius);
+            }
+        }
     }
 
 }
