@@ -11,6 +11,7 @@ import static carpediem.content.CDItems.*;
 import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDDistribution.*;
+import static carpediem.content.blocks.CDLiquidBlocks.*;
 import static carpediem.content.blocks.CDPayloadComponents.*;
 import static carpediem.content.blocks.CDPayloads.*;
 import static carpediem.content.blocks.CDPower.*;
@@ -27,7 +28,11 @@ public class CDTechTree {
                 node(beltMerger, () -> {
                     node(beltSplitter);
                     node(beltOverflowGate);
-                    node(beltBridge);
+                    node(beltBridge, () -> {
+                        node(providerContainer, () -> {
+                            node(receiverContainer);
+                        });
+                    });
                 });
             });
 
@@ -47,7 +52,17 @@ public class CDTechTree {
                     node(pressT1);
                     node(rollingMillT1);
                     node(assemblerT1);
-                    node(refineryT1);
+                    node(refineryT1, () -> {
+                        node(pressurizationChamber);
+                    });
+                });
+
+                node(pump, () -> {
+                    node(pipe, () -> {
+                        node(valve);
+                        node(pipeBridge);
+                        node(fluidTank);
+                    });
                 });
             });
 
@@ -68,6 +83,7 @@ public class CDTechTree {
                     });
                     node(payloadCrane);
                 });
+                node(payloadDisassembler);
                 node(payloadManufacturingGrid);
             });
 
