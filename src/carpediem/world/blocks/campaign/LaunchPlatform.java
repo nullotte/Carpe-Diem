@@ -158,8 +158,8 @@ public class LaunchPlatform extends PayloadBlock {
             table.button(Icon.play, Styles.cleari, () -> {
                 if (Vars.state.isCampaign() && efficiency > 0f) {
                     if (Vars.state.rules.sector == CDSectorPresets.theReserve.sector) {
-                        //Vars.ui.showInfo("@carpe-diem-end");
-                        //return;
+                        Vars.ui.showInfo("@carpe-diem-end");
+                        return;
                     }
 
                     SectorPreset destination = destination();
