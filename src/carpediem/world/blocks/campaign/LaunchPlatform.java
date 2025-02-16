@@ -41,7 +41,7 @@ public class LaunchPlatform extends PayloadBlock {
 
     public TextureRegion[] tops;
     public Interp extendInterp = Interp.pow2Out;
-    public float openLength = 6f, extendTime = 160f;
+    public float openLength = 8f, extendTime = 160f;
 
     public LaunchPlatform(String name) {
         super(name);
@@ -168,7 +168,7 @@ public class LaunchPlatform extends PayloadBlock {
 
             table.button(Icon.play, Styles.cleari, () -> {
                 if (Vars.state.isCampaign() && efficiency > 0f) {
-                    if (Vars.state.rules.sector == CDSectorPresets.theReserve.sector) {
+                    if (!CarpeDiem.debug && Vars.state.rules.sector == CDSectorPresets.theReserve.sector) {
                         Vars.ui.showInfo("@carpe-diem-end");
                         return;
                     }

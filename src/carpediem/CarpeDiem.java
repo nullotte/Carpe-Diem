@@ -21,6 +21,8 @@ public class CarpeDiem extends Mod {
     // mhm
     public static ContentInfoDialog content;
 
+    public static boolean debug;
+
     public CarpeDiem() {
         Events.on(MusicRegisterEvent.class, e -> {
             CDMusics.load();
@@ -36,6 +38,8 @@ public class CarpeDiem extends Mod {
         Events.on(ClientLoadEvent.class, e -> {
             Core.settings.getBoolOnce("carpe-diem-disclaimer", () -> Vars.ui.showInfo("@carpe-diem-disclaimer"));
         });
+
+        debug = Core.settings.getBool("cd-debug");
     }
 
     @Override
