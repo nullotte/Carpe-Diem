@@ -270,7 +270,7 @@ public class BeltBridge extends DuctBridge {
 
         @Override
         public boolean acceptItem(Building source, Item item) {
-            return tile.relativeTo(Edges.getFacingEdge(source.tile(), tile)) == inputDir && super.acceptItem(source, item);
+            return tile.relativeTo(Edges.getFacingEdge(source.tile, tile)) == inputDir && super.acceptItem(source, item);
         }
 
         @Override

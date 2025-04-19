@@ -104,7 +104,7 @@ public class DataRouter extends Block implements DataBlock {
 
         @Override
         public boolean acceptData(Building source, DataType data) {
-            return DataBuild.super.acceptData(source, data) && (!handled || !source.block.instantTransfer) && (Edges.getFacingEdge(source.tile(), tile).relativeTo(tile) == rotation);
+            return DataBuild.super.acceptData(source, data) && (!handled || !source.block.instantTransfer) && (Edges.getFacingEdge(source.tile, tile).relativeTo(tile) == rotation);
         }
 
         @Override

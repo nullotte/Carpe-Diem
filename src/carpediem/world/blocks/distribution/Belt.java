@@ -220,7 +220,7 @@ public class Belt extends Block implements Autotiler {
 
         @Override
         public boolean acceptItem(Building source, Item item) {
-            return ids[itemCapacity - 1] == null && tile.relativeTo(Edges.getFacingEdge(source.tile(), tile)) == inputDir;
+            return ids[itemCapacity - 1] == null && tile.relativeTo(Edges.getFacingEdge(source.tile, tile)) == inputDir;
         }
 
         @Override
