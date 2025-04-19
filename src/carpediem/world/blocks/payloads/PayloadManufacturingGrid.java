@@ -156,6 +156,8 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                                 } else {
                                     // match recipes
                                     Seq<PayloadManufacturingRecipe> possibleRecipes = recipes.select(r -> {
+                                        if (!r.result.unlockedNow()) return false;
+
                                         if (r.result instanceof Block block && Vars.state.rules.isBanned(block)) {
                                             return false;
                                         }
@@ -163,14 +165,33 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                                             return false;
                                         }
 
-                                        return r.requirements.size == ingredients.size && r.result.unlockedNow();
+                                        if (r.shapelessRequirements != null) {
+                                            int amount = 0;
+                                            for (PayloadStack stack : r.shapelessRequirements) {
+                                                amount += stack.amount;
+                                            }
+                                            return amount == ingredients.size;
+                                        }
+
+                                        return r.requirements.size == ingredients.size;
                                     });
+
+                                    Seq<PayloadStack> accumulated = new Seq<>();
 
                                     for (Entry entry : ingredients) {
                                         Building build = Vars.world.build(entry.value);
 
                                         if (build instanceof ManufacturingGridBuild grid && grid.payload != null) {
+                                            // accumulator thingy for shapeless recipes
+                                            PayloadStack stack = accumulated.find(s -> s.item == grid.payload.content());
+                                            if (stack != null) {
+                                                stack.amount++;
+                                            } else {
+                                                accumulated.add(new PayloadStack(grid.payload.content(), 1));
+                                            }
+
                                             possibleRecipes.each(recipe -> {
+                                                if (recipe.shapelessRequirements != null) return;
                                                 UnlockableContent content = grid.payload.content();
                                                 int position = Point2.pack(Point2.x(entry.key) + offset.x, Point2.y(entry.key) + offset.y);
 
@@ -182,6 +203,26 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                                             // how the FUCK
                                             possibleRecipes.clear();
                                             break;
+                                        }
+                                    }
+
+                                    // filter out the shapeless recipes
+                                    for (PayloadManufacturingRecipe recipe : possibleRecipes) {
+                                        if (recipe.shapelessRequirements != null && recipe.shapelessRequirements.length == accumulated.size) {
+                                            for (PayloadStack stack : recipe.shapelessRequirements) {
+                                                boolean found = false;
+                                                // this is so ass?
+                                                for (PayloadStack aStack : accumulated) {
+                                                    if (stack.item == aStack.item && stack.amount == aStack.amount) {
+                                                        found = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (found) continue;
+
+                                                possibleRecipes.remove(recipe);
+                                                break;
+                                            }
                                         }
                                     }
 
@@ -253,6 +294,11 @@ public class PayloadManufacturingGrid extends PayloadBlock {
 
         public boolean acceptGrid(ManufacturingGridBuild other, boolean checkCrafting) {
             return (crafting || !checkCrafting) && other.block == this.block && other.team == this.team && (other.x == x || other.y == y) && other.relativeTo(this) == other.rotation;
+        }
+
+        @Override
+        public boolean acceptPayload(Building source, Payload payload) {
+            return this.payload == null && !moveOut;
         }
 
         @Override
@@ -420,11 +466,18 @@ public class PayloadManufacturingGrid extends PayloadBlock {
 
     public static class PayloadManufacturingRecipe {
         public IntMap<UnlockableContent> requirements = new IntMap<>();
+        // if not null then this recipe is shapeless
+        public PayloadStack[] shapelessRequirements;
         public UnlockableContent result;
 
         public PayloadManufacturingRecipe(UnlockableContent result, Cons<PayloadManufacturingRecipe> run) {
             this.result = result;
             run.get(this);
+        }
+
+        public PayloadManufacturingRecipe(UnlockableContent result, PayloadStack[] shapelessRequirements) {
+            this.result = result;
+            this.shapelessRequirements = shapelessRequirements;
         }
 
         public void mapRequirements(UnlockableContent[][] array) {

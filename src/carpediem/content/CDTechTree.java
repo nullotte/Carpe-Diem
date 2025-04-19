@@ -14,7 +14,7 @@ import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDDistribution.*;
 import static carpediem.content.blocks.CDLiquidBlocks.*;
 import static carpediem.content.blocks.CDPayloadComponents.*;
-import static carpediem.content.blocks.CDPayloads.*;
+import static carpediem.content.blocks.CDPayloadBlocks.*;
 import static carpediem.content.blocks.CDPower.*;
 import static carpediem.content.blocks.CDProduction.*;
 import static carpediem.content.blocks.CDStorage.*;

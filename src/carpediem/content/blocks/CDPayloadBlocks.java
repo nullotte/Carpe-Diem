@@ -1,20 +1,28 @@
 package carpediem.content.blocks;
 
+import arc.graphics.*;
 import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.payloads.*;
+import carpediem.world.blocks.payloads.FanBlock.*;
+import carpediem.world.consumers.*;
+import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
+import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.payloads.*;
+import mindustry.world.consumers.*;
+import mindustry.world.draw.*;
 
-public class CDPayloads {
+public class CDPayloadBlocks {
     public static Block
     payloadRail, payloadRailRouter, payloadCrane,
     payloadAssembler, payloadDisassembler, payloadManufacturingGrid,
-    payloadLoader, payloadUnloader;
+    payloadLoader, payloadUnloader,
+    hydraulicFan, bulkHeater;
 
     public static void load() {
         payloadRail = new PayloadConveyor("payload-rail") {{
@@ -112,6 +120,51 @@ public class CDPayloads {
             maxBlockSize = 6;
 
             consumePower(2f);
+        }};
+
+        hydraulicFan = new FanBlock("hydraulic-fan") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 5;
+
+            ambientSound = Sounds.wind;
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawBlurSpin("-rotator", 8f),
+                    new DrawRotatedRegion(true)
+            );
+
+            consume(new ConsumePressure());
+        }};
+
+        bulkHeater = new PayloadBurner("bulk-heater") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 5;
+
+            ((FanBlock) hydraulicFan).processingTypes.add(new FanProcessingType(
+                    this,
+                    60f * 20f,
+                    Color.orange
+            ));
+
+            topDrawer = new DrawMulti(
+                    new DrawBetterWarmupRegion() {{
+                        sinMag = 0f;
+                        color = Color.orange;
+                    }},
+                    new DrawGlowRegion(Layer.blockOver + 0.2f) {{
+                        color = Pal.turretHeat;
+                        glowIntensity = 0f;
+                        alpha = 1f;
+                    }}
+            );
+
+            // stupid!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            consume(new Consume() {});
         }};
     }
 }
