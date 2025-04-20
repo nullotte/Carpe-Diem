@@ -30,14 +30,17 @@ public class CDMusics {
         }
 
         Seq<Music> vanillaAmbient = Vars.control.sound.ambientMusic.copy();
+        Seq<Music> vanillaDark = Vars.control.sound.darkMusic.copy();
         Seq<Music> asphodelAmbient = Seq.with(asAbove, terawatt, Musics.fine);
 
         // kinda ass implementation but theres not really a good way to do custom music ok?
         Events.on(WorldLoadEvent.class, e -> {
             if (Vars.state.rules.planet == CDPlanets.asphodel) {
                 Vars.control.sound.ambientMusic = asphodelAmbient;
+                Vars.control.sound.darkMusic = asphodelAmbient;
             } else {
                 Vars.control.sound.ambientMusic = vanillaAmbient;
+                Vars.control.sound.darkMusic = vanillaDark;
             }
         });
     }
