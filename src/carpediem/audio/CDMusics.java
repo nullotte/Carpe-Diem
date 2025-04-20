@@ -15,7 +15,7 @@ public class CDMusics {
     // cutscene
     reboot, land, launch,
     // ambient
-    asAbove, terawatt;
+    asAbove, terawatt, centuryMachine;
 
     public static void load() {
         reboot = Vars.tree.loadMusic("reboot");
@@ -24,6 +24,7 @@ public class CDMusics {
 
         asAbove = Vars.tree.loadMusic("as-above");
         terawatt = Vars.tree.loadMusic("terawatt");
+        centuryMachine = Vars.tree.loadMusic("century-machine");
 
         for (CoreBlock block : new CoreBlock[]{CDStorage.landingPodT0, CDStorage.landingPodT1}) {
             block.landMusic = land;
@@ -31,7 +32,12 @@ public class CDMusics {
 
         Seq<Music> vanillaAmbient = Vars.control.sound.ambientMusic.copy();
         Seq<Music> vanillaDark = Vars.control.sound.darkMusic.copy();
-        Seq<Music> asphodelAmbient = Seq.with(asAbove, terawatt, Musics.fine);
+        Seq<Music> asphodelAmbient = Seq.with(
+                asAbove,
+                terawatt,
+                centuryMachine,
+                Musics.fine
+        );
 
         // kinda ass implementation but theres not really a good way to do custom music ok?
         Events.on(WorldLoadEvent.class, e -> {
