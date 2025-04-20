@@ -1,14 +1,8 @@
 package carpediem.content;
 
 import arc.struct.*;
-import arc.util.serialization.*;
-import arc.util.serialization.Json.*;
 import carpediem.type.*;
-import mindustry.*;
-import mindustry.ctype.*;
-import mindustry.io.*;
 import mindustry.type.*;
-import mindustry.world.*;
 
 import static carpediem.content.CDItems.*;
 import static carpediem.content.blocks.CDCampaign.*;
