@@ -9,6 +9,7 @@ import arc.scene.actions.*;
 import arc.scene.event.*;
 import arc.scene.ui.*;
 import arc.util.*;
+import carpediem.audio.*;
 import carpediem.graphics.*;
 import carpediem.ui.*;
 import mindustry.*;
@@ -74,36 +75,39 @@ public class IntroFragment {
                         }
                     });
                 }).grow().center();
-            });
 
-            boolean[] actionedt = {false};
-            t.update(() -> {
-                if (!removedLanding && !Core.settings.getBool("skipcoreanimation")) {
-                    Image front = (Image) Core.scene.find(e -> e.parent == Core.scene.root && e instanceof Image && e.touchable == Touchable.disabled && e.fillParent);
+                boolean[] actionedt = {false};
+                t.update(() -> {
+                    if (!removedLanding && !Core.settings.getBool("skipcoreanimation")) {
+                        Image front = (Image) Core.scene.find(e -> e.parent == Core.scene.root && e instanceof Image && e.touchable == Touchable.disabled && e.fillParent);
 
-                    if (front != null) {
-                        front.remove();
-                        removedLanding = true;
-                    }
-                }
-
-                CoreBuild core = Vars.player.team().core();
-                if (core != null) {
-                    Core.camera.position.set(core);
-                }
-
-                if (!Vars.state.isPaused()) {
-                    if (Vars.state.isMenu()) {
-                        t.remove();
-                    } else {
-                        progress += Time.delta / duration;
-
-                        if (progress >= 1f && !actionedt[0]) {
-                            t.actions(Actions.fadeOut(0.5f), Actions.remove());
-                            actionedt[0] = true;
+                        if (front != null) {
+                            front.remove();
+                            removedLanding = true;
                         }
                     }
-                }
+
+                    CoreBuild core = Vars.player.team().core();
+                    if (core != null) {
+                        Core.camera.position.set(core);
+                    }
+
+                    if (!Vars.state.isPaused()) {
+                        if (Vars.state.isMenu()) {
+                            t.remove();
+                        } else {
+                            progress += Time.delta / duration;
+
+                            if (progress >= 1f && !actionedt[0]) {
+                                t.actions(Actions.fadeOut(0.5f), Actions.remove());
+                                actionedt[0] = true;
+                            }
+                        }
+                    }
+                });
+
+                CDMusics.reboot.play();
+                CDMusics.reboot.setVolume(Core.settings.getInt("musicvol") / 100f);
             });
         });
 

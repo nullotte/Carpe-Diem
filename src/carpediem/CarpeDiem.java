@@ -68,8 +68,6 @@ public class CarpeDiem extends Mod {
                 Reflect.set(Vars.renderer, "landTime", 0f);
                 Musics.launch.stop();
                 CDMusics.land.stop();
-                CDMusics.reboot.play();
-                CDMusics.reboot.setVolume(Core.settings.getInt("musicvol") / 100f);
                 new IntroFragment().build(Core.scene.root);
             }
         });
