@@ -1,7 +1,9 @@
 package carpediem.content.blocks;
 
 import arc.graphics.*;
+import arc.graphics.g2d.*;
 import arc.struct.*;
+import arc.util.*;
 import carpediem.content.*;
 import carpediem.world.blocks.payloads.*;
 import carpediem.world.blocks.payloads.FanBlock.*;
@@ -9,6 +11,7 @@ import carpediem.world.consumers.*;
 import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
+import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -132,7 +135,13 @@ public class CDPayloadBlocks {
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawBlurSpin("-rotator", 8f),
+                    new DrawBlurSpin("-rotator", 8f) {
+                        @Override
+                        public void drawPlan(Block block, BuildPlan plan, Eachable<BuildPlan> list) {
+                            // this is some bullshit!!!!!!!
+                            Draw.rect(region, plan.drawx(), plan.drawy());
+                        }
+                    },
                     new DrawRotatedRegion(true)
             );
 
