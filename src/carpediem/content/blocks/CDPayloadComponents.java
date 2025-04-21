@@ -22,28 +22,28 @@ public class CDPayloadComponents {
 
         blockRawAluminum = new ProcessableBlock("block-raw-aluminum") {{
             requirements(Category.crafting, ItemStack.with(
-                    CDItems.rawAluminum, 100
+                    CDItems.rawAluminum, 50
             ));
             size = 3;
         }};
 
         blockRawNickel = new ProcessableBlock("block-raw-nickel") {{
             requirements(Category.crafting, ItemStack.with(
-                    CDItems.rawNickel, 100
+                    CDItems.rawNickel, 50
             ));
             size = 3;
         }};
 
         blockRawSilver = new ProcessableBlock("block-raw-silver") {{
             requirements(Category.crafting, ItemStack.with(
-                    CDItems.rawSilver, 100
+                    CDItems.rawSilver, 50
             ));
             size = 3;
         }};
 
         blockRawPlatinum = new ProcessableBlock("block-raw-platinum") {{
             requirements(Category.crafting, ItemStack.with(
-                    CDItems.rawPlatinum, 100
+                    CDItems.rawPlatinum, 50
             ));
             size = 3;
         }};
