@@ -126,5 +126,12 @@ public class CDArchives {
                 )
         );
         // endregion
+        Seq<Archive> unfinished = Seq.with(
+                fluidProcessing, powerProduction, payloadLogistics, industrialStorage,
+                manufacturingComponents, navigationSystems
+        );
+        for (Archive archive : unfinished) {
+            archive.show = false;
+        }
     }
 }
