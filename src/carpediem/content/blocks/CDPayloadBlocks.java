@@ -17,6 +17,7 @@ import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.payloads.*;
+import mindustry.world.blocks.production.*;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 
@@ -25,7 +26,8 @@ public class CDPayloadBlocks {
     payloadRail, payloadRailRouter, payloadCrane,
     payloadAssembler, payloadDisassembler, payloadManufacturingGrid,
     payloadLoader, payloadUnloader,
-    hydraulicFan, bulkHeater;
+    hydraulicFan, bulkHeater,
+    landingPodAssembler;
 
     public static void load() {
         payloadRail = new PayloadConveyor("payload-rail") {{
@@ -174,6 +176,13 @@ public class CDPayloadBlocks {
 
             // stupid!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             consume(new Consume() {});
+        }};
+
+        landingPodAssembler = new SingleBlockProducer("landing-pod-assembler") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 5;
         }};
     }
 }

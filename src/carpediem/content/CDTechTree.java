@@ -68,6 +68,7 @@ public class CDTechTree {
             });
 
             node(launchPlatform, () -> {
+                node(landingPodAssembler);
                 node(landingPodT1);
             });
 

@@ -6,6 +6,7 @@ import carpediem.world.blocks.payloads.PayloadManufacturingGrid.*;
 import carpediem.world.blocks.storage.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.blocks.production.*;
 
 public class CDPayloadComponents {
     public static Block
@@ -18,6 +19,7 @@ public class CDPayloadComponents {
 
     public static void load() {
         packagedLandingPodT0 = new PackagedCoreBlock("packaged-landing-pod-t0", CDStorage.landingPodT0);
+        ((SingleBlockProducer) CDPayloadBlocks.landingPodAssembler).result = packagedLandingPodT0;
         packagedLandingPodT1 = new PackagedCoreBlock("packaged-landing-pod-t1", CDStorage.landingPodT1);
 
         blockRawAluminum = new ProcessableBlock("block-raw-aluminum") {{

@@ -44,6 +44,7 @@ public class CDArchives {
                 ),
                 Seq.with(
                         packagedLandingPodT0,
+                        landingPodAssembler,
                         launchPlatform
                 )
         );
