@@ -1,5 +1,6 @@
 package carpediem.type;
 
+import arc.*;
 import arc.struct.*;
 import arc.util.*;
 import carpediem.*;
@@ -24,9 +25,8 @@ public class Archive extends StatusEffect {
 
     @Override
     public void loadIcon() {
-        // TODO custom archive icons
         if (Icon.book != null) {
-            uiIcon = fullIcon = Icon.book.getRegion();
+            uiIcon = fullIcon = Core.atlas.find(name, Icon.book.getRegion());
         }
     }
 
