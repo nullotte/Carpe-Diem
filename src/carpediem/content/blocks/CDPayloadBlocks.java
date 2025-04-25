@@ -9,6 +9,7 @@ import carpediem.world.blocks.payloads.*;
 import carpediem.world.blocks.payloads.FanBlock.*;
 import carpediem.world.consumers.*;
 import carpediem.world.draw.*;
+import mindustry.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
 import mindustry.entities.units.*;
@@ -20,6 +21,7 @@ import mindustry.world.blocks.payloads.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
+import mindustry.world.meta.*;
 
 public class CDPayloadBlocks {
     public static Block
@@ -179,7 +181,7 @@ public class CDPayloadBlocks {
         }};
 
         landingPodAssembler = new SingleBlockProducer("landing-pod-assembler") {{
-            requirements(Category.units, ItemStack.with(
+            requirements(Category.units, new BuildVisibility(() -> Vars.state.rules.sector == CDSectorPresets.theReserve.sector), ItemStack.with(
                     CDItems.lemon, 39
             ));
             size = 5;
