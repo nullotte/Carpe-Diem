@@ -49,7 +49,7 @@ public class CDRecipes {
                 simpleRecipe(null, platinum, platinumRod),
                 simpleRecipe(null, sturdyAlloy, alloyRod),
                 new Recipe("the-reserve").consumeItem(aluminumRod).outputItem(aluminumWire, 2),
-                new Recipe("the-reserve").consumeItem(aluminumWire).outputItem(nickelWire, 2)
+                new Recipe("the-reserve").consumeItem(nickelRod).outputItem(nickelWire, 2)
         );
 
         refineryRecipes = Seq.with(
