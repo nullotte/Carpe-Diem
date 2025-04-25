@@ -62,6 +62,15 @@ public class CarpeDiem extends Mod {
             DrawItemSlot.currentDrawn = null;
         });
 
+        // and this is just the Worst
+        Events.run(Trigger.update, () -> {
+            if (Vars.player.unit() != null) {
+                if (Vars.player.unit().item() == CDItems.sulfur && !Vars.net.client()) {
+                    CDItems.sulfur.unlock();
+                }
+            }
+        });
+
         // hi slotterleet !
         Events.run(Trigger.newGame, () -> {
             if (Vars.state.rules.sector != null && Vars.state.rules.sector == CDSectorPresets.theReserve.sector) {
