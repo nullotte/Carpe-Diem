@@ -182,9 +182,17 @@ public class CDPayloadBlocks {
 
         landingPodAssembler = new SingleBlockProducer("landing-pod-assembler") {{
             requirements(Category.units, new BuildVisibility(() -> Vars.state.rules.sector == CDSectorPresets.theReserve.sector), ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 500,
+                    CDItems.aluminumPlate, 200,
+                    CDItems.aluminumCogwheel, 50,
+                    CDItems.nickelPlate, 100,
+                    CDItems.nickelWire, 100,
+                    CDItems.powerCell, 50,
+                    CDItems.controlCircuit, 50
             ));
             size = 5;
+
+            consumePower(2f);
         }};
     }
 }
