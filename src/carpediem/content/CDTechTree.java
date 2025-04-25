@@ -3,6 +3,7 @@ package carpediem.content;
 import arc.struct.*;
 import carpediem.game.CDObjectives.*;
 import mindustry.content.*;
+import mindustry.game.Objectives.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
@@ -189,6 +190,9 @@ public class CDTechTree {
         });
 
         CDPlanets.asphodel.techTree = root;
+
+        // should be able to build this right after obtaining raw aluminum. the player is told to mine sulfur immediately afterwards
+        smelterT0.techNode.objectives.remove(objective -> objective instanceof Research research && research.content == sulfur);
 
         root.each(node -> {
             if (node.content instanceof Block block) {
