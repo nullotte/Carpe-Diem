@@ -48,8 +48,8 @@ public class CDRecipes {
                 simpleRecipe("forward-outpost", silver, silverRod),
                 simpleRecipe(null, platinum, platinumRod),
                 simpleRecipe(null, sturdyAlloy, alloyRod),
-                simpleRecipe("the-reserve", aluminumRod, aluminumWire),
-                simpleRecipe("the-reserve", nickelRod, nickelWire)
+                new Recipe("the-reserve").consumeItem(aluminumRod).outputItem(aluminumWire, 2),
+                new Recipe("the-reserve").consumeItem(aluminumWire).outputItem(nickelWire, 2)
         );
 
         refineryRecipes = Seq.with(
