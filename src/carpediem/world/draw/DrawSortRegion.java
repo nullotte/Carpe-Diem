@@ -7,6 +7,7 @@ import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.blocks.distribution.DirectionalUnloader.*;
 import mindustry.world.blocks.distribution.DuctRouter.*;
 import mindustry.world.draw.*;
 
@@ -17,9 +18,11 @@ public class DrawSortRegion extends DrawBlock {
     public void draw(Building build) {
         Item sortItem = null;
 
-        // this is where id put the other sorter thingys if i actually used them
         if (build instanceof DuctRouterBuild b) {
             sortItem = b.sortItem;
+        }
+        if (build instanceof DirectionalUnloaderBuild b) {
+            sortItem = b.unloadItem;
         }
 
         if (sortItem != null) {

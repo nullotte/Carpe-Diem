@@ -35,6 +35,7 @@ public class CDTechTree {
                             node(receiverContainer);
                         });
                     });
+                    node(beltUnloader);
                 });
             });
 

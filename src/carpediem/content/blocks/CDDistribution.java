@@ -8,7 +8,7 @@ import mindustry.world.*;
 import mindustry.world.draw.*;
 
 public class CDDistribution {
-    public static Block belt, beltMerger, beltSplitter, beltOverflowGate, beltBridge;
+    public static Block belt, beltMerger, beltSplitter, beltOverflowGate, beltBridge, beltUnloader;
 
     public static void load() {
         belt = new Belt("belt") {{
@@ -94,7 +94,26 @@ public class CDDistribution {
             );
         }};
 
+        beltUnloader = new DrawerDirectionalUnloader("belt-unloader") {{
+            requirements(Category.distribution, ItemStack.with(
+                    CDItems.aluminum, 10,
+                    CDItems.aluminumPlate, 6,
+                    CDItems.aluminumCogwheel, 2,
+                    CDItems.controlCircuit, 1
+            ));
+
+            speed = 6f;
+            squareSprite = false;
+            drawer = new DrawMulti(
+                    new DrawRegion(),
+                    new DrawSortRegion(),
+                    new DrawRegion("-top") {{
+                        buildingRotate = true;
+                    }}
+            );
+        }};
+
         // for merger auto replacement . probably shouldnt use isDuct but oh well it works
-        belt.isDuct = beltMerger.isDuct = beltSplitter.isDuct = beltOverflowGate.isDuct = beltBridge.isDuct = true;
+        belt.isDuct = beltMerger.isDuct = beltSplitter.isDuct = beltOverflowGate.isDuct = beltBridge.isDuct = beltUnloader.isDuct = true;
     }
 }
