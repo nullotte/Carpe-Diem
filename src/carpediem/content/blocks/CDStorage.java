@@ -40,7 +40,7 @@ public class CDStorage {
             unitCapModifier = 2;
             unitType = CDUnitTypes.cache;
 
-            craftingSpeed = 0.5f;
+            craftingSpeed = 4f;
             // wow
             recipes.addAll(CDRecipes.pressRecipes).addAll(CDRecipes.rollingMillRecipes).addAll(CDRecipes.assemblerRecipes);
             craftEffect = Fx.pulverize;
@@ -64,7 +64,7 @@ public class CDStorage {
             unitCapModifier = 4;
             unitType = CDUnitTypes.cache;
 
-            craftingSpeed = 1f;
+            craftingSpeed = 8f;
             recipes.addAll(CDRecipes.pressRecipes).addAll(CDRecipes.rollingMillRecipes).addAll(CDRecipes.assemblerRecipes);
             craftEffect = Fx.pulverize;
 

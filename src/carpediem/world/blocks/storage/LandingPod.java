@@ -39,7 +39,7 @@ public class LandingPod extends DrawerCoreBlock {
     public float updateEffectChance = 0.04f;
     public float warmupSpeed = 0.019f;
 
-    public float craftingSpeed = 0.5f;
+    public float craftingSpeed = 4f;
 
     public LandingPod(String name) {
         super(name);
@@ -107,7 +107,7 @@ public class LandingPod extends DrawerCoreBlock {
                 RecipeRequest currentRequest = pending.first();
 
                 if (efficiency > 0) {
-                    currentRequest.progress += getProgressIncrease(currentRecipe.craftTime * craftingSpeed);
+                    currentRequest.progress += getProgressIncrease(currentRecipe.craftTime / craftingSpeed);
                     warmup = Mathf.approachDelta(warmup, 1f, warmupSpeed);
 
                     // do i even. for consistency's sake sure but also you Cant use liquids in the core !!
