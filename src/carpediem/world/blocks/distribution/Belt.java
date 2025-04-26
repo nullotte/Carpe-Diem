@@ -159,7 +159,7 @@ public class Belt extends Block implements Autotiler {
                 for (int i = 0; i < ids.length; i++) {
                     if (ids[i] != null) {
                         if (progresses[i] < 1f) {
-                            progresses[i] += getProgressIncrease(moveTime);
+                            progresses[i] += getProgressIncrease(moveTime - (1f / 15f));
                         }
 
                         if (progresses[i] >= 1f) {
@@ -343,6 +343,8 @@ public class Belt extends Block implements Autotiler {
                     blend.buildBlending(build);
                 }
             });
+
+            Groups.build.sort(Structs.comparingInt(b -> b instanceof BeltBuild ? -1 : 1));
         }
 
         @Override
