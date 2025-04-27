@@ -79,7 +79,6 @@ public class Recipe {
         }
     }
 
-    // TODO stinkyy
     public void display(Table table, float craftingSpeed) {
         Stats recipeStats = new Stats();
         recipeStats.timePeriod = craftTime / craftingSpeed;

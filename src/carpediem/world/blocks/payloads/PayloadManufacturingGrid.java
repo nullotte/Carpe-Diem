@@ -120,7 +120,7 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                     moveInPayload(crafting);
 
                     if (crafting) {
-                        // wait for inputs to finish first. TODO i dont know how good this code is
+                        // wait for inputs to finish first.
                         boolean canManufacture = true;
                         int trns = block.size / 2 + 1;
 
@@ -459,7 +459,6 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                 ingredients.put(key, pos);
             }
 
-            // TODO put somewhere else?
             dirty = true;
         }
     }

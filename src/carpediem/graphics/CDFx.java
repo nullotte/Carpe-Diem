@@ -6,7 +6,6 @@ import mindustry.world.blocks.payloads.*;
 
 import static arc.graphics.g2d.Draw.*;
 
-// TODO i need like a vfx artist or something
 public class CDFx {
     public static Effect
     payloadManufacture = new Effect(60f, e -> {
