@@ -1,7 +1,9 @@
 package carpediem.content.blocks;
 
+import arc.util.*;
 import carpediem.content.*;
 import carpediem.world.blocks.power.*;
+import mindustry.content.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -55,6 +57,7 @@ public class CDPower {
             );
         }};
 
+        Log.info("hello?");
         geothermalBurner = new ThermalConsumeGenerator("geothermal-burner") {{
             requirements(Category.power, ItemStack.with(
                     CDItems.aluminum, 20,
@@ -87,6 +90,43 @@ public class CDPower {
             );
 
             consumeItem(CDItems.sulfur);
+        }};
+
+        steamBoiler = new CableConsumeGenerator("steam-boiler") {{
+            requirements(Category.power, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 5;
+
+            powerProduction = 30f;
+
+            topOffset = 14.5f;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+
+                    new DrawRegion("-rotator", 5f, true),
+                    new DrawRegion("-rotator", 5f, true) {{
+                        rotation = 22.5f;
+                    }},
+                    new DrawRegion("-rotator", 5f, true) {{
+                        rotation = 45f;
+                    }},
+                    new DrawRegion("-rotator", 5f, true) {{
+                        rotation = 67.5f;
+                    }},
+
+                    new DrawDefault(),
+                    new DrawRegion("-top") {{
+                        layer = Layer.power + 0.01f;
+                    }},
+                    new DrawGlowRegion(Layer.power + 0.02f) {{
+                        color = Pal.turretHeat;
+                        glowIntensity = 0f;
+                    }}
+            );
+
+            consumeLiquid(Liquids.water, 0.1f);
+            consumeItems(ItemStack.with(CDItems.sulfur, 2, CDItems.tar, 1));
         }};
     }
 }

@@ -71,7 +71,7 @@ public class CDArchives {
                         lemon, 39
                 ),
                 Seq.with(
-                        // TODO steamgen
+                        steamBoiler,
                         cableTower,
                         accumulator
                 )

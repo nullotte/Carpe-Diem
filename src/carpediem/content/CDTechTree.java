@@ -49,6 +49,7 @@ public class CDTechTree {
                         node(accumulator);
                         node(cableTower);
                     });
+                    node(steamBoiler);
                 });
 
                 node(smelterT1, () -> {
