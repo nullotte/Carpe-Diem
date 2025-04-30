@@ -3,6 +3,7 @@ package carpediem.input;
 import arc.func.*;
 import arc.math.geom.*;
 import arc.struct.*;
+import carpediem.world.blocks.liquid.*;
 import mindustry.*;
 import mindustry.entities.units.*;
 import mindustry.input.*;
@@ -16,7 +17,7 @@ public class BeltPlacement {
     private static final Seq<BuildPlan> plans1 = new Seq<>();
     private static final Seq<Point2> tmpPoints = new Seq<>(), tmpPoints2 = new Seq<>();
 
-    public static void calculateBridges(Seq<BuildPlan> plans, DirectionBridge bridge, Boolf<Block> same) {
+    public static void calculateBridges(Seq<BuildPlan> plans, Block bridge, Boolf<Block> same, boolean doOpposites) {
         if (Placement.isSidePlace(plans)) return;
 
         // check for orthogonal placement + unlocked state
@@ -47,7 +48,7 @@ public class BeltPlacement {
                     BuildPlan other = plans.get(j);
 
                     // out of range now, set to current position and keep scanning forward for next occurrence
-                    if (!bridge.positionsValid(cur.x, cur.y, other.x, other.y)) {
+                    if ((bridge instanceof DirectionBridge dBridge && !dBridge.positionsValid(cur.x, cur.y, other.x, other.y)) || (bridge instanceof PipeBridge pBridge && !pBridge.positionsValid(cur.x, cur.y, other.x, other.y))) {
                         // add 'missed' conveyors
                         for (int k = i + 1; k < j; k++) {
                             result.add(plans.get(k));
@@ -62,7 +63,23 @@ public class BeltPlacement {
                             cur.block = null;
                         }
                         other.block = bridge;
-                        other.config = true;
+
+                        if (doOpposites) {
+                            // ???????????
+                            if (cur.x < other.x) {
+                                cur.rotation = 0;
+                            } else if (cur.x > other.x) {
+                                cur.rotation = 2;
+                            } else if (cur.y < other.y) {
+                                cur.rotation = 1;
+                            } else if (cur.y > other.y) {
+                                cur.rotation = 3;
+                            }
+
+                            other.rotation = (cur.rotation + 2) % 4;
+                        } else {
+                            other.config = true;
+                        }
 
                         i = j;
                         continue outer;
@@ -82,6 +99,10 @@ public class BeltPlacement {
         result.removeAll(plan -> plan.block == null);
 
         plans.set(result);
+    }
+
+    public static void calculateBridges(Seq<BuildPlan> plans, Block bridge, Boolf<Block> same) {
+        calculateBridges(plans, bridge, same, false);
     }
 
     // calculatenodes but like. different somehow. i cant explain it

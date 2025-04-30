@@ -111,7 +111,7 @@ public class Belt extends Block implements Autotiler {
 
     @Override
     public void handlePlacementLine(Seq<BuildPlan> plans) {
-        BeltPlacement.calculateBridges(plans, (BeltBridge) bridgeReplacement, b -> b instanceof Belt);
+        BeltPlacement.calculateBridges(plans, bridgeReplacement, b -> b instanceof Belt);
     }
 
     @Override

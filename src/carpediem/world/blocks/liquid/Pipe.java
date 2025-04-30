@@ -3,7 +3,10 @@ package carpediem.world.blocks.liquid;
 import arc.*;
 import arc.graphics.g2d.*;
 import arc.math.geom.*;
+import arc.struct.*;
 import arc.util.*;
+import carpediem.content.blocks.*;
+import carpediem.input.*;
 import mindustry.*;
 import mindustry.entities.units.*;
 import mindustry.graphics.*;
@@ -28,6 +31,8 @@ public class Pipe extends MergingLiquidBlock implements Autotiler {
     public TextureRegion[] bottomRegions;
 
     public TextureRegion[][][] rotateRegions;
+
+    public Block bridgeReplacement;
 
     public Pipe(String name) {
         super(name);
@@ -95,6 +100,13 @@ public class Pipe extends MergingLiquidBlock implements Autotiler {
     }
 
     @Override
+    public void init() {
+        super.init();
+
+        if (bridgeReplacement == null) bridgeReplacement = CDLiquidBlocks.pipeBridge;
+    }
+
+    @Override
     public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list) {
         int[] bits = getTiling(plan, list);
 
@@ -134,6 +146,13 @@ public class Pipe extends MergingLiquidBlock implements Autotiler {
         Drawf.liquid(liquidr, x + ox, y + oy, fullness, liquid.color.write(Tmp.c1).a(1f));
 
         Draw.rect(regions[index1][index2], x, y);
+    }
+
+    @Override
+    public void handlePlacementLine(Seq<BuildPlan> plans) {
+        // for some reason it doesnt automatically bridge over other pipes and i cant figure it out....
+        // i actually Did figure out a fix but it didnt work for vertical bridging so like. guess ill die
+        BeltPlacement.calculateBridges(plans, bridgeReplacement, b -> b instanceof Pipe, true);
     }
 
     public class PipeBuild extends MergingLiquidBuild {

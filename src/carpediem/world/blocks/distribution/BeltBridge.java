@@ -11,6 +11,7 @@ import arc.util.io.*;
 import carpediem.input.*;
 import carpediem.world.blocks.distribution.Belt.*;
 import carpediem.world.draw.DrawBeltUnder.*;
+import mindustry.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -19,8 +20,6 @@ import mindustry.world.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
-
-import static mindustry.Vars.*;
 
 // what the hell
 public class BeltBridge extends DuctBridge {
@@ -73,9 +72,9 @@ public class BeltBridge extends DuctBridge {
         int dx = Geometry.d4x(rotation), dy = Geometry.d4y(rotation);
 
         for (int i = 1; i <= range; i++) {
-            Tile other = world.tile(x + dx * i, y + dy * i);
+            Tile other = Vars.world.tile(x + dx * i, y + dy * i);
 
-            if (other != null && other.build instanceof BeltBridgeBuild build && build.out && build.rotation == rotation && build.block == this && build.team == player.team()) {
+            if (other != null && other.build instanceof BeltBridgeBuild build && build.out && build.rotation == rotation && build.block == this && build.team == Vars.player.team()) {
                 length = i;
                 found = other.build;
                 break;
@@ -84,16 +83,16 @@ public class BeltBridge extends DuctBridge {
 
         if (line || found != null) {
             Drawf.dashLine(Pal.placing,
-                    x * tilesize + dx * (tilesize / 2f + 2),
-                    y * tilesize + dy * (tilesize / 2f + 2),
-                    x * tilesize + dx * (length) * tilesize,
-                    y * tilesize + dy * (length) * tilesize
+                    x * Vars.tilesize + dx * (Vars.tilesize / 2f + 2),
+                    y * Vars.tilesize + dy * (Vars.tilesize / 2f + 2),
+                    x * Vars.tilesize + dx * (length) * Vars.tilesize,
+                    y * Vars.tilesize + dy * (length) * Vars.tilesize
             );
         }
 
         if (found != null) {
             if (line) {
-                Drawf.square(found.x, found.y, found.block.size * tilesize / 2f + 2.5f, 0f);
+                Drawf.square(found.x, found.y, found.block.size * Vars.tilesize / 2f + 2.5f, 0f);
             } else {
                 Drawf.square(found.x, found.y, 2f);
             }
@@ -178,10 +177,10 @@ public class BeltBridge extends DuctBridge {
                     if (found != null) {
                         int length = Math.max(Math.abs(found.tileX() - tileX()), Math.abs(found.tileY() - tileY()));
                         Drawf.dashLine(Pal.place,
-                                found.x - dx * (tilesize / 2f + 2),
-                                found.y - dy * (tilesize / 2f + 2),
-                                found.x - dx * (length) * tilesize,
-                                found.y - dy * (length) * tilesize
+                                found.x - dx * (Vars.tilesize / 2f + 2),
+                                found.y - dy * (Vars.tilesize / 2f + 2),
+                                found.x - dx * (length) * Vars.tilesize,
+                                found.y - dy * (length) * Vars.tilesize
                         );
 
                         Drawf.square(found.x, found.y, 2f, 45f, Pal.place);
