@@ -58,6 +58,7 @@ public class CDTechTree {
                     node(assemblerT1);
                     node(refineryT1, () -> {
                         node(pressurizationChamber);
+                        node(incinerator);
                     });
                 });
 

@@ -6,6 +6,7 @@ import arc.math.geom.*;
 import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.crafting.*;
+import carpediem.world.blocks.production.*;
 import carpediem.world.consumers.*;
 import carpediem.world.draw.*;
 import mindustry.content.*;
@@ -22,7 +23,7 @@ public class CDCrafting {
     // T1
     smelterT1, pressT1, rollingMillT1, assemblerT1, refineryT1,
     // what
-    pressurizationChamber;
+    pressurizationChamber, incinerator;
 
     public static void load() {
         // a special one .
@@ -264,7 +265,30 @@ public class CDCrafting {
             );
 
             consumeLiquid(Liquids.water, 0.5f);
-            consumePower(100f);
+            consumePower(10f);
+        }};
+
+        incinerator = new DrawerIncinerator("incinerator") {{
+            requirements(Category.crafting, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawWarmupRegion() {{
+                        sinMag = 0f;
+                        color = Color.orange;
+                    }},
+                    new DrawDefault(),
+                    new DrawGlowRegion() {{
+                        color = Pal.turretHeat;
+                        glowIntensity = 0f;
+                        alpha = 1f;
+                    }}
+            );
+
+            consumePower(10f);
         }};
     }
 }

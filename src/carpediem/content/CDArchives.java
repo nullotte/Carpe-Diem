@@ -102,7 +102,8 @@ public class CDArchives {
                 Seq.with(
                         industryHub,
                         storageVault,
-                        shippingContainer
+                        shippingContainer,
+                        incinerator
                 )
         );
 
