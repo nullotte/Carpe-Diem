@@ -109,8 +109,7 @@ public class CDUnitTypes {
 
             engineSize = 0f;
             setEnginesMirror(
-                    new UnitEngine(8, 8.5f, 3.5f, 45f),
-                    new UnitEngine(9f, -10f, 3.5f, 315f)
+                    new UnitEngine(9f, -12f, 3.5f, 315f)
             );
 
             abilities.add(new AmmoStatusAbility(CDStatusEffects.unpowered, 5f, 60f));
@@ -118,7 +117,7 @@ public class CDUnitTypes {
             ammoType = new PowerAmmoType(10000f);
 
             itemCapacity = 200;
-            itemOffsetY = 0f;
+            itemOffsetY = 3.5f;
         }};
 
         if (true) return;
