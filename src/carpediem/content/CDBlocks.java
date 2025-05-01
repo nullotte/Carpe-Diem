@@ -17,6 +17,7 @@ public class CDBlocks {
         CDPayloadBlocks.load();
         CDPayloadComponents.load();
         CDCampaign.load();
+        CDFunBlocks.load();
 
         // unfinished stuff
         Seq<Block> unfinished = Seq.with(
