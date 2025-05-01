@@ -34,25 +34,32 @@ public class CDLiquidBlocks {
 
         pipe = new Pipe("pipe") {{
             requirements(Category.liquid, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.silver, 1,
+                    CDItems.silverPlate, 1
             ));
         }};
 
         valve = new Valve("valve") {{
             requirements(Category.liquid, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.silver, 3,
+                    CDItems.silverPlate, 2,
+                    CDItems.silverRod, 2
             ));
         }};
 
         pipeBridge = new PipeBridge("pipe-bridge") {{
             requirements(Category.liquid, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.silver, 8,
+                    CDItems.silverPlate, 1,
+                    CDItems.silverRod, 4
             ));
         }};
 
         fluidTank = new MergingLiquidBlock("fluid-tank") {{
             requirements(Category.liquid, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 100,
+                    CDItems.silver, 85,
+                    CDItems.silverPlate, 50
             ));
             size = 3;
             liquidCapacity = 3000;
