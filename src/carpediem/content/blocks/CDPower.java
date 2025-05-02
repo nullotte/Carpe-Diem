@@ -57,7 +57,6 @@ public class CDPower {
             );
         }};
 
-        Log.info("hello?");
         geothermalBurner = new ThermalConsumeGenerator("geothermal-burner") {{
             requirements(Category.power, ItemStack.with(
                     CDItems.aluminum, 20,
@@ -70,8 +69,8 @@ public class CDPower {
             size = 3;
             itemCapacity = 50;
 
-            powerProduction = (100f / 60f) / 9f;
-            itemDuration = 60f;
+            powerProduction = (200f / 60f) / 9f;
+            itemDuration = 120f;
             displayEfficiencyScale = 1f / 9f;
 
             topOffset = 8.1f;
