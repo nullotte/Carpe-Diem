@@ -15,7 +15,7 @@ public class CDMusics {
     // cutscene
     reboot, land, launch,
     // ambient
-    asAbove, terawatt, centuryMachine;
+    asAbove, terawatt, centuryMachine, eden;
 
     public static void load() {
         reboot = Vars.tree.loadMusic("reboot");
@@ -25,6 +25,7 @@ public class CDMusics {
         asAbove = Vars.tree.loadMusic("as-above");
         terawatt = Vars.tree.loadMusic("terawatt");
         centuryMachine = Vars.tree.loadMusic("century-machine");
+        eden = Vars.tree.loadMusic("eden");
 
         for (CoreBlock block : new CoreBlock[]{CDStorage.landingPodT0, CDStorage.landingPodT1}) {
             block.landMusic = land;
@@ -36,6 +37,7 @@ public class CDMusics {
                 asAbove,
                 terawatt,
                 centuryMachine,
+                eden,
                 Musics.fine
         );
 
