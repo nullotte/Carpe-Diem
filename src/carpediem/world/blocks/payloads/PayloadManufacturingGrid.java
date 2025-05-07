@@ -133,7 +133,7 @@ public class PayloadManufacturingGrid extends PayloadBlock {
 
                     if (recipe.shapelessRequirements != null) {
                         t.row();
-                        t.add("Shapeless").pad(10f).bottom().left().color(Pal.gray);
+                        t.add("@recipe.shapeless").pad(10f).bottom().left().color(Pal.gray);
                     }
                 }).growX().pad(5f);
                 table.row();
