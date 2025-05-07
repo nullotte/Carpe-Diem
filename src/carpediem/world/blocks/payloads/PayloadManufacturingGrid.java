@@ -11,6 +11,8 @@ import arc.struct.IntIntMap.*;
 import arc.util.*;
 import arc.util.io.*;
 import carpediem.graphics.*;
+import carpediem.ui.*;
+import carpediem.world.meta.*;
 import mindustry.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
@@ -20,6 +22,7 @@ import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.blocks.payloads.*;
 
@@ -82,6 +85,60 @@ public class PayloadManufacturingGrid extends PayloadBlock {
     @Override
     public TextureRegion[] icons() {
         return new TextureRegion[]{region, outRegion};
+    }
+
+    @Override
+    public void setStats() {
+        super.setStats();
+        stats.add(CDStat.recipes, table -> {
+            table.row();
+
+            for (PayloadManufacturingRecipe recipe : recipes) {
+                table.table(Styles.grayPanel, t -> {
+                    CraftingGridImage image = new CraftingGridImage();
+
+                    if (recipe.shapelessRequirements != null) {
+                        int total = 0;
+                        for (PayloadStack stack : recipe.shapelessRequirements) {
+                            total += stack.amount;
+                        }
+                        int size = Mathf.round(Mathf.sqrt(total));
+                        int addedX = 0, addedY = 0;
+                        // so terrible
+                        for (PayloadStack stack : recipe.shapelessRequirements) {
+                            for (int i = 0; i < stack.amount; i++) {
+                                image.items.put(Point2.pack(addedX, addedY), stack.item);
+                                addedX++;
+                                if (addedX >= size) {
+                                    addedX = 0;
+                                    addedY++;
+                                }
+                            }
+                        }
+                    } else {
+                        image.items.putAll(recipe.requirements);
+                    }
+
+                    t.table(requirements -> {
+                        t.add(image).size(image.itemsWidth(), image.itemsHeight()).pad(10f);
+                    }).left().grow().pad(10f);
+
+                    t.table(arrow -> {
+                        arrow.image(Icon.right).size(80f).color(Pal.darkishGray);
+                    }).grow().pad(10f);
+
+                    t.table(result -> {
+                        result.image(recipe.result.uiIcon).scaling(Scaling.fit).size(120f);
+                    }).right().grow().pad(10f);
+
+                    if (recipe.shapelessRequirements != null) {
+                        t.row();
+                        t.add("Shapeless").pad(10f).bottom().left().color(Pal.gray);
+                    }
+                }).growX().pad(5f);
+                table.row();
+            }
+        });
     }
 
     public class ManufacturingGridBuild extends PayloadBlockBuild<Payload> {
