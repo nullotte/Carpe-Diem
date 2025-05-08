@@ -88,7 +88,6 @@ public class CDArchives {
                         payloadRailRouter,
                         payloadCrane,
                         payloadAssembler,
-                        payloadDisassembler,
                         payloadManufacturingGrid,
                         payloadLoader,
                         payloadUnloader

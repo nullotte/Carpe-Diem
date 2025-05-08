@@ -24,8 +24,6 @@ public class CDBlocks {
                 CDPayloadBlocks.payloadDisassembler,
                 CDPayloadBlocks.hydraulicFan,
                 CDPayloadBlocks.bulkHeater,
-                CDPayloadBlocks.payloadLoader,
-                CDPayloadBlocks.payloadUnloader,
                 // GOD
                 CDPayloadComponents.blockRawAluminum,
                 CDPayloadComponents.blockRawNickel,
