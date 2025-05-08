@@ -42,6 +42,22 @@ public class EndingFragment {
                 }
             });
 
+            table.table(slider -> {
+                slider.image(Core.atlas.find("carpe-diem-title")).pad(50f);
+                slider.row();
+                slider.add("woahhh im going UP!!!");
+                slider.row();
+                slider.add("extra text lalalala");
+                slider.row();
+                slider.row();
+                slider.add("this is incredibly unfinished!!!! and the mod's not even finished enough to warrant me doing the end screen");
+                slider.row();
+                slider.add("but im doing it anyways!!!!! because it's vaguely fun!!!!");
+
+                slider.setTranslation(0f, -Core.graphics.getHeight());
+                slider.actions(Actions.translateBy(0f, -slider.translation.y * 2f, 30f));
+            });
+
             table.update(() -> {
                 Vars.renderer.planets.cam.fov = Mathf.approachDelta(Vars.renderer.planets.cam.fov, 60f, 3f / 60f);
                 planetParams.zoom += Time.delta * 0.01f;
