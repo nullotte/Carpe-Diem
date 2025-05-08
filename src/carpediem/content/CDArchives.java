@@ -52,7 +52,7 @@ public class CDArchives {
         fluidProcessing = new Archive(
                 "fluid-processing",
                 ItemStack.with(
-                        lemon, 39
+                        card1, 250
                 ),
                 Seq.with(
                         pump,
@@ -67,7 +67,8 @@ public class CDArchives {
         powerProduction = new Archive(
                 "power-production",
                 ItemStack.with(
-                        lemon, 39
+                        card1, 500,
+                        card2, 250
                 ),
                 Seq.with(
                         steamBoiler,
@@ -79,7 +80,8 @@ public class CDArchives {
         payloadLogistics = new Archive(
                 "payload-logistics",
                 ItemStack.with(
-                        lemon, 39
+                        card1, 500,
+                        card2, 500
                 ),
                 Seq.with(
                         payloadRail,
@@ -96,7 +98,8 @@ public class CDArchives {
         industrialStorage = new Archive(
                 "industrial-storage",
                 ItemStack.with(
-                        lemon, 39
+                        card1, 1000,
+                        card2, 750
                 ),
                 Seq.with(
                         industryHub,
@@ -109,7 +112,8 @@ public class CDArchives {
         advancedExpansion = new Archive(
                 "advanced-expansion",
                 ItemStack.with(
-                        lemon, 39
+                        card1, 1500,
+                        card2, 1000
                 ),
                 Seq.with(
                         landingPodFrame,

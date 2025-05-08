@@ -88,7 +88,7 @@ public class CDRecipes {
                         .consumeItems(ItemStack.with(aluminumPlate, 1, nickelWire, 4))
                         .outputItem(controlCircuit),
                 new Recipe("forward-outpost")
-                        .consumeItems(ItemStack.with(lemon, 39))
+                        .consumeItems(ItemStack.with(controlCircuit, 2, siliconSheet, 2, nickelWire, 2))
                         .outputItem(calculationCircuit),
                 new Recipe(null)
                         .consumeItems(ItemStack.with(lemon, 39))
@@ -103,7 +103,10 @@ public class CDRecipes {
                 // research cards
                 new Recipe("the-reserve")
                         .consumeItems(ItemStack.with(aluminumCogwheel, 2, nickelPlate, 1))
-                        .outputItem(card1)
+                        .outputItem(card1),
+                new Recipe("forward-outpost")
+                        .consumeItems(ItemStack.with(aluminumCogwheel, 4, nickelRod, 2, silverRod, 2))
+                        .outputItem(card2)
         );
     }
 }
