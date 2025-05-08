@@ -10,41 +10,35 @@ import mindustry.world.*;
 import mindustry.world.draw.*;
 
 public class DrawPress extends DrawBlock {
-    public TextureRegion press1, press2, pressIcon;
-    public float length = 10f / 4f;
+    public TextureRegion pressRegion;
+    public float length = 1f;
     public Interp interp = a -> {
-        float b = Mathf.slope(a);
-        float c = Mathf.curve(b, 0.4f, 0.8f);
-        return Interp.pow2In.apply(c);
+        float b = Mathf.slope(a) * 3.5f;
+        float c = Mathf.clamp(b);
+        return Interp.pow3Out.apply(c);
     };
 
     @Override
     public void draw(Building build) {
-        for (int i = 0; i < 4; i++) {
-            Tmp.v1.trns(i * 90f, -(interp.apply(build.progress()) * length));
-
-            if (i % 2 != 0) {
-                Draw.yscl = -1f;
-            }
-            Draw.rect(i > 1 ? press2 : press1, build.x + Tmp.v1.x, build.y + Tmp.v1.y, i * 90f);
-            Draw.yscl = 1f;
-        }
+        float dst = interp.apply(build.progress()) * length;
+        Draw.color(0f, 0f, 0f, 0.4f);
+        Draw.rect(pressRegion, build.x - dst, build.y - dst);
+        Draw.color();
+        Draw.rect(pressRegion, build.x + dst, build.y + dst);
     }
 
     @Override
     public void drawPlan(Block block, BuildPlan plan, Eachable<BuildPlan> list) {
-        Draw.rect(pressIcon, plan.drawx(), plan.drawy());
-    }
-
-    @Override
-    public void load(Block block) {
-        press1 = Core.atlas.find(block.name + "-press1");
-        press2 = Core.atlas.find(block.name + "-press2");
-        pressIcon = Core.atlas.find(block.name + "-press-icon");
+        Draw.rect(pressRegion, plan.drawx(), plan.drawy());
     }
 
     @Override
     public TextureRegion[] icons(Block block) {
-        return new TextureRegion[]{pressIcon};
+        return new TextureRegion[]{pressRegion};
+    }
+
+    @Override
+    public void load(Block block) {
+        pressRegion = Core.atlas.find(block.name + "-press");
     }
 }

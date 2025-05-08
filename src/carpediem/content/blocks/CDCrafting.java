@@ -109,9 +109,9 @@ public class CDCrafting {
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawPress(),
+                    new DrawCornerPistons(),
                     new DrawDefault(),
-                    new DrawInvert()
+                    new DrawPress()
             );
 
             consumePower(1f / 12f);
