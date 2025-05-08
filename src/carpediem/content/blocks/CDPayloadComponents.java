@@ -4,6 +4,7 @@ import carpediem.content.*;
 import carpediem.world.blocks.payloads.*;
 import carpediem.world.blocks.payloads.PayloadManufacturingGrid.*;
 import carpediem.world.blocks.storage.*;
+import mindustry.ctype.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.production.*;
@@ -11,6 +12,8 @@ import mindustry.world.blocks.production.*;
 public class CDPayloadComponents {
     public static Block
     packagedLandingPodT0, packagedLandingPodT1,
+    // crafting ingredients
+    landingPodFrame, thruster, boosterEngine, storageCompartment,
     // yea i guess these go here too
     blockAluminum, blockNickel, blockSilver, blockPlatinum,
     blockSulfur, blockTar, fuelBrick;
@@ -21,6 +24,26 @@ public class CDPayloadComponents {
         packagedLandingPodT0 = new PackagedCoreBlock("packaged-landing-pod-t0", CDStorage.landingPodT0);
         ((SingleBlockProducer) CDPayloadBlocks.landingPodAssembler).result = packagedLandingPodT0;
         packagedLandingPodT1 = new PackagedCoreBlock("packaged-landing-pod-t1", CDStorage.landingPodT1);
+
+        landingPodFrame = new SyntheticBlock("landing-pod-frame") {{
+            requirements(Category.units, ItemStack.with());
+            size = 3;
+        }};
+
+        thruster = new SyntheticBlock("thruster") {{
+            requirements(Category.units, ItemStack.with());
+            size = 3;
+        }};
+
+        boosterEngine = new SyntheticBlock("booster-engine") {{
+            requirements(Category.units, ItemStack.with());
+            size = 3;
+        }};
+
+        storageCompartment = new SyntheticBlock("storage-compartment") {{
+            requirements(Category.units, ItemStack.with());
+            size = 3;
+        }};
 
         blockRawAluminum = new ProcessableBlock("block-raw-aluminum") {{
             requirements(Category.crafting, ItemStack.with(
@@ -102,8 +125,17 @@ public class CDPayloadComponents {
             ((PayloadBurner) CDPayloadBlocks.bulkHeater).consumedBlock = this;
         }};
 
-        // fuel brick recipe
         ((PayloadManufacturingGrid) CDPayloadBlocks.payloadManufacturingGrid).recipes.add(
+                new PayloadManufacturingRecipe(packagedLandingPodT1, r -> {
+                    Block l = landingPodFrame, t = thruster, b = boosterEngine, s = storageCompartment;
+                    r.mapRequirements(new UnlockableContent[][]{
+                            {l, l, t, l, l},
+                            {l, s, b, s, l},
+                            {t, b, s, b, t},
+                            {l, s, b, s, l},
+                            {l, l, t, l, l}
+                    });
+                }),
                 new PayloadManufacturingRecipe(fuelBrick, PayloadStack.with(blockSulfur, 2, blockTar, 2))
         );
     }

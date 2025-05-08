@@ -106,8 +106,7 @@ public class CDTechTree {
                     node(powerProduction);
                     node(payloadLogistics);
                     node(industrialStorage);
-                    node(manufacturingComponents);
-                    node(navigationSystems);
+                    node(advancedExpansion);
                 });
                 node(automation);
                 node(outwardExpansion);
@@ -204,8 +203,6 @@ public class CDTechTree {
                 node.setupRequirements(ItemStack.empty);
             }
         });
-
-        blocks.addAll(packagedLandingPodT0);
 
         for (Block block : blocks) {
             if (block.fogRadius < 0) {

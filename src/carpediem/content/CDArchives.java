@@ -8,8 +8,8 @@ import static carpediem.content.CDItems.*;
 import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDLiquidBlocks.*;
-import static carpediem.content.blocks.CDPayloadComponents.*;
 import static carpediem.content.blocks.CDPayloadBlocks.*;
+import static carpediem.content.blocks.CDPayloadComponents.*;
 import static carpediem.content.blocks.CDPower.*;
 import static carpediem.content.blocks.CDProduction.*;
 import static carpediem.content.blocks.CDStorage.*;
@@ -19,7 +19,7 @@ public class CDArchives {
     // the reserve
     automation, outwardExpansion,
     // forward outpost
-    fluidProcessing, powerProduction, payloadLogistics, industrialStorage, manufacturingComponents, navigationSystems;
+    fluidProcessing, powerProduction, payloadLogistics, industrialStorage, advancedExpansion;
 
     public static void load() {
         // region the reserve
@@ -43,7 +43,6 @@ public class CDArchives {
                         card1, 200
                 ),
                 Seq.with(
-                        packagedLandingPodT0,
                         landingPodAssembler,
                         launchPlatform
                 )
@@ -107,29 +106,23 @@ public class CDArchives {
                 )
         );
 
-        manufacturingComponents = new Archive(
-                "manufacturing-components",
+        advancedExpansion = new Archive(
+                "advanced-expansion",
                 ItemStack.with(
                         lemon, 39
                 ),
                 Seq.with(
-                        // TODO
-                )
-        );
-
-        navigationSystems = new Archive(
-                "navigation-systems",
-                ItemStack.with(
-                        lemon, 39
-                ),
-                Seq.with(
-                        // TODO
+                        landingPodFrame,
+                        thruster,
+                        boosterEngine,
+                        storageCompartment,
+                        landingPodT1
                 )
         );
         // endregion
         Seq<Archive> unfinished = Seq.with(
                 fluidProcessing, powerProduction, payloadLogistics, industrialStorage,
-                manufacturingComponents, navigationSystems
+                advancedExpansion
         );
         for (Archive archive : unfinished) {
             archive.show = false;

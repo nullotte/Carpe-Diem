@@ -17,6 +17,7 @@ public class PackagedCoreBlock extends StorageBlock {
 
         size = coreType.size;
         itemCapacity = coreType.itemCapacity;
+        alwaysUnlocked = true;
 
         requirements(coreType.category, BuildVisibility.hidden, coreType.requirements);
     }
