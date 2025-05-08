@@ -2,7 +2,7 @@
 <h1 align="center">
   <a href="https://github.com/nullotte/Carpe-Diem/releases/latest"><img src="https://img.shields.io/github/v/release/nullotte/Carpe-Diem?display_name=release&label=Latest%20Release&color=green"></a>
   <a href="https://github.com/nullotte/Carpe-Diem/releases"><img src="https://img.shields.io/github/downloads/nullotte/Carpe-Diem/total?label=Downloads&color=blue"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/nullotte/Carpe-Diem"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/nullotte/Carpe-Diem?label=License"></a>
   <a href="https://github.com/nullotte/Carpe-Diem"><img src="https://img.shields.io/github/stars/nullotte/Carpe-Diem?style=flat&label=Star%20this%20mod!&color=yellow"></a>
 </h1>
 
