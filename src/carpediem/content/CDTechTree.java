@@ -100,6 +100,9 @@ public class CDTechTree {
 
             node(CDSectorPresets.theReserve, () -> {
                 node(CDSectorPresets.forwardOutpost, Seq.with(new LaunchSector(landingPodT0)), () -> {
+                    node(CDSectorPresets.interference, Seq.with(new LaunchSector(landingPodT1)), () -> {
+
+                    });
                     node(fluidProcessing);
                     node(powerProduction);
                     node(payloadLogistics);

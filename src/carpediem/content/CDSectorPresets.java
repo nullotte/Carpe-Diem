@@ -9,7 +9,7 @@ import mindustry.io.*;
 import mindustry.type.*;
 
 public class CDSectorPresets {
-    public static SectorPreset theReserve, forwardOutpost;
+    public static SectorPreset theReserve, forwardOutpost, interference;
 
     public static void load() {
         theReserve = new SectorPreset("the-reserve", CDPlanets.asphodel, 5) {{
@@ -21,6 +21,10 @@ public class CDSectorPresets {
         }};
 
         forwardOutpost = new SectorPreset("forward-outpost", CDPlanets.asphodel, 21) {{
+            captureWave = -1;
+        }};
+
+        interference = new SectorPreset("interference", CDPlanets.asphodel, 22) {{
             captureWave = -1;
         }};
 
@@ -38,7 +42,7 @@ public class CDSectorPresets {
             }
         });
 
-        for (SectorPreset preset : new SectorPreset[]{theReserve, forwardOutpost}) {
+        for (SectorPreset preset : new SectorPreset[]{theReserve, forwardOutpost, interference}) {
             // dont show it in the map dialogs
             Vars.maps.all().remove(m -> m.file == preset.generator.map.file);
 
