@@ -34,7 +34,11 @@ public class CDPayloadBlocks {
     public static void load() {
         payloadRail = new PayloadConveyor("payload-rail") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 10,
+                    CDItems.aluminumCogwheel, 5,
+                    CDItems.aluminumWire, 5,
+                    CDItems.siliconSheet, 5,
+                    CDItems.controlCircuit, 5
             ));
             size = 5;
             payloadLimit = 6f; // huge
@@ -44,7 +48,11 @@ public class CDPayloadBlocks {
 
         payloadRailRouter = new PayloadRouter("payload-rail-router") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 25,
+                    CDItems.aluminumCogwheel, 10,
+                    CDItems.aluminumWire, 5,
+                    CDItems.siliconSheet, 5,
+                    CDItems.controlCircuit, 10
             ));
             size = 5;
             payloadLimit = 6f;

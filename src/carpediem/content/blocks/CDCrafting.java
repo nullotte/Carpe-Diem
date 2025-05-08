@@ -216,7 +216,15 @@ public class CDCrafting {
 
         refineryT1 = new RecipeCrafter("refinery-t1") {{
             requirements(Category.crafting, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 20,
+                    CDItems.aluminumPlate, 10,
+                    CDItems.aluminumCogwheel, 10,
+                    CDItems.nickelWire, 10,
+                    CDItems.silverPlate, 10,
+                    CDItems.controlCircuit, 10,
+                    CDItems.calculationCircuit, 5,
+                    CDItems.powerCell, 5,
+                    CDItems.liquidCell, 5
             ));
             size = 4;
 
@@ -270,7 +278,14 @@ public class CDCrafting {
 
         incinerator = new DrawerIncinerator("incinerator") {{
             requirements(Category.crafting, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 25,
+                    CDItems.aluminumRod, 10,
+                    CDItems.nickelPlate, 5,
+                    CDItems.nickelWire, 5,
+                    CDItems.silverPlate, 5,
+                    CDItems.controlCircuit, 5,
+                    CDItems.powerCell, 10,
+                    CDItems.liquidCell, 10
             ));
             size = 3;
 

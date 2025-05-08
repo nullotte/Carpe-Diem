@@ -16,7 +16,13 @@ public class CDLiquidBlocks {
     public static void load() {
         pump = new Pump("pump") {{
             requirements(Category.liquid, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 25,
+                    CDItems.aluminumCogwheel, 20,
+                    CDItems.nickelWire, 5,
+                    CDItems.silverPlate, 10,
+                    CDItems.controlCircuit, 5,
+                    CDItems.powerCell, 10,
+                    CDItems.liquidCell, 15
             ));
             size = 5;
             pumpAmount = 4f / 60f; // 100 per second with 25 tiles
@@ -58,8 +64,9 @@ public class CDLiquidBlocks {
         fluidTank = new MergingLiquidBlock("fluid-tank") {{
             requirements(Category.liquid, ItemStack.with(
                     CDItems.aluminum, 100,
-                    CDItems.silver, 85,
-                    CDItems.silverPlate, 50
+                    CDItems.silver, 50,
+                    CDItems.silverPlate, 25,
+                    CDItems.liquidCell, 25
             ));
             size = 3;
             liquidCapacity = 3000;
