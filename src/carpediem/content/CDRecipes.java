@@ -84,7 +84,7 @@ public class CDRecipes {
                         .consumeItems(ItemStack.with(sturdyAlloy, 1, alloyPlate, 2))
                         .outputItem(alloyCogwheel, 4),
                 // circuits
-                new Recipe("the-reserve", 3f * 60f)
+                new Recipe("the-reserve")
                         .consumeItems(ItemStack.with(aluminumPlate, 1, nickelWire, 4))
                         .outputItem(controlCircuit),
                 new Recipe("forward-outpost")
@@ -98,7 +98,7 @@ public class CDRecipes {
                         .consumeItems(ItemStack.with(aluminum, 2, nickelPlate, 2, sulfur, 1))
                         .outputItem(powerCell),
                 new Recipe("forward-outpost")
-                        .consumeItems(ItemStack.with(silverPlate, 3, aluminumRod, 2))
+                        .consumeItems(ItemStack.with(silverPlate, 2, aluminumRod, 1))
                         .outputItem(liquidCell),
                 // research cards
                 new Recipe("the-reserve")
