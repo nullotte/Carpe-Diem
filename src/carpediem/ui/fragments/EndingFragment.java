@@ -1,25 +1,24 @@
 package carpediem.ui.fragments;
 
 import arc.*;
+import arc.math.*;
 import arc.scene.*;
 import arc.scene.actions.*;
 import arc.scene.event.*;
 import arc.scene.ui.*;
 import arc.util.*;
 import carpediem.content.*;
-import carpediem.content.blocks.*;
 import mindustry.*;
 import mindustry.graphics.g3d.*;
-import mindustry.world.blocks.storage.*;
 
 public class EndingFragment {
     public PlanetParams planetParams = new PlanetParams() {{
         planet = CDPlanets.asphodel;
-        zoom = 0.04f;
+        zoom = 0.1f;
     }};
 
     public void build(Group parent) {
-        CoreBlock coreBlock = CDStorage.landingPodT0;
+        Vars.renderer.planets.cam.fov = 1f;
 
         Image image = new Image();
         image.color.a = 1f;
@@ -44,10 +43,11 @@ public class EndingFragment {
             });
 
             table.update(() -> {
-                //planetParams.zoom += Time.delta * 0.01f;
+                Vars.renderer.planets.cam.fov = Mathf.approachDelta(Vars.renderer.planets.cam.fov, 60f, 3f / 60f);
+                planetParams.zoom += Time.delta * 0.01f;
             });
 
-            table.actions(Actions.delay(10f), Actions.fadeOut(0.5f), Actions.remove());
+            table.actions(Actions.delay(30f), Actions.fadeOut(0.5f), Actions.remove());
         });
     }
 }
