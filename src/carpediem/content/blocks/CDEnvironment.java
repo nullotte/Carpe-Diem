@@ -2,7 +2,6 @@ package carpediem.content.blocks;
 
 import arc.graphics.*;
 import carpediem.content.*;
-import carpediem.world.blocks.environment.*;
 import mindustry.content.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
@@ -28,8 +27,7 @@ public class CDEnvironment {
     royalstoneBoulder, crystalBoulder,
     bluerockBoulder,
     // ore
-    oreAluminum, oreSulfur, oreNickel, oreSilver, orePlatinum,
-    oreDarksand, oreRedsand;
+    oreAluminum, oreSulfur, oreNickel, oreSilver, orePlatinum;
 
     public static void load() {
         // region floors
@@ -147,14 +145,6 @@ public class CDEnvironment {
         }};
 
         orePlatinum = new OreBlock("ore-platinum", CDItems.rawPlatinum) {{
-            variants = 4;
-        }};
-
-        oreDarksand = new FlatOreBlock("ore-darksand", Items.sand) {{
-            variants = 4;
-        }};
-
-        oreRedsand = new FlatOreBlock("ore-redsand", Items.sand) {{
             variants = 4;
         }};
         // endregion
