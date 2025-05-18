@@ -2,7 +2,9 @@ package carpediem.content.blocks;
 
 import arc.graphics.*;
 import carpediem.content.*;
+import carpediem.world.blocks.environment.*;
 import mindustry.content.*;
+import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
@@ -10,14 +12,15 @@ import mindustry.world.meta.*;
 public class CDEnvironment {
     public static Block
     // floors
+    asphodelWater, petroleumPatch,
     arkstone, orangeStone,
-    redMoss, meadsoil, scorchedSoil,
+    redMoss, redSand, redSandWater, meadsoil, scorchedSoil,
     royalstone, crystalrock,
     bluerock, blueCraters, carbonCraters, hotCarbon, magmaCarbon,
     reserveFloor1, reserveFloor2, reserveFloor3,
     // walls
     arkstoneWall, orangeStoneWall,
-    meadsoilWall, scorchedWall,
+    redSandWall, meadsoilWall, scorchedWall,
     royalstoneWall, crystalWall,
     bluerockWall,
     reserveWall1, reserveWall2, reserveWall3,
@@ -31,6 +34,29 @@ public class CDEnvironment {
 
     public static void load() {
         // region floors
+        asphodelWater = new Floor("asphodel-water") {{
+            speedMultiplier = 0.5f;
+            variants = 0;
+            status = StatusEffects.wet;
+            statusDuration = 90f;
+            liquidDrop = Liquids.water;
+            isLiquid = true;
+            cacheLayer = CacheLayer.water;
+            albedo = 0.9f;
+            supportsOverlay = true;
+        }};
+
+        petroleumPatch = new Floor("petroleum-patch") {{
+            drownTime = 230f;
+            status = StatusEffects.tarred;
+            statusDuration = 240f;
+            speedMultiplier = 0.19f;
+            variants = 0;
+            liquidDrop = CDLiquids.petroleum;
+            isLiquid = true;
+            cacheLayer = CacheLayer.tar;
+        }};
+
         arkstone = new Floor("arkstone", 5);
 
         orangeStone = new Floor("orange-stone", 5);
@@ -38,6 +64,20 @@ public class CDEnvironment {
         redMoss = new Floor("red-moss", 5) {{
             wall = Blocks.redStoneWall;
         }};
+
+        redSand = new Floor("red-sand", 5) {{
+            itemDrop = Items.sand;
+            playerUnmineable = true;
+        }};
+
+        redSandWater = new CDShallowLiquid("red-sand-water") {{
+            speedMultiplier = 0.8f;
+            statusDuration = 50f;
+            albedo = 0.9f;
+            liquidOpacity = 0.5f;
+            supportsOverlay = true;
+        }};
+        ((CDShallowLiquid) redSandWater).set(asphodelWater, redSand);
 
         meadsoil = new Floor("meadsoil", 5);
 
