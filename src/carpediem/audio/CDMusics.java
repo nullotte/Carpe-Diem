@@ -7,7 +7,6 @@ import carpediem.content.*;
 import carpediem.content.blocks.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
-import mindustry.gen.*;
 import mindustry.world.blocks.storage.*;
 
 public class CDMusics {
@@ -15,7 +14,7 @@ public class CDMusics {
     // cutscene
     reboot, land, launch,
     // ambient
-    asAbove, terawatt, centuryMachine, eden;
+    asAbove, terawatt, centuryMachine, eden, paradiseFound;
 
     public static void load() {
         reboot = Vars.tree.loadMusic("reboot");
@@ -26,6 +25,7 @@ public class CDMusics {
         terawatt = Vars.tree.loadMusic("terawatt");
         centuryMachine = Vars.tree.loadMusic("century-machine");
         eden = Vars.tree.loadMusic("eden");
+        paradiseFound = Vars.tree.loadMusic("paradise-found");
 
         for (CoreBlock block : new CoreBlock[]{CDStorage.landingPodT0, CDStorage.landingPodT1}) {
             block.landMusic = land;
@@ -38,7 +38,7 @@ public class CDMusics {
                 terawatt,
                 centuryMachine,
                 eden,
-                Musics.fine
+                paradiseFound
         );
 
         // kinda ass implementation but theres not really a good way to do custom music ok?
