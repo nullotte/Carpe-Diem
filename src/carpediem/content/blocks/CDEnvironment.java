@@ -16,7 +16,7 @@ public class CDEnvironment {
     arkstone, orangeStone,
     redMoss, redSand, redSandWater, meadsoil, scorchedSoil,
     royalstone, crystalrock,
-    bluerock, blueCraters, carbonCraters, hotCarbon, magmaCarbon,
+    bluerock, blueCraters, carbonCraters, carbonicSand, carbonicSandWater, hotCarbon, magmaCarbon,
     reserveFloor1, reserveFloor2, reserveFloor3,
     // walls
     arkstoneWall, orangeStoneWall,
@@ -88,6 +88,19 @@ public class CDEnvironment {
         crystalrock = new Floor("crystalrock", 5);
 
         bluerock = new Floor("bluerock", 5);
+
+        carbonicSand = new Floor("carbonic-sand", 5) {{
+            itemDrop = Items.sand;
+            playerUnmineable = true;
+        }};
+
+        carbonicSandWater = new CDShallowLiquid("carbonic-sand-water") {{
+            speedMultiplier = 0.8f;
+            statusDuration = 50f;
+            albedo = 0.9f;
+            supportsOverlay = true;
+        }};
+        ((CDShallowLiquid) carbonicSandWater).set(asphodelWater, carbonicSand);
 
         hotCarbon = new Floor("hotcarbon", 4) {{
             attributes.set(Attribute.heat, 1f);
