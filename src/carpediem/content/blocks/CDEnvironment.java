@@ -12,7 +12,7 @@ import mindustry.world.meta.*;
 public class CDEnvironment {
     public static Block
     // floors
-    asphodelWater, petroleumPatch,
+    asphodelWater, deepAsphodelWater, petroleumPatch,
     arkstone, orangeStone,
     redMoss, redSand, redSandWater, meadsoil, scorchedSoil,
     royalstone, crystalrock,
@@ -41,6 +41,20 @@ public class CDEnvironment {
             statusDuration = 90f;
             liquidDrop = Liquids.water;
             isLiquid = true;
+            cacheLayer = CacheLayer.water;
+            albedo = 0.9f;
+            supportsOverlay = true;
+        }};
+
+        deepAsphodelWater = new Floor("deep-asphodel-water") {{
+            speedMultiplier = 0.2f;
+            variants = 0;
+            liquidDrop = Liquids.water;
+            liquidMultiplier = 1.5f;
+            isLiquid = true;
+            status = StatusEffects.wet;
+            statusDuration = 120f;
+            drownTime = 200f;
             cacheLayer = CacheLayer.water;
             albedo = 0.9f;
             supportsOverlay = true;
