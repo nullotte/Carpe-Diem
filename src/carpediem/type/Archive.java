@@ -20,7 +20,8 @@ public class Archive extends StatusEffect {
         super(name);
         this.researchCost = researchCost;
         this.contents = contents;
-        // TODO maybe separate tab in database
+
+        hideDatabase = true;
     }
 
     @Override

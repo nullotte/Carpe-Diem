@@ -44,6 +44,8 @@ public class CarpeDiem extends Mod {
 
     @Override
     public void init() {
+        CDUI.load();
+
         hints = new CDHints();
         launchSectorInfo = new LaunchSectorInfoDialog();
         content = new ContentInfoDialog();
