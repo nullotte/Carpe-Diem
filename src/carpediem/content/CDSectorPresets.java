@@ -14,7 +14,6 @@ public class CDSectorPresets {
     public static void load() {
         theReserve = new SectorPreset("the-reserve", CDPlanets.asphodel, 5) {{
             alwaysUnlocked = true;
-            showSectorLandInfo = false;
             captureWave = -1;
 
             CDPlanets.asphodel.startSector = sector.id;
@@ -43,13 +42,14 @@ public class CDSectorPresets {
         });
 
         for (SectorPreset preset : new SectorPreset[]{theReserve, forwardOutpost, interference}) {
+            preset.showSectorLandInfo = false;
+
             // dont show it in the map dialogs
             Vars.maps.all().remove(m -> m.file == preset.generator.map.file);
 
             NonThreateningSector sector = new NonThreateningSector(preset.planet, preset.planet.grid.tiles[preset.sector.id]);
             preset.planet.sectors.set(preset.sector.id, sector);
             preset.sector = sector;
-
             preset.planet.preset(preset.sector.id, preset);
         }
     }

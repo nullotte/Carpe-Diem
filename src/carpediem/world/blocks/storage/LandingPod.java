@@ -14,6 +14,8 @@ import arc.util.*;
 import arc.util.io.*;
 import arc.util.pooling.Pool.*;
 import arc.util.pooling.*;
+import carpediem.content.*;
+import carpediem.ui.*;
 import carpediem.world.blocks.crafting.*;
 import carpediem.world.meta.*;
 import mindustry.*;
@@ -306,6 +308,21 @@ public class LandingPod extends DrawerCoreBlock {
             float offset = size * Vars.tilesize / 2f + 1f;
             Vec2 pos = Core.input.mouseScreen(x - offset, y + offset);
             table.setPosition(pos.x, pos.y, Align.topRight);
+        }
+
+        @Override
+        public void beginLaunch(boolean launching) {
+            super.beginLaunch(launching);
+            // custom sector landing info
+            if (!Vars.headless) {
+                if (!Vars.renderer.isLaunching()) {
+                    Time.run(launchDuration(), () -> {
+                        if (Vars.state.isCampaign() && Vars.showSectorLandInfo && Vars.state.rules.planet == CDPlanets.asphodel) {
+                            CDUI.showCustomLandInfo(Vars.state.rules.sector);
+                        }
+                    });
+                }
+            }
         }
 
         @Override
