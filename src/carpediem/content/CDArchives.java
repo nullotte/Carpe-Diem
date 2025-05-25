@@ -123,10 +123,7 @@ public class CDArchives {
                 )
         );
         // endregion
-        Seq<Archive> unfinished = Seq.with(
-                fluidProcessing, powerProduction, payloadLogistics, industrialStorage,
-                advancedExpansion
-        );
+        Seq<Archive> unfinished = Seq.with();
         for (Archive archive : unfinished) {
             archive.show = false;
         }
