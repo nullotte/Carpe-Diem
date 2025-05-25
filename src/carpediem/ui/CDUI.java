@@ -47,7 +47,7 @@ public class CDUI {
         t.table(resources -> {
             resources.add("@sectors.resources").style(Styles.outlineLabel).color(Color.lightGray).padRight(3f);
             for (UnlockableContent resource : sector.info.resources) {
-                resources.image(resource.uiIcon).size(24f).padRight(3f);
+                resources.image(resource.uiIcon).scaling(Scaling.fit).size(24f).padRight(3f);
             }
         }).center();
         t.update(() -> t.setPosition(Core.graphics.getWidth() / 2f, Core.graphics.getHeight() / 2f, Align.center));

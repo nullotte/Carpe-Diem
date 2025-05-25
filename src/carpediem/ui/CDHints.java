@@ -5,6 +5,7 @@ import arc.func.*;
 import arc.struct.*;
 import arc.util.*;
 import carpediem.*;
+import carpediem.content.*;
 import carpediem.content.blocks.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
@@ -37,7 +38,8 @@ public class CDHints {
     public enum CDHint implements Hint {
         cdBlockInfo(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.smelterT0), () -> Vars.ui.content.isShown() || Vars.ui.database.isShown()),
         crafterConfig(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.rollingMillT1) || CarpeDiem.hints.placedBlocks.contains(CDCrafting.assemblerT1), () -> CarpeDiem.hints.events.contains("crafterconfig")),
-        valves(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.refineryT1), () -> CarpeDiem.hints.placedBlocks.contains(CDLiquidBlocks.valve));
+        valves(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.refineryT1), () -> CarpeDiem.hints.placedBlocks.contains(CDLiquidBlocks.valve)),
+        smeltingSilver(() -> CDItems.rawSilver.unlockedNow(), () -> false);
 
         CDHint(Boolp shown, Boolp complete) {
             this.shown = shown;
