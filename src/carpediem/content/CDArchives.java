@@ -52,7 +52,8 @@ public class CDArchives {
         fluidProcessing = new Archive(
                 "fluid-processing",
                 ItemStack.with(
-                        card1, 250
+                        card1, 250,
+                        card2, 50
                 ),
                 Seq.with(
                         pump,
