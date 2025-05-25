@@ -33,7 +33,7 @@ public class CDObjectives {
 
         @Override
         public String display() {
-            return Core.bundle.get("requirement.unlockarchive");
+            return Core.bundle.format("requirement.unlockarchive", archive.localizedName);
         }
     }
 

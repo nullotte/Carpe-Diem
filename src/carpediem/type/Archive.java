@@ -1,9 +1,11 @@
 package carpediem.type;
 
 import arc.*;
+import arc.func.*;
 import arc.struct.*;
 import arc.util.*;
 import carpediem.*;
+import carpediem.content.blocks.*;
 import carpediem.game.CDObjectives.*;
 import carpediem.world.meta.*;
 import mindustry.ctype.*;
@@ -44,6 +46,12 @@ public class Archive extends StatusEffect {
                 content.techNode.objectives.clear().add(new UnlockArchive(this));
             }
         });
+    }
+
+    @Override
+    public void getDependencies(Cons<UnlockableContent> cons) {
+        // all archives depend on the archive decoder
+        cons.get(CDCampaign.archiveDecoder);
     }
 
     @Override
