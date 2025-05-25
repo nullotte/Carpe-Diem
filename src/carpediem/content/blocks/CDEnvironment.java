@@ -14,7 +14,7 @@ public class CDEnvironment {
     // floors
     asphodelWater, deepAsphodelWater, petroleumPatch,
     arkstone, orangeStone,
-    redMoss, redSand, redSandWater, meadsoil, scorchedSoil,
+    redMoss, redSand, redSandWater, meadsoil,
     royalstone, crystalrock,
     bluerock, blueCraters, carbonCraters, carbonicSand, carbonicSandWater, hotCarbon, magmaCarbon,
     reserveFloor1, reserveFloor2, reserveFloor3,
@@ -26,7 +26,7 @@ public class CDEnvironment {
     reserveWall1, reserveWall2, reserveWall3,
     // decoration
     arkstoneBoulder, orangeStoneBoulder, arkweed,
-    redGrowth, redTendrils, meadBush, meadTree, orangeTree, scorchedBush, scorchedTree,
+    redGrowth, redTendrils, meadBush, meadTree, orangeTree,
     royalstoneBoulder, crystalBoulder,
     bluerockBoulder,
     // ore
@@ -95,8 +95,6 @@ public class CDEnvironment {
 
         meadsoil = new Floor("meadsoil", 5);
 
-        scorchedSoil = new Floor("scorched-soil", 5);
-
         royalstone = new Floor("royalstone", 5);
 
         crystalrock = new Floor("crystalrock", 5);
@@ -153,11 +151,6 @@ public class CDEnvironment {
 
         meadsoilWall = new StaticWall("meadsoil-wall") {{
             variants = 4;
-        }};
-
-        scorchedWall = new StaticWall("scorched-wall") {{
-            variants = 4;
-            scorchedSoil.asFloor().wall = this;
         }};
 
         royalstoneWall = new StaticWall("royalstone-wall") {{
