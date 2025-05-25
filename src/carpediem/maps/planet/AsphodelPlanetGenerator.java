@@ -159,13 +159,6 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
                     floor = Blocks.carbonStone;
                 }
             }
-
-            if (floor == CDEnvironment.meadsoil) {
-                if (noise(x + 100, y, 6, 0.4f, 70f) > 0.65f) {
-                    floor = CDEnvironment.scorchedSoil;
-                    if (block == CDEnvironment.meadsoilWall) block = CDEnvironment.scorchedWall;
-                }
-            }
         });
 
         pass((x, y) -> {

@@ -4,6 +4,7 @@ import arc.graphics.*;
 import carpediem.content.*;
 import carpediem.world.blocks.environment.*;
 import mindustry.content.*;
+import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
@@ -19,16 +20,14 @@ public class CDEnvironment {
     bluerock, blueCraters, carbonCraters, carbonicSand, carbonicSandWater, hotCarbon, magmaCarbon,
     reserveFloor1, reserveFloor2, reserveFloor3,
     // walls
-    arkstoneWall, orangeStoneWall,
-    redSandWall, meadsoilWall, scorchedWall,
+    arkstoneWall, orangeStoneWall, meadsoilWall,
     royalstoneWall, crystalWall,
     bluerockWall,
     reserveWall1, reserveWall2, reserveWall3,
     // decoration
-    arkstoneBoulder, orangeStoneBoulder, arkweed,
-    redGrowth, redTendrils, meadBush, meadTree, orangeTree,
-    royalstoneBoulder, crystalBoulder,
-    bluerockBoulder,
+    arkstoneBoulder, orangeStoneBoulder, meadBush,
+    royalstoneBoulder, crystalBoulder, bluerockBoulder,
+    arkweed, meadTree, redTree, deadTree,
     // ore
     oreAluminum, oreSulfur, oreNickel, oreSilver, orePlatinum;
 
@@ -179,6 +178,23 @@ public class CDEnvironment {
         }};
         // endregion
         // region decoration
+        arkstoneBoulder = new Prop("arkstone-boulder") {{
+            variants = 2;
+        }};
+
+        orangeStoneBoulder = new Prop("orange-stone-boulder") {{
+            variants = 2;
+        }};
+
+        meadBush = new Prop("mead-bush") {{
+            variants = 2;
+            breakSound = Sounds.plantBreak;
+        }};
+
+        royalstoneBoulder = new Prop("royalstone-boulder") {{
+            variants = 2;
+        }};
+
         crystalBoulder = new Prop("crystal-boulder") {{
             variants = 2;
         }};
