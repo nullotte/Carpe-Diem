@@ -99,7 +99,7 @@ public class CDRecipes {
                         .outputItem(powerCell),
                 new Recipe("forward-outpost")
                         .consumeItems(ItemStack.with(silverPlate, 2, aluminumRod, 1))
-                        .outputItem(liquidCell),
+                        .outputItem(fluidCell),
                 // research cards
                 new Recipe("the-reserve")
                         .consumeItems(ItemStack.with(aluminumCogwheel, 2, nickelPlate, 1))

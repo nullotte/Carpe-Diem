@@ -224,7 +224,7 @@ public class CDCrafting {
                     CDItems.controlCircuit, 10,
                     CDItems.calculationCircuit, 5,
                     CDItems.powerCell, 5,
-                    CDItems.liquidCell, 5
+                    CDItems.fluidCell, 5
             ));
             size = 4;
 
@@ -285,7 +285,7 @@ public class CDCrafting {
                     CDItems.silverPlate, 5,
                     CDItems.controlCircuit, 5,
                     CDItems.powerCell, 10,
-                    CDItems.liquidCell, 10
+                    CDItems.fluidCell, 10
             ));
             size = 3;
 

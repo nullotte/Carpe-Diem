@@ -17,7 +17,7 @@ public class CDItems {
 
     controlCircuit, calculationCircuit, processingUnit,
     aluminumCogwheel, silverCogwheel, alloyCogwheel,
-    powerCell, liquidCell,
+    powerCell, fluidCell,
 
     card1, card2, card3, card4,
 
@@ -100,7 +100,7 @@ public class CDItems {
         alloyCogwheel = new Item("alloy-cogwheel", sturdyAlloy.color);
 
         powerCell = new Item("power-cell", Color.valueOf("dfb074"));
-        liquidCell = new Item("liquid-cell", Color.valueOf("88a4ff"));
+        fluidCell = new Item("liquid-cell", Color.valueOf("88a4ff"));
         // endregion
 
         // region cards

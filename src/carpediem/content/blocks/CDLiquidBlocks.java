@@ -22,7 +22,7 @@ public class CDLiquidBlocks {
                     CDItems.silverPlate, 10,
                     CDItems.controlCircuit, 5,
                     CDItems.powerCell, 10,
-                    CDItems.liquidCell, 15
+                    CDItems.fluidCell, 15
             ));
             size = 5;
             pumpAmount = 4f / 60f; // 100 per second with 25 tiles
@@ -66,7 +66,7 @@ public class CDLiquidBlocks {
                     CDItems.aluminum, 100,
                     CDItems.silver, 50,
                     CDItems.silverPlate, 25,
-                    CDItems.liquidCell, 25
+                    CDItems.fluidCell, 25
             ));
             size = 3;
             liquidCapacity = 3000;

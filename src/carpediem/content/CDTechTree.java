@@ -169,7 +169,7 @@ public class CDTechTree {
                                 nodeProduce(silverPlate, () -> {
                                     nodeProduce(silverCogwheel, () -> {});
 
-                                    nodeProduce(liquidCell, () -> {});
+                                    nodeProduce(fluidCell, () -> {});
                                 });
                                 nodeProduce(silverRod, () -> {});
 
