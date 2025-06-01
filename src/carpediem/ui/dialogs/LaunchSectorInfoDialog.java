@@ -24,7 +24,11 @@ public class LaunchSectorInfoDialog extends BaseDialog {
         addCloseListener();
 
         cont.table(t -> {
-            t.add(Core.bundle.format("launch.to", sector.localizedName)).row();
+            t.table(title -> {
+                title.add(Core.bundle.format("launch.to", sector.localizedName));
+                title.image(sector.uiIcon).size(Vars.iconXLarge).padLeft(5f);
+            });
+            t.row();
             t.add(sector.description).width(720f).pad(30f).wrap().labelAlign(Align.center);
         });
 
