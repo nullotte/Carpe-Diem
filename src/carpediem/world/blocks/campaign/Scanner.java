@@ -1,11 +1,15 @@
 package carpediem.world.blocks.campaign;
 
+import arc.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.math.geom.*;
 import arc.util.*;
 import carpediem.world.blocks.campaign.ArchiveVault.*;
 import carpediem.world.blocks.campaign.data.*;
+import mindustry.*;
 import mindustry.entities.units.*;
+import mindustry.game.*;
 import mindustry.gen.*;
 import mindustry.world.*;
 import mindustry.world.draw.*;
@@ -42,6 +46,22 @@ public class Scanner extends Block implements DataBlock {
     @Override
     public boolean rotatedOutput(int x, int y) {
         return false;
+    }
+
+    @Override
+    public boolean canPlaceOn(Tile tile, Team team, int rotation) {
+        int trns = size / 2 + 1;
+        Tile nearby = tile.nearby(Geometry.d4(rotation).x * trns, Geometry.d4(rotation).y * trns);
+        return nearby != null && nearby.build instanceof ArchiveVaultBuild vault && vault.archive != null;
+    }
+
+    @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        super.drawPlace(x, y, rotation, valid);
+
+        if (!canPlaceOn(Vars.world.tile(x, y), Vars.player.team(), rotation)) {
+            drawPlaceText(Core.bundle.get("bar.scannerinvalid"), x, y, false);
+        }
     }
 
     public class ScannerBuild extends Building implements DataBuild {
