@@ -100,7 +100,7 @@ public class CDItems {
         alloyCogwheel = new Item("alloy-cogwheel", sturdyAlloy.color);
 
         powerCell = new Item("power-cell", Color.valueOf("dfb074"));
-        fluidCell = new Item("liquid-cell", Color.valueOf("88a4ff"));
+        fluidCell = new Item("fluid-cell", Color.valueOf("88a4ff"));
         // endregion
 
         // region cards
