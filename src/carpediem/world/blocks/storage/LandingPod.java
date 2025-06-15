@@ -1,7 +1,6 @@
 package carpediem.world.blocks.storage;
 
 import arc.*;
-import arc.func.*;
 import arc.graphics.*;
 import arc.math.*;
 import arc.math.geom.*;
@@ -26,13 +25,15 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.ui.*;
-import mindustry.world.blocks.*;
 import mindustry.world.consumers.*;
 
 // IT CAN CRAFT ITEMS DEAR FUCKING GOD
 public class LandingPod extends DrawerCoreBlock {
+    // are you kidding me
     public static Recipe selectedRecipe;
     public static int amountCrafting;
+    public static TextField search;
+    public static int rowCount;
 
     public Seq<Recipe> recipes = new Seq<>();
 
@@ -60,17 +61,14 @@ public class LandingPod extends DrawerCoreBlock {
         for (Recipe recipe : recipes) {
             recipe.apply(this);
         }
-
         super.init();
     }
 
     @Override
     public void setStats() {
         super.setStats();
-
         stats.add(CDStat.recipes, table -> {
             table.row();
-
             for (Recipe recipe : recipes) {
                 recipe.display(table, craftingSpeed);
                 table.row();
@@ -96,8 +94,6 @@ public class LandingPod extends DrawerCoreBlock {
     public class LandingPodBuild extends DrawerCoreBuild {
         public Queue<RecipeRequest> pending = new Queue<>();
         public float warmup;
-
-        public Table pendingTable;
 
         @Override
         public void updateTile() {
@@ -147,7 +143,6 @@ public class LandingPod extends DrawerCoreBlock {
                 // death
                 pending.removeFirst();
                 Pools.free(first);
-                rebuildPending();
             }
         }
 
@@ -186,7 +181,6 @@ public class LandingPod extends DrawerCoreBlock {
                 }
             }
 
-            rebuildPending();
         }
 
         public void cancelRequest(RecipeRequest request) {
@@ -197,116 +191,199 @@ public class LandingPod extends DrawerCoreBlock {
                     }
                 }
             }
-
             pending.remove(request, true);
             Pools.free(request);
-            rebuildPending();
         }
 
         @Override
         public void buildConfiguration(Table table) {
-            selectedRecipe = null;
-            amountCrafting = 1;
-
             table.table(Styles.black6, t -> {
-                t.table(Tex.underline, pendingLabel -> {
-                    pendingLabel.add("@crafting").color(Pal.accent).pad(5f).growX().left();
-                }).growX();
-                t.row();
+                t.table(left -> {
+                    left.add("@stat.recipes").color(Pal.accent).growX().pad(10f).top().left();
+                    left.row();
 
-                t.table(p -> {
-                    pendingTable = p;
-                    rebuildPending();
-                }).growX();
-                t.row();
+                    if (search != null) search.clearText();
 
-                t.table(Tex.underline, optionsLabel -> {
-                    optionsLabel.add("@availablerecipes").color(Pal.accent).pad(5f).growX();
-                }).growX();
-                t.row();
+                    ButtonGroup<ImageButton> group = new ButtonGroup<>();
+                    group.setMinCheckCount(0);
+                    Table cont = new Table().top();
+                    Runnable rebuildRecipes = () -> {
+                        group.clear();
+                        cont.clearChildren();
 
-                Seq<UnlockableContent> prevAvailable = new Seq<>();
-                Cons<Table> rebuildOptions = optionsTable -> {
-                    optionsTable.clear();
-                    Seq<UnlockableContent> available = Seq.with(recipes).retainAll(r -> r.unlockedNow() && r.valid(this)).map(r -> r.primaryOutput);
-                    if (available.any()) {
-                        Sector sector = Vars.state.rules.sector;
-                        Vars.state.rules.sector = null;
-                        ItemSelection.buildTable(LandingPod.this, optionsTable, available, () -> selectedRecipe == null ? null : selectedRecipe.primaryOutput, content -> selectedRecipe = recipes.find(r -> r.primaryOutput == content), false, selectionRows, selectionColumns);
-                        Vars.state.rules.sector = sector;
-                        // oh my goddd
-                        ((Table) optionsTable.getCells().peek().left().get()).background(null);
-                    } else {
-                        optionsTable.add("@none").color(Color.lightGray).pad(10f).growX();
-                    }
-                };
-                t.table(rebuildOptions).update(p -> {
-                    Seq<UnlockableContent> available = Seq.with(recipes).retainAll(r -> r.unlockedNow() && r.valid(this)).map(r -> r.primaryOutput);
-                    if (!prevAvailable.equals(available)) {
-                        // changed, rebuild
-                        prevAvailable.set(available);
+                        String text = search != null ? search.getText() : "";
+                        int i = 0;
+                        rowCount = 0;
+                        Seq<Recipe> available = Seq.with(recipes).retainAll(Recipe::unlockedNow).retainAll(r -> text.isEmpty() || r.primaryOutput.localizedName.toLowerCase().contains(text.toLowerCase())).sort(r -> r.valid(this) ? 0f : 1f);
+                        for (Recipe recipe : available) {
+                            ImageButton button = cont.button(Tex.whiteui, Styles.clearNoneTogglei, 24f, () -> {}).size(40f).tooltip(recipe.primaryOutput.localizedName).group(group).get();
+                            button.clicked(() -> selectedRecipe = recipe);
+                            button.getStyle().imageUp = new TextureRegionDrawable(recipe.primaryOutput.uiIcon).tint(recipe.valid(this) ? Color.white : Color.gray);
+                            button.update(() -> button.setChecked(selectedRecipe == recipe));
 
-                        if (selectedRecipe != null && !available.contains(selectedRecipe.primaryOutput)) {
-                            selectedRecipe = null;
+                            if (i++ % 4 == 3) {
+                                cont.row();
+                                rowCount++;
+                            }
+                        }
+                    };
+                    rebuildRecipes.run();
+
+                    left.table(s -> {
+                        s.image(Icon.zoom).padLeft(4f);
+                        search = s.field(null, text -> rebuildRecipes.run()).padBottom(4).left().growX().get();
+                        search.setMessageText("@players.search");
+                    }).fillX().row();
+
+                    ScrollPane pane = new ScrollPane(cont, Styles.smallPane);
+                    pane.setScrollingDisabled(true, false);
+                    pane.exited(() -> {
+                        if (pane.hasScroll()) {
+                            Core.scene.setScrollFocus(null);
+                        }
+                    });
+                    pane.setScrollYForce(selectScroll);
+                    Seq<Recipe> prevAvailable = new Seq<>();
+                    pane.update(() -> {
+                        selectScroll = pane.getScrollY();
+                        Seq<Recipe> available = Seq.with(recipes).retainAll(r -> r.valid(this));
+                        if (!prevAvailable.equals(available)) {
+                            prevAvailable.set(available);
+                            rebuildRecipes.run();
+                        }
+                    });
+                    pane.setOverscroll(false, false);
+                    left.add(pane).growX().maxHeight(40f * 6f);
+                }).growX().top();
+
+                t.table(right -> {
+                    right.add("@currentlycrafting").color(Pal.accent).growX().pad(10f).top().left();
+                    right.row();
+
+                    Table pendingTable = new Table();
+                    Runnable rebuildPending = () -> {
+                        pendingTable.clearChildren();
+
+                        int i = 0;
+                        for (RecipeRequest request : pending) {
+                            if (i++ > 5) {
+                                pendingTable.add("...").color(Color.lightGray);
+                                break;
+                            }
+
+                            UnlockableContent output = recipes.get(request.index).primaryOutput;
+
+                            ImageButton button = new ImageButton(Tex.whiteui, Styles.clearNonei);
+                            button.resizeImage(24f);
+                            button.clicked(() -> {
+                                cancelRequest(request);
+                            });
+                            button.getStyle().imageUp = new TextureRegionDrawable(output.uiIcon);
+
+                            Table progress = new Table(Styles.flatOver).bottom();
+                            progress.setHeight(0f);
+                            progress.update(() -> progress.setHeight(request.progress * 40f));
+
+                            Table label = new Table().bottom().left();
+                            label.label(() -> request.stack + "").pad(5f).touchable(Touchable.disabled);
+
+                            pendingTable.stack(progress, button, label).size(40f).left();
                         }
 
-                        rebuildOptions.get(p);
-                    }
-                }).growX();
-                t.row();
+                        if (i == 0) {
+                            pendingTable.add("@none").color(Color.lightGray);
+                        }
+                    };
+                    rebuildPending.run();
+                    int[] pendingSize = {pending.size};
+                    right.add(pendingTable).update(p -> {
+                        if (pendingSize[0] != pending.size) {
+                            rebuildPending.run();
+                            pendingSize[0] = pending.size;
+                        }
+                    }).growX().height(40f);
+                    right.row();
 
-                t.table(amountTable -> {
-                    amountTable.add("@craftamount").color(Color.lightGray);
-                    amountTable.field("1", v -> amountCrafting = Strings.parseInt(v)).valid(v -> Strings.parseInt(v) > 0).pad(2f);
-                }).growX().pad(10f);
-                t.row();
+                    right.add("@requirements").color(Pal.accent).growX().pad(10f).top().left();
+                    right.row();
 
-                t.table(buttonTable -> {
-                    buttonTable.button("@craft", Styles.flatBordert, () -> {
-                        requestRecipe(recipes.indexOf(selectedRecipe), amountCrafting);
-                    }).disabled(b -> selectedRecipe == null).height(40f).pad(10f).left().growX();
-                }).growX();
-            }).minWidth(selectionColumns * 40f);
-        }
+                    Table requirementsTable = new Table(Styles.grayPanel);
+                    Runnable rebuildRequirements = () -> {
+                        requirementsTable.clearChildren();
 
-        public void rebuildPending() {
-            if (pendingTable != null) {
-                pendingTable.clear();
-                int i = 0;
+                        if (selectedRecipe != null) {
+                            for (Consume consume : selectedRecipe.consumes) {
+                                if (consume instanceof ConsumeItems consumeItems) {
+                                    for (ItemStack stack : consumeItems.items) {
+                                        requirementsTable.stack(
+                                                new Table(o -> {
+                                                    o.left();
+                                                    o.add(new Image(stack.item.uiIcon)).size(32f).scaling(Scaling.fit);
+                                                }),
+                                                new Table(a -> {
+                                                    int requiredAmount = stack.amount * amountCrafting;
+                                                    int fulfilledAmount = items.get(stack.item);
 
-                for (RecipeRequest request : pending) {
-                    UnlockableContent output = recipes.get(request.index).primaryOutput;
+                                                    a.left().bottom();
+                                                    a.add((fulfilledAmount < requiredAmount ? "[scarlet]" : "[white]") + fulfilledAmount + "[white]/" + requiredAmount).style(Styles.outlineLabel);
+                                                    a.pack();
+                                                })
+                                        ).pad(10f);
+                                    }
+                                }
+                            }
+                        } else {
+                            requirementsTable.add("@none").color(Color.lightGray);
+                        }
+                    };
+                    rebuildRequirements.run();
+                    Recipe[] previousRecipe = {selectedRecipe};
+                    int[] prevAmount = {amountCrafting};
+                    right.add(requirementsTable).update(r -> {
+                        if (previousRecipe[0] != selectedRecipe) {
+                            rebuildRequirements.run();
+                            previousRecipe[0] = selectedRecipe;
+                        }
+                        if (prevAmount[0] != amountCrafting) {
+                            rebuildRequirements.run();
+                            prevAmount[0] = amountCrafting;
+                        }
+                    }).growX().height(60f).pad(5f);
+                    right.row();
 
-                    ImageButton button = new ImageButton(Tex.whiteui, Styles.clearNonei);
-                    button.resizeImage(24f);
-                    button.clicked(() -> {
-                        cancelRequest(request);
-                    });
-                    button.getStyle().imageUp = new TextureRegionDrawable(output.uiIcon);
+                    right.table(amountTable -> {
+                        amountTable.add("@craftamount").color(Color.lightGray);
+                        amountTable.field("1", v -> amountCrafting = Strings.parseInt(v)).valid(v -> Strings.parseInt(v) > 0).pad(2f);
+                        amountCrafting = 1;
+                    }).growX().pad(10f);
+                    right.row();
 
-                    Table progress = new Table(Styles.flatOver).bottom();
-                    progress.update(() -> progress.setHeight(request.progress * 40f));
+                    right.table(buttonTable -> {
+                        buttonTable.button("@craft", Styles.flatBordert, () -> {
+                            requestRecipe(recipes.indexOf(selectedRecipe), amountCrafting);
+                        }).disabled(b -> {
+                            if (selectedRecipe == null) return true;
 
-                    Table label = new Table().bottom().left();
-                    label.label(() -> request.stack + "").pad(5f).touchable(Touchable.disabled);
+                            for (Consume consume : selectedRecipe.consumes) {
+                                if (consume instanceof ConsumeItems consumeItems) {
+                                    for (ItemStack stack : consumeItems.items) {
+                                        if (!items.has(stack.item, stack.amount * amountCrafting)) return true;
+                                    }
+                                }
+                            }
 
-                    pendingTable.stack(progress, button, label).size(40f).left();
-
-                    if (i++ % selectionColumns == (selectionColumns - 1)) {
-                        pendingTable.row();
-                    }
-                }
-
-                if (i == 0) {
-                    pendingTable.add("@none").color(Color.lightGray).pad(10f).padLeft(20f).growX().left();
-                }
-            }
+                            return false;
+                        }).height(40f).pad(10f).left().growX();
+                    }).growX();
+                }).width(360f).grow();
+            });
         }
 
         @Override
         public void updateTableAlign(Table table) {
             float offset = size * Vars.tilesize / 2f + 1f;
             Vec2 pos = Core.input.mouseScreen(x - offset, y + offset);
+            table.pack();
             table.setPosition(pos.x, pos.y, Align.topRight);
         }
 
