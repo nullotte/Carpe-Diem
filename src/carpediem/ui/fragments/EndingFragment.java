@@ -18,8 +18,6 @@ public class EndingFragment {
     }};
 
     public void build(Group parent) {
-        Vars.renderer.planets.cam.fov = 1f;
-
         Image image = new Image();
         image.color.a = 1f;
         image.touchable = Touchable.disabled;
@@ -59,7 +57,6 @@ public class EndingFragment {
             });
 
             table.update(() -> {
-                Vars.renderer.planets.cam.fov = Mathf.approachDelta(Vars.renderer.planets.cam.fov, 60f, 3f / 60f);
                 planetParams.zoom += Time.delta * 0.01f;
             });
 
