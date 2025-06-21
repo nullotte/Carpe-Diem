@@ -1,10 +1,10 @@
 package carpediem.world.blocks.power;
 
 import arc.*;
-import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.*;
+import carpediem.graphics.*;
 import mindustry.*;
 import mindustry.core.*;
 import mindustry.gen.*;
@@ -64,18 +64,12 @@ public class CableNode extends PowerNode implements CableBlock {
         if (end1) Draw.rect(laserEnd, x1, y1, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
         if (end2) Draw.rect(laserEnd, x2, y2, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
 
-        float z = Draw.z();
-        Lines.stroke(12f * scale);
-        Draw.z(Layer.power + 0.02f);
-        Draw.color(laserColor2, realSatisfaction);
-        Draw.blend(Blending.additive);
-        Lines.line(cableGlow, x1, y1, x2, y2, false);
-        if (end1) Draw.rect(cableEndGlow, x1, y1, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
-        if (end2) Draw.rect(cableEndGlow, x2, y2, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
-        Draw.blend();
-        Draw.color();
-        Draw.z(z);
-        Lines.stroke(1f);
+        DrawCD.addCableGlowDraw(realSatisfaction, () -> {
+            Lines.stroke(12f * scale);
+            Lines.line(cableGlow, x1, y1, x2, y2, false);
+            if (end1) Draw.rect(cableEndGlow, x1, y1, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
+            if (end2) Draw.rect(cableEndGlow, x2, y2, laserEnd.width * scale * laserEnd.scl(), laserEnd.height * scale * laserEnd.scl());
+        });
 
         Drawf.light(x1, y1, x2, y2);
     }
@@ -164,13 +158,9 @@ public class CableNode extends PowerNode implements CableBlock {
             Draw.z(Layer.power + 0.01f);
             Draw.rect(top, x, y);
 
-            Draw.z(Layer.power + 0.02f);
-            Draw.color(laserColor2, realSatisfaction);
-            Draw.blend(Blending.additive);
-            Draw.rect(glow, x, y);
-            Draw.blend();
-            Draw.color();
-
+            DrawCD.addCableGlowDraw(realSatisfaction, () -> {
+                Draw.rect(glow, x, y);
+            });
 
             realSatisfaction = 0f;
         }

@@ -1,6 +1,7 @@
 package carpediem;
 
 import arc.*;
+import arc.graphics.g2d.*;
 import arc.util.*;
 import carpediem.audio.*;
 import carpediem.graphics.*;
@@ -10,16 +11,20 @@ import carpediem.world.draw.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
+import mindustry.graphics.*;
 import mindustry.mod.*;
 import carpediem.content.*;
 import carpediem.ui.dialogs.*;
 import mindustry.ui.dialogs.*;
+import mindustry.world.meta.*;
 
 public class CarpeDiem extends Mod {
     public static CDHints hints;
     public static LaunchSectorInfoDialog launchSectorInfo;
-    // mhm
+    // it's an extra content info dialog because like. nesting and stuff
     public static ContentInfoDialog content;
+
+    public static CableGlowRenderer cableGlowRenderer;
 
     public static boolean debug;
 
@@ -49,6 +54,8 @@ public class CarpeDiem extends Mod {
         hints = new CDHints();
         launchSectorInfo = new LaunchSectorInfoDialog();
         content = new ContentInfoDialog();
+
+        cableGlowRenderer = new CableGlowRenderer();
 
         // this is probably bad
         Vars.ui.planet.update(() -> {
@@ -81,6 +88,10 @@ public class CarpeDiem extends Mod {
                 CDMusics.land.stop();
                 new IntroFragment().build(Core.scene.root);
             }
+        });
+
+        Vars.renderer.addEnvRenderer(Env.none, () -> {
+            Draw.draw(Layer.power + 0.02f, cableGlowRenderer::draw);
         });
     }
 

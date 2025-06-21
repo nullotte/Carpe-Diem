@@ -1,8 +1,8 @@
 package carpediem.content.blocks;
 
-import arc.util.*;
 import carpediem.content.*;
 import carpediem.world.blocks.power.*;
+import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -50,10 +50,7 @@ public class CDPower {
                     new DrawRegion("-top") {{
                         layer = Layer.power + 0.01f;
                     }},
-                    new DrawGlowRegion(Layer.power + 0.02f) {{
-                        color = Pal.turretHeat;
-                        glowIntensity = 0f;
-                    }}
+                    new DrawCableGlow()
             );
         }};
 
@@ -82,10 +79,7 @@ public class CDPower {
                     new DrawRegion("-top") {{
                         layer = Layer.power + 0.01f;
                     }},
-                    new DrawGlowRegion(Layer.power + 0.02f) {{
-                        color = Pal.turretHeat;
-                        glowIntensity = 0f;
-                    }}
+                    new DrawCableGlow()
             );
 
             consumeItem(CDItems.sulfur);
@@ -118,10 +112,7 @@ public class CDPower {
                     new DrawRegion("-top") {{
                         layer = Layer.power + 0.01f;
                     }},
-                    new DrawGlowRegion(Layer.power + 0.02f) {{
-                        color = Pal.turretHeat;
-                        glowIntensity = 0f;
-                    }}
+                    new DrawCableGlow()
             );
 
             consumeLiquid(Liquids.water, 0.1f);
