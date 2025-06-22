@@ -14,7 +14,7 @@ public class CDMusics {
     // cutscene
     reboot, land, launch,
     // ambient
-    asAbove, terawatt, centuryMachine, eden, paradiseFound;
+    asAbove, terawatt, centuryMachine, eden, paradiseFound, tribute, oldDreams;
 
     public static void load() {
         reboot = Vars.tree.loadMusic("reboot");
@@ -26,6 +26,8 @@ public class CDMusics {
         centuryMachine = Vars.tree.loadMusic("century-machine");
         eden = Vars.tree.loadMusic("eden");
         paradiseFound = Vars.tree.loadMusic("paradise-found");
+        tribute = Vars.tree.loadMusic("tribute");
+        oldDreams = Vars.tree.loadMusic("old-dreams");
 
         for (CoreBlock block : new CoreBlock[]{CDStorage.landingPodT0, CDStorage.landingPodT1}) {
             block.landMusic = land;
@@ -38,7 +40,9 @@ public class CDMusics {
                 terawatt,
                 centuryMachine,
                 eden,
-                paradiseFound
+                paradiseFound,
+                tribute,
+                oldDreams
         );
 
         // kinda ass implementation but theres not really a good way to do custom music ok?
