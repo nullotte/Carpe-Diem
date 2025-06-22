@@ -22,7 +22,7 @@ public class CDUnitTypes {
             hitSize = 9f;
             accel = 0.2f;
             drag = 0.2f;
-            speed = 2f;
+            speed = 3f;
             rotateSpeed = 6f;
             hovering = true;
             groundLayer = Layer.legUnit;
