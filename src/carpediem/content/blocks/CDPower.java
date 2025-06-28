@@ -90,6 +90,7 @@ public class CDPower {
                     CDItems.lemon, 39
             ));
             size = 5;
+            hideDetails = false;
 
             powerProduction = 30f;
 
