@@ -2,8 +2,11 @@ package carpediem.world.draw;
 
 import arc.*;
 import arc.graphics.g2d.*;
+import arc.math.geom.*;
 import arc.util.*;
+import carpediem.world.blocks.distribution.*;
 import carpediem.world.blocks.distribution.BeltBridge.*;
+import mindustry.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.world.*;
@@ -22,7 +25,25 @@ public class DrawBridgeRegion extends DrawBlock {
 
     @Override
     public void drawPlan(Block block, BuildPlan plan, Eachable<BuildPlan> list) {
-        Draw.rect(plan.config == Boolean.TRUE ? out[plan.rotation] : in[plan.rotation], plan.drawx(), plan.drawy());
+        boolean planOut = false;
+
+        if (plan.config != null) {
+            planOut = plan.config == Boolean.TRUE;
+        } else {
+            // this shit is so ass
+            int dx = Geometry.d4x(plan.rotation), dy = Geometry.d4y(plan.rotation);
+            for (int i = 1; i <= ((BeltBridge) block).range; i++) {
+                Tile other = Vars.world.tile(plan.x + dx * -i, plan.y + dy * -i);
+
+                if (other != null && other.build instanceof BeltBridgeBuild build && build.rotation == plan.rotation && build.block == block && build.team == Vars.player.team()) {
+                    if (!build.out) {
+                        planOut = true;
+                    }
+                    break;
+                }
+            }}
+
+        Draw.rect(planOut ? out[plan.rotation] : in[plan.rotation], plan.drawx(), plan.drawy());
     }
 
     @Override

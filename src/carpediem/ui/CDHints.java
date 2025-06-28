@@ -29,13 +29,19 @@ public class CDHints {
         });
 
         Events.on(ConfigEvent.class, e -> {
-            if (e.player == Vars.player && (e.tile.block == CDCrafting.rollingMillT1 || e.tile.block == CDCrafting.assemblerT1)) {
-                events.add("crafterconfig");
+            if (e.player == Vars.player) {
+                if (e.tile.block == CDCrafting.rollingMillT1 || e.tile.block == CDCrafting.assemblerT1) {
+                    events.add("crafterconfig");
+                }
+                if (e.tile.block == CDDistribution.beltBridge) {
+                    events.add("beltbridgeconfig");
+                }
             }
         });
     }
 
     public enum CDHint implements Hint {
+        beltBridgeConfig(() -> CarpeDiem.hints.placedBlocks.contains(CDDistribution.beltBridge), () -> CarpeDiem.hints.events.contains("beltbridgeconfig")),
         cdBlockInfo(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.smelterT0), () -> Vars.ui.content.isShown() || Vars.ui.database.isShown()),
         crafterConfig(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.rollingMillT1) || CarpeDiem.hints.placedBlocks.contains(CDCrafting.assemblerT1), () -> CarpeDiem.hints.events.contains("crafterconfig")),
         valves(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.refineryT1), () -> CarpeDiem.hints.placedBlocks.contains(CDLiquidBlocks.valve)),
