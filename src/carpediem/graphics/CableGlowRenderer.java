@@ -24,7 +24,7 @@ public class CableGlowRenderer {
         Draw.color();
         buffer.begin(Color.clear);
 
-        glows.sort(g -> g.alpha);
+        glows.sort(g -> -g.alpha);
         for (DrawGlowRequest glow : glows) {
             Draw.color(Color.black, glowColor, glow.alpha);
             glow.run.run();
