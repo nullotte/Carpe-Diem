@@ -103,7 +103,7 @@ public class CDDistribution {
             ));
             allowCoreUnload = true;
 
-            speed = 6f;
+            speed = 5f;
             squareSprite = false;
             drawer = new DrawMulti(
                     new DrawRegion(),
