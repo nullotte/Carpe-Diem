@@ -101,6 +101,7 @@ public class CDDistribution {
                     CDItems.aluminumCogwheel, 2,
                     CDItems.controlCircuit, 1
             ));
+            allowCoreUnload = true;
 
             speed = 6f;
             squareSprite = false;
