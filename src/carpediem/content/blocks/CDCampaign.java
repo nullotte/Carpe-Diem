@@ -87,8 +87,7 @@ public class CDCampaign {
             requirements(Category.effect, BuildVisibility.campaignOnly, ItemStack.with(
                     CDItems.aluminum, 20,
                     CDItems.aluminumPlate, 15,
-                    CDItems.aluminumWire, 10,
-                    CDItems.nickelWire, 5,
+                    CDItems.nickelWire, 10,
                     CDItems.powerCell, 5,
                     CDItems.controlCircuit, 15
             ));
