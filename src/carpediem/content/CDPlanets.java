@@ -52,6 +52,9 @@ public class CDPlanets {
             campaignRuleDefaults.fog = true;
 
             unlockedOnLand.add(CDStorage.landingPodT0);
+
+            // WHOOPSY FUCKING DAISY
+            CDItems.lemon.shownPlanets.add(this);
         }};
     }
 }
