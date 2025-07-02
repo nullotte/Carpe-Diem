@@ -23,7 +23,6 @@ public class CDItems {
 
     lemon
     ;
-    // TODO stats?
 
     public static void load() {
         // region raw
@@ -45,41 +44,28 @@ public class CDItems {
 
         sulfur = new Item("sulfur", Color.valueOf("f7eb94")) {{
             hardness = 3;
+            flammability = 0.75f;
         }};
 
         tar = new Item("tar", Color.valueOf("32312c")) {{
-
+            flammability = 0.1f; // is tar even flammable actually? i have no idea
         }};
         // endregion
         // region refined
-        aluminum = new Item("aluminum", rawAluminum.color) {{
-
-        }};
-
-        nickel = new Item("nickel", rawNickel.color) {{
-
-        }};
-
-        silver = new Item("silver", rawSilver.color) {{
-
-        }};
-
-        platinum = new Item("platinum", rawPlatinum.color) {{
-
-        }};
-
-        sturdyAlloy = new Item("sturdy-alloy", Color.valueOf("6b758b")) {{
-
-        }};
+        aluminum = new Item("aluminum", rawAluminum.color);
+        nickel = new Item("nickel", rawNickel.color);
+        silver = new Item("silver", rawSilver.color);
+        platinum = new Item("platinum", rawPlatinum.color);
+        sturdyAlloy = new Item("sturdy-alloy", Color.valueOf("6b758b"));
         // endregion
-        // region i dont even know
+        // region intermediate products
         aluminumPlate = new Item("aluminum-plate", aluminum.color);
         nickelPlate = new Item("nickel-plate", nickel.color);
         silverPlate = new Item("silver-plate", silver.color);
         platinumPlate = new Item("platinum-plate", platinum.color);
         alloyPlate = new Item("alloy-plate", sturdyAlloy.color);
         siliconSheet = new Item("silicon-sheet", Items.silicon.color);
-        plastaniumSheet = new Item("plastanium-sheet", Items.plastanium.color);
+        plastaniumSheet = new Item("plastanium-sheet", Items.plastanium.color); // yes i know TECHNICALLY plastanium is slightly flammable and so should this be but I dont care okay none of the stats are relevant in actual gameplay and only exist to be funny looking numbers in the core database
 
         aluminumRod = new Item("aluminum-rod", aluminum.color);
         nickelRod = new Item("nickel-rod", nickel.color);
@@ -102,7 +88,6 @@ public class CDItems {
         powerCell = new Item("power-cell", Color.valueOf("dfb074"));
         fluidCell = new Item("fluid-cell", Color.valueOf("88a4ff"));
         // endregion
-
         // region cards
         card1 = new Item("card1", Color.valueOf("87b0f5"));
         card2 = new Item("card2", Color.valueOf("8bdc9c"));
