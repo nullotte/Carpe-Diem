@@ -110,5 +110,27 @@ public class CDProduction {
             consumePower(1f / 10f);
             liquidBoostIntensity = 1f;
         }};
+
+        drillT2 = new DrawerDrill("drill-t2") {{
+            requirements(Category.production, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 5;
+
+            tier = 5;
+            drillTime = 24f * 60f;
+            hardnessDrillMultiplier = 0f;
+
+            drawer = new DrawMulti(
+                    new DrawDrillT2(),
+                    new DrawDefault()
+            );
+
+            squareSprite = false;
+            customShadow = true;
+
+            consumePower(5f / 10f);
+            liquidBoostIntensity = 1f;
+        }};
     }
 }
