@@ -3,6 +3,7 @@ package carpediem.content;
 import arc.struct.*;
 import carpediem.game.CDObjectives.*;
 import mindustry.content.*;
+import mindustry.ctype.*;
 import mindustry.game.Objectives.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -117,19 +118,19 @@ public class CDTechTree {
                 nodeProduce(Liquids.water, () -> {
                     nodeProduce(CDLiquids.petroleum, () -> {
                         nodeProduce(Liquids.oil, () -> {
-                            nodeProduce(tar, () -> {});
+                            nodeProduce(tar);
                             nodeProduce(Items.silicon, () -> {
-                                nodeProduce(siliconSheet, () -> {});
+                                nodeProduce(siliconSheet);
                             });
-                            nodeProduce(Items.pyratite, () -> {});
+                            nodeProduce(Items.pyratite);
                             nodeProduce(sturdyAlloy, () -> {
                                 nodeProduce(alloyPlate, () -> {
-                                    nodeProduce(alloyCogwheel, () -> {});
+                                    nodeProduce(alloyCogwheel);
                                 });
-                                nodeProduce(alloyRod, () -> {});
+                                nodeProduce(alloyRod);
                             });
                             nodeProduce(Items.plastanium, () -> {
-                                nodeProduce(plastaniumSheet, () -> {});
+                                nodeProduce(plastaniumSheet);
                             });
                         });
                     });
@@ -138,57 +139,56 @@ public class CDTechTree {
                 nodeProduce(sulfur, () -> {
                     nodeProduce(aluminum, () -> {
                         nodeProduce(aluminumPlate, () -> {
-                            nodeProduce(aluminumCogwheel, () -> {});
+                            nodeProduce(aluminumCogwheel);
                             nodeProduce(card1, () -> {
                                 nodeProduce(card2, () -> {
                                     nodeProduce(card3, () -> {
-                                        nodeProduce(card4, () -> {});
+                                        nodeProduce(card4);
                                     });
                                 });
                             });
                         });
                         nodeProduce(aluminumRod, () -> {
-                            nodeProduce(aluminumWire, () -> {});
+                            nodeProduce(aluminumWire);
                         });
 
                         nodeProduce(nickel, () -> {
-                            nodeProduce(nickelPlate, () -> {});
+                            nodeProduce(nickelPlate);
                             nodeProduce(nickelRod, () -> {
                                 nodeProduce(nickelWire, () -> {
                                     nodeProduce(controlCircuit, () -> {
                                         nodeProduce(calculationCircuit, () -> {
-                                            nodeProduce(processingUnit, () -> {});
+                                            nodeProduce(processingUnit);
                                         });
                                     });
 
-                                    nodeProduce(powerCell, () -> {});
+                                    nodeProduce(powerCell);
                                 });
                             });
 
                             nodeProduce(silver, () -> {
                                 nodeProduce(silverPlate, () -> {
-                                    nodeProduce(silverCogwheel, () -> {});
+                                    nodeProduce(silverCogwheel);
 
-                                    nodeProduce(fluidCell, () -> {});
+                                    nodeProduce(fluidCell);
                                 });
-                                nodeProduce(silverRod, () -> {});
+                                nodeProduce(silverRod);
 
-                                nodeProduce(Liquids.slag, () -> {});
+                                nodeProduce(Liquids.slag);
 
                                 nodeProduce(platinum, () -> {
-                                    nodeProduce(platinumPlate, () -> {});
-                                    nodeProduce(platinumRod, () -> {});
+                                    nodeProduce(platinumPlate);
+                                    nodeProduce(platinumRod);
                                 });
                             });
                         });
                     });
                 });
 
-                nodeProduce(Items.sand, () -> {});
-
-                nodeProduce(rawNickel, () -> {});
-                nodeProduce(rawSilver, () -> {});
-                nodeProduce(rawPlatinum, () -> {});
+                nodeProduce(Items.sand);
+                nodeProduce(rawNickel);
+                nodeProduce(rawSilver);
+                nodeProduce(rawPlatinum);
             });
         });
 
@@ -213,4 +213,11 @@ public class CDTechTree {
         }
     }
 
+    public static void nodeProduce(UnlockableContent content) {
+        nodeProduce(content, () -> {});
+    }
+    // whoop dee doo
+    public static void nodeProduce(UnlockableContent content, Runnable children) {
+        TechTree.nodeProduce(content, children);
+    }
 }
