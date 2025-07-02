@@ -19,9 +19,6 @@ public class CDHints {
     public CDHints() {
         Vars.ui.hints.hints.addAll(Seq.with(CDHint.values()).select(h -> !h.finished()));
 
-        Log.info(CDHint.cdBlockInfo.finished());
-        Log.info(Vars.ui.hints.hints.contains(CDHint.cdBlockInfo));
-
         Events.on(BlockBuildEndEvent.class, e -> {
             if (!e.breaking && e.unit == Vars.player.unit()) {
                 placedBlocks.add(e.tile.block());
