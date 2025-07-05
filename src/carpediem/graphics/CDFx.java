@@ -28,15 +28,15 @@ public class CDFx {
         rect(payload.icon(), payload.x(), payload.y(), e.rotation);
     }),
     launcherSelect = new Effect(5f, e -> {
-        if (!(e.data instanceof Vec2 target)) return;
+        if (!(e.data instanceof Vec2 origin)) return;
 
         // bro what
         Pal.gray.a(e.fout());
         Pal.accent.a(e.fout());
 
-        Drawf.limitLine(Tmp.v3.set(e.x, e.y), target, e.rotation, 3f);
-        Drawf.square(target.x, target.y, 3f);
-        Drawf.circles(Tmp.v3.x, Tmp.v3.y, e.rotation);
+        Drawf.limitLine(origin, Tmp.v3.set(e.x, e.y), e.rotation, 3f);
+        Drawf.square(e.x, e.y, 3f);
+        Drawf.circles(origin.x, origin.y, e.rotation);
 
         Pal.gray.a(1f);
         Pal.accent.a(1f);

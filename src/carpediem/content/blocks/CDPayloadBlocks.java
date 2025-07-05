@@ -7,6 +7,7 @@ import arc.util.*;
 import carpediem.content.*;
 import carpediem.world.blocks.payloads.*;
 import carpediem.world.blocks.payloads.FanBlock.*;
+import carpediem.world.blocks.units.*;
 import carpediem.world.consumers.*;
 import carpediem.world.draw.*;
 import mindustry.*;
@@ -29,6 +30,7 @@ public class CDPayloadBlocks {
     payloadAssembler, payloadDisassembler, payloadManufacturingGrid,
     payloadLoader, payloadUnloader,
     hydraulicFan, bulkHeater,
+    springLauncher,
     landingPodAssembler;
 
     public static void load() {
@@ -186,6 +188,15 @@ public class CDPayloadBlocks {
 
             // stupid!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             consume(new Consume() {});
+        }};
+
+        springLauncher = new UnitLauncher("spring-launcher") {{
+            requirements(Category.effect, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 5;
+
+            consumePower(5f);
         }};
 
         landingPodAssembler = new SingleBlockProducer("landing-pod-assembler") {{
