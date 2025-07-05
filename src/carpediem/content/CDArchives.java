@@ -52,8 +52,7 @@ public class CDArchives {
         fluidProcessing = new Archive(
                 "fluid-processing",
                 ItemStack.with(
-                        card1, 250,
-                        card2, 50
+                        card1, 250
                 ),
                 Seq.with(
                         pump,
@@ -81,7 +80,7 @@ public class CDArchives {
         payloadLogistics = new Archive(
                 "payload-logistics",
                 ItemStack.with(
-                        card1, 500,
+                        card1, 600,
                         card2, 500
                 ),
                 Seq.with(

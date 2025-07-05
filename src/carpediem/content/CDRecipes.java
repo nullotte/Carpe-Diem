@@ -105,7 +105,7 @@ public class CDRecipes {
                         .consumeItems(ItemStack.with(aluminumCogwheel, 2, nickelPlate, 1))
                         .outputItem(card1),
                 new Recipe("forward-outpost")
-                        .consumeItems(ItemStack.with(aluminumCogwheel, 4, nickelRod, 2, silverRod, 2))
+                        .consumeItems(ItemStack.with(aluminumCogwheel, 4, silverRod, 2, silicon, 2))
                         .outputItem(card2)
         );
     }
