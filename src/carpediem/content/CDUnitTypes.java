@@ -17,7 +17,6 @@ public class CDUnitTypes {
     public static void load() {
         cache = new CDUnitType("cache") {{
             constructor = LegsUnit::create;
-            coreUnitDock = true;
 
             hitSize = 9f;
             accel = 0.2f;
