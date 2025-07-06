@@ -156,7 +156,7 @@ public class CDPayloadBlocks {
                             Draw.rect(region, plan.drawx(), plan.drawy());
                         }
                     },
-                    new DrawRotatedRegion(true)
+                    new DrawRotatedRegion()
             );
 
             consume(new ConsumePressure());

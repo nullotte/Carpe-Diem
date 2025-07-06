@@ -257,19 +257,9 @@ public class CDCrafting {
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     new DrawLiquidTile(),
-                    new DrawRegion("-piston-bottom"),
-                    new DrawPistons() {{
-                        sinMag = -2f;
-                        sinScl = 8f;
-                        lenOffset = 1f;
-                    }},
-                    new DrawDefault(),
-                    new DrawRegion("-mid") {{
-                        buildingRotate = true;
-                    }},
-                    new DrawRotatedRegion() {{
-                        layer = Layer.blockOver;
-                    }}
+                    new DrawRegion("-wallthing"),
+                    new DrawPressurizationChamber(),
+                    new DrawRotatedRegion()
             );
 
             consumeLiquid(Liquids.water, 0.5f);

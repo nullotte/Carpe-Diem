@@ -103,7 +103,7 @@ public class CDCampaign {
                         color = Color.valueOf("79aded");
                     }},
                     new DrawScanner(),
-                    new DrawRotatedRegion(true)
+                    new DrawRotatedRegion()
             );
 
             consumePower(1f);
