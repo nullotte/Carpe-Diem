@@ -29,6 +29,7 @@ public class UnitLauncher extends Block {
     public float range = 240f * 8f;
     public float windupTime = 60f, cooldownTime = 30f;
     public float windupLength = 4f, launchedLength = 10f, launchedSizeMul = 0.4f;
+    public float padShadowRadius = 56f;
     public Interp windupInterp = Interp.pow2Out, cooldownInterp = windupInterp; // shut up ok
     public Sound windupSound = CDSounds.launcherWindup, cooldownSound = CDSounds.launcherBoing;
 
@@ -134,6 +135,8 @@ public class UnitLauncher extends Block {
             }
 
             Draw.scl(1f + launchedSizeMul * (cooldown / cooldownTime));
+            Drawf.shadow(x + Tmp.v1.x, y + Tmp.v1.y, padShadowRadius, Math.max(windup, cooldown / cooldownTime));
+            Draw.z(Layer.blockOver);
             Draw.rect(padRegion, x + Tmp.v1.x, y + Tmp.v1.y);
             Draw.scl(1f);
 
