@@ -60,7 +60,8 @@ public class CDArchives {
                         valve,
                         pipeBridge,
                         fluidTank,
-                        refineryT1
+                        refineryT1,
+                        incinerator
                 )
         );
 
@@ -103,8 +104,7 @@ public class CDArchives {
                 Seq.with(
                         industryHub,
                         storageVault,
-                        shippingContainer,
-                        incinerator
+                        shippingContainer
                 )
         );
 
