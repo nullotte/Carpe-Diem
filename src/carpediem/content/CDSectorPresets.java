@@ -19,11 +19,11 @@ public class CDSectorPresets {
             CDPlanets.asphodel.startSector = sector.id;
         }};
 
-        forwardOutpost = new SectorPreset("forward-outpost", CDPlanets.asphodel, 21) {{
+        forwardOutpost = new SectorPreset("forward-outpost", CDPlanets.asphodel, 17) {{
             captureWave = -1;
         }};
 
-        interference = new SectorPreset("interference", CDPlanets.asphodel, 22) {{
+        interference = new SectorPreset("interference", CDPlanets.asphodel, 20) {{
             captureWave = -1;
         }};
 
