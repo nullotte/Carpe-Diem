@@ -3,7 +3,6 @@ package carpediem.content;
 import mindustry.graphics.*;
 import mindustry.type.*;
 
-// should this even exist
 public class CDStatusEffects {
     public static StatusEffect unpowered;
 
