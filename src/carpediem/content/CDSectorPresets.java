@@ -14,18 +14,10 @@ public class CDSectorPresets {
     public static void load() {
         theReserve = new SectorPreset("the-reserve", CDPlanets.asphodel, 5) {{
             alwaysUnlocked = true;
-            captureWave = -1;
-
             CDPlanets.asphodel.startSector = sector.id;
         }};
-
-        forwardOutpost = new SectorPreset("forward-outpost", CDPlanets.asphodel, 17) {{
-            captureWave = -1;
-        }};
-
-        interference = new SectorPreset("interference", CDPlanets.asphodel, 20) {{
-            captureWave = -1;
-        }};
+        forwardOutpost = new SectorPreset("forward-outpost", CDPlanets.asphodel, 17);
+        interference = new SectorPreset("interference", CDPlanets.asphodel, 20);
 
         JsonIO.json.setSerializer(NonThreateningSector.class, new Serializer<>(){
             @Override
@@ -43,6 +35,7 @@ public class CDSectorPresets {
 
         for (SectorPreset preset : new SectorPreset[]{theReserve, forwardOutpost, interference}) {
             preset.showSectorLandInfo = false;
+            preset.captureWave = -1;
 
             // dont show it in the map dialogs
             Vars.maps.all().remove(m -> m.file == preset.generator.map.file);
