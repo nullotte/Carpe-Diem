@@ -274,8 +274,8 @@ public class CDCrafting {
                     CDItems.nickelWire, 5,
                     CDItems.silverPlate, 5,
                     CDItems.controlCircuit, 5,
-                    CDItems.powerCell, 10,
-                    CDItems.fluidCell, 10
+                    CDItems.powerCell, 5,
+                    CDItems.fluidCell, 5
             ));
             size = 3;
 
