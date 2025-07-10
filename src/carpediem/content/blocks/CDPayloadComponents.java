@@ -4,10 +4,12 @@ import carpediem.content.*;
 import carpediem.world.blocks.payloads.*;
 import carpediem.world.blocks.payloads.PayloadManufacturingGrid.*;
 import carpediem.world.blocks.storage.*;
+import mindustry.content.*;
 import mindustry.ctype.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.production.*;
+import mindustry.world.meta.*;
 
 public class CDPayloadComponents {
     public static Block
@@ -15,10 +17,10 @@ public class CDPayloadComponents {
     // crafting ingredients
     landingPodFrame, thruster, boosterEngine, storageCompartment,
     // yea i guess these go here too
-    blockAluminum, blockNickel, blockSilver, blockPlatinum,
-    blockSulfur, blockTar, fuelBrick;
+    blockAluminum, blockNickel, blockSilver, blockPlatinum, blockSturdyAlloy,
+    blockSilicon, blockPyratite;
 
-    public static ProcessableBlock blockRawAluminum, blockRawNickel, blockRawSilver, blockRawPlatinum;
+    public static ProcessableBlock blockRawAluminum, blockRawNickel, blockRawSilver, blockRawPlatinum, blockUnrefinedAlloy;
 
     public static void load() {
         packagedLandingPodT0 = new PackagedCoreBlock("packaged-landing-pod-t0", CDStorage.landingPodT0);
@@ -26,22 +28,22 @@ public class CDPayloadComponents {
         packagedLandingPodT1 = new PackagedCoreBlock("packaged-landing-pod-t1", CDStorage.landingPodT1);
 
         landingPodFrame = new SyntheticBlock("landing-pod-frame") {{
-            requirements(Category.units, ItemStack.with());
+            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 3;
         }};
 
         thruster = new SyntheticBlock("thruster") {{
-            requirements(Category.units, ItemStack.with());
+            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 3;
         }};
 
         boosterEngine = new SyntheticBlock("booster-engine") {{
-            requirements(Category.units, ItemStack.with());
+            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 3;
         }};
 
         storageCompartment = new SyntheticBlock("storage-compartment") {{
-            requirements(Category.units, ItemStack.with());
+            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 3;
         }};
 
@@ -73,17 +75,8 @@ public class CDPayloadComponents {
             size = 3;
         }};
 
-        blockSulfur = new SyntheticBlock("block-sulfur") {{
-            requirements(Category.crafting, ItemStack.with(
-                    CDItems.sulfur, 50
-            ));
-            size = 3;
-        }};
-
-        blockTar = new SyntheticBlock("block-tar") {{
-            requirements(Category.crafting, ItemStack.with(
-                    CDItems.tar, 50
-            ));
+        blockUnrefinedAlloy = new ProcessableBlock("block-unrefined-alloy") {{
+            requirements(Category.crafting, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 3;
         }};
 
@@ -119,8 +112,25 @@ public class CDPayloadComponents {
             blockRawPlatinum.resultBlock = this;
         }};
 
-        fuelBrick = new SyntheticBlock("fuel-brick") {{
-            requirements(Category.crafting, ItemStack.with());
+        blockSturdyAlloy = new SyntheticBlock("block-sturdy-alloy") {{
+            requirements(Category.crafting, ItemStack.with(
+                    CDItems.sturdyAlloy, 50
+            ));
+            size = 3;
+            blockUnrefinedAlloy.resultBlock = this;
+        }};
+
+        blockSilicon = new SyntheticBlock("block-silicon") {{
+            requirements(Category.crafting, ItemStack.with(
+                    Items.silicon, 50
+            ));
+            size = 3;
+        }};
+
+        blockPyratite = new SyntheticBlock("block-pyratite") {{
+            requirements(Category.crafting, ItemStack.with(
+                    Items.pyratite, 50
+            ));
             size = 3;
             ((PayloadBurner) CDPayloadBlocks.bulkHeater).consumedBlock = this;
         }};
@@ -136,7 +146,7 @@ public class CDPayloadComponents {
                             {l, l, t, l, l}
                     });
                 }),
-                new PayloadManufacturingRecipe(fuelBrick, PayloadStack.with(blockSulfur, 2, blockTar, 2))
+                new PayloadManufacturingRecipe(blockUnrefinedAlloy, PayloadStack.with(blockAluminum, 2, blockSilicon, 2))
         );
     }
 }

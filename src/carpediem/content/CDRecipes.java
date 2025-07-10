@@ -70,7 +70,6 @@ public class CDRecipes {
                         .consumeItem(aluminum, 2).consumeLiquid(oil, 0.2f).consume(new ConsumePressure())
                         .outputItem(plastanium, 3)
         );
-        // alloy should be moved to t2 smelter. recipe is 2 aluminum, 2 silicon, 1 pyratite, 0.1 water, outputs 4 alloy
         
         assemblerRecipes = Seq.with(
                 // cogwheels
