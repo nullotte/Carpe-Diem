@@ -321,11 +321,12 @@ public class LandingPod extends DrawerCoreBlock {
                                                     o.add(new Image(stack.item.uiIcon)).size(32f).scaling(Scaling.fit);
                                                 }),
                                                 new Table(a -> {
-                                                    int requiredAmount = stack.amount * amountCrafting;
-                                                    int fulfilledAmount = items.get(stack.item);
-
                                                     a.left().bottom();
-                                                    a.add((fulfilledAmount < requiredAmount ? "[scarlet]" : "[white]") + fulfilledAmount + "[white]/" + requiredAmount).style(Styles.outlineLabel);
+                                                    a.label(() -> {
+                                                        int requiredAmount = stack.amount * amountCrafting;
+                                                        int fulfilledAmount = items.get(stack.item);
+                                                        return (fulfilledAmount < requiredAmount ? "[scarlet]" : "[white]") + fulfilledAmount + "[white]/" + requiredAmount;
+                                                    }).style(Styles.outlineLabel);
                                                     a.pack();
                                                 })
                                         ).pad(10f);
@@ -338,15 +339,10 @@ public class LandingPod extends DrawerCoreBlock {
                     };
                     rebuildRequirements.run();
                     Recipe[] previousRecipe = {selectedRecipe};
-                    int[] prevAmount = {amountCrafting};
                     right.add(requirementsTable).update(r -> {
                         if (previousRecipe[0] != selectedRecipe) {
                             rebuildRequirements.run();
                             previousRecipe[0] = selectedRecipe;
-                        }
-                        if (prevAmount[0] != amountCrafting) {
-                            rebuildRequirements.run();
-                            prevAmount[0] = amountCrafting;
                         }
                     }).growX().height(60f).pad(5f);
                     right.row();
