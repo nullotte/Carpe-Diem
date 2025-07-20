@@ -1,8 +1,14 @@
 package carpediem.content;
 
+import arc.*;
 import arc.graphics.*;
+import arc.math.*;
+import arc.util.*;
 import mindustry.content.*;
+import mindustry.entities.bullet.*;
+import mindustry.game.EventType.*;
 import mindustry.type.*;
+import mindustry.world.blocks.defense.turrets.*;
 
 public class CDItems {
     public static Item
@@ -21,7 +27,7 @@ public class CDItems {
 
     card1, card2, card3, card4,
 
-    lemon
+    lemon, funnyCube
     ;
 
     public static void load() {
@@ -97,5 +103,35 @@ public class CDItems {
 
         // ahaha
         lemon = new Item("lemon", Color.valueOf("f4da7f"));
+
+        funnyCube = new Item("funny-cube", new Color().a(1f)) {{
+            frames = 31;
+            frameTime = 60f / 24f;
+        }};
+
+        BasicBulletType funnyCubeBullet = new BasicBulletType(4f, 123456f) {{
+            width = 7f;
+            height = 9f;
+            ammoMultiplier = 3f;
+            lifetime = 60f;
+
+            trailLength = 7;
+            trailWidth = 1.5f;
+
+            hitEffect = despawnEffect = Fx.hitBulletColor;
+            hitColor = backColor = trailColor = new Color().a(1f);
+        }};
+        ((ItemTurret) Blocks.duo).ammoTypes.put(funnyCube, funnyCubeBullet);
+
+        Events.run(Trigger.update, () -> {
+            funnyCube.color.set(
+                    Mathf.absin(Time.globalTime / 5f, 0.5f, 1f),
+                    Mathf.absin(Time.globalTime / 5f + Mathf.PI2 * (1f / 3f), 0.5f, 1f),
+                    Mathf.absin(Time.globalTime / 5f + Mathf.PI2 * (2f / 3f), 0.5f, 1f)
+            );
+
+            // theyre all assigned to the same color so yk
+            funnyCubeBullet.backColor.set(funnyCube.color);
+        });
     }
 }
