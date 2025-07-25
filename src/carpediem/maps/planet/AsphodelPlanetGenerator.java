@@ -3,7 +3,6 @@ package carpediem.maps.planet;
 import arc.graphics.*;
 import arc.math.*;
 import arc.math.geom.*;
-import arc.util.*;
 import arc.util.noise.*;
 import carpediem.content.*;
 import carpediem.content.blocks.*;
@@ -57,23 +56,23 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
     }
 
     @Override
-    public Color getColor(Vec3 position) {
+    public void getColor(Vec3 position, Color out) {
         Block block = getBlock(position);
-        Tmp.c1.set(block.mapColor);
+        out.set(block.mapColor);
 
         // i dont like the vanilla colors WHY are they so dull
         if (block == Blocks.redStone) {
-            Color.valueOf(Tmp.c1, "af4753");
+            Color.valueOf(out, "af4753");
         } else if (block == Blocks.crystalFloor || block == CDEnvironment.crystalrock) {
-            Color.valueOf(Tmp.c1, "60496d");
+            Color.valueOf(out, "60496d");
         } else if (block == CDEnvironment.hotCarbon) {
             // ok this one isnt because the vanilla colors are ugly its just the hot carbon
             // like how is it gray? i dont understand
             block = Blocks.carbonStone;
-            Tmp.c1.set(block.mapColor);
+            out.set(block.mapColor);
         }
 
-        return Tmp.c1.a(1f - block.albedo);
+        out.a(1f - block.albedo);
     }
 
     @Override

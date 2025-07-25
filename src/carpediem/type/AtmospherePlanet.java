@@ -57,11 +57,9 @@ public class AtmospherePlanet extends Planet {
         Gl.depthMask(true);
     }
 
-    public class AtmosphereHexMesh implements GenericMesh {
-        protected Mesh mesh;
-
-        public AtmosphereHexMesh(HexMesher mesher, int divisions) {
-            mesh = MeshBuilder.buildHex(mesher, divisions, false, radius, 0.2f);
+    public class AtmosphereHexMesh extends HexMesh {
+        public AtmosphereHexMesh(Planet planet, int divisions) {
+            super(planet, divisions);
         }
 
         @Override

@@ -17,7 +17,7 @@ public class CDPlanets {
             alwaysUnlocked = true;
             generator = new AsphodelPlanetGenerator();
 
-            meshLoader = () -> new AtmosphereHexMesh(generator, 6);
+            meshLoader = () -> new AtmosphereHexMesh(this, 6);
             cloudMeshLoader = () -> new MultiMesh(
                     new HexSkyMesh(this, 11, 0.15f, -0.01f, 5, new Color().set(Pal.darkishGray).mul(0.9f).a(0.3f), 2, 0.45f, 0.9f, 0.62f),
                     new HexSkyMesh(this, 1, 0.15f, 0.02f, 5, Color.white.cpy().lerp(Pal.darkishGray, 0.7f).a(0.3f), 2, 0.45f, 1f, 0.59f),
