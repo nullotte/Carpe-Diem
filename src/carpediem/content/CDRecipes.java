@@ -105,7 +105,13 @@ public class CDRecipes {
                         .outputItem(card1),
                 new Recipe("forward-outpost")
                         .consumeItems(ItemStack.with(aluminumCogwheel, 4, silverRod, 2, silicon, 2))
-                        .outputItem(card2)
+                        .outputItem(card2),
+                new Recipe(null)
+                        .consumeItems(ItemStack.with(lemon, 39))
+                        .outputItem(card3),
+                new Recipe(null)
+                        .consumeItems(ItemStack.with(lemon, 39))
+                        .outputItem(card4)
         );
     }
 }

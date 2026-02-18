@@ -100,18 +100,20 @@ public class CDTechTree {
             });
 
             node(CDSectorPresets.theReserve, () -> {
-                node(CDSectorPresets.forwardOutpost, Seq.with(new LaunchSector(landingPodT0)), () -> {
-                    node(CDSectorPresets.interference, Seq.with(new LaunchSector(landingPodT1)), () -> {
+                node(automation);
+                node(outwardExpansion);
 
-                    });
+                node(CDSectorPresets.forwardOutpost, Seq.with(new LaunchSector(landingPodT0)), () -> {
                     node(fluidProcessing);
                     node(powerProduction);
                     node(payloadLogistics);
                     node(industrialStorage);
                     node(advancedExpansion);
+
+                    node(CDSectorPresets.interference, Seq.with(new LaunchSector(landingPodT1)), () -> {
+
+                    });
                 });
-                node(automation);
-                node(outwardExpansion);
             });
 
             nodeProduce(rawAluminum, () -> {

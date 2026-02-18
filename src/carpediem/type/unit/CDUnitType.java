@@ -33,7 +33,9 @@ public class CDUnitType extends UnitType {
     @Override
     public void createIcons(MultiPacker packer) {
         super.createIcons(packer);
-        PixmapRegion base = new PixmapRegion(packer.get(name).crop());
+        PixmapRegion region = packer.get(name);
+        if (region == null) return;
+        PixmapRegion base = new PixmapRegion(region.crop());
 
         // it finally works !!!!
         // all that effort trying to get this shit to work just to end up using the team color for the icon anyway im crying

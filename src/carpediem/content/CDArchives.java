@@ -13,13 +13,18 @@ import static carpediem.content.blocks.CDPayloadComponents.*;
 import static carpediem.content.blocks.CDPower.*;
 import static carpediem.content.blocks.CDProduction.*;
 import static carpediem.content.blocks.CDStorage.*;
+import static carpediem.content.CDUnitTypes.*;
 
 public class CDArchives {
     public static Archive
     // the reserve
     automation, outwardExpansion,
     // forward outpost
-    fluidProcessing, powerProduction, payloadLogistics, industrialStorage, advancedExpansion;
+    fluidProcessing, powerProduction, payloadLogistics, industrialStorage, advancedExpansion,
+    // interference
+    pressurization, springLaunchers, drones,
+    // sanctuary
+    advancedPayloadLogistics, fanProcessing, planetaryExpansion;
 
     public static void load() {
         // region the reserve
@@ -52,7 +57,7 @@ public class CDArchives {
         fluidProcessing = new Archive(
                 "fluid-processing",
                 ItemStack.with(
-                        card1, 250
+                        card1, 500
                 ),
                 Seq.with(
                         pump,
@@ -68,8 +73,8 @@ public class CDArchives {
         powerProduction = new Archive(
                 "power-production",
                 ItemStack.with(
-                        card1, 500,
-                        card2, 250
+                        card1, 1000,
+                        card2, 500
                 ),
                 Seq.with(
                         steamBoiler,
@@ -81,8 +86,8 @@ public class CDArchives {
         payloadLogistics = new Archive(
                 "payload-logistics",
                 ItemStack.with(
-                        card1, 600,
-                        card2, 500
+                        card1, 1500,
+                        card2, 1000
                 ),
                 Seq.with(
                         payloadRail,
@@ -98,8 +103,8 @@ public class CDArchives {
         industrialStorage = new Archive(
                 "industrial-storage",
                 ItemStack.with(
-                        card1, 1000,
-                        card2, 750
+                        card1, 5000,
+                        card2, 2500
                 ),
                 Seq.with(
                         industryHub,
@@ -111,8 +116,8 @@ public class CDArchives {
         advancedExpansion = new Archive(
                 "advanced-expansion",
                 ItemStack.with(
-                        card1, 1500,
-                        card2, 1000
+                        card1, 7500,
+                        card2, 5000
                 ),
                 Seq.with(
                         landingPodFrame,
@@ -120,6 +125,99 @@ public class CDArchives {
                         boosterEngine,
                         storageCompartment,
                         landingPodT1
+                )
+        );
+        // endregion
+        // region interference
+        pressurization = new Archive(
+                "pressurization",
+                ItemStack.with(
+                        card1, 5000,
+                        card2, 2500
+                ),
+                Seq.with(
+                        pressurizationChamber
+                )
+        );
+
+        springLaunchers = new Archive(
+                "spring-launchers",
+                ItemStack.with(
+                        card1, 6000,
+                        card2, 3000,
+                        card3, 1000
+                ),
+                Seq.with(
+                        springLauncher
+                )
+        );
+
+        drones = new Archive(
+                "drones",
+                ItemStack.with(
+                        card1, 7500,
+                        card2, 5000,
+                        card3, 5000
+                ),
+                Seq.with(
+                        carver,
+                        heap,
+                        providerContainer,
+                        receiverContainer
+                )
+        );
+        // endregion
+        // region sanctuary
+        advancedPayloadLogistics = new Archive(
+                "advanced-payload-logistics",
+                ItemStack.with(
+                        card1, 5000,
+                        card2, 2500,
+                        card3, 2500,
+                        card4, 1000
+                ),
+                Seq.with(
+                        myriad,
+                        payloadDisassembler,
+                        blockRawAluminum,
+                        blockRawNickel,
+                        blockRawSilver,
+                        blockRawPlatinum,
+                        blockUnrefinedAlloy,
+                        blockAluminum,
+                        blockNickel,
+                        blockSilver,
+                        blockPlatinum,
+                        blockSturdyAlloy,
+                        blockSilicon,
+                        blockPyratite
+                )
+        );
+
+        fanProcessing = new Archive(
+                "fan-processing",
+                ItemStack.with(
+                        card1, 10000,
+                        card2, 7500,
+                        card3, 6000,
+                        card4, 5000
+                ),
+                Seq.with(
+                        hydraulicFan,
+                        bulkHeater
+                )
+        );
+
+        planetaryExpansion = new Archive(
+                "planetary-expansion",
+                ItemStack.with(
+                        card1, 15000,
+                        card2, 10000,
+                        card3, 8000,
+                        card4, 7500
+                ),
+                Seq.with(
+                        // TODO !!!!!!!!!!!!!
                 )
         );
         // endregion

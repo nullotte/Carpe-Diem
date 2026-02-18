@@ -119,8 +119,6 @@ public class CDUnitTypes {
             itemOffsetY = 3.5f;
         }};
 
-        if (true) return;
-
         myriad = new CDUnitType("myriad") {{
             constructor = PayloadUnit::create;
 
