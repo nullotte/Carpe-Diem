@@ -390,7 +390,7 @@ public class LandingPod extends DrawerCoreBlock {
             if (!Vars.headless) {
                 if (!Vars.renderer.isLaunching()) {
                     Time.run(launchDuration(), () -> {
-                        if (Vars.state.isCampaign() && Vars.showSectorLandInfo && Vars.state.rules.planet == CDPlanets.asphodel) {
+                        if (Vars.state.isCampaign() && Vars.showSectorLandInfo && Vars.state.rules.planet == CDPlanets.asphodel && Vars.state.rules.sector != CDSectorPresets.theReserve.sector) {
                             CDUI.showCustomLandInfo(Vars.state.rules.sector);
                         }
                     });
