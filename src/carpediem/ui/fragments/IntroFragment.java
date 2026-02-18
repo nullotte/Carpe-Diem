@@ -40,7 +40,7 @@ public class IntroFragment {
                     label.setTypingListener(new FListener() {
                         @Override
                         public void onChar(char ch) {
-                            Sounds.chatMessage.play();
+                            Sounds.uiChat.play();
                         }
                     });
 

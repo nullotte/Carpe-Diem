@@ -52,7 +52,7 @@ public class CDCrafting {
                     }}
             );
 
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
 
             consume(new ConsumeItemsUses(7, ItemStack.with(CDItems.sulfur, 1)));
         }};
@@ -89,7 +89,7 @@ public class CDCrafting {
                     }}
             );
 
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
 
             consumePower(1f / 12f);
         }};

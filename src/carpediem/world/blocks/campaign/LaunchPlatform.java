@@ -404,10 +404,7 @@ public class LaunchPlatform extends PayloadBlock {
             return launchDuration + chargeDuration;
         }
 
-        @Override
-        public Music launchMusic() {
-            return CDMusics.launch;
-        }
+        // TODO launch music...?
 
         @Override
         public float zoomLaunch() {

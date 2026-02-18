@@ -36,7 +36,7 @@ public class CDFunBlocks {
                 hitSound = despawnSound = Sounds.plantBreak;
             }});
 
-            shootSound = Sounds.artillery;
+            shootSound = Sounds.shootArtillerySmall;
         }};
     }
 }
