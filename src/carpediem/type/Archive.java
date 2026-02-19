@@ -22,6 +22,8 @@ public class Archive extends StatusEffect {
         super(name);
         this.researchCost = researchCost;
         this.contents = contents;
+
+        allDatabaseTabs = false;
     }
 
     @Override
