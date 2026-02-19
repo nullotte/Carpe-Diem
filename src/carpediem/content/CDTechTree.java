@@ -88,6 +88,7 @@ public class CDTechTree {
                         node(payloadUnloader);
                     });
                     node(payloadCrane);
+                    node(payloadDepot);
                 });
                 node(payloadManufacturingGrid);
             });
