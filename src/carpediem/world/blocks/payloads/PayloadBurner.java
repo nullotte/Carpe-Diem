@@ -18,6 +18,7 @@ public class PayloadBurner extends PayloadBlock {
 
     public PayloadBurner(String name) {
         super(name);
+        acceptsPayload = true;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class PayloadBurner extends PayloadBlock {
 
     @Override
     protected TextureRegion[] icons() {
-        return new TextureRegion[]{region, inRegion, topRegion};
+        return new TextureRegion[]{region, topRegion};
     }
 
     public class PayloadBurnerBuild extends PayloadBlockBuild<BuildPayload> {
@@ -37,6 +38,8 @@ public class PayloadBurner extends PayloadBlock {
 
         @Override
         public void updateTile() {
+            super.updateTile();
+
             if (moveInPayload() && burnTime <= 0f) {
                 payload = null;
 

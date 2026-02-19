@@ -28,7 +28,7 @@ public class CDPayloadBlocks {
     public static Block
     payloadRail, payloadRailRouter, payloadCrane,
     payloadAssembler, payloadDisassembler, payloadManufacturingGrid,
-    payloadLoader, payloadUnloader,
+    payloadDepot, payloadLoader, payloadUnloader,
     hydraulicFan, bulkHeater,
     springLauncher,
     landingPodAssembler;
@@ -117,6 +117,14 @@ public class CDPayloadBlocks {
 
             conductivePower = true;
             consumePower(1f / 5f);
+        }};
+
+        payloadDepot = new PayloadDepot("payload-depot") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 5;
+            payloadLimit = 6f;
         }};
 
         payloadLoader = new PayloadLoader("payload-loader") {{
