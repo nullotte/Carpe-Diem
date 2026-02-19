@@ -95,6 +95,7 @@ public class CDArchives {
                         payloadCrane,
                         payloadAssembler,
                         payloadManufacturingGrid,
+                        payloadDepot,
                         payloadLoader,
                         payloadUnloader
                 )
