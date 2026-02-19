@@ -5,6 +5,7 @@ import arc.graphics.g2d.*;
 import arc.struct.*;
 import arc.util.*;
 import carpediem.content.*;
+import carpediem.graphics.*;
 import carpediem.world.blocks.payloads.*;
 import carpediem.world.blocks.payloads.FanBlock.*;
 import carpediem.world.blocks.units.*;
@@ -67,7 +68,7 @@ public class CDPayloadBlocks {
                     CDItems.lemon, 39
             ));
             size = 5;
-            outlineColor = Pal.darkOutline;
+            outlineColor = CDColors.outline;
 
             consumeLiquid(Liquids.oil, 0.1f);
             consumePower(1f);
@@ -127,22 +128,22 @@ public class CDPayloadBlocks {
             payloadLimit = 6f;
         }};
 
-        payloadLoader = new PayloadLoader("payload-loader") {{
+        payloadLoader = new PayloadFrontLoader("payload-loader") {{
             requirements(Category.units, ItemStack.with(
                     CDItems.lemon, 39
             ));
-            size = 5;
-            maxBlockSize = 6;
+            size = 3;
+            outlineColor = CDColors.outline;
 
             consumePower(2f);
         }};
 
-        payloadUnloader = new PayloadUnloader("payload-unloader") {{
+        payloadUnloader = new PayloadFrontUnloader("payload-unloader") {{
             requirements(Category.units, ItemStack.with(
                     CDItems.lemon, 39
             ));
-            size = 5;
-            maxBlockSize = 6;
+            size = 3;
+            outlineColor = CDColors.outline;
 
             consumePower(2f);
         }};

@@ -1,37 +1,25 @@
 package carpediem.world.blocks.payloads;
 
-import arc.Core;
-import arc.func.Boolf;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
-import arc.scene.style.TextureRegionDrawable;
-import arc.scene.ui.ButtonGroup;
-import arc.scene.ui.ImageButton;
-import arc.scene.ui.layout.Table;
-import arc.util.Eachable;
-import arc.util.io.Reads;
-import arc.util.io.Writes;
-import mindustry.Vars;
-import mindustry.ctype.ContentType;
-import mindustry.ctype.UnlockableContent;
-import mindustry.entities.units.BuildPlan;
-import mindustry.gen.Building;
-import mindustry.gen.Icon;
-import mindustry.gen.Iconc;
-import mindustry.graphics.Layer;
-import mindustry.type.UnitType;
-import mindustry.ui.Styles;
-import mindustry.world.Block;
-import mindustry.world.blocks.ItemSelection;
-import mindustry.world.blocks.payloads.BuildPayload;
-import mindustry.world.blocks.payloads.Payload;
-import mindustry.world.blocks.payloads.PayloadBlock;
-import mindustry.world.blocks.storage.CoreBlock;
-import mindustry.world.meta.Stat;
-import mindustry.world.meta.StatUnit;
-import mindustry.world.meta.StatValues;
-
-import static mindustry.Vars.*;
+import arc.*;
+import arc.func.*;
+import arc.graphics.g2d.*;
+import arc.scene.style.*;
+import arc.scene.ui.*;
+import arc.scene.ui.layout.*;
+import arc.util.*;
+import arc.util.io.*;
+import mindustry.*;
+import mindustry.ctype.*;
+import mindustry.entities.units.*;
+import mindustry.gen.*;
+import mindustry.graphics.*;
+import mindustry.type.*;
+import mindustry.ui.*;
+import mindustry.world.*;
+import mindustry.world.blocks.*;
+import mindustry.world.blocks.payloads.*;
+import mindustry.world.blocks.storage.*;
+import mindustry.world.meta.*;
 
 public class PayloadDepot extends PayloadBlock {
     public float payloadLimit;
@@ -80,11 +68,11 @@ public class PayloadDepot extends PayloadBlock {
     }
 
     public boolean canFilter(Block b) {
-        return b.isVisible() && b.size <= payloadLimit && !(b instanceof CoreBlock) && !state.rules.isBanned(b) && b.environmentBuildable();
+        return b.isVisible() && b.size <= payloadLimit && !(b instanceof CoreBlock) && !Vars.state.rules.isBanned(b) && b.environmentBuildable();
     }
 
     public boolean canFilter(UnitType t) {
-        return t.hitSize / tilesize <= payloadLimit && !t.isHidden() && !t.isBanned() && t.supportsEnv(state.rules.env);
+        return t.hitSize / Vars.tilesize <= payloadLimit && !t.isHidden() && !t.isBanned() && t.supportsEnv(Vars.state.rules.env);
     }
 
     public class PayloadDepotBuild extends PayloadBlockBuild<Payload> {
@@ -156,8 +144,8 @@ public class PayloadDepot extends PayloadBlock {
             table.row();
             table.table(t -> {
                 ItemSelection.buildTable(PayloadDepot.this, t,
-                        content.blocks().select(PayloadDepot.this::canFilter).<UnlockableContent>as()
-                                .add(content.units().select(PayloadDepot.this::canFilter).as()),
+                        Vars.content.blocks().select(PayloadDepot.this::canFilter).<UnlockableContent>as()
+                                .add(Vars.content.units().select(PayloadDepot.this::canFilter).as()),
                         () -> filter, item -> configure(formatConfig(condition, item)), false);
             }).visible(() -> condition != null && condition.useFilter);
         }
@@ -197,7 +185,7 @@ public class PayloadDepot extends PayloadBlock {
         full(
                 build -> build.payload instanceof BuildPayload buildPayload &&
                         ((buildPayload.block().hasLiquids && buildPayload.build.liquids.currentAmount() >= buildPayload.block().liquidCapacity - 0.001f) ||
-                                (buildPayload.block().hasItems && buildPayload.block().separateItemCapacity && content.items().contains(i -> (buildPayload.build.items.get(i) >= buildPayload.block().itemCapacity))) ||
+                                (buildPayload.block().hasItems && buildPayload.block().separateItemCapacity && Vars.content.items().contains(i -> (buildPayload.build.items.get(i) >= buildPayload.block().itemCapacity))) ||
                                 (buildPayload.block().consPower != null && buildPayload.block().consPower.buffered && buildPayload.build.power.status >= 0.999999999f)),
                 "download"
         ),
