@@ -22,8 +22,6 @@ public class Archive extends StatusEffect {
         super(name);
         this.researchCost = researchCost;
         this.contents = contents;
-
-        hideDatabase = true;
     }
 
     @Override
@@ -46,6 +44,8 @@ public class Archive extends StatusEffect {
                 content.techNode.objectives.clear().add(new UnlockArchive(this));
             }
         });
+
+        databaseCategory = "archive";
     }
 
     @Override
