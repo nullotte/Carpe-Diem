@@ -69,6 +69,7 @@ public class FanBlock extends Block {
         public float warmup;
         public float totalProgress;
         public Seq<FanFlowData> flowData = new Seq<>();
+        public Seq<Building> processedBuildings = new Seq<>();
 
         @Override
         public void updateTile() {
@@ -76,6 +77,7 @@ public class FanBlock extends Block {
                 Pools.free(data);
             }
             flowData.clear();
+            processedBuildings.clear();
 
             if (efficiency > 0f) {
                 warmup = Mathf.approachDelta(warmup, 1f, 0.02f);
@@ -87,7 +89,7 @@ public class FanBlock extends Block {
 
                 for (int i = -tileRange; i <= tileRange; i++) {
                     Tile other = tile.nearby(dx * i, dy * i);
-                    if (other != null && other.build != null && other.build != this) {
+                    if (other != null && other.build != null && other.build != this && !processedBuildings.contains(other.build)) {
                         Building build = other.build;
 
                         // check if the block is a processing requirement
@@ -111,7 +113,7 @@ public class FanBlock extends Block {
                             Payload payload = build.getPayload();
                             if (payload instanceof BuildPayload blockPayload) {
                                 if (blockPayload.build instanceof ProcessableBuild processable) {
-                                    processable.progress += Time.delta / currentType.baseTime;
+                                    processable.progress += getProgressIncrease(currentType.baseTime);
                                     if (processable.progress >= 1f) {
                                         Block resultBlock = ((ProcessableBlock) processable.block).resultBlock;
                                         blockPayload.build = resultBlock.newBuilding().create(resultBlock, blockPayload.build.team);
@@ -119,6 +121,8 @@ public class FanBlock extends Block {
                                 }
                             }
                         }
+
+                        processedBuildings.add(build);
                     }
                 }
 
