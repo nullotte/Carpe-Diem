@@ -10,6 +10,6 @@ public class CDStat {
     ;
 
     public static final StatUnit
-    pressureUnits = new StatUnit("pressureUnits", "[violet]" + Iconc.spray + "[]")
+    pressureUnits = new StatUnit("pressureUnits", "[violet]" + Iconc.move + "[]")
     ;
 }
