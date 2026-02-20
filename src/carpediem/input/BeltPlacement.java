@@ -18,14 +18,14 @@ public class BeltPlacement {
     private static final Seq<Point2> tmpPoints = new Seq<>(), tmpPoints2 = new Seq<>();
 
     public static void calculateBridges(Seq<BuildPlan> plans, Block bridge, Boolf<Block> same, boolean doOpposites) {
-        if (Placement.isSidePlace(plans)) return;
+        if (plans.first().block.rotate && Placement.isSidePlace(plans)) return;
 
         // check for orthogonal placement + unlocked state
         if (!(plans.first().x == plans.peek().x || plans.first().y == plans.peek().y) || !bridge.unlockedNow()) {
             return;
         }
 
-        Boolf<BuildPlan> rotated = plan -> plan.build() != null && same.get(plan.build().block) && plan.rotation != plan.build().rotation;
+        Boolf<BuildPlan> rotated = plan -> plan.build() != null && same.get(plan.build().block) && (!plan.build().block.rotate || plan.rotation != plan.build().rotation);
 
         // idk
         Boolf<BuildPlan> placeable = plan ->

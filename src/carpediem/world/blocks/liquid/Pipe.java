@@ -150,8 +150,6 @@ public class Pipe extends MergingLiquidBlock implements Autotiler {
 
     @Override
     public void handlePlacementLine(Seq<BuildPlan> plans) {
-        // for some reason it doesnt automatically bridge over other pipes and i cant figure it out....
-        // i actually Did figure out a fix but it didnt work for vertical bridging so like. guess ill die
         BeltPlacement.calculateBridges(plans, bridgeReplacement, b -> b instanceof Pipe, true);
     }
 
