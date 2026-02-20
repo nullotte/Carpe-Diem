@@ -62,6 +62,29 @@ public class CDStorage {
             size = 5;
 
             itemCapacity = 6000;
+            unitCapModifier = 8;
+            unitType = CDUnitTypes.cache;
+
+            craftingSpeed = 8f;
+            recipes.addAll(CDRecipes.pressRecipes).addAll(CDRecipes.rollingMillRecipes).addAll(CDRecipes.assemblerRecipes);
+            craftEffect = Fx.pulverize;
+
+            squareSprite = false;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawCoreDoor(),
+                    new DrawDefault(),
+                    new DrawTeam()
+            );
+        }};
+
+        landingPodT2 = new LandingPod("landing-pod-t2") {{
+            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 6;
+
+            itemCapacity = 7000;
             unitCapModifier = 4;
             unitType = CDUnitTypes.cache;
 
