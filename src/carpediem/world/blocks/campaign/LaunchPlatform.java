@@ -43,6 +43,8 @@ public class LaunchPlatform extends PayloadBlock {
     public Interp extendInterp = Interp.pow2Out;
     public float openLength = 8f, extendTime = 160f;
 
+    public Sound chargeSound = CDSounds.launchPlatformCharge;
+
     public LaunchPlatform(String name) {
         super(name);
         acceptsPayload = true;
@@ -92,6 +94,7 @@ public class LaunchPlatform extends PayloadBlock {
         }
 
         public SectorPreset destination() {
+            if (Vars.state.rules.sector == null) return null;
             SectorPreset preset = Vars.state.rules.sector.preset;
 
             if (preset != null) {
@@ -362,8 +365,11 @@ public class LaunchPlatform extends PayloadBlock {
                 }
             });
             Core.scene.add(image);
+            chargeSound.at(this);
 
             Time.run(chargeDuration, () -> {
+                Sounds.coreLaunch.at(Core.camera.position, 1f, 1f);
+
                 Effect.shake(10f, 14f, this);
 
                 float spacing = 12f;
