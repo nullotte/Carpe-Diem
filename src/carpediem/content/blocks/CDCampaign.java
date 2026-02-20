@@ -5,6 +5,7 @@ import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.campaign.*;
 import carpediem.world.draw.*;
+import mindustry.content.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
@@ -30,10 +31,14 @@ public class CDCampaign {
                     CDItems.controlCircuit, 100
             ));
             size = 7;
-            itemCapacity = 100;
             regionSuffix = "-dark";
 
-            consumeItem(CDItems.sulfur, 100);
+            launchItemRequirementMap.putAll(
+                    CDStorage.landingPodT0, ItemStack.with(CDItems.sulfur, 1000),
+                    CDStorage.landingPodT1, ItemStack.with(Items.pyratite, 5000)
+            );
+            launchPowerRequirementMap.put(CDStorage.landingPodT0, 2f);
+            launchPowerRequirementMap.put(CDStorage.landingPodT1, 5f);
         }};
 
         dataChannel = new DataChannel("data-channel") {{

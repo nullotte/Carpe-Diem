@@ -12,6 +12,7 @@ import arc.scene.actions.*;
 import arc.scene.event.*;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
+import arc.struct.*;
 import arc.util.*;
 import carpediem.*;
 import carpediem.audio.*;
@@ -31,6 +32,8 @@ import mindustry.world.*;
 import mindustry.world.blocks.*;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.blocks.storage.*;
+import mindustry.world.consumers.*;
+import mindustry.world.meta.*;
 
 // good god
 public class LaunchPlatform extends PayloadBlock {
@@ -45,12 +48,24 @@ public class LaunchPlatform extends PayloadBlock {
 
     public Sound chargeSound = CDSounds.launchPlatformCharge;
 
+    public ObjectMap<CoreBlock, ItemStack[]> launchItemRequirementMap = new ObjectMap<>();
+    public ObjectFloatMap<CoreBlock> launchPowerRequirementMap = new ObjectFloatMap<>();
+
     public LaunchPlatform(String name) {
         super(name);
         acceptsPayload = true;
         configurable = true;
         emitLight = true;
         lightRadius = 120f;
+
+        consume(new ConsumeItemDynamic((LaunchPlatformBuild build) -> launchItemRequirementMap.get(build.requiredType(), ItemStack.empty)));
+        consumePowerDynamic((LaunchPlatformBuild build) -> launchPowerRequirementMap.get(build.requiredType(), 0f));
+    }
+
+    @Override
+    public void setStats() {
+        super.setStats();
+        stats.remove(Stat.itemCapacity);
     }
 
     @Override
@@ -84,6 +99,21 @@ public class LaunchPlatform extends PayloadBlock {
             launchHeat = Mathf.lerpDelta(launchHeat, launching ? 1f : 0f, 0.05f);
 
             moveInPayload();
+        }
+
+        @Override
+        public boolean acceptItem(Building source, Item item) {
+            return items.get(item) < getMaximumAccepted(item);
+        }
+
+        @Override
+        public int getMaximumAccepted(Item item) {
+            CoreBlock requiredType = requiredType();
+            if (requiredType == null) return 0;
+            for (ItemStack stack : launchItemRequirementMap.get(requiredType, ItemStack.empty)) {
+                if (stack.item == item) return stack.amount * 2;
+            }
+            return 0;
         }
 
         @Override
