@@ -54,6 +54,8 @@ public class PayloadFrontLoader extends Block {
         }
 
         super.init();
+
+        updateClipRadius(size * Vars.tilesize * 1.5f);
     }
 
     @Override
