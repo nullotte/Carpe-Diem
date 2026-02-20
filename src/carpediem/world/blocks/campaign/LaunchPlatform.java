@@ -49,7 +49,6 @@ public class LaunchPlatform extends PayloadBlock {
     public Sound chargeSound = CDSounds.launchPlatformCharge;
 
     public ObjectMap<CoreBlock, ItemStack[]> launchItemRequirementMap = new ObjectMap<>();
-    public ObjectFloatMap<CoreBlock> launchPowerRequirementMap = new ObjectFloatMap<>();
 
     public LaunchPlatform(String name) {
         super(name);
@@ -66,7 +65,6 @@ public class LaunchPlatform extends PayloadBlock {
                 return ItemStack.empty;
             }
         }));
-        consumePowerDynamic((LaunchPlatformBuild build) -> launchPowerRequirementMap.get(build.requiredType(), 0f));
     }
 
     @Override

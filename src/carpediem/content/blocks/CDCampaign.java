@@ -37,8 +37,8 @@ public class CDCampaign {
                     CDStorage.landingPodT0, ItemStack.with(CDItems.sulfur, 1000),
                     CDStorage.landingPodT1, ItemStack.with(Items.pyratite, 5000)
             );
-            launchPowerRequirementMap.put(CDStorage.landingPodT0, 2f);
-            launchPowerRequirementMap.put(CDStorage.landingPodT1, 5f);
+
+            consumePower(2f);
         }};
 
         dataChannel = new DataChannel("data-channel") {{
