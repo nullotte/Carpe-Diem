@@ -11,6 +11,7 @@ import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.blocks.sandbox.*;
@@ -44,6 +45,15 @@ public class PayloadFrontLoader extends Block {
         drawArrow = false;
         outlineIcon = true;
         outlinedIcon = 1;
+    }
+
+    @Override
+    public void setBars() {
+        super.setBars();
+
+        addBar("progress", (PayloadFrontLoaderBuild build) -> new Bar(() ->
+                Core.bundle.format(build.getFrontPayload() instanceof BuildPayload payload && payload.block().hasItems ? "bar.items" : "bar.loadprogress",
+                        build.getFrontPayload() instanceof BuildPayload payload && payload.block().hasItems ? payload.build.items.total() : 0f), () -> Pal.items, build::fraction));
     }
 
     @Override
@@ -198,6 +208,14 @@ public class PayloadFrontLoader extends Block {
                 return other.build.getPayload();
             }
             return null;
+        }
+
+        public float fraction() {
+            return !(getFrontPayload() instanceof BuildPayload payload) ? 0f :
+                    payload.build.items != null ? payload.build.items.total() / (float) payload.build.block.itemCapacity :
+                            payload.build.liquids != null ? payload.build.liquids.currentAmount() / payload.block().liquidCapacity :
+                                    payloadHasBattery(payload) ? payload.build.power.status :
+                                            0f;
         }
 
         @Override

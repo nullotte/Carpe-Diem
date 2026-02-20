@@ -7,7 +7,6 @@ import mindustry.world.blocks.payloads.BuildPayload;
 
 import static mindustry.Vars.content;
 
-// what reason is there for the unloader to extend the loader...?
 public class PayloadFrontUnloader extends PayloadFrontLoader {
     public int offloadSpeed = 4;
     public float maxPowerUnload = 80f;
