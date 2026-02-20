@@ -9,6 +9,8 @@ import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.blocks.storage.*;
+import mindustry.world.blocks.units.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
@@ -141,7 +143,7 @@ public class CDStorage {
             );
         }};
 
-        providerContainer = new DrawerStorageBlock("provider-container") {{
+        providerContainer = new StorageBlock("provider-container") {{
             requirements(Category.effect, ItemStack.with(
                     CDItems.lemon, 39
             ));
@@ -149,14 +151,9 @@ public class CDStorage {
             itemCapacity = 200;
             coreMerge = false;
             flags = EnumSet.of(BlockFlag.storage, BlockFlag.extinguisher); // shh shh i cant override enums
-
-            drawer = new DrawMulti(
-                    new DrawDefault(),
-                    new DrawTeam()
-            );
         }};
 
-        receiverContainer = new CDUnitCargoUnloadPoint("receiver-container") {{
+        receiverContainer = new UnitCargoUnloadPoint("receiver-container") {{
             requirements(Category.effect, ItemStack.with(
                     CDItems.lemon, 39
             ));
