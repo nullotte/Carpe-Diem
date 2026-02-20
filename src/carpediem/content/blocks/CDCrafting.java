@@ -1,6 +1,7 @@
 package carpediem.content.blocks;
 
 import arc.graphics.*;
+import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.*;
 import arc.struct.*;
@@ -252,14 +253,19 @@ public class CDCrafting {
             ));
             size = 3;
             rotate = true;
-            rotateDraw = false;
 
             drawer = new DrawMulti(
-                    new DrawRegion("-bottom"),
-                    new DrawLiquidTile(),
-                    new DrawRegion("-wallthing"),
-                    new DrawPressurizationChamber(),
-                    new DrawRotatedRegion()
+                    new DrawSymmetricalRotatedRegion(),
+                    new DrawSingleAxisSymmetricalPistons(),
+                    new DrawRegion("-bottom") {{
+                        buildingRotate = true;
+                    }},
+                    new DrawRotatingLiquidTile() {{
+                        padLeft = padRight = 14f / 4f;
+                        padTop = padBottom = 34f / 4f;
+                    }},
+                    new DrawSymmetricalRotatedRegion("-top"),
+                    new DrawIdontevenknowanymoreRegion("-nubs")
             );
 
             consumeLiquid(Liquids.water, 0.5f);
