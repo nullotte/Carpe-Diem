@@ -10,6 +10,7 @@ import mindustry.type.*;
 
 public class CDSectorPresets {
     public static SectorPreset theReserve, forwardOutpost, interference;
+    // TODO sanctuary on 24, sector 5 on 12
 
     public static void load() {
         theReserve = new SectorPreset("the-reserve", CDPlanets.asphodel, 5) {{
