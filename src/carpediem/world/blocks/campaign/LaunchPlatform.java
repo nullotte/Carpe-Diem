@@ -58,7 +58,14 @@ public class LaunchPlatform extends PayloadBlock {
         emitLight = true;
         lightRadius = 120f;
 
-        consume(new ConsumeItemDynamic((LaunchPlatformBuild build) -> launchItemRequirementMap.get(build.requiredType(), ItemStack.empty)));
+        consume(new ConsumeItemDynamic((LaunchPlatformBuild build) -> {
+            CoreBlock requiredType = build.requiredType();
+            if (requiredType != null) {
+                return launchItemRequirementMap.get(requiredType, ItemStack.empty);
+            } else {
+                return ItemStack.empty;
+            }
+        }));
         consumePowerDynamic((LaunchPlatformBuild build) -> launchPowerRequirementMap.get(build.requiredType(), 0f));
     }
 
