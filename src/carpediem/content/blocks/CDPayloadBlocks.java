@@ -204,6 +204,7 @@ public class CDPayloadBlocks {
                     CDItems.lemon, 39
             ));
             size = 5;
+            range = 500f * 8f;
 
             consumePower(5f);
         }};
