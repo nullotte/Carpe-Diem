@@ -11,11 +11,13 @@ import mindustry.world.meta.*;
 
 import static carpediem.content.CDArchives.*;
 import static carpediem.content.CDItems.*;
+import static carpediem.content.CDUnitTypes.*;
 import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDDistribution.*;
 import static carpediem.content.blocks.CDLiquidBlocks.*;
 import static carpediem.content.blocks.CDPayloadBlocks.*;
+import static carpediem.content.blocks.CDPayloadComponents.*;
 import static carpediem.content.blocks.CDPower.*;
 import static carpediem.content.blocks.CDProduction.*;
 import static carpediem.content.blocks.CDStorage.*;
@@ -41,7 +43,9 @@ public class CDTechTree {
 
             node(smelterT0, () -> {
                 node(drillT0, () -> {
-                    node(drillT1);
+                    node(drillT1, () -> {
+                        node(drillT2);
+                    });
                 });
 
                 node(geothermalBurner, () -> {
@@ -49,7 +53,9 @@ public class CDTechTree {
                         node(accumulator);
                         node(cableTower);
                     });
-                    node(steamBoiler);
+                    node(steamBoiler, () -> {
+                        node(compressionEngine);
+                    });
                 });
 
                 node(smelterT1, () -> {
@@ -73,7 +79,9 @@ public class CDTechTree {
 
             node(launchPlatform, () -> {
                 node(landingPodAssembler);
-                node(landingPodT1);
+                node(landingPodT1, () -> {
+                    node(landingPodT2);
+                });
             });
 
             node(industryHub, () -> {
@@ -90,7 +98,35 @@ public class CDTechTree {
                     node(payloadCrane);
                     node(payloadDepot);
                 });
-                node(payloadManufacturingGrid);
+                node(payloadManufacturingGrid, () -> {
+                    node(carver, () -> {
+                        node(heap);
+                        node(myriad);
+                    });
+                    node(landingPodFrame);
+                    node(thruster);
+                    node(boosterEngine);
+                    node(storageCompartment);
+                });
+                node(payloadDisassembler);
+                node(springLauncher);
+                node(hydraulicFan, () -> {
+                    node(bulkHeater);
+                });
+                node(blockRawAluminum, () -> {
+                    node(blockRawNickel);
+                    node(blockRawSilver);
+                    node(blockRawPlatinum);
+                    node(blockUnrefinedAlloy);
+                    node(blockAluminum, () -> {
+                        node(blockNickel);
+                        node(blockSilver);
+                        node(blockPlatinum);
+                        node(blockSturdyAlloy);
+                        node(blockSilicon);
+                        node(blockPyratite);
+                    });
+                });
             });
 
             node(archiveScanner, () -> {
@@ -112,7 +148,21 @@ public class CDTechTree {
                     node(advancedExpansion);
 
                     node(CDSectorPresets.interference, Seq.with(new LaunchSector(landingPodT1)), () -> {
+                        node(pressurization);
+                        node(springLaunchers);
+                        node(drones);
+                        node(advancedPowerProduction);
 
+                        node(CDSectorPresets.sanctuary, Seq.with(new LaunchSector(landingPodT1)), () -> {
+                            node(industrialExtraction);
+                            node(advancedPayloadLogistics);
+                            node(fanProcessing);
+                            node(planetaryExpansion);
+
+                            node(CDSectorPresets.finalRestingPlace, Seq.with(new LaunchSector(landingPodT2)), () -> {
+
+                            });
+                        });
                     });
                 });
             });

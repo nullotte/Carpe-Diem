@@ -2,6 +2,7 @@ package carpediem;
 
 import arc.*;
 import arc.graphics.g2d.*;
+import arc.struct.*;
 import arc.util.*;
 import carpediem.audio.*;
 import carpediem.graphics.*;
@@ -9,6 +10,7 @@ import carpediem.ui.*;
 import carpediem.ui.fragments.*;
 import carpediem.world.draw.*;
 import mindustry.*;
+import mindustry.ctype.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -50,6 +52,14 @@ public class CarpeDiem extends Mod {
 
     @Override
     public void init() {
+        Seq<UnlockableContent> noTechNode = new Seq<>();
+        Vars.content.each(c -> {
+            if (c instanceof UnlockableContent unlockable && unlockable.minfo.mod != null && unlockable.minfo.mod.main == this && unlockable.techNode == null) {
+                noTechNode.add(unlockable);
+            }
+        });
+        Log.info(noTechNode.toString(",\n", c -> c.localizedName));
+
         hints = new CDHints();
         launchSectorInfo = new LaunchSectorInfoDialog();
         content = new ContentInfoDialog();

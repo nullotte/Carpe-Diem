@@ -24,7 +24,7 @@ public class CDArchives {
     // interference
     pressurization, springLaunchers, drones, advancedPowerProduction,
     // sanctuary
-    advancedPayloadLogistics, fanProcessing, planetaryExpansion;
+    industrialExtraction, advancedPayloadLogistics, fanProcessing, planetaryExpansion;
 
     public static void load() {
         // region the reserve
@@ -181,6 +181,18 @@ public class CDArchives {
         );
         // endregion
         // region sanctuary
+        industrialExtraction = new Archive(
+                "industrial-extraction",
+                ItemStack.with(
+                        card1, 4000,
+                        card2, 2000,
+                        card3, 1000
+                ),
+                Seq.with(
+                        drillT2
+                )
+        );
+
         advancedPayloadLogistics = new Archive(
                 "advanced-payload-logistics",
                 ItemStack.with(

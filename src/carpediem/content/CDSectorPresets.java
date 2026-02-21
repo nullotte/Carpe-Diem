@@ -9,7 +9,7 @@ import mindustry.io.*;
 import mindustry.type.*;
 
 public class CDSectorPresets {
-    public static SectorPreset theReserve, forwardOutpost, interference;
+    public static SectorPreset theReserve, forwardOutpost, interference, sanctuary, finalRestingPlace;
     // TODO sanctuary on 24, sector 5 on 12
 
     public static void load() {
@@ -19,6 +19,8 @@ public class CDSectorPresets {
         }};
         forwardOutpost = new SectorPreset("forward-outpost", CDPlanets.asphodel, 17);
         interference = new SectorPreset("interference", CDPlanets.asphodel, 20);
+        sanctuary = new SectorPreset("sanctuary", CDPlanets.asphodel, 24);
+        finalRestingPlace = new SectorPreset("final-resting-place", CDPlanets.asphodel, 12);
 
         JsonIO.json.setSerializer(NonThreateningSector.class, new Serializer<>(){
             @Override
@@ -34,7 +36,7 @@ public class CDSectorPresets {
             }
         });
 
-        for (SectorPreset preset : new SectorPreset[]{theReserve, forwardOutpost, interference}) {
+        for (SectorPreset preset : new SectorPreset[]{theReserve, forwardOutpost, interference, sanctuary, finalRestingPlace}) {
             preset.showSectorLandInfo = false;
             preset.captureWave = -1;
 
