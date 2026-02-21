@@ -35,7 +35,8 @@ public class CDCampaign {
 
             launchItemRequirementMap.putAll(
                     CDStorage.landingPodT0, ItemStack.with(CDItems.sulfur, 1000),
-                    CDStorage.landingPodT1, ItemStack.with(Items.pyratite, 5000)
+                    CDStorage.landingPodT1, ItemStack.with(Items.pyratite, 5000),
+                    CDStorage.landingPodT2, ItemStack.with(Items.pyratite, 7500)
             );
 
             consumePower(2f);
