@@ -242,7 +242,7 @@ public class CDArchives {
                         card4, 3000
                 ),
                 Seq.with(
-                        // TODO !!!!!!!!!!!!!
+                        landingPodT2
                 )
         );
         // endregion
