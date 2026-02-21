@@ -65,6 +65,27 @@ public class FanBlock extends Block {
         return drawer.finalIcons(this);
     }
 
+    @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        super.drawPlace(x, y, rotation, valid);
+        int dx = Geometry.d4x(rotation), dy = Geometry.d4y(rotation);
+        float drawx = x * Vars.tilesize + offset, drawy = y * Vars.tilesize + offset;
+        Drawf.dashLine(
+                Pal.placing,
+                drawx - dx * range,
+                drawy - dy * range,
+                drawx - dx * (size * Vars.tilesize / 2f),
+                drawy - dy * (size * Vars.tilesize / 2f)
+        );
+        Drawf.dashLine(
+                Pal.placing,
+                drawx + dx * range,
+                drawy + dy * range,
+                drawx + dx * (size * Vars.tilesize / 2f),
+                drawy + dy * (size * Vars.tilesize / 2f)
+        );
+    }
+
     public class FanBuild extends Building {
         public float warmup;
         public float totalProgress;
@@ -187,6 +208,25 @@ public class FanBlock extends Block {
                     );
                 }
             }
+        }
+
+        @Override
+        public void drawSelect() {
+            int dx = Geometry.d4x(rotation), dy = Geometry.d4y(rotation);
+            Drawf.dashLine(
+                    Pal.place,
+                    x - dx * range,
+                    y - dy * range,
+                    x - dx * (size * Vars.tilesize / 2f),
+                    y - dy * (size * Vars.tilesize / 2f)
+            );
+            Drawf.dashLine(
+                    Pal.place,
+                    x + dx * range,
+                    y + dy * range,
+                    x + dx * (size * Vars.tilesize / 2f),
+                    y + dy * (size * Vars.tilesize / 2f)
+            );
         }
     }
 
