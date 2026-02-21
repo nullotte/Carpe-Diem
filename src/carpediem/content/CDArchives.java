@@ -104,8 +104,8 @@ public class CDArchives {
         industrialStorage = new Archive(
                 "industrial-storage",
                 ItemStack.with(
-                        card1, 5000,
-                        card2, 2500
+                        card1, 2500,
+                        card2, 2000
                 ),
                 Seq.with(
                         industryHub,
@@ -117,8 +117,8 @@ public class CDArchives {
         advancedExpansion = new Archive(
                 "advanced-expansion",
                 ItemStack.with(
-                        card1, 7500,
-                        card2, 5000
+                        card1, 5000,
+                        card2, 2500
                 ),
                 Seq.with(
                         landingPodFrame,
@@ -213,7 +213,7 @@ public class CDArchives {
                         card1, 10000,
                         card2, 7500,
                         card3, 6000,
-                        card4, 5000
+                        card4, 2500
                 ),
                 Seq.with(
                         hydraulicFan,
@@ -227,16 +227,12 @@ public class CDArchives {
                         card1, 15000,
                         card2, 10000,
                         card3, 8000,
-                        card4, 7500
+                        card4, 3000
                 ),
                 Seq.with(
                         // TODO !!!!!!!!!!!!!
                 )
         );
         // endregion
-        Seq<Archive> unfinished = Seq.with();
-        for (Archive archive : unfinished) {
-            archive.show = false;
-        }
     }
 }

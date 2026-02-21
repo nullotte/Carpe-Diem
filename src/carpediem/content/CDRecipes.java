@@ -90,7 +90,7 @@ public class CDRecipes {
                         .consumeItems(ItemStack.with(controlCircuit, 2, siliconSheet, 2, nickelWire, 2))
                         .outputItem(calculationCircuit),
                 new Recipe(null)
-                        .consumeItems(ItemStack.with(lemon, 39))
+                        .consumeItems(ItemStack.with(calculationCircuit, 4, platinumPlate, 2, plastanium, 2))
                         .outputItem(processingUnit),
                 // other
                 new Recipe("the-reserve")
@@ -107,10 +107,10 @@ public class CDRecipes {
                         .consumeItems(ItemStack.with(aluminumCogwheel, 4, silverRod, 2, silicon, 2))
                         .outputItem(card2),
                 new Recipe(null)
-                        .consumeItems(ItemStack.with(lemon, 39))
+                        .consumeItems(ItemStack.with(plastanium, 2, nickelRod, 2))
                         .outputItem(card3),
                 new Recipe(null)
-                        .consumeItems(ItemStack.with(lemon, 39))
+                        .consumeItems(ItemStack.with(platinumRod, 4, plastaniumSheet, 2))
                         .outputItem(card4)
         );
     }
