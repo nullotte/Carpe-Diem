@@ -47,5 +47,9 @@ public class CDSectorPresets {
             preset.sector = sector;
             preset.planet.preset(preset.sector.id, preset);
         }
+
+        for (SectorPreset preset : new SectorPreset[]{interference, sanctuary, finalRestingPlace}) {
+            preset.description = null;
+        }
     }
 }
