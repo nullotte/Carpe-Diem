@@ -43,8 +43,6 @@ public class BeltBridge extends DuctBridge {
     public void setStats() {
         super.setStats();
 
-        // ????? did anuke forget to set these for duct bridges
-        stats.add(Stat.itemsMoved, 60f / speed, StatUnit.itemsSecond);
         stats.add(Stat.range, range, StatUnit.blocks);
     }
 
