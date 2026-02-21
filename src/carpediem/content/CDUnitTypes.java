@@ -127,7 +127,6 @@ public class CDUnitTypes {
             speed = 5f;
             rotateSpeed = 10f;
             flying = true;
-            hidden = true;
 
             engineSize = 0f;
             setEnginesMirror(

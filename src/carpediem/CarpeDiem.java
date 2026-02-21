@@ -5,7 +5,9 @@ import arc.graphics.g2d.*;
 import arc.struct.*;
 import arc.util.*;
 import carpediem.audio.*;
+import carpediem.content.blocks.*;
 import carpediem.graphics.*;
+import carpediem.type.*;
 import carpediem.ui.*;
 import carpediem.ui.fragments.*;
 import carpediem.world.draw.*;
@@ -17,7 +19,9 @@ import mindustry.graphics.*;
 import mindustry.mod.*;
 import carpediem.content.*;
 import carpediem.ui.dialogs.*;
+import mindustry.type.*;
 import mindustry.ui.dialogs.*;
+import mindustry.world.*;
 import mindustry.world.meta.*;
 
 public class CarpeDiem extends Mod {
@@ -119,5 +123,39 @@ public class CarpeDiem extends Mod {
         CDSectorPresets.load();
         CDArchives.load();
         CDTechTree.load();
+
+        // hide unfinished content
+        {
+            CDUnitTypes.myriad.hidden = true;
+
+            for (Block block : new Block[]{
+                    CDStorage.landingPodT2,
+                    CDPower.compressionEngine,
+                    CDPayloadBlocks.payloadDisassembler
+            }) {
+                block.hideDatabase = true;
+            }
+
+            for (Archive archive : new Archive[]{
+                    CDArchives.pressurization,
+                    CDArchives.springLaunchers,
+                    CDArchives.drones,
+                    CDArchives.advancedPowerProduction,
+                    CDArchives.industrialExtraction,
+                    CDArchives.advancedPayloadLogistics,
+                    CDArchives.fanProcessing,
+                    CDArchives.planetaryExpansion
+            }) {
+                archive.show = false;
+            }
+
+            for (SectorPreset preset : new SectorPreset[]{
+                    CDSectorPresets.interference,
+                    CDSectorPresets.sanctuary,
+                    CDSectorPresets.finalRestingPlace
+            }) {
+                preset.description = null;
+            }
+        }
     }
 }
