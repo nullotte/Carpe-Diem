@@ -114,15 +114,18 @@ public class PayloadFrontLoader extends Block {
     }
 
     @Override
-    public void drawOverlay(float x, float y, int rotation) {
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        super.drawPlace(x, y, rotation, valid);
+
         int dx = Geometry.d4x(rotation), dy = Geometry.d4y(rotation);
-        Drawf.dashLine(Pal.place,
-                x + ((dx * size * Vars.tilesize) / 2f),
-                y + ((dy * size * Vars.tilesize) / 2f),
-                x + dx * ((size * Vars.tilesize) - 2f),
-                y + dy * ((size * Vars.tilesize) - 2f)
+        float drawx = x * Vars.tilesize + offset, drawy = y * Vars.tilesize + offset;
+        Drawf.dashLine(Pal.placing,
+                drawx + ((dx * size * Vars.tilesize) / 2f),
+                drawy + ((dy * size * Vars.tilesize) / 2f),
+                drawx + dx * ((size * Vars.tilesize) - 2f),
+                drawy + dy * ((size * Vars.tilesize) - 2f)
         );
-        Drawf.square(x + (dx * size * Vars.tilesize), y + (dy * size * Vars.tilesize), 2f, 45f, Pal.place);
+        Drawf.square(drawx + (dx * size * Vars.tilesize), drawy + (dy * size * Vars.tilesize), 2f, 45f, Pal.placing);
     }
 
     public class PayloadFrontLoaderBuild extends Building {
@@ -242,6 +245,18 @@ public class PayloadFrontLoader extends Block {
             Draw.xscl = 1f;
 
             Draw.rect(handOutlineRegion, x + (dx * size * Vars.tilesize), y + (dy * size * Vars.tilesize));
+        }
+
+        @Override
+        public void drawSelect() {
+            int dx = Geometry.d4x(rotation), dy = Geometry.d4y(rotation);
+            Drawf.dashLine(Pal.place,
+                    x + ((dx * size * Vars.tilesize) / 2f),
+                    y + ((dy * size * Vars.tilesize) / 2f),
+                    x + dx * ((size * Vars.tilesize) - 2f),
+                    y + dy * ((size * Vars.tilesize) - 2f)
+            );
+            Drawf.square(x + (dx * size * Vars.tilesize), y + (dy * size * Vars.tilesize), 2f, 45f, Pal.place);
         }
     }
 }
