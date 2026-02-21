@@ -128,14 +128,6 @@ public class CarpeDiem extends Mod {
         {
             CDUnitTypes.myriad.hidden = true;
 
-            for (Block block : new Block[]{
-                    CDStorage.landingPodT2,
-                    CDPower.compressionEngine,
-                    CDPayloadBlocks.payloadDisassembler
-            }) {
-                block.hideDatabase = true;
-            }
-
             for (Archive archive : new Archive[]{
                     CDArchives.pressurization,
                     CDArchives.springLaunchers,
