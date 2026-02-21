@@ -13,7 +13,7 @@ import mindustry.world.meta.*;
 
 public class CDPayloadComponents {
     public static Block
-    packagedLandingPodT0, packagedLandingPodT1,
+    packagedLandingPodT0, packagedLandingPodT1, packagedLandingPodT2,
     // crafting ingredients
     landingPodFrame, thruster, boosterEngine, storageCompartment,
     // yea i guess these go here too
@@ -26,6 +26,7 @@ public class CDPayloadComponents {
         packagedLandingPodT0 = new PackagedCoreBlock("packaged-landing-pod-t0", CDStorage.landingPodT0);
         ((SingleBlockProducer) CDPayloadBlocks.landingPodAssembler).result = packagedLandingPodT0;
         packagedLandingPodT1 = new PackagedCoreBlock("packaged-landing-pod-t1", CDStorage.landingPodT1);
+        packagedLandingPodT2 = new PackagedCoreBlock("packaged-landing-pod-t2", CDStorage.landingPodT2);
 
         landingPodFrame = new SyntheticBlock("landing-pod-frame") {{
             requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
