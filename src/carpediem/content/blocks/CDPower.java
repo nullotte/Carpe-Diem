@@ -2,6 +2,7 @@ package carpediem.content.blocks;
 
 import carpediem.content.*;
 import carpediem.world.blocks.power.*;
+import carpediem.world.consumers.*;
 import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.graphics.*;
@@ -12,7 +13,7 @@ import mindustry.world.draw.*;
 public class CDPower {
     public static Block
     cableNode, cableTower, accumulator,
-    geothermalBurner, steamBoiler;
+    geothermalBurner, steamBoiler, compressionEngine;
 
     public static void load() {
         cableNode = new CableNode("cable-node") {{
@@ -106,7 +107,6 @@ public class CDPower {
                     CDItems.fluidCell, 5
             ));
             size = 5;
-            hideDetails = false;
 
             powerProduction = 30f;
 
@@ -134,6 +134,24 @@ public class CDPower {
 
             consumeLiquid(Liquids.water, 0.1f);
             consumeItems(ItemStack.with(CDItems.sulfur, 2, CDItems.tar, 1));
+        }};
+
+        compressionEngine = new CableConsumeGenerator("compression-engine") {{
+            requirements(Category.power, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 6;
+
+            powerProduction = 150f;
+            itemDuration = 4f * 60f;
+
+            topOffset = 14.5f;
+            drawer = new DrawMulti(
+                    new DrawDefault()
+            );
+
+            consumeItem(Items.pyratite, 1);
+            consume(new ConsumePressure(20f));
         }};
     }
 }

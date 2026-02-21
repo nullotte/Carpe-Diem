@@ -9,6 +9,13 @@ import mindustry.world.meta.*;
 public class ConsumePressure extends Consume {
     public float usage = 5f;
 
+    public ConsumePressure() {
+    }
+
+    public ConsumePressure(float usage) {
+        this.usage = usage;
+    }
+
     @Override
     public float efficiency(Building build) {
         float sum = 0f;

@@ -22,7 +22,7 @@ public class CDArchives {
     // forward outpost
     fluidProcessing, powerProduction, payloadLogistics, industrialStorage, advancedExpansion,
     // interference
-    pressurization, springLaunchers, drones,
+    pressurization, springLaunchers, drones, advancedPowerProduction,
     // sanctuary
     advancedPayloadLogistics, fanProcessing, planetaryExpansion;
 
@@ -165,6 +165,18 @@ public class CDArchives {
                         heap,
                         providerContainer,
                         receiverContainer
+                )
+        );
+
+        advancedPowerProduction = new Archive(
+                "advanced-power-production",
+                ItemStack.with(
+                        card1, 7500,
+                        card2, 5000,
+                        card3, 5000
+                ),
+                Seq.with(
+                        compressionEngine
                 )
         );
         // endregion
