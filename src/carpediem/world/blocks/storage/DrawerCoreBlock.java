@@ -5,14 +5,13 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
+import mindustry.*;
 import mindustry.entities.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.draw.*;
-
-import static mindustry.Vars.*;
 
 public class DrawerCoreBlock extends CoreBlock {
     public DrawBlock drawer = new DrawDefault();
@@ -66,10 +65,10 @@ public class DrawerCoreBlock extends CoreBlock {
 
         @Override
         public void drawLanding(float x, float y) {
-            float fin = renderer.getLandTimeIn();
+            float fin = Vars.renderer.getLandTimeIn();
             float fout = 1f - fin;
 
-            float scl = Scl.scl(4f) / renderer.getDisplayScale();
+            float scl = Scl.scl(4f) / Vars.renderer.getDisplayScale();
             float shake = 0f;
             float s = region.width * region.scl() * scl * 3.6f * Interp.pow2Out.apply(fout);
             float rotation = Interp.pow2In.apply(fout) * 135f;
@@ -80,7 +79,7 @@ public class DrawerCoreBlock extends CoreBlock {
             float thrusterSize = Mathf.sample(thrusterSizes, fin);
 
             //when launching, thrusters stay out the entire time.
-            if (renderer.isLaunching()) {
+            if (Vars.renderer.isLaunching()) {
                 Interp i = Interp.pow2Out;
                 thrusterFrame = i.apply(Mathf.clamp(fout * 13f));
                 thrusterSize = i.apply(Mathf.clamp(fout * 9f));
@@ -99,11 +98,11 @@ public class DrawerCoreBlock extends CoreBlock {
             for (int i = 0; i < 4; i++) {
                 Tmp.v1.trns(i * 90 + rotation, 1f);
 
-                Tmp.v1.setLength((size * tilesize / 2f + 1f) * scl + strength * 2f + offset);
+                Tmp.v1.setLength((size * Vars.tilesize / 2f + 1f) * scl + strength * 2f + offset);
                 Draw.color(team.color);
                 Fill.circle(Tmp.v1.x + x, Tmp.v1.y + y, 6f * strength);
 
-                Tmp.v1.setLength((size * tilesize / 2f + 1f) * scl + strength * 0.5f + offset);
+                Tmp.v1.setLength((size * Vars.tilesize / 2f + 1f) * scl + strength * 0.5f + offset);
                 Draw.color(Color.white);
                 Fill.circle(Tmp.v1.x + x, Tmp.v1.y + y, 3.5f * strength);
             }

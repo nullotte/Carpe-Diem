@@ -16,8 +16,6 @@ import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
 
-import static mindustry.Vars.*;
-
 public class PipeBridge extends MergingLiquidBlock {
     private static BuildPlan otherReq;
     private int otherDst = 0;
@@ -112,13 +110,13 @@ public class PipeBridge extends MergingLiquidBlock {
                 angle = Angles.angle(x1, y1, x2, y2),
                 cx = (x1 + x2) / 2f,
                 cy = (y1 + y2) / 2f,
-                len = Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2)) - size * tilesize;
+                len = Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2)) - size * Vars.tilesize;
 
         TextureRegion bridgeRegion = rotation == 0 || rotation == 3 ? bridgeRegion1 : bridgeRegion2;
 
         Draw.rect(bridgeRegion, cx, cy, len, bridgeRegion.height * bridgeRegion.scl(), angle);
 
-        for (float i = 6f; i <= len + size * tilesize - 5f; i += 5f) {
+        for (float i = 6f; i <= len + size * Vars.tilesize - 5f; i += 5f) {
             Draw.rect(arrowRegion, x1 + Geometry.d4x(rotation) * i, y1 + Geometry.d4y(rotation) * i, angle);
         }
 

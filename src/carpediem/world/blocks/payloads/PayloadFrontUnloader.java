@@ -1,11 +1,9 @@
 package carpediem.world.blocks.payloads;
 
-import mindustry.gen.Building;
-import mindustry.type.Item;
-import mindustry.type.Liquid;
-import mindustry.world.blocks.payloads.BuildPayload;
-
-import static mindustry.Vars.content;
+import mindustry.*;
+import mindustry.gen.*;
+import mindustry.type.*;
+import mindustry.world.blocks.payloads.*;
 
 public class PayloadFrontUnloader extends PayloadFrontLoader {
     public int offloadSpeed = 4;
@@ -68,7 +66,7 @@ public class PayloadFrontUnloader extends PayloadFrontLoader {
                     for (int j = 0; j < itemsLoaded && canFill(); j++) {
                         for (int i = 0; i < items.length(); i++) {
                             if (payload.build.items.get(i) > 0) {
-                                Item item = content.item(i);
+                                Item item = Vars.content.item(i);
                                 payload.build.items.remove(item, 1);
                                 items.add(item, 1);
                                 break;

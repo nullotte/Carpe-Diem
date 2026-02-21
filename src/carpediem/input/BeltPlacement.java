@@ -10,8 +10,6 @@ import mindustry.input.*;
 import mindustry.world.*;
 import mindustry.world.blocks.distribution.*;
 
-import static mindustry.Vars.*;
-
 // i do not know what i am doing
 public class BeltPlacement {
     private static final Seq<BuildPlan> plans1 = new Seq<>();
@@ -109,7 +107,7 @@ public class BeltPlacement {
     public static void calculateNodes(Seq<Point2> points, Block block, int rotation, Boolf2<Point2, Point2> overlapper) {
         Seq<Point2> base = tmpPoints2, result = tmpPoints.clear();
 
-        base.selectFrom(points, p -> p == points.first() || p == points.peek() || Build.validPlace(block, player.team(), p.x, p.y, rotation));
+        base.selectFrom(points, p -> p == points.first() || p == points.peek() || Build.validPlace(block, Vars.player.team(), p.x, p.y, rotation));
         boolean addedLast = false;
         boolean out = true;
 
