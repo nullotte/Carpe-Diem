@@ -29,7 +29,7 @@ public class CDMusics {
         tribute = Vars.tree.loadMusic("tribute");
         oldDreams = Vars.tree.loadMusic("old-dreams");
 
-        for (CoreBlock block : new CoreBlock[]{CDStorage.landingPodT0, CDStorage.landingPodT1}) {
+        for (CoreBlock block : new CoreBlock[]{CDStorage.landingPodT0, CDStorage.landingPodT1, CDStorage.landingPodT2}) {
             block.landMusic = land;
         }
 
