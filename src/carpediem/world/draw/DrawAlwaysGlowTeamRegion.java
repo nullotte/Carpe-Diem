@@ -5,13 +5,13 @@ import arc.math.*;
 import mindustry.gen.*;
 import mindustry.world.draw.*;
 
-public class DrawAlwaysGlowRegion extends DrawGlowRegion {
+public class DrawAlwaysGlowTeamRegion extends DrawGlowRegion {
     @Override
     public void draw(Building build) {
         float z = Draw.z();
         if (layer > 0) Draw.z(layer);
         Draw.blend(blending);
-        Draw.color(color);
+        Draw.color(build.team.palette[1]);
         Draw.alpha((Mathf.absin(build.totalProgress(), glowScale, alpha) * glowIntensity + 1f - glowIntensity) * alpha);
         Draw.rect(region, build.x, build.y, build.totalProgress() * rotateSpeed + (rotate ? build.rotdeg() : 0f));
         Draw.reset();

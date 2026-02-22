@@ -5,7 +5,6 @@ import arc.math.geom.*;
 import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.storage.*;
-import carpediem.world.blocks.units.*;
 import carpediem.world.draw.*;
 import mindustry.content.*;
 import mindustry.type.*;
@@ -76,9 +75,7 @@ public class CDStorage {
                     new DrawCoreDoor(),
                     new DrawDefault(),
                     new DrawTeam(),
-                    new DrawAlwaysGlowRegion() {{
-                        color = Color.valueOf("79aded");
-                    }}
+                    new DrawAlwaysGlowTeamRegion()
             );
         }};
 
@@ -102,9 +99,7 @@ public class CDStorage {
                     new DrawCoreDoor(),
                     new DrawDefault(),
                     new DrawTeam(),
-                    new DrawAlwaysGlowRegion() {{
-                        color = Color.valueOf("79aded");
-                    }}
+                    new DrawAlwaysGlowTeamRegion()
             );
         }};
 
