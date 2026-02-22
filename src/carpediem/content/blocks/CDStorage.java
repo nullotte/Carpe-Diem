@@ -101,7 +101,10 @@ public class CDStorage {
                     new DrawRegion("-bottom"),
                     new DrawCoreDoor(),
                     new DrawDefault(),
-                    new DrawTeam()
+                    new DrawTeam(),
+                    new DrawAlwaysGlowRegion() {{
+                        color = Color.valueOf("79aded");
+                    }}
             );
         }};
 
