@@ -13,7 +13,7 @@ public class CDDistribution {
     public static void load() {
         belt = new Belt("belt") {{
             requirements(Category.distribution, ItemStack.with(
-                    CDItems.aluminumPlate, 1,
+                    CDItems.aluminum, 1,
                     CDItems.aluminumCogwheel, 1
             ));
             itemCapacity = 3;
@@ -22,8 +22,8 @@ public class CDDistribution {
 
         beltMerger = new Merger("belt-merger") {{
             requirements(Category.distribution, ItemStack.with(
-                    CDItems.aluminum, 2,
-                    CDItems.aluminumPlate, 2,
+                    CDItems.aluminum, 1,
+                    CDItems.aluminumPlate, 1,
                     CDItems.aluminumCogwheel, 2
             ));
             speed = 6f;
@@ -41,8 +41,8 @@ public class CDDistribution {
 
         beltSplitter = new Splitter("belt-splitter") {{
             requirements(Category.distribution, ItemStack.with(
-                    CDItems.aluminum, 2,
-                    CDItems.aluminumPlate, 2,
+                    CDItems.aluminum, 1,
+                    CDItems.aluminumPlate, 1,
                     CDItems.aluminumCogwheel, 2
             ));
             speed = 6f;
@@ -61,8 +61,8 @@ public class CDDistribution {
 
         beltOverflowGate = new DrawerOverflowDuct("belt-overflow-gate") {{
             requirements(Category.distribution, ItemStack.with(
-                    CDItems.aluminum, 2,
-                    CDItems.aluminumPlate, 2,
+                    CDItems.aluminum, 1,
+                    CDItems.aluminumPlate, 1,
                     CDItems.aluminumCogwheel, 2
             ));
             speed = 6f;
@@ -80,7 +80,7 @@ public class CDDistribution {
 
         beltBridge = new BeltBridge("belt-bridge") {{
             requirements(Category.distribution, ItemStack.with(
-                    CDItems.aluminum, 8,
+                    CDItems.aluminum, 4,
                     CDItems.aluminumPlate, 1,
                     CDItems.aluminumCogwheel, 1
             ));
@@ -96,8 +96,8 @@ public class CDDistribution {
 
         beltUnloader = new DrawerDirectionalUnloader("belt-unloader") {{
             requirements(Category.distribution, ItemStack.with(
-                    CDItems.aluminum, 10,
-                    CDItems.aluminumPlate, 6,
+                    CDItems.aluminum, 6,
+                    CDItems.aluminumPlate, 4,
                     CDItems.aluminumCogwheel, 2,
                     CDItems.controlCircuit, 1
             ));
