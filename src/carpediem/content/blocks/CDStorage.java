@@ -1,5 +1,6 @@
 package carpediem.content.blocks;
 
+import arc.graphics.*;
 import arc.math.geom.*;
 import arc.struct.EnumSet;
 import carpediem.content.*;
@@ -74,7 +75,10 @@ public class CDStorage {
                     new DrawRegion("-bottom"),
                     new DrawCoreDoor(),
                     new DrawDefault(),
-                    new DrawTeam()
+                    new DrawTeam(),
+                    new DrawAlwaysGlowRegion() {{
+                        color = Color.valueOf("79aded");
+                    }}
             );
         }};
 
