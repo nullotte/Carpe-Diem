@@ -39,11 +39,6 @@ public class DrawBeltUnder extends DrawBlock {
         }
     }
 
-    @Override
-    public TextureRegion[] icons(Block block) {
-        return new TextureRegion[]{};
-    }
-
     public interface BeltUnderBlending {
         int[] blendInputs();
         int[] blendOutputs();
