@@ -81,14 +81,9 @@ public class LandingPod extends DrawerCoreBlock {
         return false;
     }
 
-    // really?
-    public boolean realIsHidden() {
-        return super.isHidden();
-    }
-
     @Override
     public boolean isVisible() {
-        return !realIsHidden() && (Vars.state.rules.editor || (!Vars.state.rules.hideBannedBlocks || !Vars.state.rules.isBanned(this)));
+        return !super.isHidden() && (Vars.state.rules.editor || (!Vars.state.rules.hideBannedBlocks || !Vars.state.rules.isBanned(this)));
     }
 
     public class LandingPodBuild extends DrawerCoreBuild {
