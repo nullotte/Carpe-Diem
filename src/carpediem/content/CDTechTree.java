@@ -84,9 +84,11 @@ public class CDTechTree {
                 });
             });
 
-            node(industryHub, () -> {
-                node(storageVault);
-                node(shippingContainer);
+            node(storageChest, () -> {
+                node(industryHub, () -> {
+                    node(storageVault);
+                    node(shippingContainer);
+                });
             });
 
             node(payloadAssembler, () -> {

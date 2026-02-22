@@ -2,7 +2,7 @@ package carpediem.content.blocks;
 
 import arc.graphics.*;
 import arc.math.geom.*;
-import arc.struct.EnumSet;
+import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.storage.*;
 import carpediem.world.blocks.units.*;
@@ -21,7 +21,7 @@ public class CDStorage {
     industryHub;
 
     public static Block
-    storageVault, shippingContainer, providerContainer, receiverContainer;
+    storageChest, storageVault, shippingContainer, providerContainer, receiverContainer;
 
     public static void load() {
         landingPodT0 = new LandingPod("landing-pod-t0") {{
@@ -124,6 +124,28 @@ public class CDStorage {
                             new Vec2(12f, 12f)
                     ),
                     new DrawCoreDoor(),
+                    new DrawDefault(),
+                    new DrawTeam()
+            );
+        }};
+
+        storageChest = new DrawerStorageBlock("storage-chest") {{
+            requirements(Category.effect, ItemStack.with(
+                    CDItems.aluminum, 40,
+                    CDItems.aluminumPlate, 20
+            ));
+            size = 3;
+            itemCapacity = 500;
+
+            Seq<DrawBlock> itemSlots = new Seq<>();
+            for (Point2 point : Geometry.d4) {
+                itemSlots.add(new DrawItemSlot(new Vec2(point.x * 3.5f, point.y * 3.5f)));
+            }
+
+            clipSize = size * 8f * 3f;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawMulti(itemSlots),
                     new DrawDefault(),
                     new DrawTeam()
             );

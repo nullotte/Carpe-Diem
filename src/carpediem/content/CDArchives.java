@@ -38,7 +38,8 @@ public class CDArchives {
                         smelterT1,
                         pressT1,
                         rollingMillT1,
-                        assemblerT1
+                        assemblerT1,
+                        storageChest
                 )
         );
 
