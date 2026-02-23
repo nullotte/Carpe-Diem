@@ -128,19 +128,6 @@ public class CarpeDiem extends Mod {
         if (!debug) {
             CDUnitTypes.myriad.hidden = true;
 
-            for (Archive archive : new Archive[]{
-                    CDArchives.pressurization,
-                    CDArchives.springLaunchers,
-                    CDArchives.drones,
-                    CDArchives.advancedPowerProduction,
-                    CDArchives.industrialExtraction,
-                    CDArchives.advancedPayloadLogistics,
-                    CDArchives.fanProcessing,
-                    CDArchives.planetaryExpansion
-            }) {
-                archive.show = false;
-            }
-
             for (SectorPreset preset : new SectorPreset[]{
                     CDSectorPresets.interference,
                     CDSectorPresets.sanctuary,
