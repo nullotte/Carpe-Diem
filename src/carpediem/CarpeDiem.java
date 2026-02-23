@@ -125,7 +125,7 @@ public class CarpeDiem extends Mod {
         CDTechTree.load();
 
         // hide unfinished content
-        {
+        if (!debug) {
             CDUnitTypes.myriad.hidden = true;
 
             for (Archive archive : new Archive[]{
