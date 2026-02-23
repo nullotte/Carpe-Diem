@@ -17,6 +17,7 @@ import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.draw.*;
+import mindustry.world.meta.*;
 
 // ??? where do i put this
 public class FanBlock extends Block {
@@ -40,6 +41,12 @@ public class FanBlock extends Block {
         update = true;
         solid = true;
         rotate = true;
+    }
+
+    @Override
+    public void setStats() {
+        super.setStats();
+        stats.add(Stat.range, range / Vars.tilesize, StatUnit.blocks);
     }
 
     @Override
