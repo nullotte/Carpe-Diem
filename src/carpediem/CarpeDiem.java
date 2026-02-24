@@ -27,6 +27,7 @@ import mindustry.world.meta.*;
 public class CarpeDiem extends Mod {
     public static CDHints hints;
     public static LaunchSectorInfoDialog launchSectorInfo;
+    public static CDCampaignCompleteDialog campaignComplete;
     // it's an extra content info dialog because like. nesting and stuff
     public static ContentInfoDialog content;
 
@@ -67,6 +68,7 @@ public class CarpeDiem extends Mod {
 
         hints = new CDHints();
         launchSectorInfo = new LaunchSectorInfoDialog();
+        campaignComplete = new CDCampaignCompleteDialog();
         content = new ContentInfoDialog();
 
         cableGlowRenderer = new CableGlowRenderer();
