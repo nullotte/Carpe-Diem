@@ -58,14 +58,6 @@ public class CarpeDiem extends Mod {
 
     @Override
     public void init() {
-        Seq<UnlockableContent> noTechNode = new Seq<>();
-        Vars.content.each(c -> {
-            if (c instanceof UnlockableContent unlockable && unlockable.minfo.mod != null && unlockable.minfo.mod.main == this && unlockable.techNode == null) {
-                noTechNode.add(unlockable);
-            }
-        });
-        Log.info(noTechNode.toString(",\n", c -> c.localizedName));
-
         hints = new CDHints();
         launchSectorInfo = new LaunchSectorInfoDialog();
         campaignComplete = new CDCampaignCompleteDialog();
