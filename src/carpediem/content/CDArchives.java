@@ -124,8 +124,9 @@ public class CDArchives {
                 Seq.with(
                         landingPodFrame,
                         thruster,
-                        boosterEngine,
                         storageCompartment,
+                        portableBattery,
+                        assemblyManifold,
                         landingPodT1
                 )
         );
@@ -165,7 +166,10 @@ public class CDArchives {
                         carver,
                         heap,
                         providerContainer,
-                        receiverContainer
+                        receiverContainer,
+                        droneFrame,
+                        opticalSensor,
+                        processingCore
                 )
         );
 
@@ -243,7 +247,9 @@ public class CDArchives {
                         card4, 3000
                 ),
                 Seq.with(
-                        landingPodT2
+                        landingPodT2,
+                        orbitCalculationCore,
+                        heatShield
                 )
         );
         // endregion

@@ -544,7 +544,9 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                 UnlockableContent[] row = array[array.length - 1 - y];
 
                 for (int x = 0; x < row.length; x++) {
-                    requirements.put(Point2.pack(x, y), row[x]);
+                    UnlockableContent content = row[x];
+                    if (content == null) continue;
+                    requirements.put(Point2.pack(x, y), content);
                 }
             }
         }

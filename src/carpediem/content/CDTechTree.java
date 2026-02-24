@@ -105,10 +105,19 @@ public class CDTechTree {
                         node(heap);
                         node(myriad);
                     });
-                    node(landingPodFrame);
-                    node(thruster);
-                    node(boosterEngine);
-                    node(storageCompartment);
+                    node(landingPodFrame, () -> {
+                        node(thruster);
+                        node(storageCompartment);
+                        node(portableBattery);
+                        node(assemblyManifold);
+                        node(droneFrame, () -> {
+                            node(opticalSensor);
+                            node(processingCore);
+                            node(orbitCalculationCore, () -> {
+                                node(heatShield);
+                            });
+                        });
+                    });
                 });
                 node(payloadDisassembler);
                 node(springLauncher);

@@ -15,7 +15,9 @@ public class CDPayloadComponents {
     public static Block
     packagedLandingPodT0, packagedLandingPodT1, packagedLandingPodT2,
     // crafting ingredients
-    landingPodFrame, thruster, boosterEngine, storageCompartment,
+    landingPodFrame, thruster, storageCompartment, portableBattery, assemblyManifold,
+    droneFrame, opticalSensor, processingCore,
+    orbitCalculationCore, heatShield,
     // yea i guess these go here too
     blockAluminum, blockNickel, blockSilver, blockPlatinum, blockSturdyAlloy,
     blockSilicon, blockPyratite;
@@ -28,26 +30,78 @@ public class CDPayloadComponents {
         packagedLandingPodT1 = new PackagedCoreBlock("packaged-landing-pod-t1", CDStorage.landingPodT1);
         packagedLandingPodT2 = new PackagedCoreBlock("packaged-landing-pod-t2", CDStorage.landingPodT2);
 
+        // region crafting ingredients
         landingPodFrame = new SyntheticBlock("landing-pod-frame") {{
-            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
             size = 3;
         }};
 
         thruster = new SyntheticBlock("thruster") {{
-            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
-            size = 3;
-        }};
-
-        boosterEngine = new SyntheticBlock("booster-engine") {{
-            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
             size = 3;
         }};
 
         storageCompartment = new SyntheticBlock("storage-compartment") {{
-            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
             size = 3;
         }};
 
+        portableBattery = new SyntheticBlock("portable-battery") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+        }};
+
+        assemblyManifold = new SyntheticBlock("assembly-manifold") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+        }};
+
+        droneFrame = new SyntheticBlock("drone-frame") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+        }};
+
+        opticalSensor = new SyntheticBlock("optical-sensor") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+        }};
+
+        processingCore = new SyntheticBlock("processing-core") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+        }};
+
+        orbitCalculationCore = new SyntheticBlock("orbital-calculation-core") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+        }};
+
+        heatShield = new SyntheticBlock("heat-shield") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+        }};
+        // endregion
+        // region material blocks
         blockRawAluminum = new ProcessableBlock("block-raw-aluminum") {{
             requirements(Category.crafting, ItemStack.with(
                     CDItems.rawAluminum, 50
@@ -135,16 +189,71 @@ public class CDPayloadComponents {
             size = 3;
             ((PayloadBurner) CDPayloadBlocks.bulkHeater).consumedBlock = this;
         }};
+        // endregion
 
-        ((PayloadManufacturingGrid) CDPayloadBlocks.payloadManufacturingGrid).recipes.add(
+        ((PayloadManufacturingGrid) CDPayloadBlocks.payloadManufacturingGrid).recipes.addAll(
                 new PayloadManufacturingRecipe(packagedLandingPodT1, r -> {
-                    Block l = landingPodFrame, t = thruster, b = boosterEngine, s = storageCompartment;
+                    Block
+                            lpf = landingPodFrame,
+                            t = thruster,
+                            sc = storageCompartment,
+                            pb = portableBattery,
+                            am = assemblyManifold;
                     r.mapRequirements(new UnlockableContent[][]{
-                            {l, l, t, l, l},
-                            {l, s, b, s, l},
-                            {t, b, s, b, t},
-                            {l, s, b, s, l},
-                            {l, l, t, l, l}
+                            {lpf, lpf, t, lpf, lpf},
+                            {lpf, sc, pb, sc, lpf},
+                            {t, pb, am, pb, t},
+                            {lpf, sc, pb, sc, lpf},
+                            {lpf, lpf, t, lpf, lpf}
+                    });
+                }),
+                new PayloadManufacturingRecipe(packagedLandingPodT2, r -> {
+                    Block
+                            lpf = landingPodFrame,
+                            t = thruster,
+                            sc = storageCompartment,
+                            pb = portableBattery,
+                            am = assemblyManifold,
+                            pc = processingCore,
+                            occ = orbitCalculationCore,
+                            hs = heatShield;
+                    r.mapRequirements(new UnlockableContent[][]{
+                            {hs, lpf, t, t, lpf, hs},
+                            {lpf, sc, occ, pc, sc, lpf},
+                            {t, occ, am, pb, pc, t},
+                            {t, pc, pb, am, occ, t},
+                            {lpf, sc, pc, occ, sc, lpf},
+                            {hs, lpf, t, t, lpf, hs}
+                    });
+                }),
+                new PayloadManufacturingRecipe(CDUnitTypes.carver, r -> {
+                    Block
+                            t = thruster,
+                            pb = portableBattery,
+                            am = assemblyManifold,
+                            df = droneFrame,
+                            os = opticalSensor,
+                            pc = processingCore;
+                    r.mapRequirements(new UnlockableContent[][]{
+                            {am, os, am},
+                            {df, pc, df},
+                            {df, pb, df},
+                            {null, t, null}
+                    });
+                }),
+                new PayloadManufacturingRecipe(CDUnitTypes.heap, r -> {
+                    Block
+                            t = thruster,
+                            sc = storageCompartment,
+                            pb = portableBattery,
+                            df = droneFrame,
+                            os = opticalSensor,
+                            pc = processingCore;
+                    r.mapRequirements(new UnlockableContent[][]{
+                            {df, os, df},
+                            {sc, pc, sc},
+                            {df, pb, df},
+                            {null, t, null}
                     });
                 }),
                 new PayloadManufacturingRecipe(blockUnrefinedAlloy, PayloadStack.with(blockAluminum, 2, blockSilicon, 2))
