@@ -22,8 +22,9 @@ public class EndingFragment {
     public float moveSpeed = 0.03f;
     public float rotateSpeed = 0.003f;
     public float holdTime = 120f;
-    public float rotateWarmupLerpSpeed = 0.003f;
+    public float rotateWarmupLerpSpeed = 0.002f;
     public float fovLerpSpeed = 0.0007f;
+    public Vec3 avoidedPosition = new Vec3(0f, 0f, 40f);
 
     public Vec3 moveDirection = new Vec3();
     public float holdDuration;
@@ -72,7 +73,7 @@ public class EndingFragment {
                             rotateWarmup = Mathf.lerpDelta(rotateWarmup, 1f, rotateWarmupLerpSpeed);
                         }
 
-                        moveDirection.slerp(Tmp.v31.set(cam.position).nor(), rotateWarmup * rotateSpeed * Time.delta);
+                        moveDirection.slerp(Tmp.v31.set(cam.position).add(avoidedPosition).nor(), rotateWarmup * rotateSpeed * Time.delta);
 
                         cam.position.add(Tmp.v31.set(moveDirection).setLength(moveSpeed * Time.delta));
                         cam.direction.setZero().sub(moveDirection);
