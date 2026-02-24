@@ -1,6 +1,7 @@
 package carpediem.ui.fragments;
 
 import arc.*;
+import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.*;
 import arc.scene.*;
@@ -10,7 +11,9 @@ import arc.scene.ui.*;
 import arc.util.*;
 import carpediem.*;
 import carpediem.content.*;
+import carpediem.content.blocks.*;
 import mindustry.*;
+import mindustry.graphics.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
 
@@ -73,8 +76,15 @@ public class EndingFragment {
 
                         cam.position.add(Tmp.v31.set(moveDirection).setLength(moveSpeed * Time.delta));
                         cam.direction.setZero().sub(moveDirection);
-                        //planetParams.camDir.set(Vec3.Z).rotate(Vec3.Y, Time.time / 2f);
                     });
+
+                    Draw.scl(4f);
+                    float x = Core.graphics.getWidth() / 2f;
+                    float y = Core.graphics.getHeight() / 2f;
+
+                    // we just doing this for now. but a better solution later would be a drawRocket(x, y) method
+                    Draw.rect(CDStorage.landingPodT2.fullIcon, x, y);
+                    Draw.scl();
                 }
             });
 
