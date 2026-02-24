@@ -2,19 +2,23 @@ package carpediem.ui.fragments;
 
 import arc.*;
 import arc.math.*;
+import arc.math.geom.*;
 import arc.scene.*;
 import arc.scene.actions.*;
 import arc.scene.event.*;
 import arc.scene.ui.*;
 import arc.util.*;
+import carpediem.*;
 import carpediem.content.*;
 import mindustry.*;
 import mindustry.graphics.g3d.*;
+import mindustry.type.*;
 
 public class EndingFragment {
+    public float duration = 5f;
+
     public PlanetParams planetParams = new PlanetParams() {{
         planet = CDPlanets.asphodel;
-        zoom = 0.1f;
     }};
 
     public void build(Group parent) {
@@ -36,31 +40,19 @@ public class EndingFragment {
             table.add(new Element() {
                 @Override
                 public void draw() {
-                    Vars.renderer.planets.render(planetParams);
+                    Sector sector = Vars.state.rules.sector;
+                    if (sector == null) return;
+                    CarpeDiem.planetRenderer.render(planetParams, cam -> {
+                        cam.fov = 2f;
+                        sector.planet.lookAt(sector, cam.position);
+                        cam.position.setLength(4f).add(CDPlanets.asphodel.position);
+                        cam.lookAt(CDPlanets.asphodel.position);
+                        //planetParams.camDir.set(Vec3.Z).rotate(Vec3.Y, Time.time / 2f);
+                    });
                 }
             });
 
-            table.table(slider -> {
-                slider.image(Core.atlas.find("carpe-diem-title")).pad(50f);
-                slider.row();
-                slider.add("woahhh im going UP!!!");
-                slider.row();
-                slider.add("extra text lalalala");
-                slider.row();
-                slider.row();
-                slider.add("this is incredibly unfinished!!!! and the mod's not even finished enough to warrant me doing the end screen");
-                slider.row();
-                slider.add("but im doing it anyways!!!!! because it's vaguely fun!!!!");
-
-                slider.setTranslation(0f, -Core.graphics.getHeight());
-                slider.actions(Actions.translateBy(0f, -slider.translation.y * 2f, 30f));
-            });
-
-            table.update(() -> {
-                planetParams.zoom += Time.delta * 0.01f;
-            });
-
-            table.actions(Actions.delay(30f), Actions.fadeOut(0.5f), Actions.remove());
+            table.actions(Actions.delay(duration), Actions.fadeOut(0.5f), Actions.remove());
         });
     }
 }

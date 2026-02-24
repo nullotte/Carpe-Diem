@@ -31,6 +31,7 @@ public class CarpeDiem extends Mod {
     public static ContentInfoDialog content;
 
     public static CableGlowRenderer cableGlowRenderer;
+    public static CDPlanetRenderer planetRenderer;
 
     public static boolean debug;
 
@@ -69,6 +70,7 @@ public class CarpeDiem extends Mod {
         content = new ContentInfoDialog();
 
         cableGlowRenderer = new CableGlowRenderer();
+        planetRenderer = new CDPlanetRenderer();
 
         // this is probably bad
         Vars.ui.planet.update(() -> {
@@ -136,5 +138,9 @@ public class CarpeDiem extends Mod {
                 preset.description = null;
             }
         }
+    }
+
+    public void testEnding() {
+        new EndingFragment().build(Core.scene.root);
     }
 }
