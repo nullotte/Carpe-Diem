@@ -15,11 +15,11 @@ import mindustry.graphics.g3d.*;
 import mindustry.type.*;
 
 public class EndingFragment {
-    public float duration = 20f;
+    public float duration = 30f;
     public float moveSpeed = 0.03f;
     public float rotateSpeed = 0.003f;
-    public float holdTime = 60f;
-    public float rotateWarmupLerpSpeed = 0.005f;
+    public float holdTime = 120f;
+    public float rotateWarmupLerpSpeed = 0.003f;
     public float fovLerpSpeed = 0.0007f;
 
     public Vec3 moveDirection = new Vec3();
