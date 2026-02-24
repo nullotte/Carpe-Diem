@@ -26,6 +26,10 @@ public class CDCampaignCompleteDialog extends BaseDialog {
         });
 
         buttons.button("@continue", Icon.ok, this::hide);
+
+        if (false) {
+            hidden(() -> Vars.ui.showInfo("@carpe-diem-thank-you-for-playing"));
+        }
     }
 
     public void showComplete() {
