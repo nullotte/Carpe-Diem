@@ -106,11 +106,12 @@ public class CDTechTree {
                         node(myriad);
                     });
                     node(landingPodFrame, () -> {
-                        node(thruster);
+                        node(heavyThruster);
                         node(storageCompartment);
                         node(portableBattery);
                         node(assemblyManifold);
                         node(droneFrame, () -> {
+                            node(lightThruster);
                             node(opticalSensor);
                             node(processingCore);
                             node(orbitCalculationCore, () -> {

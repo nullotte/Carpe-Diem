@@ -15,8 +15,8 @@ public class CDPayloadComponents {
     public static Block
     packagedLandingPodT0, packagedLandingPodT1, packagedLandingPodT2,
     // crafting ingredients
-    landingPodFrame, thruster, storageCompartment, portableBattery, assemblyManifold,
-    droneFrame, opticalSensor, processingCore,
+    landingPodFrame, heavyThruster, storageCompartment, portableBattery, assemblyManifold,
+    droneFrame, lightThruster, opticalSensor, processingCore,
     orbitCalculationCore, heatShield,
     // yea i guess these go here too
     blockAluminum, blockNickel, blockSilver, blockPlatinum, blockSturdyAlloy,
@@ -38,7 +38,7 @@ public class CDPayloadComponents {
             size = 3;
         }};
 
-        thruster = new SyntheticBlock("thruster") {{
+        heavyThruster = new SyntheticBlock("heavy-thruster") {{
             requirements(Category.units, ItemStack.with(
                     CDItems.lemon, 39
             ));
@@ -67,6 +67,13 @@ public class CDPayloadComponents {
         }};
 
         droneFrame = new SyntheticBlock("drone-frame") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 3;
+        }};
+
+        lightThruster = new SyntheticBlock("light-thruster") {{
             requirements(Category.units, ItemStack.with(
                     CDItems.lemon, 39
             ));
@@ -195,22 +202,22 @@ public class CDPayloadComponents {
                 new PayloadManufacturingRecipe(packagedLandingPodT1, r -> {
                     Block
                             lpf = landingPodFrame,
-                            t = thruster,
+                            ht = heavyThruster,
                             sc = storageCompartment,
                             pb = portableBattery,
                             am = assemblyManifold;
                     r.mapRequirements(new UnlockableContent[][]{
-                            {lpf, lpf, t, lpf, lpf},
+                            {lpf, lpf, ht, lpf, lpf},
                             {lpf, sc, pb, sc, lpf},
-                            {t, pb, am, pb, t},
+                            {ht, pb, am, pb, ht},
                             {lpf, sc, pb, sc, lpf},
-                            {lpf, lpf, t, lpf, lpf}
+                            {lpf, lpf, ht, lpf, lpf}
                     });
                 }),
                 new PayloadManufacturingRecipe(packagedLandingPodT2, r -> {
                     Block
                             lpf = landingPodFrame,
-                            t = thruster,
+                            ht = heavyThruster,
                             sc = storageCompartment,
                             pb = portableBattery,
                             am = assemblyManifold,
@@ -218,17 +225,17 @@ public class CDPayloadComponents {
                             occ = orbitCalculationCore,
                             hs = heatShield;
                     r.mapRequirements(new UnlockableContent[][]{
-                            {hs, lpf, t, t, lpf, hs},
+                            {hs, lpf, ht, ht, lpf, hs},
                             {lpf, sc, occ, pc, sc, lpf},
-                            {t, occ, am, pb, pc, t},
-                            {t, pc, pb, am, occ, t},
+                            {ht, occ, am, pb, pc, ht},
+                            {ht, pc, pb, am, occ, ht},
                             {lpf, sc, pc, occ, sc, lpf},
-                            {hs, lpf, t, t, lpf, hs}
+                            {hs, lpf, ht, ht, lpf, hs}
                     });
                 }),
                 new PayloadManufacturingRecipe(CDUnitTypes.carver, r -> {
                     Block
-                            t = thruster,
+                            lt = lightThruster,
                             pb = portableBattery,
                             am = assemblyManifold,
                             df = droneFrame,
@@ -238,12 +245,12 @@ public class CDPayloadComponents {
                             {am, os, am},
                             {df, pc, df},
                             {df, pb, df},
-                            {null, t, null}
+                            {null, lt, null}
                     });
                 }),
                 new PayloadManufacturingRecipe(CDUnitTypes.heap, r -> {
                     Block
-                            t = thruster,
+                            lt = lightThruster,
                             sc = storageCompartment,
                             pb = portableBattery,
                             df = droneFrame,
@@ -253,7 +260,7 @@ public class CDPayloadComponents {
                             {df, os, df},
                             {sc, pc, sc},
                             {df, pb, df},
-                            {null, t, null}
+                            {null, lt, null}
                     });
                 }),
                 new PayloadManufacturingRecipe(blockUnrefinedAlloy, PayloadStack.with(blockAluminum, 2, blockSilicon, 2))

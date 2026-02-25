@@ -123,7 +123,7 @@ public class CDArchives {
                 ),
                 Seq.with(
                         landingPodFrame,
-                        thruster,
+                        heavyThruster,
                         storageCompartment,
                         portableBattery,
                         assemblyManifold,
@@ -168,6 +168,7 @@ public class CDArchives {
                         providerContainer,
                         receiverContainer,
                         droneFrame,
+                        lightThruster,
                         opticalSensor,
                         processingCore
                 )
