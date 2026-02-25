@@ -36,6 +36,7 @@ public class ProcessableBlock extends Block {
             Draw.blend(Blending.additive);
             Fill.rect(x, y, Vars.tilesize * size, Vars.tilesize * size);
             Draw.blend();
+            Draw.color();
         }
 
         @Override
