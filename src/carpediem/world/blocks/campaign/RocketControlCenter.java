@@ -5,6 +5,7 @@ import arc.Graphics.Cursor.*;
 import arc.graphics.g2d.*;
 import arc.math.geom.*;
 import arc.scene.ui.layout.*;
+import arc.util.*;
 import carpediem.content.blocks.*;
 import carpediem.world.blocks.campaign.RocketLaunchPad.*;
 import mindustry.*;
@@ -29,6 +30,17 @@ public class RocketControlCenter extends PayloadBlock {
     public void setStats() {
         super.setStats();
         stats.add(Stat.input, StatValues.content(requiredBlock));
+    }
+
+    @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        super.drawPlace(x, y, rotation, valid);
+        for (int i = 0; i < 8; i++) {
+            Tmp.r1.setCentered(x * Vars.tilesize + offset, y * Vars.tilesize + offset, size * Vars.tilesize);
+            Tmp.r1.x += Geometry.d8[i].x * size * Vars.tilesize;
+            Tmp.r1.y += Geometry.d8[i].y * size * Vars.tilesize;
+            Drawf.dashRect(Pal.accent, Tmp.r1);
+        }
     }
 
     public class RocketControlCenterBuild extends PayloadBlockBuild<BuildPayload> {
@@ -123,31 +135,25 @@ public class RocketControlCenter extends PayloadBlock {
             drawPayload();
         }
 
-        public void drawOutline(Building build) {
-            for (int i = 0; i < 4; i++) {
-                Point2 p = Geometry.d8edge[i];
-                float offset = -Math.max(build.block.size - 1, 0) / 2f * Vars.tilesize;
-                Draw.rect("block-select", build.x + offset * p.x, build.y + offset * p.y, i * 90);
-            }
-        }
-
         @Override
         public void drawSelect() {
-            Draw.color(Pal.accent);
-
             boolean drewOutline = false;
-            for (RocketLaunchPadBuild pad : pads) {
+            for (int i = 0; i < 8; i++) {
+                RocketLaunchPadBuild pad = pads[i];
                 if (pad != null) {
-                    drawOutline(pad);
+                    Drawf.selected(pad, Pal.accent);
                     drewOutline = true;
+                } else {
+                    Tmp.r1.setCentered(x, y, size * Vars.tilesize);
+                    Tmp.r1.x += Geometry.d8[i].x * size * Vars.tilesize;
+                    Tmp.r1.y += Geometry.d8[i].y * size * Vars.tilesize;
+                    Drawf.dashRect(Pal.accent, Tmp.r1);
                 }
             }
 
             if (drewOutline) {
-                drawOutline(this);
+                Drawf.selected(this, Pal.accent);
             }
-
-            Draw.reset();
         }
 
         public void drawRocket(float x, float y) {
