@@ -12,6 +12,7 @@ import arc.util.*;
 import carpediem.*;
 import carpediem.content.*;
 import carpediem.content.blocks.*;
+import carpediem.world.blocks.campaign.RocketControlCenter.*;
 import mindustry.*;
 import mindustry.graphics.*;
 import mindustry.graphics.g3d.*;
@@ -35,7 +36,7 @@ public class EndingFragment {
         planet = CDPlanets.asphodel;
     }};
 
-    public void build(Group parent) {
+    public void build(Group parent, RocketControlCenterBuild controlCenterBuild) {
         Sector sector = Vars.state.rules.sector;
         if (sector == null) return;
 
@@ -88,8 +89,7 @@ public class EndingFragment {
                     float x = Core.graphics.getWidth() / 2f;
                     float y = Core.graphics.getHeight() / 2f;
 
-                    // we just doing this for now. but a better solution later would be a drawRocket(x, y) method
-                    Draw.rect(CDStorage.landingPodT2.fullIcon, x, y);
+                    controlCenterBuild.drawRocket(x, y);
                     Draw.scl();
                 }
             });

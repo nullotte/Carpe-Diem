@@ -10,6 +10,7 @@ import carpediem.graphics.*;
 import carpediem.type.*;
 import carpediem.ui.*;
 import carpediem.ui.fragments.*;
+import carpediem.world.blocks.campaign.RocketControlCenter.*;
 import carpediem.world.draw.*;
 import mindustry.*;
 import mindustry.ctype.*;
@@ -135,6 +136,8 @@ public class CarpeDiem extends Mod {
     }
 
     public void testEnding() {
-        new EndingFragment().build(Core.scene.root);
+        if (Vars.player.buildOn() instanceof RocketControlCenterBuild controlCenterBuild) {
+            new EndingFragment().build(Core.scene.root, controlCenterBuild);
+        }
     }
 }

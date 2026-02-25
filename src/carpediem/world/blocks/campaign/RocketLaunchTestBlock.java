@@ -192,7 +192,7 @@ public class RocketLaunchTestBlock extends PayloadBlock {
             image.touchable = Touchable.disabled;
             image.setFillParent(true);
             image.actions(Actions.delay((launchDuration() - margin) / 60f), Actions.fadeIn(margin / 60f, Interp.pow2In), Actions.delay(6f / 60f), Actions.run(() -> {
-                new EndingFragment().build(Core.scene.root);
+                //
             }), Actions.remove());
             image.update(() -> {
                 image.toFront();

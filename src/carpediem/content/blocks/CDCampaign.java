@@ -2,6 +2,7 @@ package carpediem.content.blocks;
 
 import arc.graphics.*;
 import arc.struct.*;
+import carpediem.*;
 import carpediem.content.*;
 import carpediem.world.blocks.campaign.*;
 import carpediem.world.draw.*;
@@ -14,7 +15,7 @@ import mindustry.world.meta.*;
 
 public class CDCampaign {
     public static Block
-    launchPlatform,
+    launchPlatform, rocketControlCenter, rocketLaunchPad,
     dataChannel, dataRouter,
     archiveDecoder, archiveScanner, archiveVault;
 
@@ -31,7 +32,6 @@ public class CDCampaign {
                     CDItems.controlCircuit, 100
             ));
             size = 7;
-            regionSuffix = "-dark";
 
             launchItemRequirementMap.putAll(
                     CDStorage.landingPodT0, ItemStack.with(CDItems.sulfur, 1000),
@@ -40,6 +40,34 @@ public class CDCampaign {
             );
 
             consumePower(2f);
+        }};
+
+        // should be replaced with a visibility Sector equals frp
+        BuildVisibility debugVisible = new BuildVisibility(() -> CarpeDiem.debug);
+
+        rocketControlCenter = new RocketControlCenter("rocket-control-center") {{
+            requirements(Category.effect, debugVisible, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 9;
+
+            requiredBlock = CDPayloadComponents.blockSilver;
+
+            consumePower(5f);
+        }};
+
+        rocketLaunchPad = new RocketLaunchPad("rocket-launch-pad") {{
+            requirements(Category.effect, debugVisible, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 9;
+            itemCapacity = 5000;
+
+            requiredBlockEdge = CDPayloadComponents.blockNickel;
+            requiredBlockCorner = CDPayloadComponents.blockAluminum;
+
+            consumePower(5f);
+            consumeItem(Items.pyratite, 2500);
         }};
 
         dataChannel = new DataChannel("data-channel") {{
