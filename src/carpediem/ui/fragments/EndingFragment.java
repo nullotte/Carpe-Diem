@@ -26,6 +26,7 @@ public class EndingFragment {
     public float fovLerpSpeed = 0.0007f;
     public Vec3 avoidedPosition = new Vec3(0f, 0f, 40f);
 
+    public Vec3 position = new Vec3();
     public Vec3 moveDirection = new Vec3();
     public float holdDuration;
     public float rotateWarmup;
@@ -52,9 +53,11 @@ public class EndingFragment {
         });
         Core.scene.add(image);
 
+        sector.planet.lookAt(sector, position);
+        position.setLength(4f).add(sector.planet.position);
+
         CarpeDiem.planetRenderer.cam.fov = 2f;
-        sector.planet.lookAt(sector, CarpeDiem.planetRenderer.cam.position);
-        CarpeDiem.planetRenderer.cam.position.setLength(4f).add(sector.planet.position);
+        CarpeDiem.planetRenderer.cam.position.set(position);
         CarpeDiem.planetRenderer.cam.lookAt(sector.planet.position);
         moveDirection.setZero().sub(CarpeDiem.planetRenderer.cam.direction);
         holdDuration = holdTime;
@@ -65,18 +68,20 @@ public class EndingFragment {
                 @Override
                 public void draw() {
                     CarpeDiem.planetRenderer.render(planetParams, cam -> {
-                        cam.fov = Mathf.lerpDelta(cam.fov, 60f, fovLerpSpeed);
-
                         if (holdDuration > 0f) {
                             holdDuration -= Time.delta;
                         } else {
                             rotateWarmup = Mathf.lerpDelta(rotateWarmup, 1f, rotateWarmupLerpSpeed);
                         }
 
-                        moveDirection.slerp(Tmp.v31.set(cam.position).add(avoidedPosition).nor(), rotateWarmup * rotateSpeed * Time.delta);
+                        moveDirection.slerp(Tmp.v31.set(position).add(avoidedPosition).nor(), rotateWarmup * rotateSpeed * Time.delta);
+                        position.add(Tmp.v31.set(moveDirection).setLength(moveSpeed * Time.delta));
 
-                        cam.position.add(Tmp.v31.set(moveDirection).setLength(moveSpeed * Time.delta));
+                        cam.fov = Mathf.lerpDelta(cam.fov, 60f, fovLerpSpeed);
                         cam.direction.setZero().sub(moveDirection);
+                        cam.position.set(position);
+
+                        return position;
                     });
 
                     Draw.scl(4f);
