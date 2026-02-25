@@ -2,18 +2,14 @@ package carpediem;
 
 import arc.*;
 import arc.graphics.g2d.*;
-import arc.struct.*;
 import arc.util.*;
 import carpediem.audio.*;
-import carpediem.content.blocks.*;
 import carpediem.graphics.*;
-import carpediem.type.*;
 import carpediem.ui.*;
 import carpediem.ui.fragments.*;
 import carpediem.world.blocks.campaign.RocketControlCenter.*;
 import carpediem.world.draw.*;
 import mindustry.*;
-import mindustry.ctype.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -22,12 +18,12 @@ import carpediem.content.*;
 import carpediem.ui.dialogs.*;
 import mindustry.type.*;
 import mindustry.ui.dialogs.*;
-import mindustry.world.*;
 import mindustry.world.meta.*;
 
 public class CarpeDiem extends Mod {
     public static CDHints hints;
     public static LaunchSectorInfoDialog launchSectorInfo;
+    public static RocketLaunchDialog rocketLaunch;
     public static CDCampaignCompleteDialog campaignComplete;
     // it's an extra content info dialog because like. nesting and stuff
     public static ContentInfoDialog content;
@@ -61,6 +57,7 @@ public class CarpeDiem extends Mod {
     public void init() {
         hints = new CDHints();
         launchSectorInfo = new LaunchSectorInfoDialog();
+        rocketLaunch = new RocketLaunchDialog();
         campaignComplete = new CDCampaignCompleteDialog();
         content = new ContentInfoDialog();
 

@@ -6,6 +6,7 @@ import arc.graphics.g2d.*;
 import arc.math.geom.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
+import carpediem.*;
 import carpediem.content.blocks.*;
 import carpediem.world.blocks.campaign.RocketLaunchPad.*;
 import mindustry.*;
@@ -114,7 +115,9 @@ public class RocketControlCenter extends PayloadBlock {
 
             table.button(Icon.play, Styles.cleari, () -> {
                 if (canLaunchRocket()) {
-                    Vars.ui.showInfo("@carpe-diem-end");
+                    CarpeDiem.rocketLaunch.show(() -> {
+                        //
+                    });
                 }
                 deselect();
             }).size(40f);
