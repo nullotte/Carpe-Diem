@@ -6,6 +6,7 @@ import carpediem.*;
 import carpediem.content.*;
 import carpediem.world.blocks.campaign.*;
 import carpediem.world.draw.*;
+import mindustry.*;
 import mindustry.content.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -42,29 +43,28 @@ public class CDCampaign {
             consumePower(2f);
         }};
 
-        // should be replaced with a visibility Sector equals frp
-        BuildVisibility debugVisible = new BuildVisibility(() -> CarpeDiem.debug);
+        BuildVisibility onFinalRestingPlace = new BuildVisibility(() -> Vars.state.rules.sector == CDSectorPresets.finalRestingPlace.sector);
 
         rocketControlCenter = new RocketControlCenter("rocket-control-center") {{
-            requirements(Category.effect, debugVisible, ItemStack.with(
+            requirements(Category.effect, onFinalRestingPlace, ItemStack.with(
                     CDItems.lemon, 39
             ));
             size = 9;
 
-            requiredBlock = CDPayloadComponents.blockSilver;
+            requiredBlock = CDPayloadComponents.rocketSystemCore;
 
             consumePower(5f);
         }};
 
         rocketLaunchPad = new RocketLaunchPad("rocket-launch-pad") {{
-            requirements(Category.effect, debugVisible, ItemStack.with(
+            requirements(Category.effect, onFinalRestingPlace, ItemStack.with(
                     CDItems.lemon, 39
             ));
             size = 9;
             itemCapacity = 5000;
 
-            requiredBlockEdge = CDPayloadComponents.blockNickel;
-            requiredBlockCorner = CDPayloadComponents.blockAluminum;
+            requiredBlockEdge = CDPayloadComponents.auxiliaryFuelTank;
+            requiredBlockCorner = CDPayloadComponents.solidRocketBooster;
 
             consumePower(5f);
             consumeItem(Items.pyratite, 2500);

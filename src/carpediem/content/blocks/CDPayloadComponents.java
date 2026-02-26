@@ -18,6 +18,8 @@ public class CDPayloadComponents {
     landingPodFrame, heavyThruster, storageCompartment, portableBattery, assemblyManifold,
     droneFrame, lightThruster, opticalSensor, processingCore,
     orbitCalculationCore, heatShield,
+    // rocket components
+    rocketSystemCore, auxiliaryFuelTank, solidRocketBooster,
     // yea i guess these go here too
     blockAluminum, blockNickel, blockSilver, blockPlatinum, blockSturdyAlloy,
     blockSilicon, blockPyratite;
@@ -106,6 +108,28 @@ public class CDPayloadComponents {
                     CDItems.lemon, 39
             ));
             size = 3;
+        }};
+        // endregion
+        // region rocket components
+        rocketSystemCore = new SyntheticBlock("rocket-system-core") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 7;
+        }};
+
+        auxiliaryFuelTank = new SyntheticBlock("auxiliary-fuel-tank") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 7;
+        }};
+
+        solidRocketBooster = new SyntheticBlock("solid-rocket-booster") {{
+            requirements(Category.units, ItemStack.with(
+                    CDItems.lemon, 39
+            ));
+            size = 7;
         }};
         // endregion
         // region material blocks

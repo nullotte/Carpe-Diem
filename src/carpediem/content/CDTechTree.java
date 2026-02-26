@@ -82,6 +82,13 @@ public class CDTechTree {
                 node(landingPodT1, () -> {
                     node(landingPodT2);
                 });
+                node(rocketControlCenter, () -> {
+                    node(rocketLaunchPad);
+                    node(rocketSystemCore, () -> {
+                        node(auxiliaryFuelTank);
+                        node(solidRocketBooster);
+                    });
+                });
             });
 
             node(storageChest, () -> {
@@ -172,7 +179,8 @@ public class CDTechTree {
                             node(planetaryExpansion);
 
                             node(CDSectorPresets.finalRestingPlace, Seq.with(new LaunchSector(landingPodT2)), () -> {
-
+                                node(rocketLaunchFacilities);
+                                node(rocketComponents);
                             });
                         });
                     });

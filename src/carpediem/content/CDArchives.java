@@ -24,7 +24,9 @@ public class CDArchives {
     // interference
     pressurization, springLaunchers, drones, advancedPowerProduction,
     // sanctuary
-    industrialExtraction, advancedPayloadLogistics, fanProcessing, planetaryExpansion;
+    industrialExtraction, advancedPayloadLogistics, fanProcessing, planetaryExpansion,
+    // final resting place
+    rocketLaunchFacilities, rocketComponents;
 
     public static void load() {
         // region the reserve
@@ -251,6 +253,36 @@ public class CDArchives {
                         landingPodT2,
                         orbitCalculationCore,
                         heatShield
+                )
+        );
+        // endregion
+        // region final resting place
+        rocketLaunchFacilities = new Archive(
+                "rocket-launch-facilities",
+                ItemStack.with(
+                        card1, 20000,
+                        card2, 15000,
+                        card3, 10000,
+                        card4, 10000
+                ),
+                Seq.with(
+                        rocketControlCenter,
+                        rocketLaunchPad
+                )
+        );
+
+        rocketComponents = new Archive(
+                "rocket-components",
+                ItemStack.with(
+                        card1, 20000,
+                        card2, 15000,
+                        card3, 10000,
+                        card4, 10000
+                ),
+                Seq.with(
+                        rocketSystemCore,
+                        auxiliaryFuelTank,
+                        solidRocketBooster
                 )
         );
         // endregion
