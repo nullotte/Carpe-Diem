@@ -440,6 +440,11 @@ public class PayloadManufacturingGrid extends PayloadBlock {
         }
 
         @Override
+        public void drawSelect() {
+            chained.each(build -> Drawf.selected(build, Pal.accent));
+        }
+
+        @Override
         public boolean shouldAmbientSound() {
             return crafting && efficiency > 0f;
         }

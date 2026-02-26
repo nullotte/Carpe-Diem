@@ -250,6 +250,10 @@ public class PayloadFrontLoader extends Block {
         @Override
         public void drawSelect() {
             int dx = Geometry.d4x(rotation), dy = Geometry.d4y(rotation);
+            Tile other = tile.nearby(dx * size, dy * size);
+            if (other != null && other.build != null && (other.build.block.acceptsPayload || other.build.block.outputsPayload)) {
+                Drawf.selected(other.build, Pal.accent);
+            }
             Drawf.dashLine(Pal.place,
                     x + ((dx * size * Vars.tilesize) / 2f),
                     y + ((dy * size * Vars.tilesize) / 2f),
