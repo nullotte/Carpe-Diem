@@ -112,23 +112,17 @@ public class CDPayloadComponents {
         // endregion
         // region rocket components
         rocketSystemCore = new SyntheticBlock("rocket-system-core") {{
-            requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
-            ));
+            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 7;
         }};
 
         auxiliaryFuelTank = new SyntheticBlock("auxiliary-fuel-tank") {{
-            requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
-            ));
+            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 7;
         }};
 
         solidRocketBooster = new SyntheticBlock("solid-rocket-booster") {{
-            requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
-            ));
+            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 7;
         }};
         // endregion

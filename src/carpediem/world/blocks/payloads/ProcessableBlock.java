@@ -22,6 +22,16 @@ public class ProcessableBlock extends Block {
         drawDisabled = false;
     }
 
+    @Override
+    public boolean isHidden() {
+        return false;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return !super.isHidden() && (Vars.state.rules.editor || (!Vars.state.rules.hideBannedBlocks || !Vars.state.rules.isBanned(this)));
+    }
+
     public class ProcessableBuild extends Building {
         public float progress;
 
