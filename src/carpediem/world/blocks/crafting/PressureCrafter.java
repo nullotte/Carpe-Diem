@@ -3,9 +3,12 @@ package carpediem.world.blocks.crafting;
 import arc.graphics.*;
 import arc.math.*;
 import arc.math.geom.*;
+import arc.util.*;
 import arc.util.io.*;
+import carpediem.world.consumers.*;
 import carpediem.world.meta.*;
 import mindustry.*;
+import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.production.*;
@@ -59,6 +62,11 @@ public class PressureCrafter extends GenericCrafter {
         @Override
         public void drawSelect() {
             if (block.rotate) {
+                Building front = front();
+                if (front != null && Structs.contains(front.block.consumers, c -> c instanceof ConsumePressure)) {
+                    Drawf.selected(front, Pal.accent);
+                }
+
                 int dx = Geometry.d4x(rotation), dy = Geometry.d4y(rotation);
                 float dst = (this.block.size + 1) / 2f * Vars.tilesize;
                 Drawf.square(x + (dx * dst), y + (dy * dst), 2f, 45f, Pal.place);
