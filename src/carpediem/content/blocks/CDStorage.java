@@ -52,7 +52,7 @@ public class CDStorage {
                     new DrawDefault(),
                     new DrawTeam()
             );
-            thrusterLength = 60f / 8f;
+            thrusterLength = 30f / 4f;
         }};
 
         landingPodT1 = new LandingPod("landing-pod-t1") {{
@@ -76,6 +76,7 @@ public class CDStorage {
                     new DrawTeam(),
                     new DrawAlwaysGlowTeamRegion()
             );
+            thrusterLength = 32f / 4f;
         }};
 
         landingPodT2 = new LandingPod("landing-pod-t2") {{
@@ -99,6 +100,7 @@ public class CDStorage {
                     new DrawTeam(),
                     new DrawAlwaysGlowTeamRegion()
             );
+            thrusterLength = 32f / 4f;
         }};
 
         industryHub = new HubBlock("industry-hub") {{
