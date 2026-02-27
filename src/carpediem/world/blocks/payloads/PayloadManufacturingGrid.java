@@ -122,6 +122,18 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                         t.row();
                         t.table(info -> {
                             info.left();
+                            info.table(requirements -> {
+                                requirements.left();
+                                for (PayloadStack stack : recipe.listRequirements()) {
+                                    requirements.table(requirement -> {
+                                        requirement.left();
+                                        requirement.add(StatValues.stack(stack)).padRight(5f).left();
+                                        requirement.add(stack.item.localizedName).left();
+                                    }).pad(5f).growX().left();
+                                    requirements.row();
+                                }
+                            }).pad(10f).left();
+                            info.row();
                             info.table(result -> {
                                 result.image(Icon.arrowNote).color(Pal.darkishGray).size(40f).pad(10f).padRight(0f).left();
                                 result.image(recipe.result.uiIcon).size(40f).pad(10f).left().scaling(Scaling.fit).with(i -> StatValues.withTooltip(i, recipe.result));
@@ -537,9 +549,9 @@ public class PayloadManufacturingGrid extends PayloadBlock {
         public PayloadStack[] shapelessRequirements;
         public UnlockableContent result;
 
-        public PayloadManufacturingRecipe(UnlockableContent result, Cons<PayloadManufacturingRecipe> run) {
+        public PayloadManufacturingRecipe(UnlockableContent result, UnlockableContent[][] requirements) {
             this.result = result;
-            run.get(this);
+            mapRequirements(requirements);
         }
 
         public PayloadManufacturingRecipe(UnlockableContent result, PayloadStack[] shapelessRequirements) {
@@ -557,6 +569,21 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                     requirements.put(Point2.pack(x, y), content);
                 }
             }
+        }
+
+        public PayloadStack[] listRequirements() {
+            if (shapelessRequirements != null) return shapelessRequirements;
+
+            Seq<PayloadStack> accumulated = new Seq<>();
+            requirements.forEach(entry -> {
+                PayloadStack stack = accumulated.find(s -> s.item == entry.value);
+                if (stack != null) {
+                    stack.amount++;
+                } else {
+                    accumulated.add(new PayloadStack(entry.value, 1));
+                }
+            });
+            return accumulated.toArray(PayloadStack.class);
         }
     }
 }
