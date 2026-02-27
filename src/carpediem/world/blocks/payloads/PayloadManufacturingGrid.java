@@ -25,6 +25,7 @@ import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.blocks.payloads.*;
+import mindustry.world.meta.*;
 
 public class PayloadManufacturingGrid extends PayloadBlock {
     public static final Queue<ManufacturingGridBuild> gridQueue = new Queue<>();
@@ -95,7 +96,6 @@ public class PayloadManufacturingGrid extends PayloadBlock {
             for (PayloadManufacturingRecipe recipe : recipes) {
                 table.table(Styles.grayPanel, t -> {
                     CraftingGridImage image = new CraftingGridImage();
-
                     if (recipe.shapelessRequirements != null) {
                         int total = 0;
                         for (PayloadStack stack : recipe.shapelessRequirements) {
@@ -118,23 +118,21 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                         image.items.putAll(recipe.requirements);
                     }
 
-                    t.table(requirements -> {
-                        t.add(image).size(image.itemsWidth(), image.itemsHeight()).pad(10f);
-                    }).left().grow().pad(10f);
-
-                    t.table(arrow -> {
-                        arrow.image(Icon.right).size(80f).color(Pal.darkishGray);
-                    }).grow().pad(10f);
-
-                    t.table(result -> {
-                        result.image(recipe.result.uiIcon).scaling(Scaling.fit).size(120f);
-                    }).right().grow().pad(10f);
-
-                    if (recipe.shapelessRequirements != null) {
-                        t.row();
-                        t.add("@recipe.shapeless").pad(10f).bottom().left().color(Pal.gray);
-                    }
-                }).growX().pad(5f);
+                    t.add(image).size(image.itemsWidth(), image.itemsHeight()).growX().pad(10f);
+                    t.row();
+                    t.table(info -> {
+                        info.left();
+                        info.table(result -> {
+                            result.image(Icon.arrowNote).color(Pal.darkishGray).size(40f).pad(10f).padRight(0f).left();
+                            result.image(recipe.result.uiIcon).size(40f).pad(10f).left().scaling(Scaling.fit).with(i -> StatValues.withTooltip(i, recipe.result));
+                            result.add(recipe.result.localizedName).left();
+                        });
+                        if (recipe.shapelessRequirements != null) {
+                            info.row();
+                            info.add("@recipe.shapeless").pad(10f).bottom().left().color(Pal.gray);
+                        }
+                    }).growX();
+                }).growX().pad(10f);
                 table.row();
             }
         });
