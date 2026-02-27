@@ -44,7 +44,8 @@ public class LaunchPlatform extends PayloadBlock {
 
     public TextureRegion[] tops;
     public Interp extendInterp = Interp.pow2Out;
-    public float openLength = 8f, extendTime = 160f;
+    public float openLength = 6.5f, extendTime = 160f;
+    public int minAddSize = 4;
 
     public Sound chargeSound = CDSounds.launchPlatformCharge;
 
@@ -94,6 +95,7 @@ public class LaunchPlatform extends PayloadBlock {
         public float launchTime;
         public Block launchBlock;
         public float launchHeat;
+        public float additionalLength;
 
         public float cloudSeed;
 
@@ -102,6 +104,9 @@ public class LaunchPlatform extends PayloadBlock {
             super.updateTile();
 
             launchHeat = Mathf.lerpDelta(launchHeat, launching ? 1f : 0f, 0.05f);
+
+            Block additionalBlock = payload != null ? payload.block() : launchBlock;
+            additionalLength = Mathf.lerpDelta(additionalLength, additionalBlock != null ? Mathf.maxZero(additionalBlock.size - minAddSize) * Vars.tilesize / 2f : 0f, 0.02f);
 
             moveInPayload();
         }
@@ -183,7 +188,11 @@ public class LaunchPlatform extends PayloadBlock {
             Draw.z(Layer.blockOver + 0.1f);
             float progress = extendInterp.apply(Mathf.clamp(launchTime / extendTime));
             for (int i = 0; i < 4; i++) {
-                Draw.rect(tops[i], x + Geometry.d8edge[i].x * progress * openLength, y + Geometry.d8edge[i].y * progress * openLength);
+                Draw.rect(
+                        tops[i],
+                        x + (Geometry.d8edge[i].x * ((progress * openLength) + additionalLength)),
+                        y + (Geometry.d8edge[i].y * ((progress * openLength) + additionalLength))
+                );
             }
         }
 
