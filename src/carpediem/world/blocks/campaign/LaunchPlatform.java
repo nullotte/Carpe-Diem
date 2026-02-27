@@ -215,13 +215,13 @@ public class LaunchPlatform extends PayloadBlock {
 
             table.button(Icon.play, Styles.cleari, () -> {
                 if (Vars.state.isCampaign() && efficiency > 0f) {
-                    if (!CarpeDiem.debug && Vars.state.rules.sector == CDSectorPresets.theReserve.sector) {
-                        Vars.ui.showInfo("@carpe-diem-end");
-                        return;
-                    }
-
                     SectorPreset destination = destination();
                     if (destination != null && !destination.sector.hasBase()) {
+                        if (!CarpeDiem.debug && destination.generator.map.file.nameWithoutExtension().equals("sector-placeholder")) {
+                            Vars.ui.showInfo("@carpe-diem-end");
+                            return;
+                        }
+
                         CarpeDiem.launchSectorInfo.show(this, destination, () -> {
                             if (Vars.state.isCampaign() && efficiency > 0f) {
                                 consume();
