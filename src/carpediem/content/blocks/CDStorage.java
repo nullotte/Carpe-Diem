@@ -52,6 +52,7 @@ public class CDStorage {
                     new DrawDefault(),
                     new DrawTeam()
             );
+            thrusterLength = 60f / 8f;
         }};
 
         landingPodT1 = new LandingPod("landing-pod-t1") {{

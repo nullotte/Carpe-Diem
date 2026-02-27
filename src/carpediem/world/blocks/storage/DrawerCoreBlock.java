@@ -60,6 +60,15 @@ public class DrawerCoreBlock extends CoreBlock {
 
         @Override
         public void draw() {
+            //draw thrusters when just landed
+            if (thrusterTime > 0) {
+                float frame = thrusterTime;
+                Draw.alpha(1f);
+                drawThrusters(frame);
+                Draw.alpha(Interp.pow4In.apply(frame));
+                drawThrusters(frame);
+                Draw.reset();
+            }
             drawer.draw(this);
         }
 
