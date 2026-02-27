@@ -442,7 +442,9 @@ public class PayloadManufacturingGrid extends PayloadBlock {
 
         @Override
         public void drawSelect() {
-            chained.each(build -> Drawf.selected(build, Pal.accent));
+            if (chained.size > 1) {
+                chained.each(build -> Drawf.selected(build, Pal.accent));
+            }
         }
 
         @Override
