@@ -17,7 +17,7 @@ public class CDPayloadComponents {
     // crafting ingredients
     landingPodFrame, heavyThruster, storageCompartment, portableBattery, assemblyManifold,
     droneFrame, lightThruster, opticalSensor, processingCore,
-    orbitCalculationCore, heatShield,
+    orbitalCalculationCore, heatShield,
     // rocket components
     rocketSystemCore, auxiliaryFuelTank, solidRocketBooster,
     // yea i guess these go here too
@@ -96,7 +96,7 @@ public class CDPayloadComponents {
             size = 3;
         }};
 
-        orbitCalculationCore = new SyntheticBlock("orbital-calculation-core") {{
+        orbitalCalculationCore = new SyntheticBlock("orbital-calculation-core") {{
             requirements(Category.units, ItemStack.with(
                     CDItems.lemon, 39
             ));
@@ -240,7 +240,7 @@ public class CDPayloadComponents {
                             pb = portableBattery,
                             am = assemblyManifold,
                             pc = processingCore,
-                            occ = orbitCalculationCore,
+                            occ = orbitalCalculationCore,
                             hs = heatShield;
                     r.mapRequirements(new UnlockableContent[][]{
                             {hs, lpf, ht, ht, lpf, hs},

@@ -121,7 +121,7 @@ public class CDTechTree {
                             node(lightThruster);
                             node(opticalSensor);
                             node(processingCore);
-                            node(orbitCalculationCore, () -> {
+                            node(orbitalCalculationCore, () -> {
                                 node(heatShield);
                             });
                         });

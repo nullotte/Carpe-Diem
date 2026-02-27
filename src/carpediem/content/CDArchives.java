@@ -251,7 +251,7 @@ public class CDArchives {
                 ),
                 Seq.with(
                         landingPodT2,
-                        orbitCalculationCore,
+                        orbitalCalculationCore,
                         heatShield
                 )
         );
