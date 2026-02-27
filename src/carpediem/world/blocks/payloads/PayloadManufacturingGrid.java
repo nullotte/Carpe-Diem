@@ -92,46 +92,49 @@ public class PayloadManufacturingGrid extends PayloadBlock {
         super.setStats();
         stats.add(CDStat.recipes, table -> {
             table.row();
-
             for (PayloadManufacturingRecipe recipe : recipes) {
                 table.table(Styles.grayPanel, t -> {
-                    CraftingGridImage image = new CraftingGridImage();
-                    if (recipe.shapelessRequirements != null) {
-                        int total = 0;
-                        for (PayloadStack stack : recipe.shapelessRequirements) {
-                            total += stack.amount;
-                        }
-                        int size = Mathf.round(Mathf.sqrt(total));
-                        int addedX = 0, addedY = 0;
-                        // so terrible
-                        for (PayloadStack stack : recipe.shapelessRequirements) {
-                            for (int i = 0; i < stack.amount; i++) {
-                                image.items.put(Point2.pack(addedX, addedY), stack.item);
-                                addedX++;
-                                if (addedX >= size) {
-                                    addedX = 0;
-                                    addedY++;
+                    if (recipe.result.unlockedNow()) {
+                        CraftingGridImage image = new CraftingGridImage();
+                        if (recipe.shapelessRequirements != null) {
+                            int total = 0;
+                            for (PayloadStack stack : recipe.shapelessRequirements) {
+                                total += stack.amount;
+                            }
+                            int size = Mathf.round(Mathf.sqrt(total));
+                            int addedX = 0, addedY = 0;
+                            // so terrible
+                            for (PayloadStack stack : recipe.shapelessRequirements) {
+                                for (int i = 0; i < stack.amount; i++) {
+                                    image.items.put(Point2.pack(addedX, addedY), stack.item);
+                                    addedX++;
+                                    if (addedX >= size) {
+                                        addedX = 0;
+                                        addedY++;
+                                    }
                                 }
                             }
+                        } else {
+                            image.items.putAll(recipe.requirements);
                         }
-                    } else {
-                        image.items.putAll(recipe.requirements);
-                    }
 
-                    t.add(image).size(image.itemsWidth(), image.itemsHeight()).growX().pad(10f);
-                    t.row();
-                    t.table(info -> {
-                        info.left();
-                        info.table(result -> {
-                            result.image(Icon.arrowNote).color(Pal.darkishGray).size(40f).pad(10f).padRight(0f).left();
-                            result.image(recipe.result.uiIcon).size(40f).pad(10f).left().scaling(Scaling.fit).with(i -> StatValues.withTooltip(i, recipe.result));
-                            result.add(recipe.result.localizedName).left();
-                        });
-                        if (recipe.shapelessRequirements != null) {
-                            info.row();
-                            info.add("@recipe.shapeless").pad(10f).bottom().left().color(Pal.gray);
-                        }
-                    }).growX();
+                        t.add(image).size(image.itemsWidth(), image.itemsHeight()).growX().pad(10f);
+                        t.row();
+                        t.table(info -> {
+                            info.left();
+                            info.table(result -> {
+                                result.image(Icon.arrowNote).color(Pal.darkishGray).size(40f).pad(10f).padRight(0f).left();
+                                result.image(recipe.result.uiIcon).size(40f).pad(10f).left().scaling(Scaling.fit).with(i -> StatValues.withTooltip(i, recipe.result));
+                                result.add(recipe.result.localizedName).left();
+                            });
+                            if (recipe.shapelessRequirements != null) {
+                                info.row();
+                                info.add("@recipe.shapeless").pad(10f).bottom().left().color(Pal.gray);
+                            }
+                        }).growX();
+                    } else {
+                        t.image(Icon.lock).color(Pal.darkerGray).size(40f).pad(10f);
+                    }
                 }).growX().pad(10f);
                 table.row();
             }

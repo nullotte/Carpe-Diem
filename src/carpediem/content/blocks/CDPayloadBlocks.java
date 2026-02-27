@@ -101,21 +101,6 @@ public class CDPayloadBlocks {
             ));
             size = 5;
 
-            recipes = Seq.with(
-                    new PayloadManufacturingRecipe(UnitTypes.conquer, r -> {
-                        Block c = Blocks.carbideWallLarge;
-                        UnitType l = UnitTypes.locus;
-
-                        r.mapRequirements(new UnlockableContent[][]{
-                                {c, c, c, c, c},
-                                {c, l, c, l, c},
-                                {c, l, c, l, c},
-                                {c, l, c, l, c},
-                                {c, c, c, c, c}
-                        });
-                    })
-            );
-
             conductivePower = true;
             consumePower(1f / 5f);
         }};

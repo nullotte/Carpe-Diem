@@ -281,7 +281,19 @@ public class CDPayloadComponents {
                             {null, lt, null}
                     });
                 }),
-                new PayloadManufacturingRecipe(blockUnrefinedAlloy, PayloadStack.with(blockAluminum, 2, blockSilicon, 2))
+                new PayloadManufacturingRecipe(blockUnrefinedAlloy, PayloadStack.with(blockAluminum, 2, blockSilicon, 2)),
+                new PayloadManufacturingRecipe(UnitTypes.conquer, r -> {
+                    Block c = Blocks.carbideWallLarge;
+                    UnitType l = UnitTypes.locus;
+
+                    r.mapRequirements(new UnlockableContent[][]{
+                            {c, c, c, c, c},
+                            {c, l, c, l, c},
+                            {c, l, c, l, c},
+                            {c, l, c, l, c},
+                            {c, c, c, c, c}
+                    });
+                })
         );
     }
 }
