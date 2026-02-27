@@ -56,9 +56,7 @@ public class CDStorage {
         }};
 
         landingPodT1 = new LandingPod("landing-pod-t1") {{
-            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with(
-                    CDItems.lemon, 39
-            ));
+            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with());
             size = 5;
 
             itemCapacity = 6000;
@@ -80,9 +78,7 @@ public class CDStorage {
         }};
 
         landingPodT2 = new LandingPod("landing-pod-t2") {{
-            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with(
-                    CDItems.lemon, 39
-            ));
+            requirements(Category.effect, BuildVisibility.editorOnly, ItemStack.with());
             size = 6;
 
             itemCapacity = 7000;
