@@ -16,7 +16,7 @@ public class CDSectorPresets {
             alwaysUnlocked = true;
             CDPlanets.asphodel.startSector = sector.id;
         }};
-        forwardOutpost = new SectorPreset("forward-outpost", "sector-placeholder", CDPlanets.asphodel, 17);
+        forwardOutpost = new SectorPreset("forward-outpost", CDPlanets.asphodel, 17);
         interference = new SectorPreset("interference", "sector-placeholder", CDPlanets.asphodel, 20);
         sanctuary = new SectorPreset("sanctuary", "sector-placeholder", CDPlanets.asphodel, 24);
         finalRestingPlace = new SectorPreset("final-resting-place", "sector-placeholder", CDPlanets.asphodel, 12);

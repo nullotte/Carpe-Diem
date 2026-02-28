@@ -17,7 +17,7 @@ public class CDEnvironment {
     arkstone, orangeStone,
     redMoss, redSand, redSandWater, meadsoil,
     royalstone, crystalrock,
-    bluerock, blueCraters, carbonCraters, carbonicSand, carbonicSandWater, hotCarbon, magmaCarbon,
+    bluerock, carbonicSand, carbonicSandWater, hotCarbon, magmaCarbon,
     reserveFloor1, reserveFloor2, reserveFloor3,
     // walls
     arkstoneWall, orangeStoneWall, meadsoilWall,
