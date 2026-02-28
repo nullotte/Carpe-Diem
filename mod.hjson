@@ -1,6 +1,6 @@
 name: "carpe-diem"
 main: "carpediem.CarpeDiem"
-version: "Alpha (Build 4)"
+version: "Alpha (Build 5)"
 minGameVersion: 155.3
 java: true
 
