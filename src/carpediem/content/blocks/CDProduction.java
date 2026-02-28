@@ -67,7 +67,7 @@ public class CDProduction {
                     CDItems.aluminumCogwheel, 20,
                     CDItems.nickelWire, 5,
                     CDItems.controlCircuit, 5,
-                    CDItems.powerCell, 15
+                    CDItems.powerCell, 10
             ));
             size = 4;
 

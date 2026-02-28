@@ -37,11 +37,11 @@ public class CDPayloadBlocks {
     public static void load() {
         payloadRail = new PayloadConveyor("payload-rail") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.aluminum, 10,
-                    CDItems.aluminumCogwheel, 5,
-                    CDItems.aluminumWire, 5,
-                    CDItems.siliconSheet, 5,
-                    CDItems.controlCircuit, 5
+                    CDItems.aluminum, 5,
+                    CDItems.aluminumCogwheel, 2,
+                    CDItems.aluminumWire, 2,
+                    CDItems.siliconSheet, 2,
+                    CDItems.controlCircuit, 1
             ));
             size = 5;
             payloadLimit = 6f; // huge
@@ -51,11 +51,11 @@ public class CDPayloadBlocks {
 
         payloadRailRouter = new PayloadRouter("payload-rail-router") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.aluminum, 25,
-                    CDItems.aluminumCogwheel, 10,
-                    CDItems.aluminumWire, 5,
-                    CDItems.siliconSheet, 5,
-                    CDItems.controlCircuit, 10
+                    CDItems.aluminum, 8,
+                    CDItems.aluminumCogwheel, 4,
+                    CDItems.aluminumWire, 4,
+                    CDItems.siliconSheet, 4,
+                    CDItems.controlCircuit, 1
             ));
             size = 5;
             payloadLimit = 6f;
@@ -65,7 +65,17 @@ public class CDPayloadBlocks {
 
         payloadCrane = new PayloadCrane("payload-crane") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 180,
+                    CDItems.aluminumPlate, 100,
+                    CDItems.aluminumCogwheel, 75,
+                    CDItems.aluminumRod, 50,
+                    CDItems.aluminumWire, 100,
+                    CDItems.nickelWire, 50,
+                    Items.silicon, 100,
+                    CDItems.siliconSheet, 10,
+                    CDItems.controlCircuit, 60,
+                    CDItems.calculationCircuit, 30,
+                    CDItems.powerCell, 20
             ));
             size = 5;
             outlineColor = CDColors.outline;
@@ -76,7 +86,16 @@ public class CDPayloadBlocks {
 
         payloadAssembler = new Constructor("payload-assembler") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 200,
+                    CDItems.aluminumPlate, 100,
+                    CDItems.aluminumCogwheel, 50,
+                    CDItems.aluminumWire, 40,
+                    CDItems.nickelWire, 20,
+                    Items.silicon, 50,
+                    CDItems.siliconSheet, 25,
+                    CDItems.controlCircuit, 50,
+                    CDItems.calculationCircuit, 40,
+                    CDItems.powerCell, 20
             ));
             size = 5;
             maxBlockSize = 3;
@@ -87,7 +106,16 @@ public class CDPayloadBlocks {
 
         payloadDisassembler = new PayloadDeconstructor("payload-disassembler") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 200,
+                    CDItems.aluminumPlate, 90,
+                    CDItems.aluminumCogwheel, 80,
+                    CDItems.aluminumWire, 40,
+                    CDItems.nickelWire, 20,
+                    Items.silicon, 50,
+                    CDItems.siliconSheet, 25,
+                    CDItems.controlCircuit, 50,
+                    CDItems.calculationCircuit, 20,
+                    CDItems.powerCell, 20
             ));
             size = 5;
 
@@ -97,7 +125,16 @@ public class CDPayloadBlocks {
 
         payloadManufacturingGrid = new PayloadManufacturingGrid("payload-manufacturing-grid") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 70,
+                    CDItems.aluminumPlate, 40,
+                    CDItems.aluminumCogwheel, 20,
+                    CDItems.aluminumWire, 10,
+                    CDItems.nickelWire, 10,
+                    Items.silicon, 20,
+                    CDItems.siliconSheet, 10,
+                    CDItems.controlCircuit, 20,
+                    CDItems.calculationCircuit, 20,
+                    CDItems.powerCell, 10
             ));
             size = 5;
 
@@ -107,7 +144,13 @@ public class CDPayloadBlocks {
 
         payloadDepot = new PayloadDepot("payload-depot") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 40,
+                    CDItems.aluminumPlate, 30,
+                    CDItems.aluminumCogwheel, 10,
+                    CDItems.aluminumWire, 10,
+                    Items.silicon, 10,
+                    CDItems.siliconSheet, 10,
+                    CDItems.controlCircuit, 5
             ));
             size = 5;
             payloadLimit = 6f;
@@ -115,7 +158,14 @@ public class CDPayloadBlocks {
 
         payloadLoader = new PayloadFrontLoader("payload-loader") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 100,
+                    CDItems.aluminumPlate, 80,
+                    CDItems.aluminumCogwheel, 50,
+                    CDItems.nickelWire, 10,
+                    Items.silicon, 70,
+                    CDItems.controlCircuit, 20,
+                    CDItems.calculationCircuit, 10,
+                    CDItems.powerCell, 10
             ));
             size = 3;
             outlineColor = CDColors.outline;
@@ -125,7 +175,14 @@ public class CDPayloadBlocks {
 
         payloadUnloader = new PayloadFrontUnloader("payload-unloader") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 100,
+                    CDItems.aluminumPlate, 55,
+                    CDItems.aluminumCogwheel, 75,
+                    CDItems.nickelWire, 10,
+                    Items.silicon, 70,
+                    CDItems.controlCircuit, 20,
+                    CDItems.calculationCircuit, 10,
+                    CDItems.powerCell, 10
             ));
             size = 3;
             outlineColor = CDColors.outline;

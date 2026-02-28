@@ -62,7 +62,7 @@ public class CDCrafting {
         smelterT1 = new RecipeCrafter("smelter-t1") {{
             requirements(Category.crafting, ItemStack.with(
                     CDItems.aluminum, 20,
-                    CDItems.aluminumRod, 20,
+                    CDItems.aluminumPlate, 10,
                     CDItems.nickelWire, 5,
                     CDItems.controlCircuit, 5,
                     CDItems.powerCell, 10
@@ -123,7 +123,7 @@ public class CDCrafting {
         rollingMillT1 = new RecipeCrafter("rolling-mill-t1") {{
             requirements(Category.crafting, ItemStack.with(
                     CDItems.aluminum, 25,
-                    CDItems.aluminumRod, 20,
+                    CDItems.aluminumRod, 10,
                     CDItems.aluminumCogwheel, 10,
                     CDItems.nickelWire, 10,
                     CDItems.controlCircuit, 5,
@@ -217,13 +217,12 @@ public class CDCrafting {
 
         refineryT1 = new RecipeCrafter("refinery-t1") {{
             requirements(Category.crafting, ItemStack.with(
-                    CDItems.aluminum, 20,
+                    CDItems.aluminum, 25,
                     CDItems.aluminumPlate, 10,
                     CDItems.aluminumCogwheel, 10,
                     CDItems.nickelWire, 10,
                     CDItems.silverPlate, 10,
-                    CDItems.controlCircuit, 10,
-                    CDItems.calculationCircuit, 5,
+                    CDItems.controlCircuit, 5,
                     CDItems.powerCell, 5,
                     CDItems.fluidCell, 5
             ));
@@ -246,10 +245,17 @@ public class CDCrafting {
         }};
         // endregion
 
-        // who tf let this guy in here
         pressurizationChamber = new PressureCrafter("pressurization-chamber") {{
             requirements(Category.crafting, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 20,
+                    CDItems.aluminumPlate, 10,
+                    CDItems.aluminumCogwheel, 10,
+                    CDItems.aluminumRod, 10,
+                    CDItems.nickelWire, 10,
+                    CDItems.silverPlate, 10,
+                    CDItems.controlCircuit, 5,
+                    CDItems.powerCell, 5,
+                    CDItems.fluidCell, 5
             ));
             size = 3;
             rotate = true;

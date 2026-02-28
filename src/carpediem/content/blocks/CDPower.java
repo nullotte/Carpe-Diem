@@ -48,7 +48,7 @@ public class CDPower {
                     CDItems.aluminumPlate, 10,
                     CDItems.nickelPlate, 20,
                     CDItems.nickelWire, 5,
-                    CDItems.siliconSheet, 10,
+                    Items.silicon, 10,
                     CDItems.powerCell, 20
             ));
             size = 3;

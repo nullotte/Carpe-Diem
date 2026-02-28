@@ -15,7 +15,7 @@ public class CDLiquidBlocks {
     public static void load() {
         pump = new Pump("pump") {{
             requirements(Category.liquid, ItemStack.with(
-                    CDItems.aluminum, 25,
+                    CDItems.aluminum, 40,
                     CDItems.aluminumCogwheel, 20,
                     CDItems.nickelWire, 5,
                     CDItems.silverPlate, 10,
@@ -46,9 +46,9 @@ public class CDLiquidBlocks {
 
         valve = new Valve("valve") {{
             requirements(Category.liquid, ItemStack.with(
-                    CDItems.silver, 3,
-                    CDItems.silverPlate, 2,
-                    CDItems.silverRod, 2
+                    CDItems.silver, 2,
+                    CDItems.silverPlate, 1,
+                    CDItems.silverRod, 1
             ));
         }};
 
@@ -56,7 +56,7 @@ public class CDLiquidBlocks {
             requirements(Category.liquid, ItemStack.with(
                     CDItems.silver, 8,
                     CDItems.silverPlate, 1,
-                    CDItems.silverRod, 4
+                    CDItems.silverRod, 2
             ));
         }};
 

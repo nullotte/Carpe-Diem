@@ -35,35 +35,54 @@ public class CDPayloadComponents {
         // region crafting ingredients
         landingPodFrame = new SyntheticBlock("landing-pod-frame") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 150,
+                    CDItems.aluminumPlate, 100,
+                    Items.silicon, 80
             ));
             size = 3;
         }};
 
         heavyThruster = new SyntheticBlock("heavy-thruster") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 70,
+                    CDItems.aluminumPlate, 35,
+                    CDItems.nickelWire, 20,
+                    CDItems.nickelPlate, 10,
+                    Items.silicon, 20
             ));
             size = 3;
         }};
 
         storageCompartment = new SyntheticBlock("storage-compartment") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 120,
+                    CDItems.aluminumPlate, 90,
+                    CDItems.aluminumRod, 50
             ));
             size = 3;
         }};
 
         portableBattery = new SyntheticBlock("portable-battery") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 50,
+                    CDItems.aluminumPlate, 30,
+                    CDItems.nickelWire, 25,
+                    CDItems.nickelPlate, 20,
+                    CDItems.powerCell, 100,
+                    Items.silicon, 30
             ));
             size = 3;
         }};
 
         assemblyManifold = new SyntheticBlock("assembly-manifold") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 80,
+                    CDItems.aluminumPlate, 50,
+                    CDItems.nickelWire, 20,
+                    CDItems.powerCell, 20,
+                    CDItems.controlCircuit, 50,
+                    CDItems.calculationCircuit, 50,
+                    Items.silicon, 50
             ));
             size = 3;
         }};

@@ -101,7 +101,12 @@ public class CDStorage {
 
         industryHub = new HubBlock("industry-hub") {{
             requirements(Category.effect, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 750,
+                    CDItems.aluminumPlate, 600,
+                    CDItems.aluminumRod, 100,
+                    Items.silicon, 200,
+                    CDItems.controlCircuit, 50,
+                    CDItems.calculationCircuit, 25
             ));
             size = 6;
 
@@ -147,7 +152,11 @@ public class CDStorage {
 
         storageVault = new DrawerStorageBlock("storage-vault") {{
             requirements(Category.effect, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 500,
+                    CDItems.aluminumPlate, 250,
+                    CDItems.aluminumRod, 70,
+                    Items.silicon, 150,
+                    CDItems.controlCircuit, 20
             ));
             size = 6;
             itemCapacity = 5000;
@@ -168,7 +177,9 @@ public class CDStorage {
 
         shippingContainer = new DrawerStorageBlock("shipping-container") {{
             requirements(Category.effect, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 100,
+                    CDItems.aluminumPlate, 70,
+                    Items.silicon, 20
             ));
             size = 3;
             itemCapacity = 2000;
@@ -188,7 +199,13 @@ public class CDStorage {
 
         providerContainer = new StorageBlock("provider-container") {{
             requirements(Category.effect, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 100,
+                    CDItems.aluminumPlate, 80,
+                    CDItems.aluminumCogwheel, 25,
+                    CDItems.aluminumRod, 5,
+                    Items.silicon, 50,
+                    CDItems.controlCircuit, 10,
+                    CDItems.calculationCircuit, 5
             ));
             size = 3;
             itemCapacity = 200;
@@ -198,7 +215,13 @@ public class CDStorage {
 
         receiverContainer = new UnitCargoUnloadPoint("receiver-container") {{
             requirements(Category.effect, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 100,
+                    CDItems.aluminumPlate, 80,
+                    CDItems.aluminumCogwheel, 25,
+                    CDItems.aluminumRod, 5,
+                    Items.silicon, 50,
+                    CDItems.controlCircuit, 10,
+                    CDItems.calculationCircuit, 5
             ));
             size = 3;
             itemCapacity = 200;
