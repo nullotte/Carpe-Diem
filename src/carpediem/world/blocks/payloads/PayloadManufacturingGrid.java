@@ -35,12 +35,11 @@ public class PayloadManufacturingGrid extends PayloadBlock {
 
     public Seq<PayloadManufacturingRecipe> recipes = new Seq<>();
     public float craftTime = 60f;
-    public float ingredientRadius = 4f * Vars.tilesize;
+    public int payloadLimit = 3;
+    public float ingredientRadius = 3f * Vars.tilesize;
     public Interp mergeInterp = Interp.pow2In, sizeInterp = a -> 1f - Interp.pow2In.apply(a);
     public Effect mergeEffect = Fx.producesmoke, loadEffect = Fx.producesmoke,
             craftEffect = CDFx.payloadManufacture, failEffect = CDFx.payloadManufactureFail;
-
-    public TextureRegion stackRegion, stackBottomRegion1, stackBottomRegion2;
 
     public PayloadManufacturingGrid(String name) {
         super(name);
@@ -55,16 +54,6 @@ public class PayloadManufacturingGrid extends PayloadBlock {
     public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list) {
         Draw.rect(region, plan.drawx(), plan.drawy());
         Draw.rect(outRegion, plan.drawx(), plan.drawy(), plan.rotation * 90f);
-    }
-
-
-    @Override
-    public void load() {
-        super.load();
-
-        stackRegion = Core.atlas.find(name + "-stack");
-        stackBottomRegion1 = Core.atlas.find(name + "-stack-bottom1");
-        stackBottomRegion2 = Core.atlas.find(name + "-stack-bottom2");
     }
 
     public static float calcPitch() {
@@ -90,6 +79,7 @@ public class PayloadManufacturingGrid extends PayloadBlock {
     @Override
     public void setStats() {
         super.setStats();
+        stats.add(Stat.payloadCapacity, StatValues.squared(payloadLimit, StatUnit.blocksSquared));
         stats.add(CDStat.recipes, table -> {
             table.row();
             for (PayloadManufacturingRecipe recipe : recipes) {
@@ -371,7 +361,7 @@ public class PayloadManufacturingGrid extends PayloadBlock {
 
         @Override
         public boolean acceptPayload(Building source, Payload payload) {
-            return this.payload == null && !moveOut;
+            return this.payload == null && payload.fits(payloadLimit) && !moveOut;
         }
 
         @Override
@@ -380,26 +370,14 @@ public class PayloadManufacturingGrid extends PayloadBlock {
             loadEffect.at(this);
         }
 
-        public void drawIngredient(float x, float y, Payload payload, boolean bottom) {
+        public void drawIngredient(float x, float y, Payload payload) {
             float z = Draw.z();
-
-            if (bottom) {
-                Draw.z(z - 0.02f);
-                Draw.rect(rotation == 0 || rotation == 3 ? stackBottomRegion1 : stackBottomRegion2, x, y, rotdeg());
-            }
-
-            Draw.z(z - 0.03f);
-            Drawf.shadow(x, y, ingredientRadius * 2f);
-            Draw.z(z - 0.01f);
-            Draw.rect(stackRegion, x, y);
             if (payload != null) {
                 Draw.z(z - 0.001f);
                 Drawf.shadow(x, y, payload.size() * 2f);
                 Draw.z(z);
                 Draw.rect(payload.icon(), x, y);
             }
-
-            Draw.z(z);
         }
 
         public void drawIngredients(Vec2 offset, float scl) {
@@ -414,8 +392,7 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                 if (build instanceof ManufacturingGridBuild grid && grid.payload != null) {
                     float dx = x + offset.x + (Point2.x(entry.key) * ingredientRadius * scl),
                             dy = y + offset.y + (Point2.y(entry.key) * ingredientRadius * scl);
-
-                    drawIngredient(dx, dy, grid.payload, entry.key == 0 && merge);
+                    drawIngredient(dx, dy, grid.payload);
                 }
             }
         }
@@ -444,10 +421,6 @@ public class PayloadManufacturingGrid extends PayloadBlock {
                     drawIngredients(Tmp.v1, sizeInterp.apply(progress));
                 }
             } else if (payload != null) {
-                if (!moveOut) {
-                    drawIngredient(x, y, null, true);
-                }
-
                 payload.draw();
             }
         }
