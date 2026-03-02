@@ -83,7 +83,7 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
 
     @Override
     public void addWeather(Sector sector, Rules rules) {
-        if (sector == CDSectorPresets.theReserve.sector) {
+        if (sector == CDSectorPresets.theReserve.sector || sector == CDSectorPresets.sanctuary.sector) {
             rules.weather.add(new WeatherEntry(Weathers.snow));
         } else {
             rules.weather.add(new WeatherEntry(Weathers.rain));
