@@ -46,6 +46,7 @@ public class CDItems {
 
         rawPlatinum = new Item("raw-platinum", Color.valueOf("d985a3")) {{
             hardness = 5;
+            hideDetails = false;
         }};
 
         sulfur = new Item("sulfur", Color.valueOf("f7eb94")) {{
