@@ -261,25 +261,6 @@ public class RecipeCrafter extends Block {
         }
 
         public void matchRecipe() {
-            // old code that used to be relevant for the rolling mill
-            /*
-            // dont switch recipes until the crafter is fully emptied
-            boolean liquidsEmpty = true;
-
-            for (Liquid liquid : Vars.content.liquids()) {
-                if (liquids != null && liquids.get(liquid) > 0.1f) liquidsEmpty = false;
-            }
-
-            if (items.sum((item, count) -> consumesItem(item) ? 0f : 1f) == 0f && liquidsEmpty) {
-                // reset
-                progress = 0f;
-                currentRecipeID = -1;
-                return;
-            }
-
-            if (currentRecipeID >= 0) return;
-             */
-
             for (Recipe recipe : recipes) {
                 if (recipe.valid(this)) {
                     currentRecipeID = recipes.indexOf(recipe);
@@ -321,18 +302,27 @@ public class RecipeCrafter extends Block {
             Recipe currentRecipe = getCurrentRecipe();
             boolean recipeConsumes = false;
 
-            if (currentRecipe == null) {
-                // if it's not configurable, it automatically detects its recipe and should accept any item
-                if (!configurable) {
-                    for (Recipe recipe : recipes) {
-                        if (recipe.consumesItem(item)) {
-                            recipeConsumes = true;
+            if (configurable) {
+                if (currentRecipe != null) {
+                    recipeConsumes = currentRecipe.consumesItem(item);
+                }
+            } else {
+                for (Recipe recipe : recipes) {
+                    boolean dontConsiderThisRecipe = false;
+                    for (Item existingItem : Vars.content.items()) {
+                        if (items.has(existingItem) && !recipe.consumesItem(existingItem)) {
+                            dontConsiderThisRecipe = true;
                             break;
                         }
                     }
+                    if (dontConsiderThisRecipe) {
+                        continue;
+                    }
+                    if (recipe.consumesItem(item)) {
+                        recipeConsumes = true;
+                        break;
+                    }
                 }
-            } else {
-                recipeConsumes = currentRecipe.consumesItem(item);
             }
 
             return (consumesItem(item) || recipeConsumes) && items.get(item) < getMaximumAccepted(item);
@@ -345,15 +335,17 @@ public class RecipeCrafter extends Block {
             Recipe currentRecipe = getCurrentRecipe();
             boolean recipeConsumes = false;
 
-            if (currentRecipe == null) {
+            if (configurable) {
+                if (currentRecipe != null) {
+                    recipeConsumes = currentRecipe.consumesLiquid(liquid);
+                }
+            } else {
                 for (Recipe recipe : recipes) {
                     if (recipe.consumesLiquid(liquid)) {
                         recipeConsumes = true;
                         break;
                     }
                 }
-            } else {
-                recipeConsumes = currentRecipe.consumesLiquid(liquid);
             }
 
             return (consumesLiquid(liquid) || recipeConsumes);
