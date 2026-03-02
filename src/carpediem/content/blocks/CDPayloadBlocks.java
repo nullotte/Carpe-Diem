@@ -44,7 +44,7 @@ public class CDPayloadBlocks {
                     CDItems.controlCircuit, 1
             ));
             size = 5;
-            payloadLimit = 6f; // huge
+            payloadLimit = 7f; // huge
             moveTime = 60f;
             canOverdrive = false;
         }};
@@ -58,7 +58,7 @@ public class CDPayloadBlocks {
                     CDItems.controlCircuit, 1
             ));
             size = 5;
-            payloadLimit = 6f;
+            payloadLimit = 7f;
             moveTime = 60f;
             canOverdrive = false;
         }};
@@ -153,7 +153,7 @@ public class CDPayloadBlocks {
                     CDItems.controlCircuit, 5
             ));
             size = 5;
-            payloadLimit = 6f;
+            payloadLimit = 7f;
         }};
 
         payloadLoader = new PayloadFrontLoader("payload-loader") {{
