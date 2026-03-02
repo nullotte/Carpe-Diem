@@ -76,11 +76,8 @@ public class CDUnitTypes {
             rotateSpeed = 8f;
             flying = true;
 
-            engineOffset = 12f;
+            engineOffset = 6.5f;
             engineSize = 4f;
-            setEnginesMirror(
-                    new UnitEngine(9f, -9f, 3f, 315f)
-            );
 
             abilities.add(new AmmoStatusAbility(CDStatusEffects.unpowered, 5f, 60f));
             ammoCapacity = 300;
@@ -88,8 +85,16 @@ public class CDUnitTypes {
 
             buildSpeed = 2f;
             buildRange = 40f * 8f;
-            buildBeamOffset = 0.5f;
             itemCapacity = 0;
+
+            drawBuildBeam = false;
+            weapons.add(new BuildWeapon("carpe-diem-carver-weapon") {{
+                x = 10f / 4f;
+                y = 37f / 4f;
+                rotate = false;
+                layerOffset = -0.001f;
+                shootY = 3f;
+            }});
         }};
 
         heap = new CDUnitType("heap") {{
@@ -106,10 +111,8 @@ public class CDUnitTypes {
             flying = true;
             physics = false;
 
-            engineSize = 0f;
-            setEnginesMirror(
-                    new UnitEngine(9f, -12f, 3.5f, 315f)
-            );
+            engineOffset = 11f;
+            engineSize = 5f;
 
             abilities.add(new AmmoStatusAbility(CDStatusEffects.unpowered, 5f, 60f));
             ammoCapacity = 300;
