@@ -33,7 +33,7 @@ public class DataRouter extends Block implements DataBlock {
     public void setStats() {
         super.setStats();
 
-        stats.add(Stat.range, DataBuild.baseDataStrength);
+        stats.add(Stat.range, DataBuild.baseDataStrength, StatUnit.blocks);
         stats.remove(Stat.maxConsecutive);
     }
 

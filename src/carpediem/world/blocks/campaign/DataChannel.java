@@ -39,7 +39,7 @@ public class DataChannel extends Block implements Autotiler, DataBlock {
     public void setStats() {
         super.setStats();
 
-        stats.add(Stat.range, DataBuild.baseDataStrength);
+        stats.add(Stat.range, DataBuild.baseDataStrength, StatUnit.blocks);
 
         // goodbye
         stats.remove(Stat.maxConsecutive);
