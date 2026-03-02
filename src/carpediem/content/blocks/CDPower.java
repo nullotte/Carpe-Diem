@@ -19,7 +19,7 @@ public class CDPower {
         cableNode = new CableNode("cable-node") {{
             requirements(Category.power, ItemStack.with(
                     CDItems.aluminum, 1,
-                    CDItems.aluminumRod, 1,
+                    CDItems.nickelRod, 1,
                     CDItems.nickelWire, 1
             ));
             laserScale = 0.4f;
@@ -30,7 +30,7 @@ public class CDPower {
         cableTower = new CableNode("cable-tower") {{
             requirements(Category.power, ItemStack.with(
                     CDItems.aluminum, 10,
-                    CDItems.aluminumRod, 5,
+                    CDItems.nickelRod, 5,
                     CDItems.nickelWire, 10,
                     CDItems.nickelPlate, 5,
                     Items.silicon, 3
@@ -47,6 +47,7 @@ public class CDPower {
                     CDItems.aluminum, 25,
                     CDItems.aluminumPlate, 10,
                     CDItems.nickelPlate, 20,
+                    CDItems.nickelRod, 15,
                     CDItems.nickelWire, 5,
                     Items.silicon, 10,
                     CDItems.powerCell, 20
@@ -101,6 +102,7 @@ public class CDPower {
                     CDItems.aluminumCogwheel, 15,
                     CDItems.nickelPlate, 25,
                     CDItems.nickelWire, 25,
+                    CDItems.nickelRod, 10,
                     CDItems.silverPlate, 10,
                     CDItems.controlCircuit, 5,
                     CDItems.powerCell, 15,

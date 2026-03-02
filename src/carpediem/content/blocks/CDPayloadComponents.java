@@ -68,6 +68,7 @@ public class CDPayloadComponents {
                     CDItems.aluminumPlate, 30,
                     CDItems.nickelWire, 25,
                     CDItems.nickelPlate, 20,
+                    CDItems.nickelRod, 20,
                     CDItems.powerCell, 100,
                     Items.silicon, 30
             ));
