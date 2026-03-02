@@ -10,6 +10,7 @@ import mindustry.content.*;
 import mindustry.game.*;
 import mindustry.maps.generators.*;
 import mindustry.type.*;
+import mindustry.type.Weather.*;
 import mindustry.world.*;
 
 public class AsphodelPlanetGenerator extends PlanetGenerator {
@@ -76,13 +77,17 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
     }
 
     @Override
-    public void generateSector(Sector sector) {
-
+    public float getSizeScl() {
+        return 2200;
     }
 
     @Override
-    public float getSizeScl() {
-        return 2200;
+    public void addWeather(Sector sector, Rules rules) {
+        if (sector == CDSectorPresets.theReserve.sector) {
+            rules.weather.add(new WeatherEntry(Weathers.snow));
+        } else {
+            rules.weather.add(new WeatherEntry(Weathers.rain));
+        }
     }
 
     protected Block getBlock(Vec3 position) {
