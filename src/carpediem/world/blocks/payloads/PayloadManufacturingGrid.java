@@ -548,14 +548,14 @@ public class PayloadManufacturingGrid extends PayloadBlock {
             if (shapelessRequirements != null) return shapelessRequirements;
 
             Seq<PayloadStack> accumulated = new Seq<>();
-            requirements.forEach(entry -> {
+            for (IntMap.Entry<UnlockableContent> entry : requirements.entries()) {
                 PayloadStack stack = accumulated.find(s -> s.item == entry.value);
                 if (stack != null) {
                     stack.amount++;
                 } else {
                     accumulated.add(new PayloadStack(entry.value, 1));
                 }
-            });
+            }
             return accumulated.toArray(PayloadStack.class);
         }
     }
