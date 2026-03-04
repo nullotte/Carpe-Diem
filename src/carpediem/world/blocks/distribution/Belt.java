@@ -241,20 +241,21 @@ public class Belt extends Block implements Autotiler {
                 if (id == null) accepted++;
             }
 
-            return accepted;
+            return Math.min(amount, accepted);
         }
 
         @Override
         public void handleStack(Item item, int amount, Teamc source) {
-            for (int i = ids.length - 1; i >= 0; i--) {
+            int added = 0;
+
+            for (int i = 0; i < ids.length && added < amount; i++) {
                 if (ids[i] == null) {
                     ids[i] = item;
-                    items.add(item, 1);
-                } else {
-                    break;
+                    added++;
                 }
             }
 
+            items.add(item, added);
             noSleep();
         }
 
@@ -262,7 +263,7 @@ public class Belt extends Block implements Autotiler {
         public int removeStack(Item item, int amount) {
             int removed = 0;
 
-            for (int i = ids.length - 1; i >= 0 && removed < amount; i--) {
+            for (int i = 0; i < ids.length && removed < amount; i++) {
                 if (ids[i] == item) {
                     ids[i] = null;
                     removed++;
