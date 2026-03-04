@@ -4,6 +4,7 @@ import carpediem.ai.types.*;
 import carpediem.entities.abilities.*;
 import carpediem.type.ammo.*;
 import carpediem.type.unit.*;
+import mindustry.*;
 import mindustry.ai.types.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -125,24 +126,23 @@ public class CDUnitTypes {
         myriad = new CDUnitType("myriad") {{
             constructor = PayloadUnit::create;
 
-            accel = 0.3f;
-            drag = 0.3f;
-            speed = 5f;
-            rotateSpeed = 10f;
+            hitSize = 35f;
+            accel = 0.03f;
+            drag = 0.1f;
+            speed = 6f;
+            rotateSpeed = 4f;
             flying = true;
+            physics = false;
 
             engineSize = 0f;
-            setEnginesMirror(
-                    new UnitEngine(8, 8.5f, 3.5f, 45f),
-                    new UnitEngine(9f, -10f, 3.5f, 315f)
-            );
+            setEnginesMirror(new UnitEngine(9f, -22f, 6f, 315f));
 
             abilities.add(new AmmoStatusAbility(CDStatusEffects.unpowered, 5f, 60f));
-            ammoCapacity = 300;
+            ammoCapacity = 600;
             ammoType = new PowerAmmoType(10000f);
 
-            itemCapacity = 200;
-            itemOffsetY = 0f;
+            itemCapacity = 0;
+            payloadCapacity = 9f * 9f * Vars.tilePayload;
         }};
     }
 }

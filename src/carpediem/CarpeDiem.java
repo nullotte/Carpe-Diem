@@ -120,8 +120,6 @@ public class CarpeDiem extends Mod {
 
         // hide unfinished content
         if (!debug) {
-            CDUnitTypes.myriad.hidden = true;
-
             for (SectorPreset preset : new SectorPreset[]{
                     CDSectorPresets.interference,
                     CDSectorPresets.sanctuary,
