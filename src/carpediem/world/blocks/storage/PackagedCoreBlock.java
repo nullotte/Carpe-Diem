@@ -1,7 +1,9 @@
 package carpediem.world.blocks.storage;
 
+import arc.func.*;
 import arc.graphics.g2d.*;
 import arc.util.*;
+import mindustry.ctype.*;
 import mindustry.entities.units.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.meta.*;
@@ -36,6 +38,11 @@ public class PackagedCoreBlock extends StorageBlock {
     @Override
     public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list) {
         coreType.drawer.drawPlan(coreType, plan, list);
+    }
+
+    @Override
+    public void getDependencies(Cons<UnlockableContent> cons) {
+        cons.get(coreType);
     }
 
     public class PackagedCoreBuild extends StorageBuild {
