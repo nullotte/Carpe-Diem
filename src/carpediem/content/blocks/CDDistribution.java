@@ -8,7 +8,7 @@ import mindustry.world.*;
 import mindustry.world.draw.*;
 
 public class CDDistribution {
-    public static Block belt, beltMerger, beltSplitter, beltOverflowGate, beltBridge, beltUnloader;
+    public static Block belt, beltMerger, beltSplitter, beltOverflowGate, beltUnderflowGate, beltBridge, beltUnloader;
 
     public static void load() {
         belt = new Belt("belt") {{
@@ -78,6 +78,26 @@ public class CDDistribution {
             );
         }};
 
+        beltUnderflowGate = new DrawerOverflowDuct("belt-underflow-gate") {{
+            requirements(Category.distribution, ItemStack.with(
+                    CDItems.aluminum, 1,
+                    CDItems.aluminumPlate, 1,
+                    CDItems.aluminumCogwheel, 2
+            ));
+            speed = 6f;
+            invert = true;
+
+            squareSprite = false;
+            rotateDraw = false;
+            drawer = new DrawMulti(
+                    new DrawBeltUnder(belt),
+                    new DrawRegion(),
+                    new DrawRegion("-top") {{
+                        buildingRotate = true;
+                    }}
+            );
+        }};
+
         beltBridge = new BeltBridge("belt-bridge") {{
             requirements(Category.distribution, ItemStack.with(
                     CDItems.aluminum, 4,
@@ -115,6 +135,6 @@ public class CDDistribution {
         }};
 
         // for merger auto replacement . probably shouldnt use isDuct but oh well it works
-        belt.isDuct = beltMerger.isDuct = beltSplitter.isDuct = beltOverflowGate.isDuct = beltBridge.isDuct = beltUnloader.isDuct = true;
+        belt.isDuct = beltMerger.isDuct = beltSplitter.isDuct = beltOverflowGate.isDuct = beltUnderflowGate.isDuct = beltBridge.isDuct = beltUnloader.isDuct = true;
     }
 }
