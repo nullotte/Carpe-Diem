@@ -8,4 +8,4 @@
 
 <p>A peaceful campaign mod which focuses on factory building.</p>
 <p>Build production lines, decode archives, and launch landing pods across the sectors of Asphodel, a cold planet ravaged by the forces of war. Salvage what remains of the Coalition, and restore their industry to its former glory.</p>
-<p>The mod is still in development, and many things in the mod are subject to change. I hope that you will have fun playing it.</p>
+<p>This mod is mostly complete in terms of implemented content, but its campaign is still unfinished. Either way, I hope you'll enjoy what the mod has to offer.</p>
