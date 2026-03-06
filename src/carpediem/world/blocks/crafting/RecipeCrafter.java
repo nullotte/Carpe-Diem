@@ -218,6 +218,16 @@ public class RecipeCrafter extends Block {
                 dumpOutputs();
             } else {
                 warmup = Mathf.approachDelta(warmup, 0f, warmupSpeed);
+
+                // just dump everything lol
+                if (items != null) {
+                    if (timer(timerDump, dumpTime / timeScale)) {
+                        dump();
+                    }
+                }
+                if (liquids != null) {
+                    dumpLiquid(liquids.current());
+                }
             }
         }
 
@@ -276,6 +286,23 @@ public class RecipeCrafter extends Block {
         public boolean shouldConsume() {
             Recipe currentRecipe = getCurrentRecipe();
             return currentRecipe != null && currentRecipe.shouldConsume(this);
+        }
+
+        @Override
+        public boolean canDump(Building to, Item item) {
+            if (!configurable) {
+                for (Recipe recipe : recipes) {
+                    if (recipe.consumesItem(item)) {
+                        return false;
+                    }
+                }
+            }
+            return !consumesItem(item);
+        }
+
+        @Override
+        public boolean canDumpLiquid(Building to, Liquid liquid) {
+            return !consumesLiquid(liquid);
         }
 
         @Override
