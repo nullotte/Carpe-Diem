@@ -1,11 +1,8 @@
 package carpediem.content;
 
-import arc.struct.*;
-import arc.util.*;
 import carpediem.content.blocks.*;
 import mindustry.*;
 import mindustry.game.*;
-import mindustry.world.blocks.storage.*;
 
 public class CDLoadouts {
     public static Schematic schemLandingPodT0;
