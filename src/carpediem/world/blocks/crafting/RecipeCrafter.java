@@ -310,7 +310,7 @@ public class RecipeCrafter extends Block {
                 for (Recipe recipe : recipes) {
                     boolean dontConsiderThisRecipe = false;
                     for (Item existingItem : Vars.content.items()) {
-                        if (items.has(existingItem) && !recipe.consumesItem(existingItem)) {
+                        if (items.has(existingItem) && !recipe.consumesItem(existingItem) && !consumesItem(existingItem)) {
                             dontConsiderThisRecipe = true;
                             break;
                         }
