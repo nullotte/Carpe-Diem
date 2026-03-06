@@ -228,17 +228,23 @@ public class LaunchPlatform extends PayloadBlock {
                                 BuildPayload launched = payload;
                                 payload = null;
 
-                                Time.runTask(5f, () -> {
-                                    launchBlock = ((PackagedCoreBlock) launched.block()).coreType;
-                                    Vars.renderer.showLaunch(this);
-                                    Time.runTask(launchDuration() - 6f, () -> {
-                                        // add resources
-                                        ItemSeq resources = new ItemSeq();
-                                        launched.build.items.each(resources::add);
-                                        Vars.universe.updateLaunchResources(resources);
-                                        Vars.control.playSector(Vars.state.rules.sector, destination.sector);
+                                Runnable playSector = () -> {
+                                    // add resources
+                                    ItemSeq resources = new ItemSeq();
+                                    launched.build.items.each(resources::add);
+                                    Vars.universe.updateLaunchResources(resources);
+                                    Vars.control.playSector(Vars.state.rules.sector, destination.sector);
+                                };
+
+                                if (Core.settings.getBool("skipcoreanimation")) {
+                                    playSector.run();
+                                } else {
+                                    Time.runTask(5f, () -> {
+                                        launchBlock = ((PackagedCoreBlock) launched.block()).coreType;
+                                        Vars.renderer.showLaunch(this);
+                                        Time.runTask(launchDuration() - 6f, playSector);
                                     });
-                                });
+                                }
                             }
                         });
                     }
