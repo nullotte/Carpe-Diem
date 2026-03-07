@@ -13,6 +13,7 @@ import mindustry.core.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
 
@@ -186,6 +187,11 @@ public class PipeBridge extends MergingLiquidBlock {
         @Override
         public void moveLiquids() {
             dumpLiquid(liquids.current(), 2f, 2);
+        }
+
+        @Override
+        public boolean acceptLiquid(Building source, Liquid liquid) {
+            return super.acceptLiquid(source, liquid) && source.relativeTo(this) == rotation;
         }
 
         @Override
