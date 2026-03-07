@@ -1,5 +1,7 @@
 package carpediem.content.blocks;
 
+import arc.*;
+import arc.graphics.g2d.*;
 import carpediem.content.*;
 import carpediem.world.blocks.power.*;
 import carpediem.world.consumers.*;
@@ -132,7 +134,21 @@ public class CDPower {
                         layer = Layer.power + 0.01f;
                     }},
                     new DrawCableGlow()
-            );
+            ) {
+                // do not do this
+                public TextureRegion icon;
+
+                @Override
+                public void load(Block block) {
+                    super.load(block);
+                    icon = Core.atlas.find(block.name + "-icon");
+                }
+
+                @Override
+                public TextureRegion[] icons(Block block) {
+                    return new TextureRegion[]{icon};
+                }
+            };
 
             consumeLiquid(Liquids.water, 0.1f);
             consumeItems(ItemStack.with(CDItems.sulfur, 2, CDItems.tar, 1));
@@ -147,9 +163,16 @@ public class CDPower {
             powerProduction = 150f;
             itemDuration = 4f * 60f;
 
-            topOffset = 14.5f;
+            topOffset = 19f;
             drawer = new DrawMulti(
-                    new DrawDefault()
+                    new DrawDefault(),
+                    new DrawYetAnotherCustomPistonsDrawer(),
+                    new DrawRegion("-bottom"),
+                    new DrawRegion("-above"),
+                    new DrawRegion("-top") {{
+                        layer = Layer.power + 0.01f;
+                    }},
+                    new DrawCableGlow()
             );
 
             consumeItem(Items.pyratite, 1);

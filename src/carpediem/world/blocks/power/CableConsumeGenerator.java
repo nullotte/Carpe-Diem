@@ -17,12 +17,6 @@ public class CableConsumeGenerator extends ConsumeGenerator implements CableBloc
         return topOffset;
     }
 
-    @Override
-    public TextureRegion[] icons() {
-        // kinda sucks that this is hardcoded but oh well
-        return new TextureRegion[]{Core.atlas.find(name + "-icon")};
-    }
-
     public class CableConsumeGeneratorBuild extends ConsumeGeneratorBuild {
         public float cableWarmup;
 
