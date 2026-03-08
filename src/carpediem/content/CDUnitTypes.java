@@ -67,7 +67,6 @@ public class CDUnitTypes {
                 ai.onlyAssist = true;
                 return ai;
             });
-            logicControllable = false;
             playerControllable = false;
 
             hitSize = 20f;
@@ -101,7 +100,6 @@ public class CDUnitTypes {
         heap = new CDUnitType("heap") {{
             constructor = UnitEntity::create;
             controller = u -> new ReloadingAI(CDCargoAI::new);
-            logicControllable = false;
             playerControllable = false;
 
             hitSize = 22f;
@@ -125,6 +123,7 @@ public class CDUnitTypes {
 
         myriad = new CDUnitType("myriad") {{
             constructor = PayloadUnit::create;
+            controller = u -> !playerControllable || (u.team.isAI() && !u.team.rules().rtsAi) ? aiController.get() : new ReloadingCommandAI();
 
             hitSize = 35f;
             accel = 0.03f;
