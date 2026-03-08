@@ -9,16 +9,16 @@ import mindustry.type.*;
 public class RingMesh extends PlanetMesh {
     public RingMesh(Planet planet, int seed, int innerRadius, int outerRadius, float radius) {
         this.planet = planet;
-        this.shader = Shaders.clouds;
+        this.shader = Shaders.unlit;
         this.mesh = RingMeshBuilder.buildRing(seed, innerRadius, outerRadius, radius);
     }
 
     @Override
     public void preRender(PlanetParams params) {
-        Shaders.clouds.planet = planet;
-        Shaders.clouds.lightDir.set(planet.solarSystem.position).sub(planet.position).rotate(Vec3.Y, planet.getRotation()).nor();
-        Shaders.clouds.ambientColor.set(planet.solarSystem.lightColor);
-        Shaders.clouds.alpha = 1f;
+        //Shaders.clouds.planet = planet;
+        //Shaders.clouds.lightDir.set(planet.solarSystem.position).sub(planet.position).rotate(Vec3.Y, planet.getRotation()).nor();
+        //Shaders.clouds.ambientColor.set(planet.solarSystem.lightColor);
+        //Shaders.clouds.alpha = 1f;
     }
 
     @Override

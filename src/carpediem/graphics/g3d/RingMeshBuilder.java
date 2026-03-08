@@ -41,12 +41,16 @@ public class RingMeshBuilder {
         float[] floats = new float[3 + (packNormals ? 1 : 3) + 1];
         Vec3 nor = new Vec3();
         Color tmpCol = new Color();
+        Color color1 = Color.valueOf("ebfffd"), color2 = Color.valueOf("ade4ff");
 
         for (int x = -range; x < range; x++) {
             for (int y = -range; y < range; y++) {
                 hexToSquare(x, y);
                 if (tmp.len() > innerRadius && tmp.len() < outerRadius) {
-                    float col = tmpCol.set(Color.white).a(rand.random(0.6f, 1f)).toFloatBits();
+                    tmpCol.set(color1).lerp(color2, Math.abs((float) Noise.rawNoise(60f + Mathf.curve(tmp.len() / outerRadius, (float) innerRadius / outerRadius, 1f) * 5f)));
+                    tmpCol.a(rand.random(0.8f, 1f));
+                    tmpCol.a *= (float) Math.abs(Noise.rawNoise(20f + Mathf.curve(tmp.len() / outerRadius, (float) innerRadius / outerRadius, 1f) * 7f)) * 0.6f + 0.4f;
+                    float col = tmpCol.toFloatBits();
 
                     tmp.scl(scale);
 
