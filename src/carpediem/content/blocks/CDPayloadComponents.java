@@ -279,6 +279,13 @@ public class CDPayloadComponents {
                             {df0, pb0, df0},
                             {null, lt0, null}
                     }),
+                    new PayloadManufacturingRecipe(CDUnitTypes.myriad, new UnlockableContent[][]{
+                            {null, os0, os0, null},
+                            {df0, pc0, sc0, df0},
+                            {df0, sc0, pc0, df0},
+                            {pb0, df0, df0, pb0},
+                            {lt0, null, null, lt0}
+                    }),
                     new PayloadManufacturingRecipe(blockUnrefinedAlloy, PayloadStack.with(blockAluminum, 2, blockSilicon, 2)),
                     new PayloadManufacturingRecipe(rocketSystemCore, new UnlockableContent[][]{
                             {hs0, hs0, lpf, lpf, lpf, hs0, hs0},
