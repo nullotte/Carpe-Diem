@@ -33,15 +33,15 @@ public class CraftingGridImage extends Element {
 
     @Override
     public void draw() {
-        int linesX = (int) (itemsWidth() / gridSlotSize) + 1, linesY = (int) (itemsHeight() / gridSlotSize) + 1;
+        int linesX = (int) (itemsWidth() / gridSlotSize), linesY = (int) (itemsHeight() / gridSlotSize);
 
         Draw.color(Pal.gray, parentAlpha);
         Lines.stroke(6f);
-        for (int lx = 0; lx < linesX; lx++) {
-            Lines.line(x + lx * gridSlotSize, y, x + lx * gridSlotSize, y + height, true);
+        for (int lx = 0; lx <= linesX; lx++) {
+            Lines.line(x + lx * gridSlotSize, y, x + lx * gridSlotSize, y + (linesY * gridSlotSize), true);
         }
-        for (int ly = 0; ly < linesY; ly++) {
-            Lines.line(x, y + ly * gridSlotSize, x + width, y + ly * gridSlotSize, true);
+        for (int ly = 0; ly <= linesY; ly++) {
+            Lines.line(x, y + ly * gridSlotSize, x + (linesX * gridSlotSize), y + ly * gridSlotSize, true);
         }
 
         Draw.color(Color.white, parentAlpha);
