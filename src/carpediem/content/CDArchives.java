@@ -26,7 +26,7 @@ public class CDArchives {
     // sanctuary
     industrialExtraction, advancedPayloadLogistics, fanProcessing, planetaryExpansion,
     // final resting place
-    rocketLaunchFacilities, rocketComponents;
+    rocketLaunchFacilities, rocketComponents, curtainCall;
 
     public static void load() {
         // region the reserve
@@ -285,6 +285,8 @@ public class CDArchives {
                         solidRocketBooster
                 )
         );
+
+        curtainCall = new SpecialArchive("curtain-call");
         // endregion
     }
 }

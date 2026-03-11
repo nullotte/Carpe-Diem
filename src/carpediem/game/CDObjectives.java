@@ -9,7 +9,6 @@ public class CDObjectives {
     public static class DecodeArchive implements Objective {
         @Override
         public boolean complete() {
-            // so cool
             return false;
         }
 
@@ -46,13 +45,24 @@ public class CDObjectives {
 
         @Override
         public boolean complete() {
-            // lol
             return false;
         }
 
         @Override
         public String display() {
             return Core.bundle.format("requirement.launchsector", requiredCore.localizedName);
+        }
+    }
+
+    public static class LaunchRocket implements Objective {
+        @Override
+        public boolean complete() {
+            return false;
+        }
+
+        @Override
+        public String display() {
+            return Core.bundle.get("requirement.launchrocket");
         }
     }
 }

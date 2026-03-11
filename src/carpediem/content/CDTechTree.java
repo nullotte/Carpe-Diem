@@ -90,6 +90,7 @@ public class CDTechTree {
                         node(auxiliaryFuelTank);
                         node(solidRocketBooster);
                     });
+                    node(curtainCall);
                 });
             });
 
