@@ -43,9 +43,6 @@ public class CarpeDiem extends Mod {
         // hai glenn!
         Events.on(FileTreeInitEvent.class, e -> {
             CDSounds.load();
-            if (!Vars.headless) {
-                Core.app.post(CDShaders::load);
-            }
         });
 
         Events.on(ClientLoadEvent.class, e -> {
