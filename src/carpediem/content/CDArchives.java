@@ -286,7 +286,7 @@ public class CDArchives {
                 )
         );
 
-        curtainCall = new SpecialArchive("curtain-call");
+        //curtainCall = new SpecialArchive("curtain-call");
         // endregion
     }
 }
