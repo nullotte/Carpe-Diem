@@ -1,24 +1,44 @@
 package carpediem.world.blocks.campaign;
 
+import arc.*;
 import arc.Graphics.*;
 import arc.Graphics.Cursor.*;
+import arc.graphics.*;
 import arc.graphics.g2d.*;
+import arc.math.*;
 import arc.math.geom.*;
+import arc.scene.actions.*;
+import arc.scene.event.*;
+import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import carpediem.*;
-import carpediem.content.blocks.*;
+import carpediem.content.*;
+import carpediem.graphics.*;
+import carpediem.ui.fragments.*;
 import carpediem.world.blocks.campaign.RocketLaunchPad.*;
 import mindustry.*;
+import mindustry.content.*;
+import mindustry.core.GameState.*;
+import mindustry.entities.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.ui.*;
 import mindustry.world.*;
+import mindustry.world.blocks.*;
 import mindustry.world.blocks.payloads.*;
+import mindustry.world.blocks.storage.*;
 import mindustry.world.meta.*;
 
 public class RocketControlCenter extends PayloadBlock {
     public Block requiredBlock;
+
+    public float launchDuration = 160f, chargeDuration = 300f, mergeDuration = 60f;
+    public Interp landZoomInterp = Interp.pow4In, chargeZoomInterp = Interp.pow4In;
+    public float landZoomFrom = 0.02f, landZoomTo = 1.8f, chargeZoomTo = 2.5f;
+    public float dustRadius = 22f;
+
+    public TextureRegion rocketRegion;
 
     public RocketControlCenter(String name) {
         super(name);
@@ -44,8 +64,19 @@ public class RocketControlCenter extends PayloadBlock {
         }
     }
 
-    public class RocketControlCenterBuild extends PayloadBlockBuild<BuildPayload> {
+    @Override
+    public void load() {
+        super.load();
+
+        rocketRegion = Core.atlas.find(name + "-rocket");
+    }
+
+    public class RocketControlCenterBuild extends PayloadBlockBuild<BuildPayload> implements LaunchAnimator {
         public RocketLaunchPadBuild[] pads = new RocketLaunchPadBuild[8];
+
+        public boolean launching;
+
+        public float cloudSeed;
 
         @Override
         public void updateTile() {
@@ -92,7 +123,7 @@ public class RocketControlCenter extends PayloadBlock {
         }
 
         public boolean canLaunchRocket() {
-            if (!Vars.state.isCampaign()) return false;
+            if (!Vars.state.isCampaign() && !CarpeDiem.debug) return false;
 
             for (RocketLaunchPadBuild pad : pads) {
                 if (pad == null || pad.efficiency != 1f) return false;
@@ -116,7 +147,8 @@ public class RocketControlCenter extends PayloadBlock {
             table.button(Icon.play, Styles.cleari, () -> {
                 if (canLaunchRocket()) {
                     CarpeDiem.rocketLaunch.show(() -> {
-                        //
+                        Vars.renderer.showLaunch(this);
+                        // TODO should clear payloads. also unlock stuff
                     });
                 }
                 deselect();
@@ -126,16 +158,15 @@ public class RocketControlCenter extends PayloadBlock {
         @Override
         public void draw() {
             Draw.rect(region, x, y);
-
-            //draw input
-            for (int i = 0; i < 4; i++) {
-                if (blends(i)) {
-                    Draw.rect(inRegion, x, y, (i * 90f) - 180f);
+            Draw.z(Layer.blockOver);
+            if (!launching) {
+                drawPayload();
+            } else {
+                float rawTime = launchDuration() - Vars.renderer.getLandTime();
+                if (rawTime > mergeDuration && rawTime < chargeDuration) {
+                    drawRocket(x, y, 1f, 0f, 0f);
                 }
             }
-
-            Draw.z(Layer.blockOver);
-            drawPayload();
         }
 
         @Override
@@ -159,8 +190,21 @@ public class RocketControlCenter extends PayloadBlock {
             }
         }
 
-        public void drawRocket(float x, float y) {
-            Draw.rect(CDStorage.landingPodT2.fullIcon, x, y);
+        public void drawRocket(float x, float y, float scl, float fin, float rotation) {
+            if (scl < 0f) {
+                scl = landZoomTo;
+            }
+            Draw.scl(scl);
+            Drawf.spinSprite(rocketRegion, x, y, rotation);
+            Draw.scl();
+        }
+
+        public void drawMergingBlock(Block block, float x, float y) {
+            float z = Draw.z();
+            Draw.z(z - 0.001f);
+            Drawf.shadow(x, y, block.size * Vars.tilesize * 2f);
+            Draw.z(z);
+            Draw.rect(block.fullIcon, x, y);
         }
 
         @Override
@@ -169,6 +213,159 @@ public class RocketControlCenter extends PayloadBlock {
             table.table(t -> {
                 t.add(new ReqImage(requiredBlock.uiIcon, () -> payload != null)).size(Vars.iconMed);
             });
+        }
+
+        @Override
+        public void drawLaunch() {
+            var clouds = Core.assets.get("sprites/clouds.png", Texture.class);
+
+            float rawFin = Vars.renderer.getLandTimeIn();
+            float rawTime = launchDuration() - Vars.renderer.getLandTime();
+            float fin = 1f - Mathf.clamp((1f - rawFin) - (chargeDuration / (launchDuration + chargeDuration))) / (1f - (chargeDuration / (launchDuration + chargeDuration)));
+
+            float chargeFin = 1f - Mathf.clamp((1f - rawFin) / (chargeDuration / (launchDuration + chargeDuration)));
+            float chargeFout = 1f - chargeFin;
+
+            float cameraScl = Vars.renderer.getDisplayScale();
+
+            float fout = 1f - fin;
+            float scl = Scl.scl(4f) / cameraScl;
+            float pfin = Interp.pow3Out.apply(fin), pf = Interp.pow2In.apply(fout);
+
+            //draw particles
+            Draw.color(Pal.lightTrail);
+            Angles.randLenVectors(1, pfin, 100, 800f * scl * pfin, (ax, ay, ffin, ffout) -> {
+                Lines.stroke(scl * ffin * pf * 3f);
+                Lines.lineAngle(x + ax, y + ay, Mathf.angle(ax, ay), (ffin * 20 + 1f) * scl);
+            });
+            Draw.color();
+
+            if (rawTime < mergeDuration) {
+                drawMergingBlock(requiredBlock, x, y);
+                float mergingDistance = requiredBlock.size * Vars.tilesize;
+                float mergeLerpAlpha = Interp.pow2In.apply(rawTime / mergeDuration);
+                for (int i = 0; i < 8; i++) {
+                    RocketLaunchPadBuild pad = pads[i];
+                    if (pad != null) {
+                        float dx = Geometry.d8[i].x, dy = Geometry.d8[i].y;
+                        drawMergingBlock(
+                                pad.requiredBlock(),
+                                Mathf.lerp(pad.x, x + dx * mergingDistance, mergeLerpAlpha),
+                                Mathf.lerp(pad.y, y + dy * mergingDistance, mergeLerpAlpha)
+                        );
+                    }
+                }
+            }
+
+            if (rawTime > chargeDuration) {
+                drawRocket(x, y, Scl.scl(landZoomTo) / Vars.renderer.getDisplayScale(), fin, Interp.pow2In.apply(fout) * 60f);
+            }
+
+            Draw.color();
+            Draw.mixcol(Color.white, Interp.pow5In.apply(fout));
+
+            //draw clouds
+            if (Vars.state.rules.cloudColor.a > 0.0001f) {
+                float scaling = CoreBlock.cloudScaling;
+                float sscl = Math.max(1f + Mathf.clamp(fin + CoreBlock.cfinOffset) * CoreBlock.cfinScl, 0f) * cameraScl;
+
+                Tmp.tr1.set(clouds);
+                Tmp.tr1.set(
+                        (Core.camera.position.x - Core.camera.width / 2f * sscl) / scaling,
+                        (Core.camera.position.y - Core.camera.height / 2f * sscl) / scaling,
+                        (Core.camera.position.x + Core.camera.width / 2f * sscl) / scaling,
+                        (Core.camera.position.y + Core.camera.height / 2f * sscl) / scaling);
+
+                Tmp.tr1.scroll(10f * cloudSeed, 10f * cloudSeed);
+
+                Draw.alpha(Mathf.sample(CoreBlock.cloudAlphas, fin + CoreBlock.calphaFinOffset) * CoreBlock.cloudAlpha);
+                Draw.mixcol(Vars.state.rules.cloudColor, Vars.state.rules.cloudColor.a);
+                Draw.rect(Tmp.tr1, Core.camera.position.x, Core.camera.position.y, Core.camera.width, Core.camera.height);
+                Draw.reset();
+            }
+        }
+
+        @Override
+        public void beginLaunch(boolean launching) {
+            if (!launching) return;
+
+            this.launching = true;
+
+            cloudSeed = Mathf.random(1f);
+            float margin = 30f;
+
+            Image image = new Image();
+            image.color.a = 0f;
+            image.touchable = Touchable.disabled;
+            image.setFillParent(true);
+            image.actions(Actions.delay((launchDuration() - margin) / 60f), Actions.fadeIn(margin / 60f, Interp.pow2In), Actions.delay(6f / 60f), Actions.remove());
+            image.update(() -> {
+                image.toFront();
+                Vars.ui.loadfrag.toFront();
+                if (Vars.state.isMenu()) {
+                    image.remove();
+                }
+            });
+            Core.scene.add(image);
+
+            Time.run(mergeDuration, () -> {
+                CDFx.rocketMerge.at(x, y, 0f, this);
+            });
+
+            Time.run(chargeDuration, () -> {
+                Effect.shake(10f, 14f, this);
+                float spacing = 12f;
+                for (int i = 0; i < 13; i++) {
+                    int fi = i;
+                    Time.run(i * 2f, () -> {
+                        float radius = dustRadius + 1 + spacing * fi;
+                        int rays = Mathf.ceil(radius * Mathf.PI * 2f / 6f);
+                        for (int r = 0; r < rays; r++) {
+                            if (Mathf.chance(0.7f - fi * 0.02f)) {
+                                float angle = r * 360f / (float) rays;
+                                float ox = Angles.trnsx(angle, radius), oy = Angles.trnsy(angle, radius);
+                                Tile t = Vars.world.tileWorld(x + ox, y + oy);
+                                if (t != null) {
+                                    Fx.coreLandDust.at(t.worldx(), t.worldy(), angle + Mathf.range(30f), Tmp.c1.set(t.floor().mapColor).mul(1.7f + Mathf.range(0.15f)));
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        @Override
+        public void endLaunch() {
+            launching = false;
+            Vars.state.set(State.paused);
+            new EndingFragment().build(this, CDSectorPresets.finalRestingPlace.sector);
+        }
+
+        @Override
+        public void updateLaunch() {
+        }
+
+        @Override
+        public float launchDuration() {
+            return launchDuration + chargeDuration;
+        }
+
+        @Override
+        public float zoomLaunch() {
+            Core.camera.position.set(this);
+
+            float rawTime = launchDuration() - Vars.renderer.getLandTime();
+            if (rawTime < chargeDuration) {
+                float fin = rawTime / chargeDuration;
+
+                return chargeZoomInterp.apply(Scl.scl(landZoomTo), Scl.scl(chargeZoomTo), fin);
+            } else {
+                float rawFin = Vars.renderer.getLandTimeIn();
+                float fin = 1f - Mathf.clamp((1f - rawFin) - (chargeDuration / (launchDuration + chargeDuration))) / (1f - (chargeDuration / (launchDuration + chargeDuration)));
+
+                return landZoomInterp.apply(Scl.scl(landZoomFrom), Scl.scl(landZoomTo), fin);
+            }
         }
     }
 }

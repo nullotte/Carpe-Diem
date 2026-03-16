@@ -9,17 +9,17 @@ import arc.math.*;
 import arc.math.geom.*;
 import arc.util.*;
 import mindustry.game.*;
-import mindustry.graphics.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
 
-public class CDPlanetRenderer extends PlanetRenderer {
+// planet renderer that can have the camera at an arbitrary position. also it draws lines lol
+public class RocketLaunchPlanetRenderer extends PlanetRenderer {
     protected static final Rand rand = new Rand();
 
     public int particles = 100;
     public float particleLife = 240f, particleTravelDistance = 180f,
             particleRadius = 5f, particleLength = 8f,
-            particleMinAlpha = 0.4f, particleMaxAlpha = 0.7f;
+            particleMinAlpha = 0.2f, particleMaxAlpha = 0.4f;
 
     public void render(PlanetParams params, Func<Camera3D, Vec3> camUpdater) {
         Draw.flush();

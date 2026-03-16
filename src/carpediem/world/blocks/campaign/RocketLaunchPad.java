@@ -57,22 +57,20 @@ public class RocketLaunchPad extends PayloadBlock {
 
         @Override
         public boolean acceptPayload(Building source, Payload payload) {
-            return super.acceptPayload(source, payload) && controlCenter != null && payload.content() == (corner ? requiredBlockCorner : requiredBlockEdge);
+            return super.acceptPayload(source, payload) && controlCenter != null && payload.content() == requiredBlock();
+        }
+
+        public Block requiredBlock() {
+            return corner ? requiredBlockCorner : requiredBlockEdge;
         }
 
         @Override
         public void draw() {
             Draw.rect(region, x, y);
-
-            //draw input
-            for (int i = 0; i < 4; i++) {
-                if (blends(i)) {
-                    Draw.rect(inRegion, x, y, (i * 90f) - 180f);
-                }
+            if (controlCenter == null || !controlCenter.launching) {
+                Draw.z(Layer.blockOver);
+                drawPayload();
             }
-
-            Draw.z(Layer.blockOver);
-            drawPayload();
         }
 
         @Override

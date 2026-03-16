@@ -4,6 +4,7 @@ import arc.*;
 import arc.graphics.g2d.*;
 import arc.util.*;
 import carpediem.audio.*;
+import carpediem.content.blocks.*;
 import carpediem.graphics.*;
 import carpediem.ui.*;
 import carpediem.ui.fragments.*;
@@ -18,6 +19,7 @@ import carpediem.content.*;
 import carpediem.ui.dialogs.*;
 import mindustry.type.*;
 import mindustry.ui.dialogs.*;
+import mindustry.world.*;
 import mindustry.world.meta.*;
 
 public class CarpeDiem extends Mod {
@@ -29,7 +31,7 @@ public class CarpeDiem extends Mod {
     public static ContentInfoDialog content;
 
     public static CableGlowRenderer cableGlowRenderer;
-    public static CDPlanetRenderer planetRenderer;
+    public static RocketLaunchPlanetRenderer rocketLaunchPlanetRenderer;
 
     public static boolean debug;
 
@@ -62,7 +64,7 @@ public class CarpeDiem extends Mod {
         content = new ContentInfoDialog();
 
         cableGlowRenderer = new CableGlowRenderer();
-        planetRenderer = new CDPlanetRenderer();
+        rocketLaunchPlanetRenderer = new RocketLaunchPlanetRenderer();
 
         // this is probably bad
         Vars.ui.planet.update(() -> {
@@ -94,7 +96,7 @@ public class CarpeDiem extends Mod {
                 Musics.launch.stop();
                 CDMusics.land.stop();
                 Sounds.coreLand.stop();
-                new IntroFragment().build(Core.scene.root);
+                new IntroFragment().build();
             }
         });
 
@@ -120,6 +122,14 @@ public class CarpeDiem extends Mod {
 
         // hide unfinished content
         if (!debug) {
+            for (Block block : new Block[]{
+                    CDPayloadComponents.rocketSystemCore,
+                    CDPayloadComponents.auxiliaryFuelTank,
+                    CDPayloadComponents.solidRocketBooster
+            }) {
+                block.buildVisibility = BuildVisibility.hidden;
+            }
+
             for (SectorPreset preset : new SectorPreset[]{
                     CDSectorPresets.interference,
                     CDSectorPresets.sanctuary,
@@ -127,12 +137,6 @@ public class CarpeDiem extends Mod {
             }) {
                 preset.description = null;
             }
-        }
-    }
-
-    public void testEnding() {
-        if (Vars.player.buildOn() instanceof RocketControlCenterBuild controlCenterBuild) {
-            new EndingFragment().build(Core.scene.root, controlCenterBuild);
         }
     }
 }

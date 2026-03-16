@@ -25,8 +25,8 @@ public class IntroFragment {
     public float progress;
     public boolean removedLanding;
 
-    public void build(Group parent) {
-        parent.fill(Styles.black, t -> {
+    public void build() {
+        Core.scene.root.fill(Styles.black, t -> {
             Core.app.post(() -> {
                 boolean[] actionedc = {false};
                 t.table(ctable -> {
