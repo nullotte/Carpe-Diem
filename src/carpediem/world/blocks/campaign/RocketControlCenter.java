@@ -35,7 +35,7 @@ public class RocketControlCenter extends PayloadBlock {
 
     public float launchDuration = 160f, chargeDuration = 300f, mergeDuration = 60f;
     public Interp landZoomInterp = Interp.pow4In, chargeZoomInterp = Interp.pow4In;
-    public float landZoomFrom = 0.02f, landZoomTo = 1.8f, chargeZoomTo = 2.5f;
+    public float landZoomFrom = 0.02f, landZoomTo = 1.6f, chargeZoomTo = 2.5f;
     public float dustRadius = 30f, rocketThrusterLength = 48f;
     public float rocketHeatRadius = 80f, rocketHeatScl = 8f, rocketHeatMag = 0.1f, rocketHeatOffset = 0.9f;
 
