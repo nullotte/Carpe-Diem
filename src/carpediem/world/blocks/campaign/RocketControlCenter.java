@@ -33,13 +33,14 @@ import mindustry.world.meta.*;
 public class RocketControlCenter extends PayloadBlock {
     public Block requiredBlock;
 
-    public float launchDuration = 160f, chargeDuration = 300f, mergeDuration = 60f;
+    public float launchDuration = 160f, chargeDuration = 120f + (60f * 10f), mergeDuration = 60f;
     public Interp landZoomInterp = Interp.pow4In, chargeZoomInterp = Interp.pow4In;
-    public float landZoomFrom = 0.02f, landZoomTo = 1.6f, chargeZoomTo = 2.5f;
-    public float dustRadius = 30f, rocketThrusterLength = 48f;
+    public float landZoomFrom = 0.02f, landZoomTo = 1.6f, chargeZoomTo = 2.2f;
+    public float dustRadius = 30f, rocketThrusterLength = 48f, countdownHeightOffset = 130f;
     public float rocketHeatRadius = 80f, rocketHeatScl = 8f, rocketHeatMag = 0.1f, rocketHeatOffset = 0.9f;
 
     public TextureRegion rocketRegion, rocketThruster1, rocketThruster2;
+    public TextureRegion[] countdownNumberRegions;
 
     public RocketControlCenter(String name) {
         super(name);
@@ -72,6 +73,11 @@ public class RocketControlCenter extends PayloadBlock {
         rocketRegion = Core.atlas.find(name + "-rocket");
         rocketThruster1 = Core.atlas.find(name + "-rocket-thruster1");
         rocketThruster2 = Core.atlas.find(name + "-rocket-thruster2");
+
+        countdownNumberRegions = new TextureRegion[10];
+        for (int i = 0; i < 10; i++) {
+            countdownNumberRegions[i] = Core.atlas.find(name + "-countdown-number" + (i + 1));
+        }
     }
 
     public class RocketControlCenterBuild extends PayloadBlockBuild<BuildPayload> implements LaunchAnimator {
@@ -389,6 +395,15 @@ public class RocketControlCenter extends PayloadBlock {
                                 }
                             }
                         }
+                    });
+                }
+            });
+
+            Time.run(chargeDuration - (60f * 10f), () -> {
+                for (int i = 0; i < 10; i++) {
+                    int number = 9 - i;
+                    Time.run(i * 60f, () -> {
+                        CDFx.countdownNumber.at(x, y + countdownHeightOffset, number, this);
                     });
                 }
             });

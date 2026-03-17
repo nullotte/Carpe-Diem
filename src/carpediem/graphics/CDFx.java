@@ -11,6 +11,7 @@ import carpediem.world.blocks.campaign.RocketLaunchPad.*;
 import mindustry.*;
 import mindustry.entities.*;
 import mindustry.graphics.*;
+import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.blocks.payloads.*;
 
@@ -35,6 +36,11 @@ public class CDFx {
         alpha(e.fout());
         mixcol(Pal.accent, 1f);
         rect(((RocketControlCenter) build.block).rocketRegion, e.x, e.y);
+    }),
+    countdownNumber = new Effect(50f, e -> {
+        if (!(e.data instanceof RocketControlCenterBuild build)) return;
+        color(Pal.accent, e.foutpowdown());
+        rect(((RocketControlCenter) build.block).countdownNumberRegions[(int) e.rotation], e.x, e.y);
     }),
     launcherSelect = new Effect(5f, e -> {
         if (!(e.data instanceof Vec2 origin)) return;
