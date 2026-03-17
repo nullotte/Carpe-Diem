@@ -172,7 +172,7 @@ public class RocketControlCenter extends PayloadBlock {
                 drawPayload();
             } else {
                 float rawTime = launchDuration() - Vars.renderer.getLandTime();
-                
+
                 if (rawTime < mergeDuration) {
                     drawMergingBlock(requiredBlock, x, y);
                     float mergingDistance = requiredBlock.size * Vars.tilesize;
