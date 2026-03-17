@@ -63,8 +63,8 @@ public class CDCampaign {
             size = 9;
             itemCapacity = 5000;
 
-            requiredBlockEdge = CDPayloadComponents.auxiliaryFuelTank;
-            requiredBlockCorner = CDPayloadComponents.solidRocketBooster;
+            requiredBlockEdge = CDPayloadComponents.solidRocketBooster;
+            requiredBlockCorner = CDPayloadComponents.auxiliaryFuelTank;
 
             consumePower(5f);
             consumeItem(Items.pyratite, 2500);
