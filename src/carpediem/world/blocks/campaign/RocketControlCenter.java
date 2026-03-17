@@ -36,9 +36,10 @@ public class RocketControlCenter extends PayloadBlock {
     public float launchDuration = 160f, chargeDuration = 300f, mergeDuration = 60f;
     public Interp landZoomInterp = Interp.pow4In, chargeZoomInterp = Interp.pow4In;
     public float landZoomFrom = 0.02f, landZoomTo = 1.8f, chargeZoomTo = 2.5f;
-    public float dustRadius = 22f;
+    public float dustRadius = 30f, rocketThrusterLength = 48f;
+    public float rocketHeatRadius = 80f, rocketHeatScl = 8f, rocketHeatMag = 0.1f, rocketHeatOffset = 0.9f;
 
-    public TextureRegion rocketRegion;
+    public TextureRegion rocketRegion, rocketThruster1, rocketThruster2;
 
     public RocketControlCenter(String name) {
         super(name);
@@ -69,6 +70,8 @@ public class RocketControlCenter extends PayloadBlock {
         super.load();
 
         rocketRegion = Core.atlas.find(name + "-rocket");
+        rocketThruster1 = Core.atlas.find(name + "-rocket-thruster1");
+        rocketThruster2 = Core.atlas.find(name + "-rocket-thruster2");
     }
 
     public class RocketControlCenterBuild extends PayloadBlockBuild<BuildPayload> implements LaunchAnimator {
@@ -164,6 +167,7 @@ public class RocketControlCenter extends PayloadBlock {
             } else {
                 float rawTime = launchDuration() - Vars.renderer.getLandTime();
                 if (rawTime > mergeDuration && rawTime < chargeDuration) {
+                    Drawf.shadow(x, y, rocketRegion.width * rocketRegion.scl() * 2f);
                     drawRocket(x, y, 1f, 0f, 0f);
                 }
             }
@@ -194,9 +198,64 @@ public class RocketControlCenter extends PayloadBlock {
             if (scl < 0f) {
                 scl = landZoomTo;
             }
+
+            float heatSize = rocketHeatRadius * scl * Interp.pow2Out.apply(fin) * (Mathf.absin(Time.globalTime, rocketHeatScl, rocketHeatMag) + rocketHeatOffset);
+            Draw.color(Pal.lightTrail);
+            Draw.rect("circle-shadow", x, y, heatSize * 4f, heatSize * 4f);
+            Draw.color();
+
             Draw.scl(scl);
+
+            float thrustOpen = 0.1f;
+            float thrusterFrame = fin >= thrustOpen ? 1f : fin / thrustOpen;
+            float thrusterSize = Interp.pow2Out.apply(Mathf.clamp(fin * 9f));
+
+            // flame
+            float strength = (1f + (16) / 2.5f) * scl * thrusterSize * (0.95f + Mathf.absin(Time.globalTime, 2f, 0.1f));
+            float offset = (18) * 3f * scl;
+            for (int i = 0; i < 4; i++) {
+                Tmp.v1.trns(i * 90 + rotation, 1f);
+
+                Tmp.v1.setLength((16 * Vars.tilesize / 2f + 1f) * scl + strength * 2f + offset);
+                Draw.color(team.color);
+                Fill.circle(Tmp.v1.x + x, Tmp.v1.y + y, 6f * strength);
+
+                Tmp.v1.setLength((16 * Vars.tilesize / 2f + 1f) * scl + strength * 0.5f + offset);
+                Draw.color(Color.white);
+                Fill.circle(Tmp.v1.x + x, Tmp.v1.y + y, 3.5f * strength);
+            }
+
+            drawLandingThrusters(x, y, rotation, thrusterFrame);
+
             Drawf.spinSprite(rocketRegion, x, y, rotation);
+
             Draw.scl();
+        }
+
+        protected void drawLandingThrusters(float x, float y, float rotation, float frame) {
+            float length = rocketThrusterLength * (frame - 1f) - 1f / 4f;
+            float alpha = Draw.getColorAlpha();
+
+            //two passes for consistent lighting
+            for (int j = 0; j < 2; j++) {
+                for (int i = 0; i < 4; i++) {
+                    var reg = i >= 2 ? rocketThruster2 : rocketThruster1;
+                    float rot = (i * 90) + rotation % 90f;
+                    Tmp.v1.trns(rot, length * Draw.xscl);
+
+                    //second pass applies extra layer of shading
+                    if (j == 1) {
+                        Tmp.v1.rotate(-90f);
+                        Draw.alpha((rotation % 90f) / 90f * alpha);
+                        rot -= 90f;
+                        Draw.rect(reg, x + Tmp.v1.x, y + Tmp.v1.y, rot);
+                    } else {
+                        Draw.alpha(alpha);
+                        Draw.rect(reg, x + Tmp.v1.x, y + Tmp.v1.y, rot);
+                    }
+                }
+            }
+            Draw.alpha(1f);
         }
 
         public void drawMergingBlock(Block block, float x, float y) {
@@ -258,7 +317,7 @@ public class RocketControlCenter extends PayloadBlock {
             }
 
             if (rawTime > chargeDuration) {
-                drawRocket(x, y, Scl.scl(landZoomTo) / Vars.renderer.getDisplayScale(), fin, Interp.pow2In.apply(fout) * 60f);
+                drawRocket(x, y, Scl.scl(landZoomTo) / Vars.renderer.getDisplayScale(), fout, Interp.pow2In.apply(fout) * 60f);
             }
 
             Draw.color();
