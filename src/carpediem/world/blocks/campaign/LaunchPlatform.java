@@ -16,7 +16,6 @@ import arc.struct.*;
 import arc.util.*;
 import carpediem.*;
 import carpediem.audio.*;
-import carpediem.content.*;
 import carpediem.game.CDObjectives.*;
 import carpediem.world.blocks.storage.*;
 import mindustry.*;
@@ -47,7 +46,7 @@ public class LaunchPlatform extends PayloadBlock {
     public float openLength = 6.5f, extendTime = 160f;
     public int minAddSize = 4;
 
-    public Sound chargeSound = CDSounds.launchPlatformCharge;
+    public Sound launchSound = CDSounds.launchPlatformLaunch;
 
     public ObjectMap<CoreBlock, ItemStack[]> launchItemRequirementMap = new ObjectMap<>();
 
@@ -415,11 +414,9 @@ public class LaunchPlatform extends PayloadBlock {
                 }
             });
             Core.scene.add(image);
-            chargeSound.at(this);
+            launchSound.at(this);
 
             Time.run(chargeDuration, () -> {
-                Sounds.coreLaunch.at(Core.camera.position, 1f, 1f);
-
                 Effect.shake(10f, 14f, this);
 
                 float spacing = 12f;
