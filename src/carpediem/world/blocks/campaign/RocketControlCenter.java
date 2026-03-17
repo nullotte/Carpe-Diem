@@ -433,9 +433,9 @@ public class RocketControlCenter extends PayloadBlock {
 
         @Override
         public float zoomLaunch() {
-            Core.camera.position.set(this);
-
             float rawTime = launchDuration() - Vars.renderer.getLandTime();
+            float shake = rawTime < chargeDuration ? Interp.pow10In.apply(Mathf.clamp(rawTime / chargeDuration)) : 0f;
+            Core.camera.position.set(x, y).add(Tmp.v1.setToRandomDirection().scl(shake * 2f));
             if (rawTime < chargeDuration) {
                 float fin = rawTime / chargeDuration;
 
