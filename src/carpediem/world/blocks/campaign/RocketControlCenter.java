@@ -172,7 +172,23 @@ public class RocketControlCenter extends PayloadBlock {
                 drawPayload();
             } else {
                 float rawTime = launchDuration() - Vars.renderer.getLandTime();
-                if (rawTime > mergeDuration && rawTime < chargeDuration) {
+                
+                if (rawTime < mergeDuration) {
+                    drawMergingBlock(requiredBlock, x, y);
+                    float mergingDistance = requiredBlock.size * Vars.tilesize;
+                    float mergeLerpAlpha = Interp.pow2In.apply(rawTime / mergeDuration);
+                    for (int i = 0; i < 8; i++) {
+                        RocketLaunchPadBuild pad = pads[i];
+                        if (pad != null) {
+                            float dx = Geometry.d8[i].x, dy = Geometry.d8[i].y;
+                            drawMergingBlock(
+                                    pad.requiredBlock(),
+                                    Mathf.lerp(pad.x, x + dx * mergingDistance, mergeLerpAlpha),
+                                    Mathf.lerp(pad.y, y + dy * mergingDistance, mergeLerpAlpha)
+                            );
+                        }
+                    }
+                } else if (rawTime < chargeDuration) {
                     Drawf.shadow(x, y, rocketRegion.width * rocketRegion.scl() * 2f);
                     drawRocket(x, y, 1f, 0f, 0f);
                 }
@@ -304,23 +320,6 @@ public class RocketControlCenter extends PayloadBlock {
                 Lines.lineAngle(x + ax, y + ay, Mathf.angle(ax, ay), (ffin * 20 + 1f) * scl);
             });
             Draw.color();
-
-            if (rawTime < mergeDuration) {
-                drawMergingBlock(requiredBlock, x, y);
-                float mergingDistance = requiredBlock.size * Vars.tilesize;
-                float mergeLerpAlpha = Interp.pow2In.apply(rawTime / mergeDuration);
-                for (int i = 0; i < 8; i++) {
-                    RocketLaunchPadBuild pad = pads[i];
-                    if (pad != null) {
-                        float dx = Geometry.d8[i].x, dy = Geometry.d8[i].y;
-                        drawMergingBlock(
-                                pad.requiredBlock(),
-                                Mathf.lerp(pad.x, x + dx * mergingDistance, mergeLerpAlpha),
-                                Mathf.lerp(pad.y, y + dy * mergingDistance, mergeLerpAlpha)
-                        );
-                    }
-                }
-            }
 
             if (rawTime > chargeDuration) {
                 drawRocket(x, y, Scl.scl(landZoomTo) / Vars.renderer.getDisplayScale(), fout, Interp.pow2In.apply(fout) * 60f);
