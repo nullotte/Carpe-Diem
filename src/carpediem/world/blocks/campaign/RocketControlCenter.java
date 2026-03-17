@@ -3,6 +3,7 @@ package carpediem.world.blocks.campaign;
 import arc.*;
 import arc.Graphics.*;
 import arc.Graphics.Cursor.*;
+import arc.audio.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
@@ -13,6 +14,7 @@ import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import carpediem.*;
+import carpediem.audio.*;
 import carpediem.content.*;
 import carpediem.graphics.*;
 import carpediem.ui.fragments.*;
@@ -36,8 +38,10 @@ public class RocketControlCenter extends PayloadBlock {
     public float launchDuration = 160f, chargeDuration = 120f + (60f * 10f), mergeDuration = 60f;
     public Interp landZoomInterp = Interp.pow4In, chargeZoomInterp = Interp.pow4In;
     public float landZoomFrom = 0.02f, landZoomTo = 1.6f, chargeZoomTo = 2.2f;
-    public float dustRadius = 30f, rocketThrusterLength = 48f, countdownHeightOffset = 130f;
+    public float dustRadius = 30f, rocketThrusterLength = 48f, countdownHeightOffset = 110f, countdownSoundPitchIncrement = 0.06f;
     public float rocketHeatRadius = 80f, rocketHeatScl = 8f, rocketHeatMag = 0.1f, rocketHeatOffset = 0.9f;
+
+    public Sound rocketConstructSound = Sounds.acceleratorConstruct, countdownSound = CDSounds.rocketCountdown;
 
     public TextureRegion rocketRegion, rocketThruster1, rocketThruster2;
     public TextureRegion[] countdownNumberRegions;
@@ -374,6 +378,7 @@ public class RocketControlCenter extends PayloadBlock {
 
             Time.run(mergeDuration, () -> {
                 CDFx.rocketMerge.at(x, y, 0f, this);
+                rocketConstructSound.at(this);
             });
 
             Time.run(chargeDuration, () -> {
@@ -401,8 +406,10 @@ public class RocketControlCenter extends PayloadBlock {
             Time.run(chargeDuration - (60f * 10f), () -> {
                 for (int i = 0; i < 10; i++) {
                     int number = 9 - i;
+                    int finalI = i; // come on man
                     Time.run(i * 60f, () -> {
                         CDFx.countdownNumber.at(x, y + countdownHeightOffset, number, this);
+                        countdownSound.at(x, y, 1f + (countdownSoundPitchIncrement * finalI), 1f);
                     });
                 }
             });
