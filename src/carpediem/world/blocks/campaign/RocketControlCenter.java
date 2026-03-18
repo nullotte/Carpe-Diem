@@ -20,6 +20,7 @@ import carpediem.graphics.*;
 import carpediem.ui.fragments.*;
 import carpediem.world.blocks.campaign.RocketLaunchPad.*;
 import mindustry.*;
+import mindustry.audio.*;
 import mindustry.content.*;
 import mindustry.core.GameState.*;
 import mindustry.entities.*;
@@ -41,7 +42,7 @@ public class RocketControlCenter extends PayloadBlock {
     public float dustRadius = 30f, rocketThrusterLength = 48f, countdownHeightOffset = 110f, countdownSoundPitchIncrement = 0.06f;
     public float rocketHeatRadius = 80f, rocketHeatScl = 8f, rocketHeatMag = 0.1f, rocketHeatOffset = 0.9f;
 
-    public Sound rocketConstructSound = Sounds.acceleratorConstruct, countdownSound = CDSounds.rocketCountdown;
+    public Sound rocketConstructSound = Sounds.acceleratorConstruct, countdownSound = CDSounds.rocketCountdown, loopSound = CDSounds.rocketLoop;
 
     public TextureRegion rocketRegion, rocketThruster1, rocketThruster2;
     public TextureRegion[] countdownNumberRegions;
@@ -91,6 +92,8 @@ public class RocketControlCenter extends PayloadBlock {
 
         public float cloudSeed;
 
+        public SoundLoop rocketSoundLoop;
+
         @Override
         public void updateTile() {
             super.updateTile();
@@ -101,6 +104,10 @@ public class RocketControlCenter extends PayloadBlock {
                 if (pads[i] != null && !pads[i].isValid()) {
                     pads[i] = null;
                 }
+            }
+
+            if (rocketSoundLoop != null && !launching) {
+                rocketSoundLoop.stop();
             }
         }
 
@@ -424,6 +431,13 @@ public class RocketControlCenter extends PayloadBlock {
 
         @Override
         public void updateLaunch() {
+            float rawTime = launchDuration() - Vars.renderer.getLandTime();
+            if (rawTime > chargeDuration) {
+                if (rocketSoundLoop == null) {
+                    rocketSoundLoop = new SoundLoop(loopSound, 1f);
+                }
+                rocketSoundLoop.update(x, y, true, Interp.pow3Out.apply((rawTime - chargeDuration) / launchDuration()));
+            }
         }
 
         @Override
@@ -445,6 +459,14 @@ public class RocketControlCenter extends PayloadBlock {
                 float fin = 1f - Mathf.clamp((1f - rawFin) - (chargeDuration / (launchDuration + chargeDuration))) / (1f - (chargeDuration / (launchDuration + chargeDuration)));
 
                 return landZoomInterp.apply(Scl.scl(landZoomFrom), Scl.scl(landZoomTo), fin);
+            }
+        }
+
+        @Override
+        public void remove() {
+            super.remove();
+            if (rocketSoundLoop != null) {
+                rocketSoundLoop.stop();
             }
         }
     }
