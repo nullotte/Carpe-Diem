@@ -39,7 +39,7 @@ public class CDFx {
     }),
     countdownNumber = new Effect(50f, e -> {
         if (!(e.data instanceof RocketControlCenterBuild build)) return;
-        color(Pal.accent, e.foutpowdown());
+        color(build.team.color, e.foutpowdown());
         rect(((RocketControlCenter) build.block).countdownNumberRegions[(int) e.rotation], e.x, e.y);
     }),
     launcherSelect = new Effect(5f, e -> {
