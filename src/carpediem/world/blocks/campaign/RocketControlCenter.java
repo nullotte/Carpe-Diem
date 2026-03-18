@@ -436,7 +436,7 @@ public class RocketControlCenter extends PayloadBlock {
                 if (rocketSoundLoop == null) {
                     rocketSoundLoop = new SoundLoop(loopSound, 1f);
                 }
-                rocketSoundLoop.update(x, y, true, Interp.pow3Out.apply((rawTime - chargeDuration) / launchDuration()));
+                rocketSoundLoop.update(x, y, true, Interp.pow3Out.apply(Mathf.curve((rawTime - chargeDuration) / launchDuration(), 0f, 0.2f)));
             }
         }
 
