@@ -7,7 +7,19 @@ sourceSets.main.java.srcDirs = ["src"]
 repositories {
     mavenCentral()
     maven { url "https://raw.githubusercontent.com/Zelaux/MindustryRepo/master/repository" }
-    maven { url 'https://www.jitpack.io' }
+
+    // idk i got this from the mod template
+    ivy {
+        url 'https://github.com/'
+        patternLayout { artifact '/[organisation]/[module]/releases/download/[revision]/dependencies.jar' }
+        metadataSources { artifact() }
+    }
+
+    ivy {
+        url 'https://github.com/'
+        patternLayout { artifact '/[organisation]/[module]/releases/download/[revision]/jabel.jar' }
+        metadataSources { artifact() }
+    }
 }
 
 java {
@@ -16,7 +28,7 @@ java {
 }
 
 ext {
-    mindustryVersion = 'v155.3'
+    mindustryVersion = 'v155.4'
     isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
@@ -29,18 +41,9 @@ allprojects {
 }
 
 dependencies {
-    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
-    annotationProcessor "com.github.Anuken:jabel:0.7.0"
-}
+    compileOnly "Anuken:Mindustry:$mindustryVersion"
 
-//force arc version
-configurations.all {
-    resolutionStrategy.eachDependency { details ->
-        if (details.requested.group == 'com.github.Anuken.Arc') {
-            details.useVersion "$mindustryVersion"
-        }
-    }
+    annotationProcessor "Anuken:jabel:v1.0.0"
 }
 
 task jarAndroid {
