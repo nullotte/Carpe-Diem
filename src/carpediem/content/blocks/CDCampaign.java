@@ -4,6 +4,7 @@ import arc.graphics.*;
 import arc.struct.*;
 import carpediem.*;
 import carpediem.content.*;
+import carpediem.graphics.*;
 import carpediem.world.blocks.campaign.*;
 import carpediem.world.draw.*;
 import mindustry.*;
@@ -110,7 +111,7 @@ public class CDCampaign {
                     }},
                     new DrawDefault(),
                     new DrawGlowRegion() {{
-                        color = Color.valueOf("79aded");
+                        color = CDColors.coalition;
                     }}
             );
 
@@ -134,7 +135,7 @@ public class CDCampaign {
                     }},
                     new DrawRegion(),
                     new DrawGlowRegion(true) {{
-                        color = Color.valueOf("79aded");
+                        color = CDColors.coalition;
                     }},
                     new DrawScanner(),
                     new DrawRotatedRegion()
