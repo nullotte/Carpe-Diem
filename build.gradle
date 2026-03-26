@@ -33,10 +33,13 @@ ext {
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
 
-//java 8 backwards compatibility flag
+// java 8 backwards compatibility flag
 allprojects {
     tasks.withType(JavaCompile) {
         options.compilerArgs.addAll(['--release', '8'])
+        // jabel thing idk
+        options.fork = true
+        options.forkOptions.jvmArgs?.add("--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED")
     }
 }
 
