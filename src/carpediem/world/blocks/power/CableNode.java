@@ -82,15 +82,11 @@ public class CableNode extends PowerNode implements CableBlock {
 
         if (build != null && build.block instanceof CableBlock block) {
             block1 = block;
-        } else if (otherReq != null) {
-            block1 = this;
         } else if (Vars.control.input.block instanceof CableBlock block) {
             block1 = block;
         }
 
         if (other != null && other.block instanceof CableBlock block) {
-            block2 = block;
-        } else if (otherReq != null && otherReq.block instanceof CableBlock block) {
             block2 = block;
         }
 

@@ -28,7 +28,7 @@ java {
 }
 
 ext {
-    mindustryVersion = 'v155.4'
+    mindustryVersion = 'v157'
     isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
