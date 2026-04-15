@@ -4,11 +4,14 @@ import arc.graphics.*;
 import carpediem.content.*;
 import carpediem.entities.bullet.*;
 import carpediem.graphics.*;
+import mindustry.content.*;
+import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 public class CDFunBlocks {
@@ -36,6 +39,19 @@ public class CDFunBlocks {
                 hitSound = despawnSound = Sounds.plantBreak;
             }});
 
+            drawer = new DrawTurret() {{
+                parts.add(
+                        new RegionPart("-barrel") {{
+                            progress = PartProgress.recoil;
+                            moveY = -1.5f;
+                        }},
+                        new RegionPart("-over")
+                );
+            }};
+            recoil = 0.5f;
+            shootY = 9f;
+            shootEffect = Fx.shootBigSmoke;
+            smokeEffect = Fx.none;
             shootSound = Sounds.shootArtillerySmall;
         }};
     }
