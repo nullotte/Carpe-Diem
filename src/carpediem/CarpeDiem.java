@@ -8,7 +8,6 @@ import carpediem.content.blocks.*;
 import carpediem.graphics.*;
 import carpediem.ui.*;
 import carpediem.ui.fragments.*;
-import carpediem.world.blocks.campaign.RocketControlCenter.*;
 import carpediem.world.draw.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
@@ -119,14 +118,6 @@ public class CarpeDiem extends Mod {
 
         // hide unfinished content
         if (!debug) {
-            for (Block block : new Block[]{
-                    CDPayloadComponents.rocketSystemCore,
-                    CDPayloadComponents.auxiliaryFuelTank,
-                    CDPayloadComponents.solidRocketBooster
-            }) {
-                block.buildVisibility = BuildVisibility.hidden;
-            }
-
             for (SectorPreset preset : new SectorPreset[]{
                     CDSectorPresets.interference,
                     CDSectorPresets.sanctuary,
