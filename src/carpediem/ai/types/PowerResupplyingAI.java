@@ -1,14 +1,16 @@
 package carpediem.ai.types;
 
 import arc.func.*;
+import arc.util.*;
+import carpediem.entities.abilities.*;
 import mindustry.*;
 import mindustry.entities.units.*;
 import mindustry.world.meta.*;
 
-public class ReloadingAI extends AIController {
+public class PowerResupplyingAI extends AIController {
     public Prov<AIController> provider;
 
-    public ReloadingAI(Prov<AIController> provider) {
+    public PowerResupplyingAI(Prov<AIController> provider) {
         this.provider = provider;
     }
 
@@ -19,7 +21,8 @@ public class ReloadingAI extends AIController {
 
     @Override
     public boolean useFallback() {
-        return !(Vars.state.rules.unitAmmo && (unit.ammo / unit.type.ammoCapacity) < 0.2f);
+        UnpoweredStatusAbility ability = (UnpoweredStatusAbility) Structs.find(unit.abilities, a -> a instanceof UnpoweredStatusAbility);
+        return ability == null || (ability.data / ability.powerCapacity) >= 0.2f;
     }
 
     @Override

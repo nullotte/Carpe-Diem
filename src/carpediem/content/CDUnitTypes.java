@@ -2,14 +2,12 @@ package carpediem.content;
 
 import carpediem.ai.types.*;
 import carpediem.entities.abilities.*;
-import carpediem.type.ammo.*;
 import carpediem.type.unit.*;
 import mindustry.*;
 import mindustry.ai.types.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
-import mindustry.type.ammo.*;
 import mindustry.type.weapons.*;
 
 public class CDUnitTypes {
@@ -48,8 +46,6 @@ public class CDUnitTypes {
             buildRange = 20f * 8f;
             itemCapacity = 100;
 
-            ammoType = new VanityAmmoType();
-
             drawBuildBeam = false;
             weapons.add(new BuildWeapon("carpe-diem-cache-weapon") {{
                 x = 5f;
@@ -62,7 +58,7 @@ public class CDUnitTypes {
 
         carver = new CDUnitType("carver") {{
             constructor = UnitEntity::create;
-            controller = u -> new ReloadingAI(() -> {
+            controller = u -> new PowerResupplyingAI(() -> {
                 BuilderAI ai = new BuilderAI();
                 ai.onlyAssist = true;
                 return ai;
@@ -79,9 +75,7 @@ public class CDUnitTypes {
             engineOffset = 6.5f;
             engineSize = 4f;
 
-            abilities.add(new AmmoStatusAbility(CDStatusEffects.unpowered, 5f, 60f));
-            ammoCapacity = 300;
-            ammoType = new PowerAmmoType(10000f);
+            abilities.add(new UnpoweredStatusAbility(10000f));
 
             buildSpeed = 2f;
             buildRange = 40f * 8f;
@@ -99,7 +93,7 @@ public class CDUnitTypes {
 
         heap = new CDUnitType("heap") {{
             constructor = UnitEntity::create;
-            controller = u -> new ReloadingAI(CDCargoAI::new);
+            controller = u -> new PowerResupplyingAI(CDCargoAI::new);
             playerControllable = false;
 
             hitSize = 22f;
@@ -113,9 +107,7 @@ public class CDUnitTypes {
             engineOffset = 11f;
             engineSize = 5f;
 
-            abilities.add(new AmmoStatusAbility(CDStatusEffects.unpowered, 5f, 60f));
-            ammoCapacity = 300;
-            ammoType = new PowerAmmoType(10000f);
+            abilities.add(new UnpoweredStatusAbility(10000f));
 
             itemCapacity = 200;
             itemOffsetY = 3.5f;
@@ -123,7 +115,7 @@ public class CDUnitTypes {
 
         myriad = new CDUnitType("myriad") {{
             constructor = PayloadUnit::create;
-            controller = u -> !playerControllable || (u.team.isAI() && !u.team.rules().rtsAi) ? aiController.get() : new ReloadingCommandAI();
+            controller = u -> !playerControllable || (u.team.isAI() && !u.team.rules().rtsAi) ? aiController.get() : new PowerResupplyingCommandAI();
 
             hitSize = 35f;
             accel = 0.03f;
@@ -136,9 +128,7 @@ public class CDUnitTypes {
             engineSize = 0f;
             setEnginesMirror(new UnitEngine(9f, -22f, 6f, 315f));
 
-            abilities.add(new AmmoStatusAbility(CDStatusEffects.unpowered, 5f, 60f));
-            ammoCapacity = 600;
-            ammoType = new PowerAmmoType(10000f);
+            abilities.add(new UnpoweredStatusAbility(30000f));
 
             itemCapacity = 0;
             payloadCapacity = 9f * 9f * Vars.tilePayload;

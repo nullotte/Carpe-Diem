@@ -41,7 +41,6 @@ public class CDPlanets {
                 // is this even necessary
                 r.waveTeam = CDTeams.triage;
                 r.deconstructRefundMultiplier = 1f;
-                r.unitAmmo = true;
 
                 r.fog = true;
                 r.staticFog = true;
