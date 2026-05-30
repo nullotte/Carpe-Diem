@@ -9,14 +9,19 @@ import carpediem.content.*;
 import carpediem.content.blocks.*;
 import mindustry.*;
 import mindustry.game.EventType.*;
+import mindustry.type.*;
 import mindustry.ui.fragments.HintsFragment.*;
 import mindustry.world.*;
 
 public class CDHints {
     public ObjectSet<String> events = new ObjectSet<>();
     public ObjectSet<Block> placedBlocks = new ObjectSet<>();
+    public static UnitType[] droneTypes = {};
 
     public CDHints() {
+        // idk if this is necessary or not lol
+        droneTypes = new UnitType[]{CDUnitTypes.carver, CDUnitTypes.heap, CDUnitTypes.myriad};
+
         Vars.ui.hints.hints.addAll(Seq.with(CDHint.values()).select(h -> !h.finished()));
 
         Events.on(BlockBuildEndEvent.class, e -> {
@@ -42,7 +47,13 @@ public class CDHints {
         cdBlockInfo(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.smelterT0), () -> Vars.ui.content.isShown() || Vars.ui.database.isShown()),
         crafterConfig(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.rollingMillT1) || CarpeDiem.hints.placedBlocks.contains(CDCrafting.assemblerT1), () -> CarpeDiem.hints.events.contains("crafterconfig")),
         valves(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.refineryT1), () -> CarpeDiem.hints.placedBlocks.contains(CDLiquidBlocks.valve)),
-        smeltingSilver(() -> CDItems.rawSilver.unlockedNow(), () -> false);
+        smeltingSilver(() -> CDItems.rawSilver.unlockedNow(), () -> false),
+        droneCharging(() -> {
+            for (UnitType unitType : droneTypes) {
+                if (Vars.state.rules.defaultTeam.data().countType(unitType) > 0) return true;
+            }
+            return false;
+        }, () -> false);
 
         CDHint(Boolp shown, Boolp complete) {
             this.shown = shown;
