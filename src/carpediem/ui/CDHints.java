@@ -82,7 +82,6 @@ public class CDHints {
         public String text() {
             if (text == null) {
                 text = Vars.mobile && Core.bundle.has("hint." + name() + ".mobile") ? Core.bundle.get("hint." + name() + ".mobile") : Core.bundle.get("hint." + name());
-                if (!Vars.mobile) text = text.replace("tap", "click").replace("Tap", "Click");
             }
             return text;
         }
