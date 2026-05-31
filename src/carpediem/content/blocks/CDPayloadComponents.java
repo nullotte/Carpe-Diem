@@ -128,7 +128,15 @@ public class CDPayloadComponents {
 
         processingCore = new SyntheticBlock("processing-core") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminumPlate, 10,
+                    CDItems.nickelPlate, 30,
+                    CDItems.nickelWire, 50,
+                    CDItems.nickelRod, 10,
+                    CDItems.powerCell, 15,
+                    CDItems.controlCircuit, 20,
+                    CDItems.calculationCircuit, 40,
+                    Items.silicon, 20,
+                    CDItems.siliconSheet, 50
             ));
             size = 3;
         }};

@@ -243,7 +243,15 @@ public class CDPayloadBlocks {
 
         springLauncher = new UnitLauncher("spring-launcher") {{
             requirements(Category.effect, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 70,
+                    CDItems.aluminumPlate, 50,
+                    CDItems.aluminumCogwheel, 70,
+                    CDItems.nickelWire, 20,
+                    CDItems.plastaniumSheet, 40,
+                    Items.silicon, 10,
+                    CDItems.controlCircuit, 20,
+                    CDItems.calculationCircuit, 20,
+                    CDItems.powerCell, 10
             ));
             size = 5;
             range = 500f * 8f;
