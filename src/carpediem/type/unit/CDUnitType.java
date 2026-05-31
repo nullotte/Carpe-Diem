@@ -26,7 +26,6 @@ public class CDUnitType extends UnitType {
         // we dont do that shit here
         stats.remove(Stat.weapons);
         stats.remove(Stat.range);
-        stats.remove(Stat.abilities);
     }
 
     // dusted lands and melancholy ran so carpe diem could walk
@@ -50,6 +49,7 @@ public class CDUnitType extends UnitType {
         base.pixmap.draw(cell, true);
 
         // ALL THIS SHIT JUST FOR ONE SINGLE UNIT TO ACTUALLY USE WEAPONS
+        // 2026 correction: actually Two units use weapons, cache and carver. two out of four anyway. wow this mod is so small.
         // AND NOT EVEN FANCY WEAPONS OR ANYTHING ITS LITERALLY JUST TWO BITS OF METAL SLAPPED ON THE FRONT ISTG
         // PEACEFUL FACTORY BUILDING CAMPAIGN MOD WOOHOOOO
         // anyways unfortunately this code doesnt support parts . tho if you're copying this code you probably know how to make it work with parts

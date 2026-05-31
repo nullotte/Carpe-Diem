@@ -25,7 +25,14 @@ public class UnpoweredStatusAbility extends Ability {
 
     public UnpoweredStatusAbility(float powerCapacity) {
         this.powerCapacity = powerCapacity;
-        display = false;
+    }
+
+    @Override
+    public void addStats(Table t) {
+        super.addStats(t);
+        t.add(abilityStat("powercapacity", powerCapacity));
+        t.row();
+        t.add(abilityStat("powerdrain", powerDrain * 60f));
     }
 
     @Override
