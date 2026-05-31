@@ -55,7 +55,7 @@ public class CDPower {
                     CDItems.powerCell, 20
             ));
             size = 3;
-            consumePowerBuffered(5000f);
+            consumePowerBuffered(20000f);
 
             topOffset = 9f;
             drawer = new DrawMulti(
