@@ -75,7 +75,7 @@ public class CDUnitTypes {
             engineOffset = 6.5f;
             engineSize = 4f;
 
-            abilities.add(new UnpoweredStatusAbility(10000f));
+            abilities.add(new UnpoweredStatusAbility(15000f));
 
             buildSpeed = 2f;
             buildRange = 40f * 8f;
@@ -107,7 +107,7 @@ public class CDUnitTypes {
             engineOffset = 11f;
             engineSize = 5f;
 
-            abilities.add(new UnpoweredStatusAbility(10000f));
+            abilities.add(new UnpoweredStatusAbility(15000f));
 
             itemCapacity = 200;
             itemOffsetY = 3.5f;
@@ -128,7 +128,7 @@ public class CDUnitTypes {
             engineSize = 0f;
             setEnginesMirror(new UnitEngine(9f, -22f, 6f, 315f));
 
-            abilities.add(new UnpoweredStatusAbility(30000f));
+            abilities.add(new UnpoweredStatusAbility(45000f));
 
             itemCapacity = 0;
             payloadCapacity = 9f * 9f * Vars.tilePayload;

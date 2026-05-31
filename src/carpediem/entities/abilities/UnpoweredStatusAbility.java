@@ -18,7 +18,7 @@ public class UnpoweredStatusAbility extends Ability {
     public StatusEffect statusEffect = CDStatusEffects.unpowered;
     public float statusDuration = 1f;
     public float resupplyRange = 85f; // just copied from the now removed PowerAmmoType
-    public float powerDrain = 10000f / (300f * 60f);
+    public float powerDrain = (50f * 60f);
     public float powerCapacity;
 
     protected float resupplyTimer;
