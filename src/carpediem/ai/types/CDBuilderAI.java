@@ -12,7 +12,7 @@ import mindustry.world.*;
 import mindustry.world.blocks.ConstructBlock.*;
 
 // BuilderAI except it builds even if the unit it's following isn't able to
-// it literally just replaces every usage of unit.isBuilding() with unit.isBuilding()
+// it literally just replaces every usage of unit.isBuilding() with unit.isBuilding() and unit.updateBuilding
 // This Sucks. :(
 public class CDBuilderAI extends BuilderAI {
     // SIGHHHHHHHH
@@ -32,7 +32,7 @@ public class CDBuilderAI extends BuilderAI {
         if (assistFollowing != null && !assistFollowing.isValid()) assistFollowing = null;
         if (following != null && !following.isValid()) following = null;
 
-        if (assistFollowing != null && assistFollowing.isBuilding()) {
+        if (assistFollowing != null && assistFollowing.isBuilding() && assistFollowing.updateBuilding) {
             following = assistFollowing;
         }
 
@@ -44,7 +44,7 @@ public class CDBuilderAI extends BuilderAI {
             //try to follow and mimic someone
 
             //validate follower
-            if (!following.isValid() || !following.isBuilding()) {
+            if (!following.isValid() || !following.isBuilding() || !following.updateBuilding) {
                 following = null;
                 unit.plans.clear();
                 return;
@@ -81,7 +81,7 @@ public class CDBuilderAI extends BuilderAI {
             //clear break plan if another player is breaking something
             if (!req.breaking && timer.get(timerTarget2, 40f)) {
                 for (Player player : Groups.player) {
-                    if (player.isBuilder() && player.unit().isBuilding() && player.unit().buildPlan().samePos(req) && player.unit().buildPlan().breaking) {
+                    if (player.isBuilder() && player.unit().isBuilding() && player.unit().updateBuilding && player.unit().buildPlan().samePos(req) && player.unit().buildPlan().breaking) {
                         unit.plans.removeFirst();
                         //remove from list of plans
                         unit.team.data().plans.remove(p -> p.x == req.x && p.y == req.y);
@@ -129,7 +129,7 @@ public class CDBuilderAI extends BuilderAI {
                 Units.nearby(unit.team, unit.x, unit.y, buildRadius, u -> {
                     if (found) return;
 
-                    if (u.canBuild() && u != unit && u.isBuilding()) {
+                    if (u.canBuild() && u != unit && u.isBuilding() && u.updateBuilding) {
                         BuildPlan plan = u.buildPlan();
 
                         Building build = Vars.world.build(plan.x, plan.y);
