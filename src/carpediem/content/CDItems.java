@@ -3,6 +3,7 @@ package carpediem.content;
 import arc.*;
 import arc.graphics.*;
 import arc.math.*;
+import arc.struct.*;
 import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
@@ -101,6 +102,26 @@ public class CDItems {
         card3 = new Item("card3", Color.valueOf("fcff80"));
         card4 = new Item("card4", Color.valueOf("ff917c"));
         // endregion
+
+        // cost definitions
+        {
+            Seq<Item> intermediateItems1 = Seq.with(
+                    aluminumPlate, nickelPlate, silverPlate, platinumPlate, alloyPlate, siliconSheet, plastaniumSheet,
+                    aluminumRod, nickelRod, silverRod, platinumRod, alloyRod
+            );
+            Seq<Item> intermediateItems2 = Seq.with(
+                    aluminumWire, nickelWire,
+                    controlCircuit, calculationCircuit, processingUnit,
+                    aluminumCogwheel, silverCogwheel, alloyCogwheel,
+                    powerCell, fluidCell
+            );
+            for (Item item : intermediateItems1) {
+                item.cost = 0.75f;
+            }
+            for (Item item : intermediateItems2) {
+                item.cost = 0.2f;
+            }
+        }
 
         // ahaha
         lemon = new Item("lemon", Color.valueOf("f4da7f"));
