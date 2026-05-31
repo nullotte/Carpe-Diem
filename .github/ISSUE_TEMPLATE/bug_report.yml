@@ -1,0 +1,12 @@
+name: Bug Report
+description: Report a bug with the mod
+labels: "bug"
+
+body:
+  - type: textarea
+    id: issue
+    attributes:
+      label: Issue
+      description: Explain your issue in detail.
+    validations:
+      required: true
