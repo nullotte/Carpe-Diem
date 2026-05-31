@@ -59,7 +59,7 @@ public class CDUnitTypes {
         carver = new CDUnitType("carver") {{
             constructor = UnitEntity::create;
             controller = u -> new PowerResupplyingAI(() -> {
-                BuilderAI ai = new BuilderAI();
+                BuilderAI ai = new CDBuilderAI();
                 ai.onlyAssist = true;
                 return ai;
             });
