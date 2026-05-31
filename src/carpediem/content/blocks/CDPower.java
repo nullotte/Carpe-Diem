@@ -156,7 +156,17 @@ public class CDPower {
 
         compressionEngine = new CableConsumeGenerator("compression-engine") {{
             requirements(Category.power, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 75,
+                    CDItems.aluminumCogwheel, 25,
+                    CDItems.aluminumWire, 50,
+                    CDItems.nickelPlate, 30,
+                    CDItems.nickelWire, 50,
+                    CDItems.nickelRod, 30,
+                    CDItems.silverPlate, 10,
+                    CDItems.silverCogwheel, 30,
+                    CDItems.controlCircuit, 20,
+                    CDItems.calculationCircuit, 10,
+                    CDItems.powerCell, 30
             ));
             size = 6;
 

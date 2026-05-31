@@ -253,6 +253,7 @@ public class CDCrafting {
                     CDItems.aluminumRod, 10,
                     CDItems.nickelWire, 10,
                     CDItems.silverPlate, 10,
+                    CDItems.silverCogwheel, 10,
                     CDItems.controlCircuit, 5,
                     CDItems.powerCell, 5,
                     CDItems.fluidCell, 5

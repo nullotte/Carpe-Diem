@@ -19,6 +19,7 @@ public class CDLiquidBlocks {
                     CDItems.aluminumCogwheel, 20,
                     CDItems.nickelWire, 5,
                     CDItems.silverPlate, 10,
+                    CDItems.silverCogwheel, 10,
                     CDItems.controlCircuit, 5,
                     CDItems.powerCell, 10,
                     CDItems.fluidCell, 15

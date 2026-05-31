@@ -79,12 +79,12 @@ public class CDPayloadComponents {
 
         assemblyManifold = new SyntheticBlock("assembly-manifold") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.aluminum, 80,
-                    CDItems.aluminumPlate, 50,
-                    CDItems.nickelWire, 20,
-                    CDItems.powerCell, 20,
-                    CDItems.controlCircuit, 50,
-                    CDItems.calculationCircuit, 50,
+                    CDItems.aluminum, 70,
+                    CDItems.aluminumPlate, 40,
+                    CDItems.nickelWire, 10,
+                    CDItems.powerCell, 10,
+                    CDItems.controlCircuit, 30,
+                    CDItems.calculationCircuit, 10,
                     Items.silicon, 50
             ));
             size = 3;
@@ -92,21 +92,36 @@ public class CDPayloadComponents {
 
         droneFrame = new SyntheticBlock("drone-frame") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    Items.silicon, 50,
+                    Items.plastanium, 100,
+                    CDItems.plastaniumSheet, 75
             ));
             size = 3;
         }};
 
         lightThruster = new SyntheticBlock("light-thruster") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminumPlate, 40,
+                    CDItems.plastaniumSheet, 30,
+                    CDItems.nickelWire, 10,
+                    CDItems.nickelPlate, 10,
+                    CDItems.calculationCircuit, 5,
+                    Items.silicon, 10
             ));
             size = 3;
         }};
 
         opticalSensor = new SyntheticBlock("optical-sensor") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 40,
+                    CDItems.aluminumWire, 40,
+                    CDItems.plastaniumSheet, 30,
+                    CDItems.nickelWire, 20,
+                    CDItems.powerCell, 10,
+                    CDItems.controlCircuit, 5,
+                    CDItems.calculationCircuit, 15,
+                    Items.silicon, 20,
+                    CDItems.siliconSheet, 40
             ));
             size = 3;
         }};
