@@ -35,7 +35,7 @@ public class CDLiquidBlocks {
                     new DrawDefault()
             );
 
-            consumePower(2f);
+            consumePower(120f / 60f);
         }};
 
         pipe = new Pipe("pipe") {{

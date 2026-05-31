@@ -107,7 +107,7 @@ public class CDProduction {
             squareSprite = false;
             customShadow = true;
 
-            consumePower(1f / 10f);
+            consumePower(6f / 60f);
             liquidBoostIntensity = 1f;
         }};
 
@@ -129,7 +129,7 @@ public class CDProduction {
             squareSprite = false;
             customShadow = true;
 
-            consumePower(5f / 10f);
+            consumePower(30f / 60f);
             liquidBoostIntensity = 1f;
         }};
     }

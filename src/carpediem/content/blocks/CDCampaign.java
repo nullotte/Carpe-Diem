@@ -41,7 +41,7 @@ public class CDCampaign {
                     CDStorage.landingPodT2, ItemStack.with(Items.pyratite, 7500)
             );
 
-            consumePower(2f);
+            consumePower(120f / 60f);
         }};
 
         BuildVisibility onFinalRestingPlace = new BuildVisibility(() -> Vars.state.rules.sector == CDSectorPresets.finalRestingPlace.sector);
@@ -54,7 +54,7 @@ public class CDCampaign {
 
             requiredBlock = CDPayloadComponents.rocketSystemCore;
 
-            consumePower(5f);
+            consumePower(300f / 60f);
         }};
 
         rocketLaunchPad = new RocketLaunchPad("rocket-launch-pad") {{
@@ -67,7 +67,7 @@ public class CDCampaign {
             requiredBlockEdge = CDPayloadComponents.solidRocketBooster;
             requiredBlockCorner = CDPayloadComponents.auxiliaryFuelTank;
 
-            consumePower(5f);
+            consumePower(300f / 60f);
             consumeItem(Items.pyratite, 2500);
         }};
 
@@ -115,7 +115,7 @@ public class CDCampaign {
                     }}
             );
 
-            consumePower(1f);
+            consumePower(60f / 60f);
         }};
 
         archiveScanner = new Scanner("archive-scanner") {{
@@ -141,7 +141,7 @@ public class CDCampaign {
                     new DrawRotatedRegion()
             );
 
-            consumePower(1f);
+            consumePower(60f / 60f);
         }};
 
         archiveVault = new ArchiveVault("archive-vault") {{

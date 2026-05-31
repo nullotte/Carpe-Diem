@@ -92,7 +92,7 @@ public class CDCrafting {
 
             ambientSound = Sounds.loopSmelter;
 
-            consumePower(1f / 12f);
+            consumePower(5f / 60f);
         }};
 
         pressT1 = new RecipeCrafter("press-t1") {{
@@ -115,7 +115,7 @@ public class CDCrafting {
                     new DrawPress()
             );
 
-            consumePower(1f / 12f);
+            consumePower(5f / 60f);
             // is this a good idea.
             consume(new ConsumePressure().boost());
         }};
@@ -162,7 +162,7 @@ public class CDCrafting {
                     new DrawDefault()
             );
 
-            consumePower(1f / 12f);
+            consumePower(5f / 60f);
             consume(new ConsumePressure().boost());
         }};
 
@@ -212,7 +212,7 @@ public class CDCrafting {
                     new DrawDefault()
             );
 
-            consumePower(1f / 10f);
+            consumePower(6f / 60f);
         }};
 
         refineryT1 = new RecipeCrafter("refinery-t1") {{
@@ -241,7 +241,7 @@ public class CDCrafting {
                     new DrawDefault()
             );
 
-            consumePower(1f / 10f);
+            consumePower(6f / 60f);
         }};
         // endregion
 
@@ -276,7 +276,7 @@ public class CDCrafting {
             );
 
             consumeLiquid(Liquids.water, 0.5f);
-            consumePower(10f);
+            consumePower(600f / 60f);
         }};
 
         incinerator = new DrawerIncinerator("incinerator") {{
@@ -306,7 +306,7 @@ public class CDCrafting {
                     }}
             );
 
-            consumePower(10f);
+            consumePower(600f / 60f);
         }};
     }
 }

@@ -81,7 +81,7 @@ public class CDPayloadBlocks {
             outlineColor = CDColors.outline;
 
             consumeLiquid(Liquids.oil, 0.1f);
-            consumePower(1f);
+            consumePower(60f / 60f);
         }};
 
         payloadAssembler = new Constructor("payload-assembler") {{
@@ -101,7 +101,7 @@ public class CDPayloadBlocks {
             maxBlockSize = 3;
 
             consumeLiquid(Liquids.water, 0.2f);
-            consumePower(2f);
+            consumePower(120f / 60f);
         }};
 
         payloadDisassembler = new PayloadDeconstructor("payload-disassembler") {{
@@ -120,7 +120,7 @@ public class CDPayloadBlocks {
             size = 5;
 
             consumeLiquid(Liquids.water, 0.2f);
-            consumePower(2f);
+            consumePower(120f / 60f);
         }};
 
         payloadManufacturingGrid = new PayloadManufacturingGrid("payload-manufacturing-grid") {{
@@ -139,7 +139,7 @@ public class CDPayloadBlocks {
             size = 5;
 
             conductivePower = true;
-            consumePower(1f / 5f);
+            consumePower(12f / 60f);
         }};
 
         payloadDepot = new PayloadDepot("payload-depot") {{
@@ -170,7 +170,7 @@ public class CDPayloadBlocks {
             size = 3;
             outlineColor = CDColors.outline;
 
-            consumePower(2f);
+            consumePower(120f / 60f);
         }};
 
         payloadUnloader = new PayloadFrontUnloader("payload-unloader") {{
@@ -187,7 +187,7 @@ public class CDPayloadBlocks {
             size = 3;
             outlineColor = CDColors.outline;
 
-            consumePower(2f);
+            consumePower(120f / 60f);
         }};
 
         hydraulicFan = new FanBlock("hydraulic-fan") {{
@@ -256,7 +256,7 @@ public class CDPayloadBlocks {
             size = 5;
             range = 500f * 8f;
 
-            consumePower(5f);
+            consumePower(300f / 60f);
         }};
 
         landingPodAssembler = new SingleBlockProducer("landing-pod-assembler") {{
@@ -271,7 +271,7 @@ public class CDPayloadBlocks {
             ));
             size = 5;
 
-            consumePower(2f);
+            consumePower(120f / 60f);
         }};
     }
 }

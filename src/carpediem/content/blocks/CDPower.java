@@ -112,7 +112,7 @@ public class CDPower {
             ));
             size = 5;
 
-            powerProduction = 30f;
+            powerProduction = 1800f / 60f;
 
             topOffset = 14.5f;
             drawer = new DrawMulti(
@@ -170,7 +170,7 @@ public class CDPower {
             ));
             size = 6;
 
-            powerProduction = 150f;
+            powerProduction = 9000f / 60f;
             itemDuration = 4f * 60f;
 
             topOffset = 19f;
