@@ -1,5 +1,6 @@
 package carpediem.content.blocks;
 
+import arc.struct.*;
 import carpediem.content.*;
 import carpediem.world.blocks.payloads.*;
 import carpediem.world.blocks.payloads.PayloadManufacturingGrid.*;
@@ -13,6 +14,7 @@ import mindustry.world.meta.*;
 
 public class CDPayloadComponents {
     public static Block
+    // "internal" packaged landing pod blocks
     packagedLandingPodT0, packagedLandingPodT1, packagedLandingPodT2,
     // crafting ingredients
     landingPodFrame, heavyThruster, storageCompartment, portableBattery, assemblyManifold,
@@ -20,10 +22,10 @@ public class CDPayloadComponents {
     orbitalCalculationCore, heatShield,
     // rocket components
     rocketSystemCore, auxiliaryFuelTank, solidRocketBooster,
-    // yea i guess these go here too
+    // material blocks
     blockAluminum, blockNickel, blockSilver, blockPlatinum, blockSturdyAlloy,
     blockSilicon, blockPyratite;
-
+    // also material blocks but defined with ProcessableBlock here because of typechecking or something
     public static ProcessableBlock blockRawAluminum, blockRawNickel, blockRawSilver, blockRawPlatinum, blockUnrefinedAlloy;
 
     public static void load() {
@@ -315,6 +317,27 @@ public class CDPayloadComponents {
                             {hs0, hs0, ht0, ht0, ht0, hs0, hs0}
                     })
             );
+        }
+
+        // database tagging
+        {
+            Seq<Block> payloadComponents = Seq.with(
+                    landingPodFrame, heavyThruster, storageCompartment, portableBattery, assemblyManifold,
+                    droneFrame, lightThruster, opticalSensor, processingCore,
+                    orbitalCalculationCore, heatShield,
+                    rocketSystemCore, auxiliaryFuelTank, solidRocketBooster
+            );
+            Seq<Block> materialBlocks = Seq.with(
+                    blockRawAluminum, blockRawNickel, blockRawSilver, blockRawPlatinum, blockUnrefinedAlloy,
+                    blockAluminum, blockNickel, blockSilver, blockPlatinum, blockSturdyAlloy,
+                    blockSilicon, blockPyratite
+            );
+            for (Block block : payloadComponents) {
+                block.databaseTag = "payload-components";
+            }
+            for (Block block : materialBlocks) {
+                block.databaseTag = "material-blocks";
+            }
         }
     }
 }
