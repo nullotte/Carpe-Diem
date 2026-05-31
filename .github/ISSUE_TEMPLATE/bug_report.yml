@@ -10,3 +10,26 @@ body:
       description: Explain your issue in detail.
     validations:
       required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: How you happened across the issue, and what exactly you did to make the bug happen.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: (Crash) logs
+      description: Either crash reports from the crash folder, or the file you get when you go into Settings -> Game Data -> Export Crash logs.
+      placeholder: REQUIRED if you are reporting a crash.
+    validations:
+      required: false
+  - type: checkboxes
+    id: agreement
+    attributes:
+      label: Submission
+      description: Check the boxes to confirm that you have read the lines below.
+      options:
+        - label: I have updated to the latest version of the mod (https://github.com/nullotte/Carpe-Diem/releases) to make sure my issue has not been fixed.
+          required: true
