@@ -24,8 +24,6 @@ import static carpediem.content.blocks.CDStorage.*;
 import static mindustry.content.TechTree.*;
 
 public class CDTechTree {
-    public static Seq<Block> blocks = new Seq<>();
-
     public static void load() {
         TechNode root = nodeRoot(CDPlanets.asphodel.name, landingPodT0, () -> {
             node(belt, () -> {
@@ -273,19 +271,9 @@ public class CDTechTree {
         smelterT0.techNode.objectives.remove(objective -> objective instanceof Research research && research.content == sulfur);
 
         root.each(node -> {
-            if (node.content instanceof Block block) {
-                blocks.add(block);
-                // items should only be used by the archive decoder
-                node.setupRequirements(ItemStack.empty);
-            }
+            // items should only be used by the archive decoder
+            node.setupRequirements(ItemStack.empty);
         });
-
-        for (Block block : blocks) {
-            if (block.fogRadius < 0) {
-                block.fogRadius = block.size * 10;
-                block.flags = block.flags.with(BlockFlag.hasFogRadius);
-            }
-        }
     }
 
     public static void nodeProduce(UnlockableContent content) {

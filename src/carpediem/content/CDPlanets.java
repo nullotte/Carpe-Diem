@@ -42,12 +42,11 @@ public class CDPlanets {
                 r.waveTeam = CDTeams.triage;
                 r.deconstructRefundMultiplier = 1f;
 
-                r.fog = true;
-                r.staticFog = true;
+                r.fog = false;
 
                 r.ambientLight = Color.valueOf("4f4f5da6");
             };
-            campaignRuleDefaults.fog = true;
+            campaignRuleDefaults.fog = false;
 
             unlockedOnLand.add(CDStorage.landingPodT0);
 
