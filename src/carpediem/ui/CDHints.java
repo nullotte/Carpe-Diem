@@ -47,7 +47,9 @@ public class CDHints {
         cdBlockInfo(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.smelterT0), () -> Vars.ui.content.isShown() || Vars.ui.database.isShown()),
         crafterConfig(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.rollingMillT1) || CarpeDiem.hints.placedBlocks.contains(CDCrafting.assemblerT1), () -> CarpeDiem.hints.events.contains("crafterconfig")),
         valves(() -> CarpeDiem.hints.placedBlocks.contains(CDCrafting.refineryT1), () -> CarpeDiem.hints.placedBlocks.contains(CDLiquidBlocks.valve)),
-        smeltingSilver(() -> CDItems.rawSilver.unlockedNow(), () -> false),
+        smeltingSilver(() -> CDItems.rawSilver.unlocked(), () -> false),
+        payloadDepots(() -> CDArchives.payloadLogistics.unlocked(), () -> false),
+        loadingLandingPods(() -> CDArchives.payloadLogistics.unlocked(), () -> false),
         droneCharging(() -> {
             for (UnitType unitType : droneTypes) {
                 if (Vars.state.rules.defaultTeam.data().countType(unitType) > 0) return true;
