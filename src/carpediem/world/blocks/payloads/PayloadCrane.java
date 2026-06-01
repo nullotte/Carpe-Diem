@@ -12,6 +12,7 @@ import mindustry.content.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.input.*;
 import mindustry.world.*;
 import mindustry.world.blocks.*;
 import mindustry.world.blocks.payloads.*;
@@ -152,7 +153,8 @@ public class PayloadCrane extends Block {
                 // player control
                 target.set(unit.aimX(), unit.aimY());
 
-                if (unit.isShooting()) {
+                // evil
+                if (Core.input.keyDown(Binding.select) || Core.input.isTouched()) {
                     if (!acted) {
                         // only attempt if the hook is where the player is aiming
                         if (hookPos().within(target, 0.2f)) {
