@@ -192,9 +192,9 @@ public class CDArchives {
         industrialExtraction = new Archive(
                 "industrial-extraction",
                 ItemStack.with(
-                        card1, 4000,
-                        card2, 2000,
-                        card3, 1000
+                        card1, 7500,
+                        card2, 5000,
+                        card3, 4000
                 ),
                 Seq.with(
                         drillT2
@@ -204,10 +204,10 @@ public class CDArchives {
         advancedPayloadLogistics = new Archive(
                 "advanced-payload-logistics",
                 ItemStack.with(
-                        card1, 5000,
-                        card2, 2500,
+                        card1, 8000,
+                        card2, 5000,
                         card3, 2500,
-                        card4, 1000
+                        card4, 2500
                 ),
                 Seq.with(
                         myriad,
@@ -230,10 +230,10 @@ public class CDArchives {
         fanProcessing = new Archive(
                 "fan-processing",
                 ItemStack.with(
-                        card1, 10000,
-                        card2, 7500,
-                        card3, 6000,
-                        card4, 2500
+                        card1, 20000,
+                        card2, 15000,
+                        card3, 7500,
+                        card4, 7500
                 ),
                 Seq.with(
                         hydraulicFan,
@@ -244,10 +244,10 @@ public class CDArchives {
         planetaryExpansion = new Archive(
                 "planetary-expansion",
                 ItemStack.with(
-                        card1, 15000,
-                        card2, 10000,
-                        card3, 8000,
-                        card4, 3000
+                        card1, 20000,
+                        card2, 15000,
+                        card3, 10000,
+                        card4, 10000
                 ),
                 Seq.with(
                         landingPodT2,
@@ -260,7 +260,7 @@ public class CDArchives {
         rocketLaunchFacilities = new Archive(
                 "rocket-launch-facilities",
                 ItemStack.with(
-                        card1, 20000,
+                        card1, 25000,
                         card2, 15000,
                         card3, 10000,
                         card4, 10000
@@ -274,10 +274,10 @@ public class CDArchives {
         rocketComponents = new Archive(
                 "rocket-components",
                 ItemStack.with(
-                        card1, 20000,
-                        card2, 15000,
-                        card3, 10000,
-                        card4, 10000
+                        card1, 50000,
+                        card2, 40000,
+                        card3, 25000,
+                        card4, 25000
                 ),
                 Seq.with(
                         rocketSystemCore,

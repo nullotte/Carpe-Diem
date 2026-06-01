@@ -92,6 +92,7 @@ public class CDPayloadComponents {
 
         droneFrame = new SyntheticBlock("drone-frame") {{
             requirements(Category.units, ItemStack.with(
+                    CDItems.aluminum, 50,
                     Items.silicon, 50,
                     Items.plastanium, 100,
                     CDItems.plastaniumSheet, 75
@@ -143,14 +144,29 @@ public class CDPayloadComponents {
 
         orbitalCalculationCore = new SyntheticBlock("orbital-calculation-core") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminumPlate, 50,
+                    CDItems.nickelPlate, 50,
+                    CDItems.nickelWire, 100,
+                    CDItems.nickelRod, 50,
+                    CDItems.powerCell, 40,
+                    CDItems.controlCircuit, 100,
+                    CDItems.calculationCircuit, 100,
+                    CDItems.processingUnit, 175,
+                    Items.silicon, 80,
+                    CDItems.siliconSheet, 100
             ));
             size = 3;
         }};
 
         heatShield = new SyntheticBlock("heat-shield") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 200,
+                    CDItems.aluminumPlate, 150,
+                    Items.silicon, 175,
+                    Items.plastanium, 150,
+                    CDItems.plastaniumSheet, 100,
+                    CDItems.sturdyAlloy, 300,
+                    CDItems.alloyPlate, 200
             ));
             size = 3;
         }};

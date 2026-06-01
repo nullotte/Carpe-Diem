@@ -113,7 +113,14 @@ public class CDProduction {
 
         drillT2 = new DrawerDrill("drill-t2") {{
             requirements(Category.production, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 50,
+                    CDItems.aluminumRod, 25,
+                    CDItems.aluminumCogwheel, 25,
+                    CDItems.nickelWire, 15,
+                    CDItems.aluminumWire, 20,
+                    CDItems.controlCircuit, 20,
+                    CDItems.calculationCircuit, 20,
+                    CDItems.powerCell, 20
             ));
             size = 5;
 

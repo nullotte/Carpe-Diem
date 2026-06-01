@@ -192,7 +192,16 @@ public class CDPayloadBlocks {
 
         hydraulicFan = new FanBlock("hydraulic-fan") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 200,
+                    CDItems.aluminumPlate, 200,
+                    CDItems.aluminumCogwheel, 100,
+                    CDItems.nickelWire, 50,
+                    Items.silicon, 75,
+                    CDItems.controlCircuit, 50,
+                    CDItems.calculationCircuit, 50,
+                    CDItems.platinum, 50,
+                    CDItems.platinumRod, 30,
+                    CDItems.powerCell, 30
             ));
             size = 5;
 
@@ -215,7 +224,16 @@ public class CDPayloadBlocks {
 
         bulkHeater = new PayloadBurner("bulk-heater") {{
             requirements(Category.units, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 150,
+                    CDItems.aluminumPlate, 100,
+                    CDItems.aluminumCogwheel, 20,
+                    CDItems.aluminumWire, 40,
+                    CDItems.platinum, 20,
+                    CDItems.platinumPlate, 50,
+                    Items.silicon, 20,
+                    CDItems.siliconSheet, 20,
+                    CDItems.controlCircuit, 10,
+                    CDItems.calculationCircuit, 10
             ));
             size = 5;
 
