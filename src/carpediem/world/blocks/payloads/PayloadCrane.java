@@ -218,39 +218,39 @@ public class PayloadCrane extends Block {
 
         // TODO this should be redone maybe. cant do units with it
         public void tryPickupPayload() {
-            if (payload == null) {
-                Building build = Vars.world.buildWorld(hookPos().x, hookPos().y);
+            if (payload != null) return;
 
-                if (build != null && Vars.state.teams.canInteract(team, build.team)) {
-                    Payload current = build.getPayload();
-                    if (current != null) {
-                        payload = build.takePayload();
-                        Fx.unitPickup.at(build);
-                    } else if (build.block.buildVisibility != BuildVisibility.hidden && build.canPickup() && payload == null) {
-                        build.pickedUp();
-                        build.tile.remove();
-                        build.afterPickedUp();
-                        payload = new BuildPayload(build);
-                        Fx.unitPickup.at(build);
-                    }
+            Building build = Vars.world.buildWorld(hookPos().x, hookPos().y);
+
+            if (build != null && Vars.state.teams.canInteract(team, build.team)) {
+                Payload current = build.getPayload();
+                if (current != null) {
+                    payload = build.takePayload();
+                    Fx.unitPickup.at(build);
+                } else if (build.block.buildVisibility != BuildVisibility.hidden && build.canPickup() && payload == null) {
+                    build.pickedUp();
+                    build.tile.remove();
+                    build.afterPickedUp();
+                    payload = new BuildPayload(build);
+                    Fx.unitPickup.at(build);
                 }
             }
         }
 
         public void tryDropPayload() {
-            if (payload != null) {
-                Tile on = Vars.world.tileWorld(hookPos().x, hookPos().y);
-                if (on != null) {
-                    if (on.build != null && on.build.acceptPayload(on.build, payload)) {
-                        on.build.handlePayload(on.build, payload);
+            if (payload == null) return;
+
+            Tile on = Vars.world.tileWorld(hookPos().x, hookPos().y);
+            if (on != null) {
+                if (on.build != null && on.build.acceptPayload(on.build, payload)) {
+                    on.build.handlePayload(on.build, payload);
+                    payload = null;
+                    Fx.unitDrop.at(on.build);
+                } else if (payload instanceof BuildPayload buildPayload) {
+                    if (Build.validPlace(buildPayload.block(), buildPayload.build.team, on.x, on.y, buildPayload.build.rotation, false)) {
+                        buildPayload.place(on, buildPayload.build.rotation);
                         payload = null;
-                        Fx.unitDrop.at(on.build);
-                    } else if (payload instanceof BuildPayload buildPayload) {
-                        if (Build.validPlace(buildPayload.block(), buildPayload.build.team, on.x, on.y, buildPayload.build.rotation, false)) {
-                            buildPayload.place(on, buildPayload.build.rotation);
-                            payload = null;
-                            Fx.unitDrop.at(buildPayload.build);
-                        }
+                        Fx.unitDrop.at(buildPayload.build);
                     }
                 }
             }
