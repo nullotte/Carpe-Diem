@@ -52,6 +52,8 @@ public class RocketControlCenter extends PayloadBlock {
         acceptsPayload = true;
         conductivePower = true;
         configurable = true;
+        emitLight = true;
+        lightRadius = 220f;
     }
 
     @Override
@@ -87,16 +89,16 @@ public class RocketControlCenter extends PayloadBlock {
 
     public class RocketControlCenterBuild extends PayloadBlockBuild<BuildPayload> implements LaunchAnimator {
         public RocketLaunchPadBuild[] pads = new RocketLaunchPadBuild[8];
-
         public boolean launching;
-
+        public float launchHeat;
         public float cloudSeed;
-
         public SoundLoop rocketSoundLoop;
 
         @Override
         public void updateTile() {
             super.updateTile();
+
+            launchHeat = Mathf.lerpDelta(launchHeat, launching ? 1f : 0f, 0.05f);
 
             moveInPayload();
 
@@ -204,6 +206,11 @@ public class RocketControlCenter extends PayloadBlock {
                     drawRocket(x, y, 1f, 0f, 0f);
                 }
             }
+        }
+
+        @Override
+        public void drawLight() {
+            Drawf.light(x, y, lightRadius, lightColor, launchHeat);
         }
 
         @Override
