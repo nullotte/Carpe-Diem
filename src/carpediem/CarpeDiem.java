@@ -39,13 +39,8 @@ public class CarpeDiem extends Mod {
             CDMusics.load();
         });
 
-        // hai glenn!
         Events.on(FileTreeInitEvent.class, e -> {
             CDSounds.load();
-        });
-
-        Events.on(ClientLoadEvent.class, e -> {
-            Core.settings.getBoolOnce("carpe-diem-disclaimer", () -> Vars.ui.showInfo("@carpe-diem-disclaimer"));
         });
 
         debug = Core.settings.getBool("cd-debug");
