@@ -8,6 +8,7 @@ import static carpediem.content.CDItems.*;
 import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDLiquidBlocks.*;
+import static carpediem.content.blocks.CDLogicBlocks.*;
 import static carpediem.content.blocks.CDPayloadBlocks.*;
 import static carpediem.content.blocks.CDPayloadComponents.*;
 import static carpediem.content.blocks.CDPower.*;
@@ -22,7 +23,7 @@ public class CDArchives {
     // forward outpost
     fluidProcessing, powerProduction, payloadLogistics, industrialStorage, advancedExpansion,
     // interference
-    pressurization, springLaunchers, drones, advancedPowerProduction,
+    pressurization, springLaunchers, drones, advancedPowerProduction, logicalComputation,
     // sanctuary
     industrialExtraction, advancedPayloadLogistics, fanProcessing, planetaryExpansion,
     // final resting place
@@ -185,6 +186,25 @@ public class CDArchives {
                 ),
                 Seq.with(
                         compressionEngine
+                )
+        );
+
+        logicalComputation = new Archive(
+                "logical-computation",
+                ItemStack.with(
+                        card1, 7500,
+                        card2, 5000,
+                        card3, 5000
+                ),
+                Seq.with(
+                        computationProcessor,
+                        computationMessage,
+                        lever,
+                        memoryModule,
+                        largeMemoryModule,
+                        computationDisplay,
+                        largeComputationDisplay,
+                        tiledComputationDisplay
                 )
         );
         // endregion

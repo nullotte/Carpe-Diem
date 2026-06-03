@@ -16,6 +16,7 @@ import static carpediem.content.blocks.CDCampaign.*;
 import static carpediem.content.blocks.CDCrafting.*;
 import static carpediem.content.blocks.CDDistribution.*;
 import static carpediem.content.blocks.CDLiquidBlocks.*;
+import static carpediem.content.blocks.CDLogicBlocks.*;
 import static carpediem.content.blocks.CDPayloadBlocks.*;
 import static carpediem.content.blocks.CDPayloadComponents.*;
 import static carpediem.content.blocks.CDPower.*;
@@ -148,6 +149,13 @@ public class CDTechTree {
                 });
             });
 
+            node(computationProcessor, () -> {
+                node(computationDisplay, () -> {
+                    node(largeComputationDisplay);
+                    node(tiledComputationDisplay);
+                });
+            });
+
             node(archiveScanner, () -> {
                 node(archiveDecoder);
                 node(dataChannel, () -> {
@@ -171,6 +179,7 @@ public class CDTechTree {
                         node(springLaunchers);
                         node(drones);
                         node(advancedPowerProduction);
+                        node(logicalComputation);
 
                         node(CDSectorPresets.sanctuary, Seq.with(new LaunchSector(landingPodT1)), () -> {
                             node(industrialExtraction);
