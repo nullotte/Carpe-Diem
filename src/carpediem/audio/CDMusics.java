@@ -14,7 +14,7 @@ public class CDMusics {
     // cutscene
     reboot, land, launch,
     // ambient
-    asAbove, terawatt, centuryMachine, eden, paradiseFound, tribute, oldDreams;
+    asAbove, terawatt, centuryMachine, nox, landStars, tribute, oldDreams;
 
     public static void load() {
         reboot = Vars.tree.loadMusic("reboot");
@@ -24,8 +24,8 @@ public class CDMusics {
         asAbove = Vars.tree.loadMusic("as-above");
         terawatt = Vars.tree.loadMusic("terawatt");
         centuryMachine = Vars.tree.loadMusic("century-machine");
-        eden = Vars.tree.loadMusic("eden");
-        paradiseFound = Vars.tree.loadMusic("paradise-found");
+        nox = Vars.tree.loadMusic("nox");
+        landStars = Vars.tree.loadMusic("land-stars");
         tribute = Vars.tree.loadMusic("tribute");
         oldDreams = Vars.tree.loadMusic("old-dreams");
 
@@ -39,8 +39,8 @@ public class CDMusics {
                 asAbove,
                 terawatt,
                 centuryMachine,
-                eden,
-                paradiseFound,
+                nox,
+                landStars,
                 tribute,
                 oldDreams
         );
