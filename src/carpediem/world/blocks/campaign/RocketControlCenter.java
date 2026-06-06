@@ -215,6 +215,8 @@ public class RocketControlCenter extends PayloadBlock {
 
         @Override
         public void drawSelect() {
+            if (launching) return;
+
             boolean drewOutline = false;
             for (int i = 0; i < 8; i++) {
                 RocketLaunchPadBuild pad = pads[i];
