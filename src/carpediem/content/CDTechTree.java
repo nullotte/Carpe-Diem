@@ -2,6 +2,7 @@ package carpediem.content;
 
 import arc.struct.*;
 import carpediem.game.CDObjectives.*;
+import carpediem.type.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
 import mindustry.game.Objectives.*;
@@ -280,8 +281,10 @@ public class CDTechTree {
         smelterT0.techNode.objectives.remove(objective -> objective instanceof Research research && research.content == sulfur);
 
         root.each(node -> {
-            // items should only be used by the archive decoder
-            node.setupRequirements(ItemStack.empty);
+            if (!(node.content instanceof Archive)) {
+                // items should only be used by the archive decoder
+                node.setupRequirements(ItemStack.empty);
+            }
         });
     }
 
