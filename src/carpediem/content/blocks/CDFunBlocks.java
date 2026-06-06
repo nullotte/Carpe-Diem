@@ -4,6 +4,7 @@ import arc.graphics.*;
 import carpediem.content.*;
 import carpediem.entities.bullet.*;
 import carpediem.graphics.*;
+import carpediem.world.blocks.payloads.*;
 import mindustry.content.*;
 import mindustry.entities.part.*;
 import mindustry.gen.*;
@@ -15,7 +16,7 @@ import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 public class CDFunBlocks {
-    public static Block lemonCannon;
+    public static Block lemonCannon, unboundedPayloadSource;
 
     public static void load() {
         lemonCannon = new ItemTurret("lemon-cannon") {{
@@ -53,6 +54,12 @@ public class CDFunBlocks {
             shootEffect = Fx.shootBigSmoke;
             smokeEffect = Fx.none;
             shootSound = Sounds.shootArtillerySmall;
+        }};
+
+        unboundedPayloadSource = new UnboundedPayloadSource("unbounded-payload-source") {{
+            requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
+            size = 5;
+            alwaysUnlocked = true;
         }};
     }
 }
