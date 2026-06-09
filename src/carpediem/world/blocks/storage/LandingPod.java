@@ -48,6 +48,11 @@ public class LandingPod extends DrawerCoreBlock {
         super(name);
         configurable = true;
         selectionColumns = 8;
+        config(Point2.class, (LandingPodBuild build, Point2 point) -> build.requestRecipe(point.x, point.y));
+        config(Integer.class, (LandingPodBuild build, Integer requestIndex) -> {
+            if (requestIndex < 0 || requestIndex >= build.pending.size) return;
+            build.cancelRequest(build.pending.get(requestIndex));
+        });
     }
 
     @Override
@@ -175,7 +180,6 @@ public class LandingPod extends DrawerCoreBlock {
                     break;
                 }
             }
-
         }
 
         public void cancelRequest(RecipeRequest request) {
@@ -271,7 +275,7 @@ public class LandingPod extends DrawerCoreBlock {
                             ImageButton button = new ImageButton(Tex.whiteui, Styles.clearNonei);
                             button.resizeImage(24f);
                             button.clicked(() -> {
-                                cancelRequest(request);
+                                configure(pending.indexOf(request, true));
                             });
                             button.getStyle().imageUp = new TextureRegionDrawable(output.uiIcon);
 
@@ -351,7 +355,7 @@ public class LandingPod extends DrawerCoreBlock {
 
                     right.table(buttonTable -> {
                         buttonTable.button("@craft", Styles.flatBordert, () -> {
-                            requestRecipe(recipes.indexOf(selectedRecipe), amountCrafting);
+                            configure(new Point2(recipes.indexOf(selectedRecipe), amountCrafting));
                         }).disabled(b -> {
                             if (selectedRecipe == null) return true;
 
