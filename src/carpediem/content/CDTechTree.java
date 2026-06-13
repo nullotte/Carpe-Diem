@@ -87,8 +87,8 @@ public class CDTechTree {
                 node(rocketControlCenter, () -> {
                     node(rocketLaunchPad);
                     node(rocketSystemCore, () -> {
-                        node(auxiliaryFuelTank);
                         node(solidRocketBooster);
+                        node(auxiliaryFuelTank);
                     });
                 });
             });

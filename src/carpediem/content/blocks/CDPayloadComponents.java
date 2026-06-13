@@ -21,7 +21,7 @@ public class CDPayloadComponents {
     droneFrame, lightThruster, opticalSensor, processingCore,
     orbitalCalculationCore, heatShield,
     // rocket components
-    rocketSystemCore, auxiliaryFuelTank, solidRocketBooster,
+    rocketSystemCore, solidRocketBooster, auxiliaryFuelTank,
     // material blocks
     blockAluminum, blockNickel, blockSilver, blockPlatinum, blockSturdyAlloy,
     blockSilicon, blockPyratite;
@@ -177,12 +177,12 @@ public class CDPayloadComponents {
             size = 7;
         }};
 
-        auxiliaryFuelTank = new SyntheticBlock("auxiliary-fuel-tank") {{
+        solidRocketBooster = new SyntheticBlock("solid-rocket-booster") {{
             requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 7;
         }};
 
-        solidRocketBooster = new SyntheticBlock("solid-rocket-booster") {{
+        auxiliaryFuelTank = new SyntheticBlock("auxiliary-fuel-tank") {{
             requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 7;
         }};
@@ -337,15 +337,6 @@ public class CDPayloadComponents {
                             {hs0, pb0, pc0, os0, pc0, pb0, hs0},
                             {hs0, hs0, lpf, lpf, lpf, hs0, hs0}
                     }),
-                    new PayloadManufacturingRecipe(auxiliaryFuelTank, new UnlockableContent[][]{
-                            {hs0, hs0, hs0, lpf, hs0, hs0, hs0},
-                            {hs0, pb0, pb0, sc0, pb0, pb0, hs0},
-                            {hs0, pb0, sc0, sc0, sc0, pb0, hs0},
-                            {lpf, sc0, sc0, pc0, sc0, sc0, lpf},
-                            {hs0, pb0, sc0, sc0, sc0, pb0, hs0},
-                            {hs0, pb0, pb0, sc0, pb0, pb0, hs0},
-                            {hs0, hs0, hs0, lpf, hs0, hs0, hs0}
-                    }),
                     new PayloadManufacturingRecipe(solidRocketBooster, new UnlockableContent[][]{
                             {hs0, hs0, ht0, ht0, ht0, hs0, hs0},
                             {hs0, sc0, lpf, pb0, lpf, sc0, hs0},
@@ -354,6 +345,15 @@ public class CDPayloadComponents {
                             {ht0, lpf, pc0, occ, pc0, lpf, ht0},
                             {hs0, sc0, lpf, pb0, lpf, sc0, hs0},
                             {hs0, hs0, ht0, ht0, ht0, hs0, hs0}
+                    }),
+                    new PayloadManufacturingRecipe(auxiliaryFuelTank, new UnlockableContent[][]{
+                            {hs0, hs0, hs0, lpf, hs0, hs0, hs0},
+                            {hs0, pb0, pb0, sc0, pb0, pb0, hs0},
+                            {hs0, pb0, sc0, sc0, sc0, pb0, hs0},
+                            {lpf, sc0, sc0, pc0, sc0, sc0, lpf},
+                            {hs0, pb0, sc0, sc0, sc0, pb0, hs0},
+                            {hs0, pb0, pb0, sc0, pb0, pb0, hs0},
+                            {hs0, hs0, hs0, lpf, hs0, hs0, hs0}
                     })
             );
         }
@@ -364,7 +364,7 @@ public class CDPayloadComponents {
                     landingPodFrame, heavyThruster, storageCompartment, portableBattery, assemblyManifold,
                     droneFrame, lightThruster, opticalSensor, processingCore,
                     orbitalCalculationCore, heatShield,
-                    rocketSystemCore, auxiliaryFuelTank, solidRocketBooster
+                    rocketSystemCore, solidRocketBooster, auxiliaryFuelTank
             );
             Seq<Block> materialBlocks = Seq.with(
                     blockRawAluminum, blockRawNickel, blockRawSilver, blockRawPlatinum, blockUnrefinedAlloy,

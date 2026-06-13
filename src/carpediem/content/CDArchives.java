@@ -301,8 +301,8 @@ public class CDArchives {
                 ),
                 Seq.with(
                         rocketSystemCore,
-                        auxiliaryFuelTank,
-                        solidRocketBooster
+                        solidRocketBooster,
+                        auxiliaryFuelTank
                 )
         );
 
