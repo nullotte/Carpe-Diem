@@ -185,6 +185,7 @@ public class CDPayloadComponents {
         auxiliaryFuelTank = new SyntheticBlock("auxiliary-fuel-tank") {{
             requirements(Category.units, BuildVisibility.sandboxOnly, ItemStack.with());
             size = 7;
+            customShadow = true;
         }};
         // endregion
         // region material blocks
