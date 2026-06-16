@@ -42,7 +42,7 @@ public class CDUnitTypes {
             mineHardnessScaling = false;
             mineSpeed = (65f * 5f) / 60f;
             mineTier = 3;
-            buildSpeed = 1f;
+            buildSpeed = 2f;
             buildRange = 20f * 8f;
             itemCapacity = 100;
 
