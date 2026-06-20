@@ -6,6 +6,7 @@ import arc.math.geom.*;
 import arc.util.noise.*;
 import carpediem.content.*;
 import carpediem.content.blocks.*;
+import mindustry.*;
 import mindustry.content.*;
 import mindustry.game.*;
 import mindustry.maps.generators.*;
@@ -45,6 +46,14 @@ public class AsphodelPlanetGenerator extends PlanetGenerator {
 
     public AsphodelPlanetGenerator() {
         defaultLoadout = CDLoadouts.schemLandingPodT0;
+    }
+
+    @Override
+    public Sector findLaunchCandidate(Sector destination, Sector selected) {
+        if (destination.planet.startSector == destination.id) {
+            return null;
+        }
+        return super.findLaunchCandidate(destination, selected);
     }
 
     public float rawHeight(Vec3 position) {
