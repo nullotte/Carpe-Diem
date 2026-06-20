@@ -1,10 +1,12 @@
 package carpediem.world.blocks.storage;
 
+import arc.audio.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
+import carpediem.audio.*;
 import mindustry.*;
 import mindustry.entities.*;
 import mindustry.entities.units.*;
@@ -17,6 +19,9 @@ public class DrawerCoreBlock extends CoreBlock {
     public DrawBlock drawer = new DrawDefault();
     public float spawnAnimationDuration = 120f;
     public float closeRadius = 30f;
+
+    public Sound doorOpenSound = CDSounds.coreDoorOpen, doorCloseSound = CDSounds.coreDoorClose;
+    public float doorCloseSoundDelay = 110f;
 
     public DrawerCoreBlock(String name) {
         super(name);
@@ -40,7 +45,7 @@ public class DrawerCoreBlock extends CoreBlock {
 
     public class DrawerCoreBuild extends CoreBuild {
         public float spawnAnimationTime = 0f;
-        public boolean waiting;
+        public boolean waiting, playedDoorCloseSound = true;
 
         @Override
         public void updateTile() {
@@ -51,6 +56,10 @@ public class DrawerCoreBlock extends CoreBlock {
             }
 
             spawnAnimationTime = Math.max(spawnAnimationTime - Time.delta, waiting ? spawnAnimationDuration * 0.5f : 0f);
+            if (!playedDoorCloseSound && spawnAnimationDuration - spawnAnimationTime > doorCloseSoundDelay) {
+                doorCloseSound.at(this);
+                playedDoorCloseSound = true;
+            }
         }
 
         @Override
@@ -140,6 +149,11 @@ public class DrawerCoreBlock extends CoreBlock {
             super.requestSpawn(player);
             spawnAnimationTime = spawnAnimationDuration;
             waiting = true;
+
+            if (playedDoorCloseSound) {
+                doorOpenSound.at(this);
+                playedDoorCloseSound = false;
+            }
         }
     }
 }
