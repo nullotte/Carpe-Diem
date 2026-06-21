@@ -27,6 +27,7 @@ public class CDFunBlocks {
             reload = 30f;
 
             ammo(CDItems.lemon, new CastShadowBulletType(8f, 1000f) {{
+                ammoMultiplier = 1f;
                 width = height = 8f;
                 shrinkY = 0f;
                 sprite = "carpe-diem-lemon";
