@@ -6,7 +6,6 @@ sourceSets.main.java.srcDirs = ["src"]
 
 repositories {
     mavenCentral()
-    maven { url "https://raw.githubusercontent.com/Zelaux/MindustryRepo/master/repository" }
 
     // idk i got this from the mod template
     ivy {
