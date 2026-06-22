@@ -219,7 +219,7 @@ public class CDPayloadBlocks {
                     new DrawRotatedRegion()
             );
 
-            consume(new ConsumePressure());
+            consume(new ConsumePressure(10f));
         }};
 
         bulkHeater = new PayloadBurner("bulk-heater") {{
