@@ -43,17 +43,6 @@ public class IntroFragment {
                             Sounds.uiChat.play();
                         }
                     });
-
-                    Events.on(StateChangeEvent.class, e -> {
-                        if (t.parent != null) {
-                            if (e.to == State.paused) {
-                                label.pause();
-                            } else if (e.from == State.paused) {
-                                label.resume();
-                            }
-                        }
-                    });
-
                     ctable.add(label).labelAlign(Align.center).color(CDColors.coalition).pad(20f).style(Styles.techLabel);
                     ctable.row();
 
@@ -92,16 +81,14 @@ public class IntroFragment {
                         Core.camera.position.set(core);
                     }
 
-                    if (!Vars.state.isPaused()) {
-                        if (Vars.state.isMenu()) {
-                            t.remove();
-                        } else {
-                            progress += Time.delta / duration;
+                    if (Vars.state.isMenu()) {
+                        t.remove();
+                    } else {
+                        progress += Core.graphics.getDeltaTime() / duration;
 
-                            if (progress >= 1f && !actionedt[0]) {
-                                t.actions(Actions.fadeOut(0.5f), Actions.remove());
-                                actionedt[0] = true;
-                            }
+                        if (progress >= 1f && !actionedt[0]) {
+                            t.actions(Actions.fadeOut(0.5f), Actions.remove());
+                            actionedt[0] = true;
                         }
                     }
                 });
