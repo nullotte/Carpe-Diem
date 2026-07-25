@@ -10,6 +10,9 @@ public class CDStatusEffects {
         unpowered = new StatusEffect("unpowered") {{
             color = Pal.remove;
             speedMultiplier = 1f / 5f;
+
+            // PLEASE BRO
+            outline = false;
         }};
     }
 }
