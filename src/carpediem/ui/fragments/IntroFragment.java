@@ -84,7 +84,7 @@ public class IntroFragment {
                     if (Vars.state.isMenu()) {
                         t.remove();
                     } else {
-                        progress += Core.graphics.getDeltaTime() / duration;
+                        progress += (Core.graphics.getDeltaTime() * 60f) / duration;
 
                         if (progress >= 1f && !actionedt[0]) {
                             t.actions(Actions.fadeOut(0.5f), Actions.remove());

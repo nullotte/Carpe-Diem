@@ -386,7 +386,12 @@ public class LandingPod extends DrawerCoreBlock {
 
         @Override
         public void beginLaunch(boolean launching) {
+            // Oh My God
+            float landSoundVolume = LandingPod.this.landSoundVolume;
+            LandingPod.this.landSoundVolume = 0f;
             super.beginLaunch(launching);
+            LandingPod.this.landSoundVolume = landSoundVolume;
+
             // custom sector landing info
             if (!Vars.headless) {
                 if (!Vars.renderer.isLaunching()) {
