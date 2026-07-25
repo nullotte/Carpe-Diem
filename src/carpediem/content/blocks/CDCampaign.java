@@ -48,7 +48,8 @@ public class CDCampaign {
 
         rocketControlCenter = new RocketControlCenter("rocket-control-center") {{
             requirements(Category.effect, onFinalRestingPlace, ItemStack.with(
-                    CDItems.lemon, 39
+                    // TODO implement proper costs for these blocks
+                    CDItems.aluminum, 123456
             ));
             size = 9;
 
@@ -59,7 +60,7 @@ public class CDCampaign {
 
         rocketLaunchPad = new RocketLaunchPad("rocket-launch-pad") {{
             requirements(Category.effect, onFinalRestingPlace, ItemStack.with(
-                    CDItems.lemon, 39
+                    CDItems.aluminum, 123456
             ));
             size = 9;
             itemCapacity = 5000;

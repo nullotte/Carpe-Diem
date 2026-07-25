@@ -59,9 +59,6 @@ public class CDPlanets {
             );
 
             unlockedOnLand.add(CDStorage.landingPodT0);
-
-            // WHOOPSY FUCKING DAISY
-            CDItems.lemon.shownPlanets.add(this);
         }};
     }
 }
