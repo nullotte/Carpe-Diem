@@ -1,6 +1,6 @@
 name: "carpe-diem"
 main: "carpediem.CarpeDiem"
-version: "(Beta) Build 12"
+version: "(Beta) Build 13"
 minGameVersion: 159.7
 java: true
 
