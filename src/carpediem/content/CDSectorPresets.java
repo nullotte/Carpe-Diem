@@ -21,6 +21,9 @@ public class CDSectorPresets {
             preset.showSectorLandInfo = false;
             preset.captureWave = -1;
 
+            // maaaaaan
+            preset.outline = false;
+
             // dont show it in the map dialogs
             Vars.maps.all().remove(m -> m.file == preset.generator.map.file);
 

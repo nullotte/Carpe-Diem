@@ -32,6 +32,7 @@ public class BeltBridge extends DuctBridge {
 
     public BeltBridge(String name) {
         super(name);
+        drawCached = false;
         configurable = true;
         config(Boolean.class, (BeltBridgeBuild bridge, Boolean out) -> {
             bridge.out = out;

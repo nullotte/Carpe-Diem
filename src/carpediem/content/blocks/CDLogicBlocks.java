@@ -86,7 +86,7 @@ public class CDLogicBlocks {
             size = 2;
         }};
 
-        computationDisplay = new CDLogicDisplay("computation-display") {{
+        computationDisplay = new LogicDisplay("computation-display") {{
             requirements(Category.logic, ItemStack.with(
                     CDItems.aluminum, 80,
                     CDItems.plastaniumSheet, 50,
@@ -95,9 +95,10 @@ public class CDLogicBlocks {
             ));
             size = 3;
             displaySize = (size * 32) - 16;
+            backgroundColor = CDColors.outline;
         }};
 
-        largeComputationDisplay = new CDLogicDisplay("large-computation-display") {{
+        largeComputationDisplay = new LogicDisplay("large-computation-display") {{
             requirements(Category.logic, ItemStack.with(
                     CDItems.aluminum, 140,
                     CDItems.plastaniumSheet, 80,
@@ -106,6 +107,7 @@ public class CDLogicBlocks {
             ));
             size = 6;
             displaySize = (size * 32) - 16;
+            backgroundColor = CDColors.outline;
         }};
 
         tiledComputationDisplay = new TileableLogicDisplay("tiled-computation-display") {{
@@ -116,6 +118,7 @@ public class CDLogicBlocks {
                     CDItems.calculationCircuit, 1
             ));
             frameSize = 8;
+            backgroundColor = CDColors.outline;
         }};
     }
 }
