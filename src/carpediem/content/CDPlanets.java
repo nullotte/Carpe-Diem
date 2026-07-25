@@ -1,6 +1,8 @@
 package carpediem.content;
 
 import arc.graphics.*;
+import arc.struct.*;
+import carpediem.audio.*;
 import carpediem.content.blocks.*;
 import carpediem.maps.planet.*;
 import carpediem.type.*;
@@ -27,8 +29,6 @@ public class CDPlanets {
             atmosphereColor = Color.valueOf("4c5a79");
             iconColor = Color.valueOf("304c92");
             updateLighting = false;
-            // i kinda want a day-night cycle but it looks weird with the different light color...
-            // maybe i should make env renderer idk
 
             defaultCore = CDStorage.landingPodT0;
             allowLaunchToNumbered = false;
@@ -47,6 +47,16 @@ public class CDPlanets {
                 r.ambientLight = Color.valueOf("4f4f5da6");
             };
             campaignRuleDefaults.fog = false;
+
+            ambientMusic = darkMusic = Seq.with(
+                    CDMusics.asAbove,
+                    CDMusics.terawatt,
+                    CDMusics.centuryMachine,
+                    CDMusics.nox,
+                    CDMusics.landStars,
+                    CDMusics.tribute,
+                    CDMusics.oldDreams
+            );
 
             unlockedOnLand.add(CDStorage.landingPodT0);
 
