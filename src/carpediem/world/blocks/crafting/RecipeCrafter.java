@@ -423,6 +423,11 @@ public class RecipeCrafter extends Block {
         }
 
         @Override
+        public boolean shouldAmbientSound() {
+            return efficiency > 0f;
+        }
+
+        @Override
         public int getUses() {
             return uses;
         }
