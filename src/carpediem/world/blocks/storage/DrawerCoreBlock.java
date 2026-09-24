@@ -50,6 +50,7 @@ public class DrawerCoreBlock extends CoreBlock {
         @Override
         public void updateTile() {
             super.updateTile();
+            block.configurable = true; // technically wrong but every single core in this mod is configurable anyways. i don't really care
 
             if (waiting && !Units.any(x, y, closeRadius * 2f, closeRadius * 2f, u -> u.team == team && u.type == unitType && u.dst(this) < closeRadius)) {
                 waiting = false;
@@ -60,6 +61,17 @@ public class DrawerCoreBlock extends CoreBlock {
                 doorCloseSound.at(this);
                 playedDoorCloseSound = true;
             }
+        }
+
+        @Override
+        public void created() {
+            super.created();
+            block.configurable = true;
+        }
+
+        @Override
+        public boolean shouldHideConfigure(Player player) {
+            return false; // idgafffffffffff
         }
 
         @Override
